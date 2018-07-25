@@ -1,0 +1,19 @@
+/* line 4, /usr/local/lib/ruby/gems/2.5.0/gems/spina-1.0.3/app/assets/stylesheets/spina_front_end.sass */
+.spina-link {
+  display: block;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  color: white;
+  background-color: #6865b4;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color 0.25s;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+}
+/* line 18, /usr/local/lib/ruby/gems/2.5.0/gems/spina-1.0.3/app/assets/stylesheets/spina_front_end.sass */
+.spina-link:hover {
+  background-color: #3b3874;
+}
