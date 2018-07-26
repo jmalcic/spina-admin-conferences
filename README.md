@@ -82,6 +82,19 @@ Then migrate the database:
 $ rake db:migrate
 ```
 
+### Configuring the main Rails app
+
+Collect uses Opal, which makes use of ES6 syntax, so `:harmony` must be enabled for Uglifier when running the app in production.
+
+```ruby
+# config/environments/production.rb
+
+# Other config code…
+
+# Compress JavaScripts and CSS.
+config.assets.js_compressor = Uglifier.new(harmony: true)
+```
+
 ## Contributing
 Contribution directions go here.
 

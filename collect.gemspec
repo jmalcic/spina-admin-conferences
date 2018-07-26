@@ -13,14 +13,14 @@ Gem::Specification.new do |s|
   s.email       = ['j.malcic@me.com']
   s.homepage    = 'https://jmalcic.gitlab.io/gems/collect'
   s.summary     = 'Conference management plugin for Spina.'
-  s.description = 'Presentations is a Spina plugin which allows you to keep track of conference attendees and presentations.'
+  s.description = 'Collect is a Spina plugin which allows you to keep track of conference attendees and presentations.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails'
-  s.add_dependency 'spina'
-  s.add_dependency 'opal-rails'
+  s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'spina', '~> 1.0'
+  s.add_dependency 'opal-rails', '~> 0.9'
 
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'sqlite3', '~> 1.3'
 end
