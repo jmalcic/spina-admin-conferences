@@ -48,21 +48,27 @@ module Spina
         @conference = Conference.find_by(id: params[:conference_id])
         respond_to do |format|
           format.json do
-            render json: @conference.dates.collect { |date| { label: l(date, format: :short), date: date.strftime("%Y-%m-%d") } }
+            render json: @conference.dates.collect do |date|
+              { label: l(date, format: :short),
+                date: date.strftime('%Y-%m-%d') }
+            end
           end
         end
       end
 
       private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.website.presentations'), admin_presentations_path
-        end
+      def set_breadcrumbs
+        add_breadcrumb I18n.t('spina.website.presentations'),
+                       admin_presentations_path
+      end
 
-        def presentation_params
-          params.require(:presentation).permit(:title, :date, :start_time, :abstract, :type, :spina_conference_id, delegate_ids: [])
-        end
-
+      def presentation_params
+        params.require(:presentation).permit(:title, :date, :start_time,
+                                             :abstract, :type,
+                                             :spina_conference_id,
+                                             delegate_ids: [])
+      end
     end
   end
 end

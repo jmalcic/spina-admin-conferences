@@ -1,2 +1,6 @@
-class Spina::Collect::DelegatesController < ApplicationController
+module Spina
+  module Collect
+    class DelegatesController < ApplicationController
+    end
+  end
 end

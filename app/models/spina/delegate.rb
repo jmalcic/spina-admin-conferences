@@ -8,11 +8,20 @@ module Spina
   # presentations.
   # The format of delegate emails is validated.
   class Delegate < ApplicationRecord
-    has_and_belongs_to_many :conferences, class_name: 'Spina::Conference', foreign_key: 'spina_delegate_id', association_foreign_key: 'spina_conference_id', required: true
-    has_and_belongs_to_many :presentations, class_name: 'Spina::Presentation', foreign_key: 'spina_delegate_id', association_foreign_key: 'spina_presentation_id'
+    has_and_belongs_to_many :conferences,
+                            class_name: 'Spina::Conference',
+                            foreign_key: 'spina_delegate_id',
+                            association_foreign_key: 'spina_conference_id',
+                            required: true
+    has_and_belongs_to_many :presentations,
+                            class_name: 'Spina::Presentation',
+                            foreign_key: 'spina_delegate_id',
+                            association_foreign_key: 'spina_presentation_id'
 
     validates_presence_of :first_name, :last_name, :email_address
-    validates :email_address, email_address: true, unless: proc { |a| a.email_address.blank? }
+    validates :email_address, email_address: true, unless: (proc do |a|
+      a.email_address.blank?
+    end)
 
     # Returns first name and last name, used to address delegates.
     def full_name

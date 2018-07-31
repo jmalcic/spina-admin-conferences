@@ -47,14 +47,16 @@ module Spina
       private
 
       def set_breadcrumbs
-        add_breadcrumb I18n.t('spina.website.conferences'), admin_conferences_path
+        add_breadcrumb I18n.t('spina.website.conferences'),
+                       admin_conferences_path
       end
 
       def conference_params
-        params.require(:conference).permit(:start_date, :finish_date, :city, :institution, delegate_ids: [], presentation_ids: [])
+        params.require(:conference).permit(:start_date, :finish_date, :city,
+                                           :institution,
+                                           delegate_ids: [],
+                                           presentation_ids: [])
       end
-
     end
   end
 end
-

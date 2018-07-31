@@ -1,2 +1,6 @@
-class Spina::Collect::ConferencesController < ApplicationController
+module Spina
+  module Collect
+    class ConferencesController < ApplicationController
+    end
+  end
 end

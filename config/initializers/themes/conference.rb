@@ -57,7 +57,7 @@
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: ['text', 'alert', 'gallery'],
+    page_parts: %w(text alert gallery),
   }, {
     name: 'information',
     title: 'Information',
