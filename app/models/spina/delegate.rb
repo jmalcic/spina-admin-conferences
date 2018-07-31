@@ -14,9 +14,12 @@ module Spina
     validates_presence_of :first_name, :last_name, :email_address
     validates :email_address, email_address: true, unless: proc { |a| a.email_address.blank? }
 
+    # Returns first name and last name, used to address delegates.
     def full_name
       "#{first_name} #{last_name}"
     end
+
+    # Returns full name and institution, used to identify delegates.
     def full_name_and_institution
       full_name + ", #{institution}"
     end
