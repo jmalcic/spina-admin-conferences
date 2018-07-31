@@ -1,5 +1,6 @@
 module Spina
   module Admin
+    # This class manages delegates and sets breadcrumbs
     class DelegatesController < AdminController
       before_action :set_breadcrumbs
 

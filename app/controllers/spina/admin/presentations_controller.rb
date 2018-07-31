@@ -1,5 +1,6 @@
 module Spina
   module Admin
+    # This class manages presentations and sets breadcrumbs
     class PresentationsController < AdminController
       before_action :set_breadcrumbs
 

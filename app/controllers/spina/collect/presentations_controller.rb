@@ -1,5 +1,6 @@
 module Spina
   module Collect
+    # This class shows presentations
     class PresentationsController < ::Spina::ApplicationController
 
       def index

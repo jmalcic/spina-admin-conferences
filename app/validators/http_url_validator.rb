@@ -1,3 +1,4 @@
+# This class validates the format of the HTTP or HTTPS URL of an object.
 class HttpUrlValidator < ActiveModel::EachValidator
   def self.compliant?(value)
     uri = URI.parse(value)
