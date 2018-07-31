@@ -7,8 +7,7 @@ class HttpUrlValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attribute, value)
-    unless value.present? && self.class.compliant?(value)
-      record.errors[attribute] << (options[:message] || "is not a valid HTTP or HTTPS URL")
-    end
+    return if value.present? && self.class.compliant?(value)
+    record.errors.add(attribute, options[:message] || :invalid_http_https_url)
   end
 end

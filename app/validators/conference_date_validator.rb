@@ -1,7 +1,6 @@
 class ConferenceDateValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    unless record.conference.dates.include? value
-      record.errors[attribute] << (options[:message] || "is not during the conference")
-    end
+    return if record.conference.dates.include? value
+    record.errors.add(attribute, options[:message] || :outside_conference)
   end
 end

@@ -84,3 +84,9 @@ en:
         type: Type
         presenters: Presenters
         presenters_description: Select multiple presenters by holding <kbd>⌘</kbd> or <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> or <kbd>⇧</kbd> on Windows and Linux
+  errors:
+    messages:
+      outside_conference: is not during the conference
+      invalid_email_address: is not an email address
+      before_start_date: is not after start date
+      invalid_http_https_url: is not a valid HTTP or HTTPS URL
