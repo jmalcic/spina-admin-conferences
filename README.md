@@ -1,4 +1,4 @@
-# Presentations
+# Collect
 
 *Collect* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
