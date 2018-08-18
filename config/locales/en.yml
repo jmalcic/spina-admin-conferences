@@ -37,6 +37,9 @@ en:
       conferences: Conferences
       delegates: Delegates
       presentations: Presentations
+      all_presentations: All presentations
+      dietary_requirements: Dietary requirements
+      presentation_types: Presentation types
     conferences:
       new: New conference
       save: Save conference
@@ -56,8 +59,19 @@ en:
       presentations: Presentations
       delegates: Delegates
       conferences: Conferences
+      presentation_types: Presentation types
     media_library:
       images: Images # This translation is apparently not provided by Spina for some reason
+    presentation_types:
+      new: New presentation type
+      save: Save presentation type
+      delete_confirmation: "Are you sure you want to delete the presentation type <strong>%{presentation_type}</strong>?"
+      no_presentation_types: There are no presentation types
+    dietary_requirements:
+      new: New dietary requirement
+      save: Save dietary requirement
+      delete_confirmation: "Are you sure you want to delete the dietary requirement <strong>%{dietary_requirement}</strong>?"
+      no_dietary_requirements: There are no dietary requirements
   activerecord:
     attributes:
       spina/conference:
@@ -75,6 +89,8 @@ en:
         url: Website
         conferences: Conferences
         conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
+        dietary_requirements: Dietary requirements
+        dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
       spina/presentation:
         title: Title
         date: Date
@@ -84,6 +100,12 @@ en:
         type: Type
         presenters: Presenters
         presenters_description: Select multiple presenters by holding <kbd>⌘</kbd> or <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> or <kbd>⇧</kbd> on Windows and Linux
+      spina/presentation_type:
+        name: Name
+        duration: Duration
+        duration_description: Enter in minutes
+      spina/dietary_requirement:
+        name: Name
   errors:
     messages:
       outside_conference: is not during the conference

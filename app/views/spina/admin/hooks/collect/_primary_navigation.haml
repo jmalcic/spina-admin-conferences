@@ -7,9 +7,9 @@
     %ul
       %li{ class: ('active' if current_admin_path.start_with?('/conferences')) }
         = link_to t("spina.#{plugin.name.downcase}.conferences"), spina.admin_conferences_path
-      %li{ class: ('active' if current_admin_path.start_with?('/delegates')) }
+      %li{ class: ('active' if current_admin_path.start_with?('/delegates') || current_admin_path.start_with?('/dietary_requirements')) }
         = link_to t("spina.#{plugin.name.downcase}.delegates"), spina.admin_delegates_path
-      %li{ class: ('active' if current_admin_path.start_with?('/presentations')) }
+      %li{ class: ('active' if current_admin_path.start_with?('/presentations') || current_admin_path.start_with?('/presentation_types')) }
         = link_to t("spina.#{plugin.name.downcase}.presentations"), spina.admin_presentations_path
 
       %li
