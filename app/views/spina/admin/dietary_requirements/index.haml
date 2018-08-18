@@ -1,0 +1,27 @@
+- content_for(:header_actions) do
+  = link_to spina.new_admin_dietary_requirement_path, class: 'button button-primary', style: 'margin-right: 0' do
+    = icon('plus')
+    = t('spina.dietary_requirements.new')
+
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::DietaryRequirement.human_attribute_name :name
+          %th
+
+      %tbody
+        - if @dietary_requirements.any?
+          - @dietary_requirements.each do |dietary_requirement|
+            %tr
+              %td= link_to dietary_requirement.name, spina.edit_admin_dietary_requirement_path(dietary_requirement)
+              %td.align-right
+                = link_to spina.edit_admin_dietary_requirement_path(dietary_requirement), class: 'button button-small button-link' do
+                  = icon('pencil-outline')
+                  = t('spina.edit')
+
+        - else
+          %tr
+            %td.align-center{ colspan: 100 }
+              %em= t('spina.dietary_requirements.no_dietary_requirements')

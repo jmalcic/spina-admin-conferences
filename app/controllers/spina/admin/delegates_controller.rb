@@ -5,17 +5,19 @@ module Spina
       before_action :set_breadcrumbs
 
       def index
-        @delegates = Delegate.all
+        @delegates = Delegate.sorted
       end
 
       def new
         @delegate = Delegate.new
         add_breadcrumb I18n.t('spina.delegates.new')
+        render layout: 'spina/admin/admin'
       end
 
       def edit
         @delegate = Delegate.find(params[:id])
         add_breadcrumb "#{@delegate.first_name} #{@delegate.last_name}"
+        render layout: 'spina/admin/admin'
       end
 
       def create
@@ -24,7 +26,7 @@ module Spina
         if @delegate.save
           redirect_to admin_delegates_path
         else
-          render :new
+          render :new, layout: 'spina/admin/admin'
         end
       end
 
@@ -34,7 +36,7 @@ module Spina
         if @delegate.update(delegate_params)
           redirect_to admin_delegates_path
         else
-          render :edit
+          render :edit, layout: 'spina/admin/admin'
         end
       end
 
@@ -54,7 +56,8 @@ module Spina
         params.require(:delegate).permit(:first_name, :last_name,
                                          :email_address, :url, :institution,
                                          conference_ids: [],
-                                         presentation_ids: [])
+                                         presentation_ids: [],
+                                         dietary_requirement_ids: [])
       end
     end
   end

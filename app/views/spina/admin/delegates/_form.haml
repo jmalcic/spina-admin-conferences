@@ -57,7 +57,15 @@
           %small= (Spina::Delegate.human_attribute_name :conferences_description).try(:html_safe)
         .horizontal-form-content
           .multiple.select-dropdown
-            = f.collection_select :conference_ids, Spina::Conference.order(:start_date), :id, :institution_and_year, {}, { multiple: true, required: true }
+            = f.collection_select :conference_ids, Spina::Conference.order(:dates), :id, :institution_and_year, {}, { multiple: true, required: true }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Delegate.human_attribute_name :dietary_requirements
+          %small= (Spina::Delegate.human_attribute_name :dietary_requirements_description).try(:html_safe)
+        .horizontal-form-content
+          .multiple.select-dropdown
+            = f.collection_select :dietary_requirement_ids, Spina::DietaryRequirement.order(:name), :id, :name, {}, { multiple: true, required: true }
 
   - unless @delegate.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_delegate_path(@delegate), method: :delete, data: { confirm: t('spina.delegates.delete_confirmation', delegate: @delegate.full_name) }, class: 'button button-link button-danger'
