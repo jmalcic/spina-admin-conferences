@@ -1,13 +1,16 @@
 module Spina
   # This class represents conference presentations.
-  # A presentation belongs to a conference. A presentation may have multiple
-  # delegates (presenters) and multiple presentations may belong to a single
-  # delegate.
+  # A presentation belongs to a conference and a presentation type.
+  # A presentation may have multiple delegates (presenters) and
+  # multiple presentations may belong to a single delegate.
   # The date is validated to make sure it is during the conference.
   class Presentation < ApplicationRecord
     belongs_to :conference,
                class_name: 'Spina::Conference',
                foreign_key: 'spina_conference_id'
+    belongs_to :presentation_type,
+               class_name: 'Spina::PresentationType',
+               foreign_key: 'spina_presentation_type_id'
     has_and_belongs_to_many :delegates,
                             class_name: 'Spina::Delegate',
                             foreign_key: 'spina_presentation_id',
@@ -15,6 +18,8 @@ module Spina
 
     validates_presence_of :title, :start_time, :abstract
     validates :date, conference_date: true, unless: proc { |a| a.date.blank? }
+
+    scope :sorted, -> { order(start_time: :desc) }
 
     def start_datetime
       return unless date && start_time

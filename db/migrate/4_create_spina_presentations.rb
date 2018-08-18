@@ -5,8 +5,8 @@ class CreateSpinaPresentations < ActiveRecord::Migration[5.2]
       t.date :date
       t.time :start_time
       t.text :abstract
-      t.string :type
       t.references :spina_conference
+      t.references :spina_presentation_type
 
       t.timestamps null: false
     end

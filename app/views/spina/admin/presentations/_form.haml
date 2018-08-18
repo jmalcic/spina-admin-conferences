@@ -23,6 +23,13 @@
     .horizontal-form
       .horizontal-form-group
         .horizontal-form-label
+          = Spina::Presentation.human_attribute_name :presentation_type
+        .horizontal-form-content
+          .select-dropdown
+            = f.collection_select :spina_presentation_type_id, Spina::PresentationType.all, :id, :name, { required: true }
+
+      .horizontal-form-group
+        .horizontal-form-label
           = Spina::Presentation.human_attribute_name :title
         .horizontal-form-content
           = f.text_field :title, placeholder: Spina::Presentation.human_attribute_name(:title), required: true
@@ -35,7 +42,8 @@
             .select-dropdown
               = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
           - else
-            = f.date_field :date, value: (@presentation.date.strftime("%Y-%m-%d") unless @presentation.date.blank?), class: 'datepicker', placeholder: Spina::Presentation.human_attribute_name(:date), required: true
+            .select-dropdown
+              = f.select :date, Spina::Conference.order(:dates).reverse_order.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
 
       .horizontal-form-group
         .horizontal-form-label
@@ -55,7 +63,7 @@
           = Spina::Presentation.human_attribute_name :conferences
         .horizontal-form-content
           .select-dropdown
-            = f.collection_select :spina_conference_id, Spina::Conference.order(:start_date).reverse_order, :id, :institution_and_year, { required: true }
+            = f.collection_select :spina_conference_id, Spina::Conference.order(:dates).reverse_order, :id, :institution_and_year, required: true
 
       .horizontal-form-group
         .horizontal-form-label
@@ -63,7 +71,7 @@
           %small= (Spina::Presentation.human_attribute_name :presenters_description).try(:html_safe)
         .horizontal-form-content
           .multiple.select-dropdown
-            = f.collection_select :delegate_ids, Spina::Delegate.order(:last_name), :id, :full_name_and_institution, { }, { multiple: true, required: true }
+            = f.collection_select :delegate_ids, Spina::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, { }, multiple: true, required: true
 
   - unless @presentation.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_presentation_path(@presentation), method: :delete, data: { confirm: t('spina.presentations.delete_confirmation', presentation: @presentation.title) }, class: 'button button-link button-danger'

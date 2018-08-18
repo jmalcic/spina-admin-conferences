@@ -5,17 +5,19 @@ module Spina
       before_action :set_breadcrumbs
 
       def index
-        @presentations = Presentation.all
+        @presentations = Presentation.sorted
       end
 
       def new
         @presentation = Presentation.new
         add_breadcrumb I18n.t('spina.presentations.new')
+        render layout: 'spina/admin/admin'
       end
 
       def edit
         @presentation = Presentation.find(params[:id])
         add_breadcrumb @presentation.title
+        render layout: 'spina/admin/admin'
       end
 
       def create
@@ -24,7 +26,7 @@ module Spina
         if @presentation.save
           redirect_to admin_presentations_path
         else
-          render :new
+          render :new, layout: 'spina/admin/admin'
         end
       end
 
@@ -34,7 +36,7 @@ module Spina
         if @presentation.update(presentation_params)
           redirect_to admin_presentations_path
         else
-          render :edit
+          render :edit, layout: 'spina/admin/admin'
         end
       end
 
@@ -67,6 +69,7 @@ module Spina
         params.require(:presentation).permit(:title, :date, :start_time,
                                              :abstract, :type,
                                              :spina_conference_id,
+                                             :spina_presentation_type_id,
                                              delegate_ids: [])
       end
     end
