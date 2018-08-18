@@ -20,15 +20,48 @@ module Spina
       a.finish_date.blank? || a.start_date.blank?
     end)
 
+    scope :sorted, -> { order(dates: :desc) }
+
     # Returns institution and year of start date, commonly used to identify
     # a conference.
     def institution_and_year
-      "#{institution} #{start_date.year}"
+      "#{institution} #{dates.begin.year}"
     end
 
-    # Returns all of the dates when the conference is taking place.
-    def dates
-      (start_date..finish_date).to_a
+    # Returns the beginning of the range of dates the conference occurs,
+    # or else today's date.
+    def start_date
+      dates&.begin || Date.today
+    end
+
+    # Returns the end of the range of dates the conference occurs,
+    # or else tomorrow's date.
+    def finish_date
+      dates&.end || Date.today.next_day
+    end
+
+    # Sets the beginning of the range of dates the conference occurs,
+    # or else the beginning and end of the range if the range is
+    # missing entirely.
+    def start_date=(date)
+      start_date = Date.parse(date)
+      if dates
+        assign_attributes(dates: start_date...dates.end)
+      else
+        assign_attributes(dates: start_date...start_date.next_day)
+      end
+    end
+
+    # Sets the end of the range of dates the conference occurs,
+    # or else the beginning and end of the range if the range is
+    # missing entirely.
+    def finish_date=(date)
+      finish_date = Date.parse(date)
+      if dates
+        assign_attributes(dates: dates.begin...finish_date)
+      else
+        assign_attributes(dates: finish_date.prev_day...finish_date)
+      end
     end
   end
 end
