@@ -46,18 +46,6 @@ module Spina
         redirect_to admin_presentations_path
       end
 
-      def conference_dates
-        @conference = Conference.find_by(id: params[:conference_id])
-        respond_to do |format|
-          format.json do
-            render json: @conference.dates.collect do |date|
-              { label: l(date, format: :short),
-                date: date.strftime('%Y-%m-%d') }
-            end
-          end
-        end
-      end
-
       private
 
       def set_breadcrumbs

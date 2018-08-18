@@ -1,5 +1,4 @@
 ::Spina::Theme.register do |theme|
-
   theme.name = 'conference'
   theme.title = 'Conference theme'
 
@@ -57,17 +56,17 @@
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: %w(text alert gallery),
+    page_parts: %w[text alert gallery]
   }, {
     name: 'information',
     title: 'Information',
     description: 'Contains general information',
-    page_parts: ['text']
+    page_parts: %w[text]
   }, {
     name: 'about',
     title: 'About',
     description: 'Contains information about the society',
-    page_parts: ['constitution', 'minutes', 'partner_societies', 'contact']
+    page_parts: %w[constitution minutes partner_societies contact]
   }]
 
   theme.custom_pages = [{
@@ -77,6 +76,14 @@
     view_template: 'homepage'
   }]
 
-  theme.plugins = ['Collect']
+  theme.navigations = [{
+    name: 'main',
+    label: 'Main navigation',
+    auto_add_pages: true
+  }, {
+    name: 'footer',
+    label: 'Footer'
+  }]
 
+  theme.plugins = ['Collect']
 end

@@ -1,4 +1,4 @@
-require "collect/engine"
+require 'collect/engine'
 
 module Collect
   # Your code goes here...

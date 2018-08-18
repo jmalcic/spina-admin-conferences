@@ -5,7 +5,19 @@ module Spina
       before_action :set_breadcrumbs
 
       def index
-        @conferences = Conference.all
+        @conferences = Conference.sorted
+      end
+
+      def show
+        @conference = Conference.find(params[:id])
+        dates = @conference.dates.to_a.collect do |date|
+          { label: l(date, format: :short), date: date.strftime('%Y-%m-%d') }
+        end
+        respond_to do |format|
+          format.json do
+            render json: dates
+          end
+        end
       end
 
       def new
