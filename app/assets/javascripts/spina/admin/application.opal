@@ -56,8 +56,6 @@ require 'spina/admin/scaffold'
 
 # Collect
 
-require_relative 'conferences'
-require_relative 'delegates'
 require_relative 'presentations'
 
 require 'spina/admin/application'
