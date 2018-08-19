@@ -8,6 +8,7 @@
     %meta{name: 'turbolinks-cache-control', content: 'no-preview'}
     %title= "#{current_page.seo_title} — #{current_account.name}"
     = render 'spina/shared/google_site_verification'
+    = render 'spina/shared/analytics'
     = stylesheet_link_tag 'conference/application', media: 'all', data: {turbolinks_track: true}
     = javascript_include_tag 'conference/application', data: {turbolinks_track: true}
   %body
