@@ -43,7 +43,11 @@ module Spina
       def destroy
         @delegate = Delegate.find(params[:id])
         @delegate.destroy
-        redirect_to admin_delegates_path
+        if Delegate.any? || DietaryRequirement.any? || Conference.any?
+          redirect_to admin_delegates_path
+        else
+          redirect_to admin_conferences_path
+        end
       end
 
       private

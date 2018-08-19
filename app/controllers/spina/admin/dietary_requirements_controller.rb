@@ -46,7 +46,11 @@ module Spina
       def destroy
         @dietary_requirement = DietaryRequirement.find(params[:id])
         @dietary_requirement.destroy
-        redirect_to admin_dietary_requirements_path
+        if DietaryRequirement.any? || Delegate.any? || Conference.any?
+          redirect_to admin_dietary_requirements_path
+        else
+          redirect_to admin_conferences_path
+        end
       end
 
       private

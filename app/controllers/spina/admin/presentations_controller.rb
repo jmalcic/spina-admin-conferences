@@ -43,7 +43,13 @@ module Spina
       def destroy
         @presentation = Presentation.find(params[:id])
         @presentation.destroy
-        redirect_to admin_presentations_path
+        if Presentation.any? || PresentationType.any? || Delegate.any?
+          redirect_to admin_presentation_types_path
+        elsif Delegate.any? || DietaryRequirement.any? || Conference.any?
+          redirect_to admin_delegates_path
+        else
+          redirect_to admin_conferences_path
+        end
       end
 
       private
