@@ -58,4 +58,3 @@ require 'opal-jquery'
 
 require_relative 'presentations'
 
-require 'spina/admin/application'
