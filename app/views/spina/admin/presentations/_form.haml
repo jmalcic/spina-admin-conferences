@@ -38,12 +38,15 @@
         .horizontal-form-label
           = Spina::Presentation.human_attribute_name :date
         .horizontal-form-content
-          - if @presentation.conference
-            .select-dropdown
-              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
+          - if @presentation.conference.blank?
+            - if Spina::Conference.any?
+              .select-dropdown
+                = f.select :date, Spina::Conference.order(:dates).reverse_order.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
+            - else
+              = f.date_field :date, value: (@presentation.date.strftime("%Y-%m-%d") unless @presentation.date.blank?), class: 'datepicker', placeholder: Spina::Presentation.human_attribute_name(:date), required: true
           - else
             .select-dropdown
-              = f.select :date, Spina::Conference.order(:dates).reverse_order.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
+              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
 
       .horizontal-form-group
         .horizontal-form-label
