@@ -1,8 +1,3 @@
-# Opal
-require 'opal'
-require 'rails-ujs'
-require 'opal-jquery'
-
 # jQuery
 
 require 'jquery'
@@ -53,6 +48,11 @@ require 'spina/admin/trix'
 # Scaffolding
 
 require 'spina/admin/scaffold'
+
+# Opal
+require 'opal'
+require 'rails-ujs'
+require 'opal-jquery'
 
 # Collect
 
