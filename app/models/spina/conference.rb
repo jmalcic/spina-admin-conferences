@@ -17,7 +17,7 @@ module Spina
 
     validates_presence_of :institution, :city, :start_date, :finish_date
     validates :finish_date, finish_date: true, unless: (proc do |a|
-      a.finish_date.blank? || a.start_date.blank?
+      a.dates.blank?
     end)
 
     scope :sorted, -> { order(dates: :desc) }
@@ -31,13 +31,13 @@ module Spina
     # Returns the beginning of the range of dates the conference occurs,
     # or else today's date.
     def start_date
-      dates&.begin || Date.today
+      dates&.begin || nil
     end
 
     # Returns the end of the range of dates the conference occurs,
     # or else tomorrow's date.
     def finish_date
-      dates&.end || Date.today.next_day
+      dates&.end || nil
     end
 
     # Sets the beginning of the range of dates the conference occurs,
