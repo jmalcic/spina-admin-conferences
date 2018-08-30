@@ -6,8 +6,4 @@ Spina::Engine.routes.draw do
     resources :presentation_types, except: [:show]
     resources :dietary_requirements, except: [:show]
   end
-
-  namespace :collect do
-    resources :presentations, only: [:index, :show]
-  end
 end
