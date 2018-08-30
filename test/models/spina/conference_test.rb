@@ -1,9 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
-describe Spina::Conference do
-  let(:conference) { Spina::Conference.new }
-
-  it "must be valid" do
-    value(conference).must_be :valid?
-  end
+class Spina::ConferenceTypeTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

@@ -1,9 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
-describe Spina::Date do
-  let(:date) { Spina::Date.new }
-
-  it "must be valid" do
-    value(date).must_be :valid?
-  end
+class Spina::DateTypeTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

@@ -1,9 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
-describe Spina::Delegate do
-  let(:delegate) { Spina::Delegate.new }
-
-  it "must be valid" do
-    value(delegate).must_be :valid?
-  end
+class Spina::DelegateTypeTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

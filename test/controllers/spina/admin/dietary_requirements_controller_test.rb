@@ -1,7 +1,13 @@
-require "test_helper"
+require 'test_helper'
 
-describe Spina::Admin::DietaryRequirementsController do
-  # it "must be a real test" do
-  #   flunk "Need real tests"
-  # end
+module Spina
+  module Admin
+    class DietaryRequirementsControllerTest < ActionDispatch::IntegrationTest
+      include Engine.routes.url_helpers
+
+      # test "the truth" do
+      #   assert true
+      # end
+    end
+  end
 end

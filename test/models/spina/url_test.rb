@@ -1,9 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
-describe Spina::Url do
-  let(:url) { Spina::Url.new }
-
-  it "must be valid" do
-    value(url).must_be :valid?
-  end
+class Spina::UrlTypeTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end
