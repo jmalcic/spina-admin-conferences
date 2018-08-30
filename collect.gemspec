@@ -23,6 +23,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'opal-rails', '~> 0.9'
   s.add_dependency 'pg', '>= 0.18', '< 2.0'
 
-  s.add_development_dependency 'minitest-rails', '~> 3.0'
   s.add_development_dependency 'puma', '~> 3.11'
 end
