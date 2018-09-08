@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spina
   # This class represents dates, without associated times.
   class Date < ApplicationRecord

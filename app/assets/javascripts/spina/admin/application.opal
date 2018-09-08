@@ -50,6 +50,7 @@ require 'spina/admin/trix'
 require 'spina/admin/scaffold'
 
 # Opal
+
 require 'opal'
 require 'rails-ujs'
 require 'opal-jquery'
@@ -57,4 +58,3 @@ require 'opal-jquery'
 # Collect
 
 require_relative 'presentations'
-

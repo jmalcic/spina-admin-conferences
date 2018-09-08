@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email       = ['j.malcic@me.com']
   s.homepage    = 'https://jmalcic.github.io/projects/collect'
   s.summary     = 'Conference management plugin for Spina.'
-  s.description = 'Collect is a Spina plugin which allows you to keep track of conference attendees and presentations.'
+  s.description = 'Keep track of conference attendees and presentations with this plugin.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']

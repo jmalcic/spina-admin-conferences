@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spina
   # This class represents URLs.
   # The format is validated.
