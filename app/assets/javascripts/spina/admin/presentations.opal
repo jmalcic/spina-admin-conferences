@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Document.on :'turbolinks:load' do
-  conference_id_element = Element.find('#presentation_spina_conference_id')
+  conference_id_element = Element.find('#presentation_conference_id')
   conference_id_element.on :change do
     HTTP.get("/admin/conferences/#{conference_id_element.value}") do |response|
       presentation_date_element = Element.find('#presentation_date')

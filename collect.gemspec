@@ -3,12 +3,12 @@
 $:.push File.expand_path('lib', __dir__)
 
 # Maintain your gem's version:
-require 'collect/version'
+require 'spina/collect/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'collect'
-  s.version     = Collect::VERSION
+  s.version     = Spina::Collect::VERSION
   s.authors     = ['Justin Malčić']
   s.email       = ['j.malcic@me.com']
   s.homepage    = 'https://jmalcic.github.io/projects/collect'

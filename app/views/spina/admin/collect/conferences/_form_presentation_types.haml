@@ -1,0 +1,26 @@
+#presentation_types.tab-content.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Collect::PresentationType.human_attribute_name :conference
+          %th= Spina::Collect::PresentationType.human_attribute_name :name
+          %th= Spina::Collect::PresentationType.human_attribute_name :duration
+          %th
+
+      %tbody
+        - if @conference.presentation_types.any?
+          - @conference.presentation_types.each do |presentation_type|
+            %tr
+              %td= presentation_type.conference.institution_and_year
+              %td= link_to presentation_type.name, spina.edit_admin_collect_presentation_type_path(presentation_type)
+              %td= time_tag presentation_type.duration, presentation_type.duration.inspect unless presentation_type.duration.blank?
+              %td.align-right
+                = link_to spina.edit_admin_collect_presentation_type_path(presentation_type), class: 'button button-small button-link' do
+                  = icon('pencil-outline')
+                  = t('spina.edit')
+
+        - else
+          %tr
+            %td.align-center{ colspan: 100 }
+              %em= t('spina.collect.presentation_types.no_presentation_types')
