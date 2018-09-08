@@ -7,10 +7,10 @@
 
     %nav#secondary.tabs
       %ul
-        %li{class: ('active' if controller_name == 'presentations')}
-          = link_to t('spina.collect.all_presentations'), admin_presentations_path
+        %li{class: ('active' if controller_name == 'conferences')}
+          = link_to t('spina.collect.website.conferences'), admin_collect_conferences_path
         %li{class: ('active' if controller_name == 'presentation_types')}
-          = link_to t('spina.collect.presentation_types'), admin_presentation_types_path
+          = link_to t('spina.collect.website.presentation_types'), admin_collect_presentation_types_path
 
   = yield
 
