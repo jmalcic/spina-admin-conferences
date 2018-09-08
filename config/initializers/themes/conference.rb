@@ -30,6 +30,10 @@
     name: 'contact',
     title: 'Contact',
     partable_type: 'Spina::Text'
+  }, {
+    name: 'conferences',
+    title: 'Conferences',
+    partable_type: 'Spina::ConferenceList'
   }]
 
   theme.structures = [{
@@ -67,6 +71,16 @@
     title: 'About',
     description: 'Contains information about the society',
     page_parts: %w[constitution minutes partner_societies contact]
+  }, {
+    name: 'conference',
+    title: 'Conference',
+    description: 'Contains information about a conference',
+    page_parts: %w[text]
+  }, {
+    name: 'conferences',
+    title: 'Conferences',
+    description: 'List of conferences',
+    page_parts: %w[conferences]
   }]
 
   theme.custom_pages = [{
@@ -74,6 +88,12 @@
     title: 'Homepage',
     deletable: false,
     view_template: 'homepage'
+  },
+  {
+    name: 'conferences',
+    title: 'Conferences',
+    deletable: false,
+    view_template: 'conferences'
   }]
 
   theme.navigations = [{
@@ -85,5 +105,5 @@
     label: 'Footer'
   }]
 
-  theme.plugins = ['Collect']
+  theme.plugins = ['collect']
 end
