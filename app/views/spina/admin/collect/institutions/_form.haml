@@ -1,0 +1,29 @@
+- if @institution.errors.any?
+  - content_for :notifications do
+    .notification.notification-danger.animated.fadeInRight
+      = icon('exclamation')
+      .notification-message
+        =t 'spina.collect.notifications.alert'
+        %small= @institution.errors.full_messages.join('<br />').html_safe
+      = link_to '#', data: { close_notification: true } do
+        = icon('cross')
+
+= form_for [:admin_collect, @institution], html: { autocomplete: "off" } do |f|
+  %header#header
+    = render partial: 'spina/admin/shared/breadcrumbs'
+
+    #header_actions
+      %button.button.button-primary{ type: 'submit' }
+        = icon('check')
+        =t 'spina.collect.institutions.save'
+
+      = link_to t('spina.cancel'), spina.admin_collect_institutions_path, class: 'button', style: 'margin-right: 0'
+
+    %nav#secondary.tabs
+      %ul
+        - @tabs.each_with_index do |tab, i|
+          %li{class: (i==0 ? 'active' : '')}
+            = link_to t("spina.collect.institutions.#{tab}"), "##{tab}"
+
+  - @tabs.each do |tab|
+    = render "spina/admin/collect/institutions/form_#{tab}", f: f
