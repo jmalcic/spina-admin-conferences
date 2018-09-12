@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Spina::ConferenceTypeTest < ActiveSupport::TestCase
+class Spina::Collect::DelegateTypeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
