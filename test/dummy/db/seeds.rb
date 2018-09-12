@@ -29,6 +29,6 @@ module Spina
     Presentation.create conference_id: 1, presentation_type_id: 1,
                         title: 'The Asymmetry and Antisymmetry of Syntax',
                         room_id: 2, date: '2017-04-07', start_time: '10:00',
-                        abstract: 'Lorem ipsum', delegate_ids: [1]
+                        abstract: 'Lorem ipsum', presenter_ids: [1]
   end
 end

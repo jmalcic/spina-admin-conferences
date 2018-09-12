@@ -9,23 +9,23 @@
           %th
 
       %tbody
-        - if @presentation.delegates.any?
-          - @presentation.delegates.each do |delegate|
+        - if @presentation.presenters.any?
+          - @presentation.presenters.each do |presenter|
             %tr
-              %td= link_to delegate.full_name, spina.edit_admin_collect_delegate_path(delegate)
+              %td= link_to presenter.full_name, spina.edit_admin_collect_delegate_path(presenter)
               %td
-                = delegate.email_address
-                - unless delegate.email_address.blank?
-                  = mail_to delegate.email_address, class: 'button button-small button-link' do
+                = presenter.email_address
+                - unless presenter.email_address.blank?
+                  = mail_to presenter.email_address, class: 'button button-small button-link' do
                     = icon('mail')
                     = t('spina.email')
-              %td= delegate.institution.name
+              %td= presenter.institution.name
               %td.align-right
-                = link_to spina.edit_admin_collect_delegate_path(delegate), class: 'button button-small button-link' do
+                = link_to spina.edit_admin_collect_delegate_path(presenter), class: 'button button-small button-link' do
                   = icon('pencil-outline')
                   = t('spina.edit')
 
         - else
           %tr
             %td.align-center{ colspan: 100 }
-              %em= t('spina.collect.delegates.no_delegates')
+              %em= t('spina.collect.presenters.no_presenters')

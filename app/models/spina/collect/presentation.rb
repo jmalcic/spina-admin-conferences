@@ -11,7 +11,8 @@ module Spina
       belongs_to :conference
       belongs_to :presentation_type
       belongs_to :room
-      has_and_belongs_to_many :delegates,
+      has_and_belongs_to_many :presenters,
+                              class_name: 'Spina::Collect::Delegate',
                               foreign_key: :spina_collect_presentation_id,
                               association_foreign_key: :spina_collect_delegate_id
 

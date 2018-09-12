@@ -13,8 +13,8 @@
             %tr
               %td= link_to presentation.title, spina.edit_admin_collect_presentation_path(presentation)
               %td
-                - presentation.delegates.each do |delegate|
-                  = link_to delegate.full_name, spina.edit_admin_collect_delegate_path(delegate)
+                - presentation.presenters.each do |presenter|
+                  = link_to presenter.full_name, spina.edit_admin_collect_delegate_path(presenter)
                   %br
               %td.align-right
                 = link_to spina.edit_admin_collect_presentation_path(presentation), class: 'button button-small button-link' do

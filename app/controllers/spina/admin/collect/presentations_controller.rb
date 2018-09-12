@@ -70,7 +70,7 @@ module Spina
                                                :conference_id,
                                                :presentation_type_id,
                                                :room_id,
-                                               delegate_ids: [])
+                                               presenter_ids: [])
         end
       end
     end
