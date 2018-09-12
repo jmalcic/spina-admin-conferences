@@ -16,6 +16,11 @@ module Spina
           plugin.namespace = 'collect'
         end
       end
+
+      config.to_prepare do
+        # Load helpers from main application
+        Spina::ApplicationController.helper 'spina/conference_pages'
+      end
     end
   end
 end

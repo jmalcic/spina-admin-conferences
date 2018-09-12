@@ -1,1 +1,24 @@
 = content(:text).try(:html_safe)
+%h2= conference.institution_and_year
+= time_tag conference.dates.begin, l(conference.dates.begin, format: :long)
+to
+= time_tag conference.dates.end, l(conference.dates.end, format: :long)
+%address= "#{conference.institution.name}, #{conference.institution.city}"
+
+- conference.presentation_types.where('name LIKE ?', '%Plenary%').each do |presentation_type|
+  - unless presentation_type.presentations.empty?
+    %h3= presentation_type.name.pluralize
+    - conference.presentation_types.find_by(name: 'Plenary').presentations.each do |presentation|
+      %article
+        %h4= presentation.title
+        %address
+          - presentation.presenters.each do |presenter|
+            = "#{presenter.full_name}, #{presenter.institution.name}"
+        = presentation.abstract.try(:html_safe)
+
+%ul
+  - conference.presentation_types.each do |presentation_type|
+    - unless presentation_type.name == 'Plenary'
+      - unless presentation_type.presentations.empty?
+        %li= presentation_type.name
+

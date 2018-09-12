@@ -1,0 +1,7 @@
+- current_page&.children&.each do |child|
+  - conference = child.conference
+  %h2= link_to conference.institution_and_year, child.materialized_path
+  = time_tag conference.dates.begin, l(conference.dates.begin, format: :long)
+  to
+  = time_tag conference.dates.end, l(conference.dates.end, format: :long)
+  %address= "#{conference.institution.name}, #{conference.institution.city}"
