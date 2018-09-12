@@ -3,10 +3,10 @@
 module Spina
   module Collect
     # This class represents conference presentations.
-    # A presentation belongs to a conference and a presentation type.
-    # A presentation may have multiple delegates (presenters) and
-    # multiple presentations may belong to a single delegate.
-    # The date is validated to make sure it is during the conference.
+    # A `Presentation` belongs to a `:conference` and a `:presentation_type`.
+    # A `Presentation` may have multiple `:presenters`, instances of
+    # `Delegate`, and a `Delegate` may have multiple `:presentations`.
+    # The `:date` is validated to make sure it is during the `:conference`.
     class Presentation < ApplicationRecord
       belongs_to :conference
       belongs_to :presentation_type

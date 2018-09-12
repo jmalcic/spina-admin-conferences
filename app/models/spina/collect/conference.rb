@@ -3,11 +3,13 @@
 module Spina
   module Collect
     # This class represents conferences.
-    # Conferences have many presentations (being presented at the conference)
-    # and many delegates (attending the conference), but delegates can attend
-    # more than one conference. Destroying a conference destroys the associated
-    # presentations, but delegates remain.
-    # The finish date is validated to make sure it is after the start date.
+    # A `Conference` has many `:presentations` (being presented at the
+    # conference) and many `:delegates` (attending the conference), but a
+    # `Delegate` can attend more than one `Conference`. Destroying a
+    # `Conference` destroys the associated `:presentations`, but `:delegates`
+    # remain. The `:finish_date` is validated to make sure it is after the
+    # `:start_date`. A `Conference` also has a `:conference_page_part`, which
+    # is destroyed with the `Conference`.
     class Conference < ApplicationRecord
       belongs_to :institution
       has_many :presentations, dependent: :destroy
@@ -24,8 +26,8 @@ module Spina
 
       scope :sorted, -> { order dates: :desc }
 
-      # Returns institution and year of start date, commonly used to identify
-      # a conference.
+      # Returns the `:name` of the associated `:institution` and `#year`,
+      # commonly used to identify a conference.
       def institution_and_year
         "#{institution.name} #{dates.begin.year}"
       end
@@ -35,19 +37,19 @@ module Spina
         dates.begin.year
       end
 
-      # Returns the beginning of the range of dates the conference occurs,
+      # Returns the beginning of the range of `:dates` the conference occurs,
       # or else today's date.
       def start_date
         dates&.begin || nil
       end
 
-      # Returns the end of the range of dates the conference occurs,
+      # Returns the end of the range of `:dates` the conference occurs,
       # or else tomorrow's date.
       def finish_date
         dates&.end || nil
       end
 
-      # Sets the beginning of the range of dates the conference occurs,
+      # Sets the beginning of the range of `:dates` the conference occurs,
       # or else the beginning and end of the range if the range is
       # missing entirely.
       def start_date=(date)
@@ -59,7 +61,7 @@ module Spina
         end
       end
 
-      # Sets the end of the range of dates the conference occurs,
+      # Sets the end of the range of `:dates` the conference occurs,
       # or else the beginning and end of the range if the range is
       # missing entirely.
       def finish_date=(date)
