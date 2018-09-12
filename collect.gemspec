@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'spina', '~> 1.0'
 
   s.add_development_dependency 'puma', '~> 3.11'
+  s.add_development_dependency 'web-console', '~> 3.6'
 end
