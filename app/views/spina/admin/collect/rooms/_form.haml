@@ -3,7 +3,7 @@
     .notification.notification-danger.animated.fadeInRight
       = icon('exclamation')
       .notification-message
-        =t 'spina.collect.notifications.alert'
+        =t 'spina.notifications.alert'
         %small= @room.errors.full_messages.join('<br />').html_safe
       = link_to '#', data: { close_notification: true } do
         = icon('cross')
