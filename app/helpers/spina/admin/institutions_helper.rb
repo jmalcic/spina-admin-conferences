@@ -1,9 +1,2 @@
-module Spina
-  module Admin
-    module Collect
-      class InstitutionsHelper
-
-      end
-    end
-  end
+module Spina::Admin::InstitutionsHelper
 end
