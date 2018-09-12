@@ -11,13 +11,16 @@ module Spina
     # `:start_date`. A `Conference` also has a `:conference_page_part`, which
     # is destroyed with the `Conference`.
     class Conference < ApplicationRecord
+      include ConferencePagePartable
+
       belongs_to :institution
       has_many :presentations, dependent: :destroy
       has_many :rooms, through: :institution
       has_many :presentation_types, dependent: :destroy
       has_and_belongs_to_many :delegates,
                               foreign_key: :spina_collect_conference_id,
-                              association_foreign_key: :spina_collect_delegate_id
+                              association_foreign_key:
+                                  :spina_collect_delegate_id
 
       validates_presence_of :start_date, :finish_date
       validates :finish_date, finish_date: true, unless: (proc do |a|
@@ -29,10 +32,28 @@ module Spina
       # Returns the `:name` of the associated `:institution` and `#year`,
       # commonly used to identify a conference.
       def institution_and_year
-        "#{institution.name} #{dates.begin.year}"
+        "#{institution.name} #{year}"
       end
 
-      # Returns year of start date.
+      # `#name` is used by the `:conference_page_part` to create a
+      # `ConferencePage`
+      alias name institution_and_year
+
+      # `#parent_page` is used by the `:conference_page_part` to create a
+      # `Resource`
+      def self.parent_page
+        Spina::Page.find_by(
+          name: name.demodulize.parameterize.pluralize
+        )
+      end
+
+      # `#view_template` is used by the `:conference_page_part` to create a
+      # `Resource`
+      def self.view_template
+        name.demodulize.parameterize.pluralize
+      end
+
+      # Returns the year of `#start_date`.
       def year
         dates.begin.year
       end

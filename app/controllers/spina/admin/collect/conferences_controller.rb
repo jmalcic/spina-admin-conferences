@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Collect
       # This class manages conferences and sets breadcrumbs
       class ConferencesController < AdminController
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: [:new, :create, :edit, :update]
+        before_action :set_tabs, only: %i[new create edit update]
 
         def index
           @conferences = Spina::Collect::Conference.sorted
@@ -65,12 +67,17 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w{conference_details delegates presentation_types rooms presentations}
+          @tabs = %w[conference_details delegates presentation_types rooms presentations]
         end
 
         def conference_params
           params.require(:conference).permit(:start_date, :finish_date,
-                                             :institution_id)
+                                             :institution_id,
+                                             conference_page_part_attributes: [
+                                               conference_page_attributes: [
+                                                 :title
+                                               ]
+                                             ])
         end
 
         def dates

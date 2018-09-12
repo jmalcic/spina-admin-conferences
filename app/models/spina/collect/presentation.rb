@@ -8,18 +8,37 @@ module Spina
     # `Delegate`, and a `Delegate` may have multiple `:presentations`.
     # The `:date` is validated to make sure it is during the `:conference`.
     class Presentation < ApplicationRecord
+      include ConferencePagePartable
+
       belongs_to :conference
       belongs_to :presentation_type
       belongs_to :room
       has_and_belongs_to_many :presenters,
                               class_name: 'Spina::Collect::Delegate',
                               foreign_key: :spina_collect_presentation_id,
-                              association_foreign_key: :spina_collect_delegate_id
+                              association_foreign_key:
+                                  :spina_collect_delegate_id
 
-      validates_presence_of :title, :date, :start_time, :abstract, :delegates
+      validates_presence_of :title, :date, :start_time, :abstract, :presenters
       validates :date, conference_date: true, unless: proc { |a| a.date.blank? }
 
       scope :sorted, -> { order start_time: :desc }
+
+      # `:name` is used by the `:conference_page_part` to create a
+      # `ConferencePage`
+      alias_attribute :name, :title
+
+      # `#parent_page` is used by the `:conference_page_part` to create a
+      # `Resource`
+      def parent_page
+        conference.conference_page_part.conference_page
+      end
+
+      # `#view_template` is used by the `:conference_page_part` to create a
+      # `Resource`
+      def self.view_template
+        name.demodulize.parameterize.pluralize
+      end
 
       def start_datetime
         return unless date && start_time

@@ -1,9 +1,6 @@
 Spina::Engine.routes.draw do
-  namespace :collect do
-    resources :conferences, only: [:index, :show]
-    resources :presentations, only: [:index, :show]
-  end
   namespace :admin, path: Spina.config.backend_path do
+    #resources :conference_pages
     namespace :collect do
       resources :conferences
       resources :institutions, except: [:show]

@@ -30,10 +30,6 @@
     name: 'contact',
     title: 'Contact',
     partable_type: 'Spina::Text'
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    partable_type: 'Spina::ConferenceList'
   }]
 
   theme.structures = [{
@@ -74,13 +70,18 @@
   }, {
     name: 'conference',
     title: 'Conference',
-    description: 'Contains information about a conference',
+    description: 'Contains information and content for a conference',
     page_parts: %w[text]
+  }, {
+    name: 'presentation',
+    title: 'Presentation',
+    description: 'Contains content for a presentation',
+    page_parts: %w[]
   }, {
     name: 'conferences',
     title: 'Conferences',
     description: 'List of conferences',
-    page_parts: %w[conferences]
+    page_parts: %w[]
   }]
 
   theme.custom_pages = [{
