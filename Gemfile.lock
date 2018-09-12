@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    collect (0.1.5)
+    collect (0.0.1)
       opal-rails (~> 0.9)
       pg (>= 0.18, < 2.0)
       rails (~> 5.2)
