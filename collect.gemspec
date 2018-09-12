@@ -16,12 +16,13 @@ Gem::Specification.new do |s|
   s.description = 'Keep track of conference attendees and presentations with this plugin.'
   s.license     = 'MIT'
 
-  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
+  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE',
+                'Rakefile', 'README.md']
 
-  s.add_dependency 'rails', '~> 5.2'
-  s.add_dependency 'spina', '~> 1.0'
   s.add_dependency 'opal-rails', '~> 0.9'
   s.add_dependency 'pg', '>= 0.18', '< 2.0'
+  s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'spina', '~> 1.0'
 
   s.add_development_dependency 'puma', '~> 3.11'
 end
