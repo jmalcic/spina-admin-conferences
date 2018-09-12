@@ -8,7 +8,7 @@ require 'active_record/pg_interval_rails_5_1'
 module Spina
   module Collect
     class Engine < ::Rails::Engine
-      isolate_namespace Spina::Collect
+      isolate_namespace Collect
 
       config.before_initialize do
         ::Spina::Plugin.register do |plugin|
