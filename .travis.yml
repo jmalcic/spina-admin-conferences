@@ -1,14 +1,11 @@
-services:
-  - postgresql
 addons:
-  postgresql: 10.5
+  postgresql: 9.6
   code_climate:
     repo_token: fae8d2701c84d71501661b1cc53ecb7f2fb23b0cc06c5fe09f664427d7aba1de
 after_success:
   - bundle exec codeclimate-test-reporter
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - bundle exec rails db:migrate
+  - bundle exec rails db:setup
 language: ruby
 rvm:
   - 2.5
