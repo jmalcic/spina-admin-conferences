@@ -1,6 +1,6 @@
 Spina::Engine.routes.draw do
   namespace :admin, path: Spina.config.backend_path do
-    #resources :conference_pages
+    # TODO fix routing error for conference pages
     namespace :collect do
       resources :conferences
       resources :institutions, except: [:show]
