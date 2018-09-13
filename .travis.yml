@@ -1,3 +1,5 @@
+services:
+  - postgresql
 addons:
   postgresql: 10.5
   code_climate:
