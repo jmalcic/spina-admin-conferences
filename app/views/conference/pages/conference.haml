@@ -3,7 +3,7 @@
   - if conference.institution.logo
     %figure
       = image_tag variant(conference.institution.logo.file, resize: "300x300")
-  %span
+  %div
     = time_tag conference.dates.begin, l(conference.dates.begin, format: :long)
     to
     = time_tag conference.dates.end, l(conference.dates.end, format: :long)
