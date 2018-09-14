@@ -45,9 +45,7 @@ module Spina
       # `#parent_page` is used by the `:conference_page_part` to create a
       # `Resource`
       def self.parent_page
-        Spina::Page.find_by(
-          name: name.demodulize.parameterize.pluralize
-        )
+        Spina::Page.find_by(name: name.demodulize.parameterize.pluralize)
       end
 
       # `#view_template` is used by the `:conference_page_part` to create a
@@ -77,6 +75,7 @@ module Spina
       # or else the beginning and end of the range if the range is
       # missing entirely.
       def start_date=(date)
+        return unless date
         start_date = Date.parse(date)
         if dates
           assign_attributes(dates: start_date...dates.end)
@@ -89,6 +88,7 @@ module Spina
       # or else the beginning and end of the range if the range is
       # missing entirely.
       def finish_date=(date)
+        return unless date
         finish_date = Date.parse(date)
         if dates
           assign_attributes(dates: dates.begin...finish_date)
