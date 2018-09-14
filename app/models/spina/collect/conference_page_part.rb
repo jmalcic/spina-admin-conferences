@@ -26,10 +26,12 @@ module Spina
         conference_page_partable.class.name.demodulize.parameterize
       end
 
+      def resource
+        page_partable_parameter.pluralize
+      end
+
       def set_up_resource
-        Spina::Resource.find_or_create_by(
-          name: page_partable_parameter.pluralize
-        ) do |resource|
+        Spina::Resource.find_or_create_by(name: resource) do |resource|
           resource.label = resource.name.titleize
           resource.view_template = page_partable_parameter
           if defined? conference_page_partable.class.parent_page
@@ -40,13 +42,12 @@ module Spina
       end
 
       def set_up_conference_page
-        resource = Spina::Resource.find_by(
-          name: page_partable_parameter.pluralize
+        build_conference_page(
+          title: conference_page_partable.name,
+          view_template: Spina::Resource.find_by(name: resource).view_template,
+          deletable: false,
+          resource: Spina::Resource.find_by(name: resource)
         )
-        build_conference_page(title: conference_page_partable.name,
-                              view_template: resource.view_template,
-                              deletable: false,
-                              resource: resource)
         set_ancestry
       end
 
@@ -55,7 +56,7 @@ module Spina
           if defined? conference_page_partable.parent_page
             conference_page_partable.parent_page.id
           else
-            resource.parent_page_id
+            Spina::Resource.find_by(name: resource).parent_page_id
           end
       end
     end
