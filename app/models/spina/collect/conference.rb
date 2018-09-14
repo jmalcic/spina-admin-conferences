@@ -21,6 +21,9 @@ module Spina
                               foreign_key: :spina_collect_conference_id,
                               association_foreign_key:
                                   :spina_collect_delegate_id
+      has_one :conference_page_part, as: :conference_page_partable,
+              dependent: :destroy
+      has_one :conference_page, through: :conference_page_part
 
       validates_presence_of :start_date, :finish_date
       validates :finish_date, finish_date: true, unless: (proc do |a|
