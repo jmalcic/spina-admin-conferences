@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 2018_09_14_121905) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "logo_id"
+    t.index ["logo_id"], name: "index_spina_collect_institutions_on_logo_id"
   end
 
   create_table "spina_collect_presentation_types", force: :cascade do |t|
@@ -378,4 +380,5 @@ ActiveRecord::Schema.define(version: 2018_09_14_121905) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "spina_collect_institutions", "spina_images", column: "logo_id"
 end
