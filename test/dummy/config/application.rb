@@ -3,7 +3,7 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "spina/collect"
+require 'spina/collect'
 
 module Dummy
   class Application < Rails::Application
