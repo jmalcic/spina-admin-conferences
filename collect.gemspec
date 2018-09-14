@@ -24,6 +24,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 5.2'
   s.add_dependency 'spina', '~> 1.0'
 
+  s.add_development_dependency 'dotenv-rails', '~> 2.5'
+  s.add_development_dependency 'mini_racer', '>= 0.2.0'
   s.add_development_dependency 'puma', '~> 3.11'
+  s.add_development_dependency 'uglifier', '>= 1.3.0'
   s.add_development_dependency 'web-console', '~> 3.6'
 end

@@ -4,6 +4,8 @@ require 'spina'
 require 'opal-rails'
 require 'opal-sprockets'
 require 'active_record/pg_interval_rails_5_1'
+require 'dotenv-rails'
+require 'uglifier'
 
 module Spina
   module Collect
