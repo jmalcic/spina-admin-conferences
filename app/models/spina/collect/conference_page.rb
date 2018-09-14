@@ -7,7 +7,9 @@ module Spina
     # `:conference_page_part` is also destroyed.
     class ConferencePage < Spina::Page
       after_create do
-        navigations << Spina::Navigation.where(auto_add_pages: true)
+        unless resource
+          navigations << Spina::Navigation.where(auto_add_pages: true)
+        end
       end
 
       has_one :conference_page_part, dependent: :destroy
