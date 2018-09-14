@@ -1,3 +1,6 @@
+- content_for(:header) do
+  = render "#{current_theme.name}/shared/title"
+
 - current_page&.children&.each do |child|
   - conference = child.conference
   %h2= link_to conference.institution_and_year, child.materialized_path

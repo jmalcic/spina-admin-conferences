@@ -1,6 +1,9 @@
-- if has_content? :alert
-  .alert
-    = content(:alert)
+- content_for(:header) do
+  = render "#{current_theme.name}/shared/title"
+  - if has_content? :alert
+    .alert
+      = content(:alert)
+
 - if has_content? :gallery
   .gallery
     - content(:gallery)&.images&.each do |image|

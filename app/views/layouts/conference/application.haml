@@ -16,14 +16,18 @@
     .content
       %header
         %h1= current_account.name
-        %nav= render "#{current_theme.name}/shared/navigation"
+        = render "#{current_theme.name}/shared/navigation"
       %main
-        %nav
-          %ol.breadcrumbs
-            - current_page.ancestors.each do |ancestor|
-              %li= link_to ancestor.menu_title, ancestor.materialized_path
-            %li= current_page.menu_title
-        %h1= current_page.title
+        %header<
+          %nav
+            %ol
+              - current_page.ancestors.each do |ancestor|
+                %li= link_to ancestor.menu_title, ancestor.materialized_path
+              %li= current_page.menu_title
+          = yield(:header)
         = yield
-      = spina_link
-      = render 'spina/shared/social'
+      %footer
+        = render "#{current_theme.name}/shared/footer"
+
+    = spina_link
+    = render 'spina/shared/social'
