@@ -7,13 +7,14 @@
 .spina-link, #admin_bar
   font-family: $font-family
 
-main
+.content
   margin: 10%
   display: flex
   flex-wrap: wrap
-  .sidebar
-    flex-basis: 20%
+  header
+    flex-basis: 256px
     flex-shrink: 0
+    margin-right: 32px
     nav
       ul
         padding: unset
@@ -28,8 +29,8 @@ main
             content: "\2192\ "
           ul
             padding-left: 1em
-  .content
-    flex-basis: 40%
+  main
+    flex-basis: 512px
     flex-grow: 1
     .gallery
       height: 533px

@@ -12,20 +12,18 @@
     = stylesheet_link_tag 'conference/application', media: 'all', data: {turbolinks_track: true}
     = javascript_include_tag 'conference/application', data: {turbolinks_track: true}
   %body
-    %header
-      = render 'spina/shared/admin_bar'
-    %main
-      .sidebar
-        %h2= current_account.name
-        = render "#{current_theme.name}/shared/navigation"
-      .content
-        %ol.breadcrumb
-          - current_page.ancestors.each do |ancestor|
-            %li
-              = link_to ancestor.menu_title, ancestor.materialized_path
-          %li.active
-            %a= current_page.menu_title
+    = render 'spina/shared/admin_bar'
+    .content
+      %header
+        %h1= current_account.name
+        %nav= render "#{current_theme.name}/shared/navigation"
+      %main
+        %nav
+          %ol.breadcrumbs
+            - current_page.ancestors.each do |ancestor|
+              %li= link_to ancestor.menu_title, ancestor.materialized_path
+            %li= current_page.menu_title
         %h1= current_page.title
         = yield
-    = spina_link
-    = render 'spina/shared/social'
+      = spina_link
+      = render 'spina/shared/social'

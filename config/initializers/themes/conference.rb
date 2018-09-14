@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ::Spina::Theme.register do |theme|
   theme.name = 'conference'
   theme.title = 'Conference theme'
@@ -19,12 +21,12 @@
     title: 'Constitution',
     partable_type: 'Spina::Attachment'
   }, {
-    name: 'minutes',
-    title: 'Minutes',
-    partable_type: 'Spina::AttachmentCollection'
-  }, {
     name: 'partner_societies',
     title: 'Partner societies',
+    partable_type: 'Spina::Structure'
+  }, {
+    name: 'minutes',
+    title: 'Minutes',
     partable_type: 'Spina::Structure'
   }, {
     name: 'contact',
@@ -39,6 +41,10 @@
       title: 'Name',
       partable_type: 'Spina::Line'
     }, {
+      name: 'logo',
+      title: 'Logo',
+      partable_type: 'Spina::Image'
+    }, {
       name: 'description',
       title: 'Description',
       partable_type: 'Spina::Text'
@@ -50,6 +56,17 @@
       name: 'email_address',
       title: 'Email address',
       partable_type: 'Spina::EmailAddress'
+    }]
+  }, {
+    name: 'minutes',
+    structure_parts: [{
+      name: 'date',
+      title: 'Date',
+      partable_type: 'Spina::Date'
+    }, {
+      name: 'attachment',
+      title: 'Attachment',
+      partable_type: 'Spina::Attachment'
     }]
   }]
 
@@ -89,12 +106,16 @@
     title: 'Homepage',
     deletable: false,
     view_template: 'homepage'
-  },
-  {
+  }, {
     name: 'conferences',
     title: 'Conferences',
     deletable: false,
     view_template: 'conferences'
+  }, {
+    name: 'about',
+    title: 'About',
+    deletable: false,
+    view_template: 'about'
   }]
 
   theme.navigations = [{

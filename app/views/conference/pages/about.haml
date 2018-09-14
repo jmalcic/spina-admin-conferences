@@ -1,18 +1,31 @@
 - if has_content? :constitution
   %h2 Constitution
-  = link_to content(:constitution).filename, main_app.url_for(content(:constitution))
-%h2 Minutes
-- content(:minutes)&.attachments&.each do |meeting|
-  = link_to meeting.name, main_app.url_for(meeting.content)
-%h2 Partner societies
-- content(:partner_societies)&.structure_items&.each do |society|
-  %address
-    = society.content(:name)
-    - if society.has_content? :website
-      %br
-      %a{href: society.content(:website)} Website
-    - if society.has_content? :email_address
-      %br
-      %a{href: "mailto:" + society.content(:email_address)}= society.content(:email_address)
-%h2 Contact
-= content(:contact).try(:html_safe)
+  = link_to 'Download', main_app.rails_blob_path(content(:constitution), disposition: :attachment)
+
+- if has_content? :minutes
+  - unless content(:minutes).structure_items.empty?
+    %h2 Minutes
+    %ul
+      - content(:minutes).structure_items.each do |minutes|
+        - if minutes.has_content?(:date) && minutes.has_content?(:attachment)
+          %li
+            = link_to l(minutes.content(:date), format: :long), file_url(minutes.content(:attachment))
+
+- if has_content? :partner_societies
+  - unless content(:partner_societies).structure_items.empty?
+    %h2 Partner societies
+    - content(:partner_societies).structure_items.each do |society|
+      %h3= society.content(:name)
+      - if society.has_content? :logo
+        = image_tag variant(society.content(:logo).file, resize: "100x100")
+      - if society.has_content? :description
+        = society.content(:description).try(:html_safe)
+      %ul
+        - if society.has_content? :website
+          %li= link_to 'Website', society.content(:website)
+        - if society.has_content? :email_address
+          %li= mail_to society.content(:email_address), 'Email'
+
+- if has_content? :contact
+  %h2 Contact
+  = content(:contact).try(:html_safe)

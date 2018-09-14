@@ -1,0 +1,7 @@
+%header<
+  = time_tag presentation.start_time, l(presentation.start_time, format: :short)
+  = ", #{presentation.room.building_and_number}"
+%address
+  - presentation.presenters.each do |presenter|
+    = "#{presenter.full_name}, #{presenter.institution.name}"
+= presentation.abstract.try(:html_safe)
