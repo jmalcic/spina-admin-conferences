@@ -34,6 +34,8 @@ en:
     email: Email
     media_library:
       images: Images # This translation is apparently not provided by Spina for some reason
+    images:
+      delete: Delete # Ditto
     collect:
       title: Collect
       conferences:
@@ -142,6 +144,7 @@ en:
       spina/collect/institution:
         name: Name
         city: City
+        logo: Logo
       spina/collect/room:
         building: Building
         number: Number
