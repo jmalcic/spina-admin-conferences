@@ -51,10 +51,7 @@ module Spina
       end
 
       def set_ancestry
-        resource = Spina::Resource.find_by(
-          name: page_partable_parameter.pluralize
-        )
-        conference_page.ancestry =
+        conference_page.parent_id =
           if defined? conference_page_partable.parent_page
             conference_page_partable.parent_page.id
           else
