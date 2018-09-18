@@ -18,7 +18,6 @@ module Spina
 
       validates_presence_of :title, :date, :start_time, :abstract, :presenters
       validates :date, conference_date: true, unless: proc { |a| a.date.blank? }
-      validates :start_time, time: true, unless: proc { |a| a.start_time.blank? }
 
       scope :sorted, -> { order start_time: :desc }
 
