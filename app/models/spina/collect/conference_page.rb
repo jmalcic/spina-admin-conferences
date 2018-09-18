@@ -3,8 +3,7 @@
 module Spina
   module Collect
     # This class inherits from `Spina::Page` and differs in having a
-    # `:conference_page_part`. If a `ConferencePage` is destroyed, the
-    # `:conference_page_part` is also destroyed.
+    # `:conference_page_part`.
     class ConferencePage < Spina::Page
       after_create do
         unless resource

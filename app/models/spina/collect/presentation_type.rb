@@ -4,8 +4,6 @@ module Spina
   module Collect
     # This class represents presentation types (e.g. plenaries, poster
     # presentations, etc.)
-    # A presentation type has many presentations, belongs to a
-    # conference, and has and belongs to many rooms.
     class PresentationType < ApplicationRecord
       belongs_to :conference, inverse_of: :presentation_types
       has_many :room_uses, dependent: :destroy

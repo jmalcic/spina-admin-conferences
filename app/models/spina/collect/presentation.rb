@@ -3,10 +3,6 @@
 module Spina
   module Collect
     # This class represents conference presentations.
-    # A `Presentation` belongs to a `:conference` and a `:presentation_type`.
-    # A `Presentation` may have multiple `:presenters`, instances of
-    # `Delegate`, and a `Delegate` may have multiple `:presentations`.
-    # The `:date` is validated to make sure it is during the `:conference`.
     class Presentation < ApplicationRecord
       include ConferencePagePartable
 

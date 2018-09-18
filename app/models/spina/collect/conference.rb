@@ -3,13 +3,6 @@
 module Spina
   module Collect
     # This class represents conferences.
-    # A `Conference` has many `:presentations` (being presented at the
-    # conference) and many `:delegates` (attending the conference), but a
-    # `Delegate` can attend more than one `Conference`. Destroying a
-    # `Conference` destroys the associated `:presentations`, but `:delegates`
-    # remain. The `:finish_date` is validated to make sure it is after the
-    # `:start_date`. A `Conference` also has a `:conference_page_part`, which
-    # is destroyed with the `Conference`.
     class Conference < ApplicationRecord
       include ConferencePagePartable
 

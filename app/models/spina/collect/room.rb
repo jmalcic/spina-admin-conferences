@@ -3,9 +3,6 @@
 module Spina
   module Collect
     # This class represents rooms in an institution.
-    # A `Room` belongs to an `:institution`, and has many `:presentations`.
-    # A `Room` may have many `:presentation_types`, and a
-    # `PresentationType` may have many `:rooms`.
     class Room < ApplicationRecord
       belongs_to :institution, inverse_of: :rooms
       has_many :room_possessions, dependent: :destroy
