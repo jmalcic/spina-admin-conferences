@@ -7,12 +7,10 @@ module Spina
     # A `Room` may have many `:presentation_types`, and a
     # `PresentationType` may have many `:rooms`.
     class Room < ApplicationRecord
-      belongs_to :institution
-      has_and_belongs_to_many :presentation_types,
-                              foreign_key: :spina_collect_room_id,
-                              association_foreign_key:
-                                :spina_collect_presentation_type_id
-      has_many :presentations
+      belongs_to :institution, inverse_of: :rooms
+      has_many :room_possessions, dependent: :destroy
+      has_many :room_uses, through: :room_possessions
+      has_many :presentations, through: :room_uses
 
       validates_presence_of :number, :building
 

@@ -12,6 +12,8 @@ module Spina
       has_many :conferences
       has_many :delegates
       has_many :rooms, dependent: :destroy
+      has_many :room_posessions, through: :rooms
+      has_many :delegates, dependent: :destroy
 
       validates_presence_of :name, :city
     end

@@ -7,14 +7,14 @@ module Spina
     # A presentation type has many presentations, belongs to a
     # conference, and has and belongs to many rooms.
     class PresentationType < ApplicationRecord
-      belongs_to :conference
-      has_many :presentations, dependent: :destroy
-      has_and_belongs_to_many :rooms,
-                              foreign_key: :spina_collect_presentation_type_id,
-                              association_foreign_key: :spina_collect_room_id
+      belongs_to :conference, inverse_of: :presentation_types
+      has_many :room_uses, dependent: :destroy
+      has_many :room_possessions, through: :room_uses
+      has_many :presentations, through: :room_uses
 
       validates_presence_of :name, :minutes
       validates_numericality_of :minutes, greater_than_or_equal_to: 1
+      validates_associated :room_uses
 
       scope :sorted, -> { order :name }
 

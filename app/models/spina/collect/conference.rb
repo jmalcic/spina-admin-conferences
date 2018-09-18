@@ -13,9 +13,11 @@ module Spina
     class Conference < ApplicationRecord
       include ConferencePagePartable
 
-      belongs_to :institution
-      has_many :presentations, dependent: :destroy
-      has_many :rooms, through: :institution
+      before_validation :set_up_room_possessions, on: :create
+
+      belongs_to :institution, inverse_of: :conferences
+      has_many :room_possessions, dependent: :destroy
+      has_many :rooms, through: :room_possessions
       has_many :presentation_types, dependent: :destroy
       has_and_belongs_to_many :delegates,
                               foreign_key: :spina_collect_conference_id,
@@ -94,6 +96,12 @@ module Spina
           assign_attributes(dates: dates.begin...finish_date)
         else
           assign_attributes(dates: finish_date.prev_day...finish_date)
+        end
+      end
+
+      def set_up_room_possessions
+        institution.rooms.each do |room|
+          rooms << room
         end
       end
     end

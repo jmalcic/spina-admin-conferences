@@ -10,9 +10,10 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
 
-      belongs_to :conference
-      belongs_to :presentation_type
-      belongs_to :room
+      belongs_to :room_use
+      has_one :presentation_type, through: :room_use
+      has_one :room_possession, through: :room_use
+      has_one :conference, through: :presentation_type
       has_and_belongs_to_many :presenters,
                               class_name: 'Spina::Collect::Delegate',
                               foreign_key: :spina_collect_presentation_id,
