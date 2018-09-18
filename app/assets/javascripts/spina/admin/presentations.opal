@@ -23,7 +23,10 @@ Document.on 'turbolinks:load' do
     end
   end
   get_on_change(:presentation_type_id, :presentation_types) do |response|
-    replace_options(response, :presentation_room_use_id, :room_uses, :room_name)
+    replace_options(response,
+                    :presentation_room_use_id,
+                    :room_uses,
+                    :room_name)
   end
 end
 
