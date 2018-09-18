@@ -82,7 +82,7 @@ module Spina
         end
 
         def room_uses
-          @room_uses = @presentation_type.room_uses.collect do |room_use|
+          @presentation_type.room_uses.collect do |room_use|
             { id: room_use.id, room_name: room_use.room_name }
           end
         end

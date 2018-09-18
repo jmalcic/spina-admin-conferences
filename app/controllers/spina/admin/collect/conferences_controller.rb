@@ -81,10 +81,6 @@ module Spina
           end
         end
 
-        def rooms
-          @conference.rooms
-        end
-
         def presentation_types
           @conference.presentation_types
         end
