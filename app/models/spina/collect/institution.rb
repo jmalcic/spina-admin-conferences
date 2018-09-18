@@ -10,7 +10,6 @@ module Spina
       belongs_to :logo, class_name: 'Spina::Image', optional: true
 
       has_many :conferences
-      has_many :delegates
       has_many :rooms, dependent: :destroy
       has_many :room_posessions, through: :rooms
       has_many :delegates, dependent: :destroy
