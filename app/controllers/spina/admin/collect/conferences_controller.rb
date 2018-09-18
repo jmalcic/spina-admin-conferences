@@ -16,7 +16,7 @@ module Spina
           @conference = Spina::Collect::Conference.find params[:id]
           respond_to do |format|
             format.json do
-              render json: { dates: dates, rooms: rooms,
+              render json: { dates: dates,
                              presentation_types: presentation_types }
             end
           end
@@ -72,12 +72,7 @@ module Spina
 
         def conference_params
           params.require(:conference).permit(:start_date, :finish_date,
-                                             :institution_id,
-                                             conference_page_part_attributes: [
-                                               conference_page_attributes: [
-                                                 :title
-                                               ]
-                                             ])
+                                             :institution_id)
         end
 
         def dates

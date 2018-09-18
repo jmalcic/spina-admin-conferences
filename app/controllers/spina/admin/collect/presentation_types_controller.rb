@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Collect
       # This class manages presentation types
       class PresentationTypesController < AdminController
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: [:new, :create, :edit, :update]
+        before_action :set_tabs, only: %i[new create edit update]
 
         layout 'spina/admin/collect/conferences'
 
@@ -34,7 +36,8 @@ module Spina
         end
 
         def create
-          @presentation_type = Spina::Collect::PresentationType.new presentation_type_params
+          @presentation_type =
+            Spina::Collect::PresentationType.new presentation_type_params
           add_breadcrumb I18n.t('spina.collect.presentation_types.new')
           if @presentation_type.save
             redirect_to admin_collect_presentation_types_path
@@ -56,24 +59,20 @@ module Spina
         def destroy
           @presentation_type = Spina::Collect::PresentationType.find params[:id]
           @presentation_type.destroy
-          if Spina::Collect::PresentationType.any? || Spina::Collect::Presentation.any? || Spina::Collect::Delegate.any?
-            redirect_to admin_collect_presentation_types_path
-          elsif Spina::Collect::Delegate.any? || Spina::Collect::DietaryRequirement.any? || Spina::Collect::Conference.any?
-            redirect_to admin_collect_delegates_path
-          else
-            redirect_to admin_collect_conferences_path
-          end
+          redirect_to admin_collect_presentation_types_path
         end
 
         private
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.collect.website.conferences'), admin_collect_conferences_path
-          add_breadcrumb I18n.t('spina.collect.website.presentation_types'), admin_collect_presentation_types_path
+          add_breadcrumb I18n.t('spina.collect.website.conferences'),
+                         admin_collect_conferences_path
+          add_breadcrumb I18n.t('spina.collect.website.presentation_types'),
+                         admin_collect_presentation_types_path
         end
 
         def set_tabs
-          @tabs = %w{presentation_type_details presentations rooms}
+          @tabs = %w[presentation_type_details presentations rooms]
         end
 
         def presentation_type_params

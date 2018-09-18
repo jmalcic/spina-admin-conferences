@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Collect
       # This class manages presentations and sets breadcrumbs
       class PresentationsController < AdminController
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: [:new, :create, :edit, :update]
+        before_action :set_tabs, only: %i[new create edit update]
 
         def index
           @presentations = Spina::Collect::Presentation.sorted
@@ -45,23 +47,18 @@ module Spina
         def destroy
           @presentation = Spina::Collect::Presentation.find params[:id]
           @presentation.destroy
-          if Spina::Collect::Presentation.any? || Spina::Collect::PresentationType.any? || Spina::Collect::Delegate.any?
-            redirect_to admin_collect_presentation_types_path
-          elsif Spina::Collect::Delegate.any? || Spina::Collect::DietaryRequirement.any? || Spina::Collect::Conference.any?
-            redirect_to admin_collect_delegates_path
-          else
-            redirect_to admin_collect_conferences_path
-          end
+          redirect_to admin_collect_presentation_types_path
         end
 
         private
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.collect.website.presentations'), admin_collect_presentations_path
+          add_breadcrumb I18n.t('spina.collect.website.presentations'),
+                         admin_collect_presentations_path
         end
 
         def set_tabs
-          @tabs = %w{presentation_details presenters}
+          @tabs = %w[presentation_details presenters]
         end
 
         def presentation_params
