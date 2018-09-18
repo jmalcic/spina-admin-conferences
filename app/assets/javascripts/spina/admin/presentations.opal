@@ -1,50 +1,58 @@
 # frozen_string_literal: true
 
 Document.on :'turbolinks:load' do
-  conference_id_element = Element.find('#presentation_conference')
-  conference_id_element.on :change do
-    HTTP.get(
-      "/admin/collect/conferences/#{conference_id_element.value}"
-    ) do |response|
-      replace_options(:presentation_date,
-                      response,
-                      :dates,
-                      %i[label],
-                      :date)
-      replace_options(:presentation_presentation_type,
-                      response,
-                      :presentation_types,
-                      %i[name])
+  get_on_change(:conference_id, :conferences) do |conferences_response|
+    replace_options(conferences_response,
+                    :presentation_type_id,
+                    :presentation_types,
+                    :name,
+                    :id)
+    replace_options(conferences_response,
+                    :presentation_date,
+                    :dates,
+                    :label,
+                    :date)
+    get_json(:presentation_type_id,
+             :presentation_types) do |presentation_types_response|
+      replace_options(
+        presentation_types_response,
+        :presentation_room_use_id,
+        :room_uses,
+        :room_name
+      )
     end
   end
-  presentation_type_id_element = Element.find('#presentation_presentation_type')
-  presentation_type_id_element.on :change do
-    HTTP.get(
-      "/admin/collect/presentation_types/#{presentation_type_id_element.value}"
-    ) do |response|
-      replace_options(:presentation_room_use_id,
-                      response,
-                      :room_uses,
-                      %i[room_name])
-    end
+  get_on_change(:presentation_type_id, :presentation_types) do |response|
+    replace_options(response, :presentation_room_use_id, :room_uses, :room_name)
   end
 end
 
-def replace_options(element_id, response, model_attribute, text_keys,
+def get_on_change(attribute, controller)
+  Element["##{attribute}"].on :change do
+    get_json(attribute, controller) { |response| yield(response) }
+  end
+end
+
+def get_json(attribute, controller)
+  HTTP.get(
+    "/admin/collect/#{controller}/#{Element["##{attribute}"].value}"
+  ) { |response| yield(response) }
+end
+
+def replace_options(response, element_id, collection, text_key,
                     value_key = :id)
-  element = Element.find("##{element_id}")
-  element.children(nil).remove
-  options(response, model_attribute, text_keys, value_key).each do |option|
-    element.append option
+  Element["##{element_id}"].children(nil).remove
+  options_for_select(response.json[collection], text_key,
+                     value_key).each do |option|
+    Element["##{element_id}"].append option
   end
 end
 
-def options(response, model_attribute, text_keys, value_key)
+def options_for_select(collection, text_key, value_key)
   options = []
-  response.json[model_attribute].each do |item|
+  collection.each do |item|
     option_element = Element.new :option
-    text_values = text_keys.collect { |key| item[key] }
-    option_element.text text_values.join(' ')
+    option_element.text item[text_key]
     option_element.attr :value, item[value_key]
     options << option_element
   end
