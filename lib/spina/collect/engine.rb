@@ -9,8 +9,8 @@ require 'uglifier'
 
 module Spina
   module Collect
-    class Engine < ::Rails::Engine
-      isolate_namespace Collect
+    class Engine < ::Rails::Engine #:nodoc:
+      isolate_namespace Spina::Collect
 
       config.before_initialize do
         ::Spina::Plugin.register do |plugin|
@@ -20,7 +20,7 @@ module Spina
       end
 
       config.to_prepare do
-        # Load helpers from main application
+        # Load helpers from engine
         Spina::ApplicationController.helper 'spina/conference_pages'
       end
     end
