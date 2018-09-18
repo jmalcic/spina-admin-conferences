@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This class validates the date of an object to make sure it occurs during
 # the associated conference.
 class ConferenceDateValidator < ActiveModel::EachValidator

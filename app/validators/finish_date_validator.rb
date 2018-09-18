@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This class validates the finish date of an object to make sure it occurs
 # after the start date.
 class FinishDateValidator < ActiveModel::EachValidator

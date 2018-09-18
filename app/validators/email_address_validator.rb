@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This class validates the format of the email address of an object.
 class EmailAddressValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
