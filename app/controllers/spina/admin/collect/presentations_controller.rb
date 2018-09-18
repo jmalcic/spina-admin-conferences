@@ -66,10 +66,7 @@ module Spina
 
         def presentation_params
           params.require(:presentation).permit(:title, :date, :start_time,
-                                               :abstract, :type,
-                                               :conference_id,
-                                               :presentation_type_id,
-                                               :room_id,
+                                               :abstract, :room_use_id,
                                                presenter_ids: [])
         end
       end
