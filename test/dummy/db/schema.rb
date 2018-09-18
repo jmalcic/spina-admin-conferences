@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_14_121905) do
+ActiveRecord::Schema.define(version: 2018_09_16_135434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,14 +66,13 @@ ActiveRecord::Schema.define(version: 2018_09_14_121905) do
   end
 
   create_table "spina_collect_conference_page_parts", force: :cascade do |t|
-    t.string "title"
-    t.string "name"
+    t.bigint "conference_page_id"
+    t.string "conference_page_partable_type"
+    t.bigint "conference_page_partable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "conference_page_id"
-    t.integer "conference_page_partable_id"
-    t.string "conference_page_partable_type"
     t.index ["conference_page_id"], name: "index_spina_collect_conference_page_parts_on_conference_page_id"
+    t.index ["conference_page_partable_type", "conference_page_partable_id"], name: "index_spina_collect_parts_on_partable_type_and_partable_id"
   end
 
   create_table "spina_collect_conferences", force: :cascade do |t|
@@ -134,24 +133,29 @@ ActiveRecord::Schema.define(version: 2018_09_14_121905) do
     t.index ["conference_id"], name: "index_spina_collect_presentation_types_on_conference_id"
   end
 
-  create_table "spina_collect_presentation_types_rooms", id: false, force: :cascade do |t|
-    t.bigint "spina_collect_presentation_type_id", null: false
-    t.bigint "spina_collect_room_id", null: false
-  end
-
   create_table "spina_collect_presentations", force: :cascade do |t|
     t.string "title"
     t.date "date"
     t.time "start_time"
     t.text "abstract"
-    t.bigint "conference_id"
-    t.bigint "presentation_type_id"
-    t.bigint "room_id"
+    t.bigint "room_use_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["conference_id"], name: "index_spina_collect_presentations_on_conference_id"
-    t.index ["presentation_type_id"], name: "index_spina_collect_presentations_on_presentation_type_id"
-    t.index ["room_id"], name: "index_spina_collect_presentations_on_room_id"
+    t.index ["room_use_id"], name: "index_spina_collect_presentations_on_room_use_id"
+  end
+
+  create_table "spina_collect_room_possessions", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "conference_id"
+    t.index ["conference_id"], name: "index_spina_collect_room_possessions_on_conference_id"
+    t.index ["room_id"], name: "index_spina_collect_room_possessions_on_room_id"
+  end
+
+  create_table "spina_collect_room_uses", force: :cascade do |t|
+    t.bigint "room_possession_id"
+    t.bigint "presentation_type_id"
+    t.index ["presentation_type_id"], name: "index_spina_collect_room_uses_on_presentation_type_id"
+    t.index ["room_possession_id"], name: "index_spina_collect_room_uses_on_room_possession_id"
   end
 
   create_table "spina_collect_rooms", force: :cascade do |t|
@@ -380,5 +384,15 @@ ActiveRecord::Schema.define(version: 2018_09_14_121905) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "spina_collect_conference_page_parts", "spina_pages", column: "conference_page_id", on_delete: :cascade
+  add_foreign_key "spina_collect_conferences", "spina_collect_institutions", column: "institution_id"
+  add_foreign_key "spina_collect_delegates", "spina_collect_institutions", column: "institution_id"
   add_foreign_key "spina_collect_institutions", "spina_images", column: "logo_id"
+  add_foreign_key "spina_collect_presentation_types", "spina_collect_conferences", column: "conference_id"
+  add_foreign_key "spina_collect_presentations", "spina_collect_room_uses", column: "room_use_id"
+  add_foreign_key "spina_collect_room_possessions", "spina_collect_conferences", column: "conference_id"
+  add_foreign_key "spina_collect_room_possessions", "spina_collect_rooms", column: "room_id"
+  add_foreign_key "spina_collect_room_uses", "spina_collect_presentation_types", column: "presentation_type_id"
+  add_foreign_key "spina_collect_room_uses", "spina_collect_room_possessions", column: "room_possession_id"
+  add_foreign_key "spina_collect_rooms", "spina_collect_institutions", column: "institution_id"
 end
