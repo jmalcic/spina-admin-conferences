@@ -4,7 +4,7 @@ module Spina
   module Collect
     # This class inherits from `Spina::Page` and differs in having a
     # `:conference_page_part`.
-    class ConferencePage < Spina::Page
+    class ConferencePage < Page
       after_create do
         unless resource
           navigations << Spina::Navigation.where(auto_add_pages: true)
