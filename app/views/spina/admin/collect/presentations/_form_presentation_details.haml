@@ -5,23 +5,39 @@
         .horizontal-form-label
           = Spina::Collect::Presentation.human_attribute_name :conference
         .horizontal-form-content
-          .select-dropdown
-            = f.collection_select :conference_id, Spina::Collect::Conference.order(:dates).reverse_order, :id, :institution_and_year, required: true
-
+          - if Spina::Collect::Conference.any?
+            .select-dropdown
+              = f.collection_select :conference, Spina::Collect::Conference.sorted, :id, :institution_and_year, required: true
+          - else
+            = t('spina.collect.conferences.no_conferences')
 
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Collect::Presentation.human_attribute_name :presentation_type
         .horizontal-form-content
           - if @presentation.conference.blank?
-            - if Spina::Collect::Conference.any?
+            - if Spina::Collect::PresentationType.any?
               .select-dropdown
-                = f.collection_select :presentation_type_id, Spina::Collect::Conference.first.presentation_types, :id, :name, required: true
+                = f.collection_select :presentation_type, Spina::Collect::Conference.sorted.first.presentation_types, :id, :name, required: true
             - else
-              = f.number_field :presentation_type_id, placeholder: Spina::Collect::Presentation.human_attribute_name(:presentation_type), required: true, min: 0
+              = t('spina.collect.presentation_types.no_presentation_types')
           - else
             .select-dropdown
-              = f.collection_select :presentation_type_id, @presentation.conference.presentation_types, :id, :name, required: true
+              = f.collection_select :presentation_type, @presentation.conference.presentation_types, :id, :name, required: true
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Collect::Presentation.human_attribute_name :room_use
+        .horizontal-form-content
+          - if @presentation.conference.blank?
+            - if Spina::Collect::RoomUse.any?
+              .select-dropdown
+                = f.collection_select :room_use_id, Spina::Collect::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, required: true
+            - else
+              = t('spina.collect.room_uses.no_room_uses')
+          - else
+            .select-dropdown
+              = f.collection_select :room_use_id, @presentation.conference.presentation_types.first.room_uses, :id, :room_name, required: true
 
       .horizontal-form-group
         .horizontal-form-label
@@ -31,26 +47,12 @@
 
       .horizontal-form-group
         .horizontal-form-label
-          = Spina::Collect::Presentation.human_attribute_name :room
-        .horizontal-form-content
-          - if @presentation.conference.blank?
-            - if Spina::Collect::Conference.any?
-              .select-dropdown
-                = f.collection_select :room_id, Spina::Collect::Conference.first.rooms, :id, :building_and_number, required: true
-            - else
-              = f.number_field :room_id, placeholder: Spina::Collect::Presentation.human_attribute_name(:room), required: true, min: 0
-          - else
-            .select-dropdown
-              = f.collection_select :room_id, @presentation.conference.rooms, :id, :building_and_number, required: true
-
-      .horizontal-form-group
-        .horizontal-form-label
           = Spina::Collect::Presentation.human_attribute_name :date
         .horizontal-form-content
           - if @presentation.conference.blank?
             - if Spina::Collect::Conference.any?
               .select-dropdown
-                = f.select :date, Spina::Collect::Conference.order(:dates).reverse_order.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
+                = f.select :date, Spina::Collect::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
             - else
               = f.date_field :date, value: (@presentation.date.strftime("%Y-%m-%d") unless @presentation.date.blank?), class: 'datepicker', placeholder: Spina::Collect::Presentation.human_attribute_name(:date), required: true
           - else

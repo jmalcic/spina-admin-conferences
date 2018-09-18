@@ -8,13 +8,13 @@
           %th
 
       %tbody
-        - if @presentation_type.rooms.any?
-          - @presentation_type.rooms.each do |room|
+        - if @presentation_type.room_possessions.any?
+          - @presentation_type.room_possessions.each do |room_possession|
             %tr
-              %td= room.building
-              %td= link_to room.number, spina.edit_admin_collect_room_path(room)
+              %td= room_possession.room.building
+              %td= link_to room_possession.room.number, spina.edit_admin_collect_room_path(room_possession.room)
               %td.align-right
-                = link_to spina.edit_admin_collect_room_path(room), class: 'button button-small button-link' do
+                = link_to spina.edit_admin_collect_room_path(room_possession.room), class: 'button button-small button-link' do
                   = icon('pencil-outline')
                   = t('spina.edit')
 
