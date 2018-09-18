@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Document.on :'turbolinks:load' do
+Document.on 'turbolinks:load' do
   get_on_change(:conference_id, :conferences) do |conferences_response|
     replace_options(conferences_response,
                     :presentation_type_id,
