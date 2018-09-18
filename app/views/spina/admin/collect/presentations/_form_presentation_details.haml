@@ -5,11 +5,15 @@
         .horizontal-form-label
           = Spina::Collect::Presentation.human_attribute_name :conference
         .horizontal-form-content
-          - if Spina::Collect::Conference.any?
-            .select-dropdown
-              = f.collection_select :conference, Spina::Collect::Conference.sorted, :id, :institution_and_year, required: true
+          - if @presentation.conference.blank?
+            - if Spina::Collect::Conference.any?
+              .select-dropdown
+                = select_tag :conference_id, options_from_collection_for_select(Spina::Collect::Conference.sorted, :id, :name), required: true
+            - else
+              = t('spina.collect.conferences.no_conferences')
           - else
-            = t('spina.collect.conferences.no_conferences')
+            .select-dropdown
+              = select_tag :conference_id, options_from_collection_for_select(Spina::Collect::Conference.sorted, :id, :name, @presentation.conference.id), required: true
 
       .horizontal-form-group
         .horizontal-form-label
@@ -18,12 +22,12 @@
           - if @presentation.conference.blank?
             - if Spina::Collect::PresentationType.any?
               .select-dropdown
-                = f.collection_select :presentation_type, Spina::Collect::Conference.sorted.first.presentation_types, :id, :name, required: true
+                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Collect::PresentationType.all, :id, :name), required: true
             - else
               = t('spina.collect.presentation_types.no_presentation_types')
           - else
             .select-dropdown
-              = f.collection_select :presentation_type, @presentation.conference.presentation_types, :id, :name, required: true
+              = select_tag :presentation_type_id, options_from_collection_for_select(@presentation.conference.presentation_types, :id, :name, @presentation.presentation_type.id), required: true
 
       .horizontal-form-group
         .horizontal-form-label
@@ -38,12 +42,6 @@
           - else
             .select-dropdown
               = f.collection_select :room_use_id, @presentation.conference.presentation_types.first.room_uses, :id, :room_name, required: true
-
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Collect::Presentation.human_attribute_name :title
-        .horizontal-form-content
-          = f.text_field :title, placeholder: Spina::Collect::Presentation.human_attribute_name(:title), required: true
 
       .horizontal-form-group
         .horizontal-form-label
@@ -65,6 +63,13 @@
           %small= Spina::Collect::Presentation.human_attribute_name :start_time_description
         .horizontal-form-content
           = f.time_field :start_time, value: (@presentation.start_time.strftime("%H:%M") unless @presentation.start_time.blank?), placeholder: Spina::Collect::Presentation.human_attribute_name(:start_time), required: true
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Collect::Presentation.human_attribute_name :title
+        .horizontal-form-content
+          = f.text_field :title, placeholder: Spina::Collect::Presentation.human_attribute_name(:title), required: true
+
 
       .horizontal-form-group
         .horizontal-form-label
