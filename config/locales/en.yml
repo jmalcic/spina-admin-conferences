@@ -56,6 +56,14 @@ en:
         delegate_details: Delegate details
         conferences: Conferences
         presentations: Presentations
+      presenters:
+        new: New presenter
+        save: Save presenter
+        delete_confirmation: "Are you sure you want to delete the presenter <strong>%{presenter}</strong>?"
+        no_presenters: There are no presenters
+        presenter_details: Presenter details
+        conferences: Conferences
+        presentations: Presentations
       presentations:
         new: New presentation
         save: Save presentation
@@ -103,6 +111,8 @@ en:
         no_rooms: There are no rooms
         room_details: Room details
         presentations: Presentations
+      room_uses:
+        no_room_uses: There are no rooms in use
   activerecord:
     attributes:
       spina/collect/conference:
@@ -128,17 +138,17 @@ en:
         start_time: Start time
         start_time_description: Enter in 24-hour format using a colon as the divider
         abstract: Abstract
-        type: Type
+        room_type: Type
         presenters: Presenters
-        presenters_description: Select multiple presenters by holding <kbd>⌘</kbd> or <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> or <kbd>⇧</kbd> on Windows and Linux
+        presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
-        room: Room
+        room_use: Room used
       spina/collect/presentation_type:
         name: Name
         duration: Duration
         duration_description: Enter in minutes
-        rooms: Rooms
-        rooms_description: Select multiple rooms by holding <kbd>⌘</kbd> or <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> or <kbd>⇧</kbd> on Windows and Linux
+        room_uses: Rooms used
+        room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
       spina/collect/dietary_requirement:
         name: Name
       spina/collect/institution:
@@ -150,7 +160,7 @@ en:
         number: Number
   errors:
     messages:
-      outside_conference: is not during the conference
+      outside_conference: is not during the selected conference
       invalid_email_address: is not an email address
       before_start_date: is not after start date
       invalid_http_https_url: is not a valid HTTP or HTTPS URL
