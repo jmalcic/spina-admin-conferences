@@ -17,9 +17,8 @@ module Spina
         def show
           @presentation_type = Spina::Collect::PresentationType.find params[:id]
           respond_to do |format|
-            format.json do
-              render json: { room_uses: room_uses }
-            end
+            format.html
+            format.xml { render layout: false }
           end
         end
 

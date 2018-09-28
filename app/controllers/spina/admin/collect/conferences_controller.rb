@@ -14,12 +14,7 @@ module Spina
 
         def show
           @conference = Spina::Collect::Conference.find params[:id]
-          respond_to do |format|
-            format.json do
-              render json: { dates: dates,
-                             presentation_types: presentation_types }
-            end
-          end
+          respond_to { |format| format.xml { render layout: false } }
         end
 
         def new
