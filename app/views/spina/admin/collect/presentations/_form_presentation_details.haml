@@ -1,6 +1,6 @@
 #presentation_details.tab-content.active
   .well
-    .horizontal-form
+    .horizontal-form{ data: { controller: 'presentation-type-ids presentation-room-use-ids presentation-dates', 'presentation-type-ids': { url: admin_collect_conference_presentation_types_path('%s') }, 'presentation-room-use-ids': { url: admin_collect_presentation_type_room_uses_path('%s') }, 'presentation-dates': { url: admin_collect_conference_path('%s') } } }
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Collect::Presentation.human_attribute_name :conference
@@ -8,12 +8,12 @@
           - if @presentation.conference.blank?
             - if Spina::Collect::Conference.any?
               .select-dropdown
-                = select_tag :conference_id, options_from_collection_for_select(Spina::Collect::Conference.sorted, :id, :name), required: true
+                = select_tag :conference_id, options_from_collection_for_select(Spina::Collect::Conference.sorted, :id, :name), data: { action: 'presentation-type-ids#updateOptions presentation-dates#updateOptions presentation-room-use-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
             - else
               = t('spina.collect.conferences.no_conferences')
           - else
             .select-dropdown
-              = select_tag :conference_id, options_from_collection_for_select(Spina::Collect::Conference.sorted, :id, :name, @presentation.conference.id), required: true
+              = select_tag :conference_id, options_from_collection_for_select(Spina::Collect::Conference.sorted, :id, :name, @presentation.conference.id), data: { action: 'presentation-type-ids#updateOptions presentation-dates#updateOptions presentation-room-use-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
 
       .horizontal-form-group
         .horizontal-form-label
@@ -22,12 +22,12 @@
           - if @presentation.conference.blank?
             - if Spina::Collect::PresentationType.any?
               .select-dropdown
-                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Collect::PresentationType.all, :id, :name), required: true
+                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Collect::PresentationType.all, :id, :name), data: {action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions'}
             - else
               = t('spina.collect.presentation_types.no_presentation_types')
           - else
             .select-dropdown
-              = select_tag :presentation_type_id, options_from_collection_for_select(@presentation.conference.presentation_types, :id, :name, @presentation.presentation_type.id), required: true
+              = select_tag :presentation_type_id, options_from_collection_for_select(@presentation.conference.presentation_types, :id, :name, @presentation.presentation_type.id), data: { action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions' }
 
       .horizontal-form-group
         .horizontal-form-label
@@ -36,12 +36,12 @@
           - if @presentation.conference.blank?
             - if Spina::Collect::RoomUse.any?
               .select-dropdown
-                = f.collection_select :room_use_id, Spina::Collect::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, required: true
+                = f.collection_select :room_use_id, Spina::Collect::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
             - else
               = t('spina.collect.room_uses.no_room_uses')
           - else
             .select-dropdown
-              = f.collection_select :room_use_id, @presentation.conference.presentation_types.first.room_uses, :id, :room_name, required: true
+              = f.collection_select :room_use_id, @presentation.conference.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
 
       .horizontal-form-group
         .horizontal-form-label
@@ -50,12 +50,12 @@
           - if @presentation.conference.blank?
             - if Spina::Collect::Conference.any?
               .select-dropdown
-                = f.select :date, Spina::Collect::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
+                = f.select :date, Spina::Collect::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, {}, { data: { target: 'presentation-dates.outputOptions' } }
             - else
-              = f.date_field :date, value: (@presentation.date.strftime("%Y-%m-%d") unless @presentation.date.blank?), class: 'datepicker', placeholder: Spina::Collect::Presentation.human_attribute_name(:date), required: true
+              = t('spina.collect.conferences.no_conferences')
           - else
             .select-dropdown
-              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, required: true
+              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, {}, { data: { target: 'presentation-dates.outputOptions' } }
 
       .horizontal-form-group
         .horizontal-form-label
@@ -83,7 +83,7 @@
           %small= (Spina::Collect::Presentation.human_attribute_name :presenters_description).try(:html_safe)
         .horizontal-form-content
           .multiple.select-dropdown
-            = f.collection_select :presenter_ids, Spina::Collect::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, { }, multiple: true, required: true
+            = f.collection_select :presenter_ids, Spina::Collect::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, { multiple: true, required: true }
 
   - unless @presentation.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_collect_presentation_path(@presentation), method: :delete, data: { confirm: t('spina.collect.presentations.delete_confirmation', presentation: @presentation.title) }, class: 'button button-link button-danger'
