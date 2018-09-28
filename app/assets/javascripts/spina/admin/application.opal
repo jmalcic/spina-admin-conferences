@@ -53,8 +53,7 @@ require 'spina/admin/scaffold'
 
 require 'opal'
 require 'rails-ujs'
-require 'opal-jquery'
 
 # Collect
 
-require_relative 'presentations'
+require_tree '.'
