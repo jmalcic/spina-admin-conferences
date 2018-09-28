@@ -4,7 +4,7 @@ module Spina
       # This class manages dietary requirements
       class DietaryRequirementsController < AdminController
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: [:new, :create, :edit, :update]
+        before_action :set_tabs, only: %i[new create edit update]
 
         layout 'spina/admin/collect/delegates'
 
