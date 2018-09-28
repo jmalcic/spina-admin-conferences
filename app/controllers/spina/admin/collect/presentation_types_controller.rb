@@ -11,11 +11,13 @@ module Spina
         layout 'spina/admin/collect/conferences'
 
         def index
-          @presentation_types = Spina::Collect::PresentationType.sorted
-        end
-
-        def show
-          @presentation_type = Spina::Collect::PresentationType.find params[:id]
+          @presentation_types =
+            if params[:conference_id]
+              Spina::Collect::Conference.find(params[:conference_id])
+                                        .presentation_types.sorted
+            else
+              Spina::Collect::PresentationType.sorted
+            end
           respond_to do |format|
             format.html
             format.xml { render layout: false }

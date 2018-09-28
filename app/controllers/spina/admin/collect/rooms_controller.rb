@@ -9,7 +9,16 @@ module Spina
         layout 'spina/admin/collect/institutions'
 
         def index
-          @rooms = Spina::Collect::Room.all
+          @rooms =
+            if params[:institution_id]
+              Spina::Collect::Institution.find(params[:institution_id])
+                .rooms
+            elsif params[:presentation_type_id]
+              Spina::Collect::PresentationType.find(params[:presentation_type_id])
+                .rooms
+            else
+              Spina::Collect::Room.all
+            end
         end
 
         def new

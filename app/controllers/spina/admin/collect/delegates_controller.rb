@@ -7,7 +7,13 @@ module Spina
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
-          @delegates = Spina::Collect::Delegate.sorted
+          @delegates =
+            if params[:institution_id]
+              Spina::Collect::Institution.find(params[:institution_id])
+                .delegates.sorted
+            else
+              Spina::Collect::Delegate.sorted
+            end
         end
 
         def new
