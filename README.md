@@ -1,6 +1,8 @@
 # Conferences
 
-*Collect* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
+:warning: this plugin currently has no tests
+
+*Conferences* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
 See the wiki for details of the types of data supported.
 The plugin also includes three extra page parts for Spina pages: `Spina::Date`, `Spina::Url`, and `Spina::EmailAddress`.
