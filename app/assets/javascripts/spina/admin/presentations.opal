@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_tree './controllers'
-
 application = Stimulus::Application.new
 [PresentationTypeIdsController,
  PresentationDatesController,
