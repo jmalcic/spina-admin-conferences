@@ -1,7 +1,6 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
-$:.push File.expand_path('lib', __dir__)
+$LOAD_PATH.push File.expand_path('lib', __dir__)
 
 # Maintain your gem's version:
 require 'spina/conferences/version'
@@ -14,7 +13,8 @@ Gem::Specification.new do |s|
   s.email       = ['j.malcic@me.com']
   s.homepage    = 'https://jmalcic.github.io/projects/spina-conferences'
   s.summary     = 'Conference management plugin for Spina.'
-  s.description = 'Keep track of conference attendees and presentations with this plugin.'
+  s.description = 'Keep track of conference attendees and presentations with'\
+                  'this plugin.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE',
