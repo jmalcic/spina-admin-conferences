@@ -75,14 +75,14 @@ Then follow the instructions below.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'conferences'
+gem 'spina-conferences', github: 'jmalcic/spina-conferences'
 ```
 
 You'll then need to install and run the migrations from Conferences (the Spina install generator does this for Spina).
 
 First install the migrations and then migrate the database:
 ```bash
-$ rake conferences_engine:install:migrations
+$ rake spina_conferences:install:migrations
 $ rake db:migrate
 ```
 
