@@ -34,7 +34,7 @@ After installing the plugin, you just need to start your server in the usual way
 $ rails s
 ```
 
-Make sure you choose 'Conference' as the theme.
+Make sure you choose 'conference' as the theme.
 You can choose the theme from the admin interface by going to **Preferences** &rarr; **Styling**.
 
 ## Installation
