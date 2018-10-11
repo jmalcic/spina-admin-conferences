@@ -5,10 +5,6 @@
   theme.title = 'Conference theme'
 
   theme.page_parts = [{
-    name: 'alert',
-    title: 'Alert',
-    partable_type: 'Spina::Line'
-  }, {
     name: 'text',
     title: 'Text',
     partable_type: 'Spina::Text'
@@ -32,6 +28,32 @@
     name: 'contact',
     title: 'Contact',
     partable_type: 'Spina::Text'
+  }, {
+    name: 'socials',
+    title: 'Socials',
+    partable_type: 'Spina::Structure'
+  }, {
+    name: 'meetings',
+    title: 'Meetings',
+    partable_type: 'Spina::Structure'
+  }, {
+    name: 'submission_email_address',
+    title: 'Submission email address',
+    partable_type: 'Spina::Conferences::EmailAddress'
+  }, {
+    name: 'submission_date',
+    title: 'Submission date',
+    partable_type: 'Spina::Conferences::Date'
+  }, {
+    name: 'submission_text',
+    title: 'Submission text',
+    partable_type: 'Spina::Line'
+  }]
+
+  theme.layout_parts = [{
+    name: 'current_conference_alert',
+    title: 'Alert',
+    partable_type: 'Spina::Line'
   }]
 
   theme.structures = [{
@@ -51,29 +73,67 @@
     }, {
       name: 'website',
       title: 'Website',
-      partable_type: 'Spina::Url'
+      partable_type: 'Spina::Conferences::Url'
     }, {
       name: 'email_address',
       title: 'Email address',
-      partable_type: 'Spina::EmailAddress'
+      partable_type: 'Spina::Conferences::EmailAddress'
     }]
   }, {
     name: 'minutes',
     structure_parts: [{
       name: 'date',
       title: 'Date',
-      partable_type: 'Spina::Date'
+      partable_type: 'Spina::Conferences::Date'
     }, {
       name: 'attachment',
       title: 'Attachment',
       partable_type: 'Spina::Attachment'
+    }]
+  }, {
+    name: 'socials',
+    structure_parts: [{
+      name: 'name',
+      title: 'Name',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'start_time',
+      title: 'Time',
+      partable_type: 'Spina::Conferences::Time'
+    }, {
+      name: 'location',
+      title: 'Location',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'description',
+      title: 'Description',
+      partable_type: 'Spina::Text'
+    }]
+  }, {
+    name: 'meetings',
+    structure_parts: [{
+      name: 'name',
+      title: 'Name',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'start_time',
+      title: 'Time',
+      partable_type: 'Spina::Conferences::Time'
+    }, {
+      name: 'location',
+      title: 'Location',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'description',
+      title: 'Description',
+      partable_type: 'Spina::Text'
     }]
   }]
 
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: %w[text alert gallery]
+    page_parts: %w[text current_conference_alert gallery]
   }, {
     name: 'information',
     title: 'Information',
@@ -88,7 +148,8 @@
     name: 'conference',
     title: 'Conference',
     description: 'Contains information and content for a conference',
-    page_parts: %w[text]
+    page_parts: %w[text submission_email_address submission_date submission_text
+                   gallery socials meetings]
   }, {
     name: 'presentation',
     title: 'Presentation',
@@ -127,5 +188,5 @@
     label: 'Footer'
   }]
 
-  theme.plugins = ['collect']
+  theme.plugins = ['conferences']
 end
