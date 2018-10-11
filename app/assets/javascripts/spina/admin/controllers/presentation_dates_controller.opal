@@ -9,8 +9,8 @@ class PresentationDatesController < ListItemsController
     options = conference.xpath('conference/dates/time').collect do |element|
       DOM { option element.inner_html, value: element[:datetime] }
     end
-    output_target.xpath('option').each_with_index do |option, index|
-      option.replace options[index]
-    end
+    output_target.xpath('option').each(&:remove)
+    options.each { |option| output_target << option }
+    output_target.trigger :change
   end
 end

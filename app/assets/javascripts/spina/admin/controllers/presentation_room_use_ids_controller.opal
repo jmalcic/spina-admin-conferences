@@ -9,12 +9,8 @@ class PresentationRoomUseIdsController < ListItemsController
     options = room_uses.xpath('roomuses/roomuse').collect do |element|
       DOM { option element.at_xpath('room').inner_html, value: element[:id].split('_')[-1] }
     end
-    options.each_with_index do |option, index|
-      if output_target.xpath('option')[index]
-        output_target.xpath('option')[index].replace option
-      else
-        output_target << option
-      end
-    end
+    output_target.xpath('option').each(&:remove)
+    options.each { |option| output_target << option }
+    output_target.trigger :change
   end
 end
