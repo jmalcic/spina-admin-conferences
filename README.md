@@ -5,8 +5,8 @@
 *Conferences* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
 See the wiki for details of the types of data supported.
-The plugin also includes three extra page parts for Spina pages: `Spina::Date`, `Spina::Url`, and `Spina::EmailAddress`.
-`Spina::Url` and `Spina::EmailAddress` both have validators for the format of HTTP(S) URLs (using `URI`) and email addresses respectively.
+The plugin also includes four extra page parts for Spina pages: `Spina::Conferences::Date`, `Spina::Conferences::Url`, `Spina::Conferences::EmailAddress`, and `Spina::Conferences::Time`.
+`Spina::Conferences::Url` and `Spina::Conferences::EmailAddress` both have validators for the format of HTTP(S) URLs (using `URI`) and email addresses respectively.
 
 ## Usage
 
