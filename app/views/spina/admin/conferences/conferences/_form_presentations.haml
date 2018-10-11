@@ -1,0 +1,27 @@
+#presentations.tab-content.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Conferences::Presentation.human_attribute_name :title
+          %th= Spina::Conferences::Presentation.human_attribute_name :presenters
+          %th
+
+      %tbody
+        - if @conference.presentations.any?
+          - @conference.presentations.each do |presentation|
+            %tr
+              %td= link_to presentation.title, spina.edit_admin_conferences_presentation_path(presentation)
+              %td
+                - presentation.presenters.each do |presenter|
+                  = link_to presenter.full_name, spina.edit_admin_conferences_delegate_path(presenter)
+                  %br
+              %td.align-right
+                = link_to spina.edit_admin_conferences_presentation_path(presentation), class: 'button button-small button-link' do
+                  = icon('pencil-outline')
+                  = t('spina.edit')
+
+        - else
+          %tr
+            %td.align-center{ colspan: 100 }
+              %em= t('spina.conferences.presentations.no_presentations')

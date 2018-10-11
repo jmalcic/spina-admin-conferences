@@ -1,0 +1,89 @@
+#presentation_details.tab-content.active
+  .well
+    .horizontal-form{ data: { controller: 'presentation-type-ids presentation-room-use-ids presentation-dates', 'presentation-type-ids': { url: admin_conferences_conference_presentation_types_path('%s') }, 'presentation-room-use-ids': { url: admin_conferences_presentation_type_room_uses_path('%s') }, 'presentation-dates': { url: admin_conferences_conference_path('%s') } } }
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :conference
+        .horizontal-form-content
+          - if @presentation.conference.blank?
+            - if Spina::Conferences::Conference.any?
+              .select-dropdown
+                = select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name), data: { action: 'presentation-dates#updateOptions presentation-type-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
+            - else
+              = t('spina.conferences.conferences.no_conferences')
+          - else
+            .select-dropdown
+              = select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name, @presentation.conference.id), data: { action: 'presentation-dates#updateOptions presentation-type-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :presentation_type
+        .horizontal-form-content
+          - if @presentation.conference.blank?
+            - if Spina::Conferences::PresentationType.any?
+              .select-dropdown
+                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::PresentationType.all, :id, :name), data: {action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions'}
+            - else
+              = t('spina.conferences.presentation_types.no_presentation_types')
+          - else
+            .select-dropdown
+              = select_tag :presentation_type_id, options_from_collection_for_select(@presentation.conference.presentation_types, :id, :name, @presentation.presentation_type.id), data: { action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions' }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :room_use
+        .horizontal-form-content
+          - if @presentation.conference.blank?
+            - if Spina::Conferences::RoomUse.any?
+              .select-dropdown
+                = f.collection_select :room_use_id, Spina::Conferences::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
+            - else
+              = t('spina.conferences.room_uses.no_room_uses')
+          - else
+            .select-dropdown
+              = f.collection_select :room_use_id, @presentation.conference.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :date
+        .horizontal-form-content
+          - if @presentation.conference.blank?
+            - if Spina::Conferences::Conference.any?
+              .select-dropdown
+                = f.select :date, Spina::Conferences::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, {}, { data: { target: 'presentation-dates.outputOptions' } }
+            - else
+              = t('spina.conferences.conferences.no_conferences')
+          - else
+            .select-dropdown
+              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, {}, { data: { target: 'presentation-dates.outputOptions' } }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :start_time
+          %small= Spina::Conferences::Presentation.human_attribute_name :start_time_description
+        .horizontal-form-content
+          = f.time_field :start_time, value: (@presentation.start_time.strftime("%H:%M") unless @presentation.start_time.blank?), placeholder: Spina::Conferences::Presentation.human_attribute_name(:start_time), required: true
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :title
+        .horizontal-form-content
+          = f.text_field :title, placeholder: Spina::Conferences::Presentation.human_attribute_name(:title), required: true
+
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :abstract
+        .horizontal-form-content
+          = render 'spina/admin/shared/rich_text_field', f: f, field: :abstract
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Presentation.human_attribute_name :presenters
+          %small= (Spina::Conferences::Presentation.human_attribute_name :presenters_description).try(:html_safe)
+        .horizontal-form-content
+          .multiple.select-dropdown
+            = f.collection_select :presenter_ids, Spina::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, { multiple: true, required: true }
+
+  - unless @presentation.new_record?
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, data: { confirm: t('spina.conferences.presentations.delete_confirmation', presentation: @presentation.title) }, class: 'button button-link button-danger'

@@ -1,4 +1,4 @@
-# Collect
+# Conferences
 
 *Collect* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
@@ -71,20 +71,20 @@ Then follow the instructions below.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'collect'
+gem 'conferences'
 ```
 
-You'll then need to install and run the migrations from Collect (the Spina install generator does this for Spina).
+You'll then need to install and run the migrations from Conferences (the Spina install generator does this for Spina).
 
 First install the migrations and then migrate the database:
 ```bash
-$ rake collect_engine:install:migrations
+$ rake conferences_engine:install:migrations
 $ rake db:migrate
 ```
 
 ### Configuring the main Rails app
 
-Collect uses Opal, which makes use of ES6 syntax, 
+Conferences uses Opal, which makes use of ES6 syntax, 
 so if you're using Uglifier, `:harmony` must be enabled when running the app in production.
 
 ```ruby

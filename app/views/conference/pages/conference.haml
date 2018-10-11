@@ -25,7 +25,7 @@
 - conference.presentation_types.where.not('name LIKE ?', '%Plenary%').each do |presentation_type|
   - unless presentation_type.presentations.empty?
     %details
-      %summary= "#{presentation_type.name} #{t('spina.collect.website.presentations').downcase}"
+      %summary= "#{presentation_type.name} #{t('spina.conferences.website.presentations').downcase}"
       - presentation_type.presentations.each do |presentation|
         %article
           %h3= link_to presentation.title, presentation.conference_page.materialized_path

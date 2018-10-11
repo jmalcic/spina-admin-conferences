@@ -54,6 +54,6 @@ require 'spina/admin/scaffold'
 require 'opal'
 require 'rails-ujs'
 
-# Collect
+# Conferences
 
 require_tree '.'

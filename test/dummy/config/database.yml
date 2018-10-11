@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: collect_development
+  database: conferences_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -80,4 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: collect_production
+  database: conferences_production

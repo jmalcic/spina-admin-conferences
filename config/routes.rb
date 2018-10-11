@@ -2,8 +2,8 @@
 
 Spina::Engine.routes.draw do
   namespace :admin, path: Spina.config.backend_path do
-    resources :conference_pages, controller: 'collect/conference_pages'
-    namespace :collect do
+    resources :conference_pages, controller: 'conferences/conference_pages'
+    namespace :conferences do
       root to: 'conferences#index'
       resources :conferences do
         resources :presentation_types, :rooms, except: [:show]

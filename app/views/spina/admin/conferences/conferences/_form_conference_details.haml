@@ -1,0 +1,24 @@
+#conference_details.tab-content.active
+  .well
+    .horizontal-form
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Conference.human_attribute_name :institution
+        .horizontal-form-content
+          .select-dropdown
+            = f.collection_select :institution_id, Spina::Conferences::Institution.all, :id, :name, { required: true }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Conference.human_attribute_name :start_date
+        .horizontal-form-content
+          = f.date_field :start_date, value: (@conference.start_date.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:start_date), required: true
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Conference.human_attribute_name :finish_date
+        .horizontal-form-content
+          = f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:finish_date), required: true
+
+  - unless @conference.new_record?
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('spina.conferences.conferences.delete_confirmation', conference: @conference.institution_and_year) }, class: 'button button-link button-danger'

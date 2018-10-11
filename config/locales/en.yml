@@ -36,8 +36,8 @@ en:
       images: Images # This translation is apparently not provided by Spina for some reason
     images:
       delete: Delete # Ditto
-    collect:
-      title: Collect
+    conferences:
+      title: Conferences
       conferences:
         new: New conference
         save: Save conference
@@ -115,13 +115,13 @@ en:
         no_room_uses: There are no rooms in use
   activerecord:
     attributes:
-      spina/collect/conference:
+      spina/conferences/conference:
         institution: Institution
         institution_and_year: Institution and year
         city: City
         start_date: Start date
         finish_date: Finish date
-      spina/collect/delegate:
+      spina/conferences/delegate:
         first_name: First name
         last_name: Last name
         name: Name
@@ -132,7 +132,7 @@ en:
         conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
         dietary_requirements: Dietary requirements
         dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
-      spina/collect/presentation:
+      spina/conferences/presentation:
         title: Title
         date: Date
         start_time: Start time
@@ -143,19 +143,19 @@ en:
         presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
         room_use: Room used
-      spina/collect/presentation_type:
+      spina/conferences/presentation_type:
         name: Name
         duration: Duration
         duration_description: Enter in minutes
         room_uses: Rooms used
         room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-      spina/collect/dietary_requirement:
+      spina/conferences/dietary_requirement:
         name: Name
-      spina/collect/institution:
+      spina/conferences/institution:
         name: Name
         city: City
         logo: Logo
-      spina/collect/room:
+      spina/conferences/room:
         building: Building
         number: Number
   errors:

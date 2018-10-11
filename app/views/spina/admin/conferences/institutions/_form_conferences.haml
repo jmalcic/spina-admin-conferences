@@ -1,0 +1,26 @@
+#conferences.tab-content.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Conferences::Conference.human_attribute_name :year
+          %th= Spina::Conferences::Conference.human_attribute_name :start_date
+          %th= Spina::Conferences::Conference.human_attribute_name :finish_date
+          %th
+
+      %tbody
+        - if @institution.conferences.any?
+          - @institution.conferences.each do |conference|
+            %tr
+              %td= link_to conference.year, spina.edit_admin_conferences_conference_path(conference)
+              %td= time_tag conference.dates.begin, l(conference.dates.begin, format: :long) unless conference.dates.blank?
+              %td= time_tag conference.dates.end, l(conference.dates.end, format: :long) unless conference.dates.blank?
+              %td.align-right
+                = link_to spina.edit_admin_conferences_conference_path(conference), class: 'button button-small button-link' do
+                  = icon('pencil-outline')
+                  = t('spina.edit')
+
+        - else
+          %tr
+            %td.align-center{ colspan: 100 }
+              %em= t('spina.conferences.conferences.no_conferences')

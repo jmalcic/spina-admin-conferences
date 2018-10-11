@@ -1,0 +1,34 @@
+- content_for(:header_actions) do
+  = link_to spina.new_admin_conferences_presentation_path, class: 'button button-primary', style: 'margin-right: 0' do
+    = icon('plus')
+    = t('spina.conferences.presentations.new')
+
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Conferences::Presentation.human_attribute_name :conference
+          %th= Spina::Conferences::Presentation.human_attribute_name :title
+          %th= Spina::Conferences::Presentation.human_attribute_name :presenters
+          %th
+
+      %tbody
+        - if @presentations.any?
+          - @presentations.each do |presentation|
+            %tr
+              %td= presentation.conference.institution_and_year
+              %td= link_to presentation.title, spina.edit_admin_conferences_presentation_path(presentation)
+              %td
+                - presentation.presenters.each do |presenter|
+                  = link_to presenter.full_name, spina.edit_admin_conferences_delegate_path(presenter)
+                  %br
+              %td.align-right
+                = link_to spina.edit_admin_conferences_presentation_path(presentation), class: 'button button-small button-link' do
+                  = icon('pencil-outline')
+                  = t('spina.edit')
+
+        - else
+          %tr
+            %td.align-center{ colspan: 100 }
+              %em= t('spina.conferences.presentations.no_presentations')

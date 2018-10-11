@@ -1,0 +1,31 @@
+- content_for(:header_actions) do
+  = link_to spina.new_admin_conferences_room_path, class: 'button button-primary', style: 'margin-right: 0' do
+    = icon('plus')
+    = t('spina.conferences.rooms.new')
+
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Conferences::Room.human_attribute_name :institution
+          %th= Spina::Conferences::Room.human_attribute_name :building
+          %th= Spina::Conferences::Room.human_attribute_name :number
+          %th
+
+      %tbody
+        - if @rooms.any?
+          - @rooms.each do |room|
+            %tr
+              %td= room.institution.name
+              %td= room.building
+              %td= link_to room.number, spina.edit_admin_conferences_room_path(room)
+              %td.align-right
+                = link_to spina.edit_admin_conferences_room_path(room), class: 'button button-small button-link' do
+                  = icon('pencil-outline')
+                  = t('spina.edit')
+
+        - else
+          %tr
+            %td.align-center{ colspan: 100 }
+              %em= t('spina.conferences.rooms.no_rooms')
