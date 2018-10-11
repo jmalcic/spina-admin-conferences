@@ -16,6 +16,8 @@ The menu structure will then be as follows:
 * *Other menu items*
 
 * Conferences
+
+    * Institutions
     
     * Conferences
     
@@ -23,7 +25,7 @@ The menu structure will then be as follows:
     
     * Presentations
     
-You'll want to set up a conference first,
+You'll want to set up an institution first, then a conference,
 then delegates, which must belong to at least one conference,
 and then presentations, which must belong to one conference and at least one delegate.
 
