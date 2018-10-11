@@ -1,8 +1,5 @@
 - content_for(:header) do
   = render "#{current_theme.name}/shared/title"
-  - if conference.institution.logo
-    %figure
-      = image_tag variant(conference.institution.logo.file, resize: "300x300")
   %div
     = time_tag conference.dates.begin, l(conference.dates.begin, format: :long)
     to
