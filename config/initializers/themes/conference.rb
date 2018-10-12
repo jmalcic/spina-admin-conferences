@@ -54,6 +54,10 @@
     name: 'current_conference_alert',
     title: 'Alert',
     partable_type: 'Spina::Line'
+  }, {
+    name: 'logo',
+    title: 'Logo',
+    partable_type: 'Spina::Image'
   }]
 
   theme.structures = [{
@@ -143,7 +147,7 @@
     name: 'about',
     title: 'About',
     description: 'Contains information about the society',
-    page_parts: %w[constitution minutes partner_societies contact]
+    page_parts: %w[text constitution minutes partner_societies contact]
   }, {
     name: 'conference',
     title: 'Conference',
