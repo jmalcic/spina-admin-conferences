@@ -39,11 +39,11 @@
   }, {
     name: 'submission_email_address',
     title: 'Submission email address',
-    partable_type: 'Spina::Conferences::EmailAddress'
+    partable_type: 'Spina::Conferences::EmailAddressPart'
   }, {
     name: 'submission_date',
     title: 'Submission date',
-    partable_type: 'Spina::Conferences::Date'
+    partable_type: 'Spina::Conferences::DatePart'
   }, {
     name: 'submission_text',
     title: 'Submission text',
@@ -73,18 +73,18 @@
     }, {
       name: 'website',
       title: 'Website',
-      partable_type: 'Spina::Conferences::Url'
+      partable_type: 'Spina::Conferences::UrlPart'
     }, {
       name: 'email_address',
       title: 'Email address',
-      partable_type: 'Spina::Conferences::EmailAddress'
+      partable_type: 'Spina::Conferences::EmailAddressPart'
     }]
   }, {
     name: 'minutes',
     structure_parts: [{
       name: 'date',
       title: 'Date',
-      partable_type: 'Spina::Conferences::Date'
+      partable_type: 'Spina::Conferences::DatePart'
     }, {
       name: 'attachment',
       title: 'Attachment',
@@ -99,7 +99,7 @@
     }, {
       name: 'start_time',
       title: 'Time',
-      partable_type: 'Spina::Conferences::Time'
+      partable_type: 'Spina::Conferences::TimePart'
     }, {
       name: 'location',
       title: 'Location',
@@ -118,7 +118,7 @@
     }, {
       name: 'start_time',
       title: 'Time',
-      partable_type: 'Spina::Conferences::Time'
+      partable_type: 'Spina::Conferences::TimePart'
     }, {
       name: 'location',
       title: 'Location',
