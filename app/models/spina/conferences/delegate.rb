@@ -24,7 +24,7 @@ module Spina
                               foreign_key: :spina_conferences_delegate_id,
                               association_foreign_key: :spina_conferences_dietary_requirement_id
 
-      validates_presence_of :first_name, :last_name, :email_address, :conferences
+      validates_presence_of :first_name, :last_name, :conferences
       validates :email_address, email_address: true, unless: (proc do |a|
         a.email_address.blank?
       end)
