@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Spina::DateTypeTest < ActiveSupport::TestCase
+class Spina::UrlPartTypeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

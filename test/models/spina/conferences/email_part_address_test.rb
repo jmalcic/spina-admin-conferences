@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Spina::UrlTypeTest < ActiveSupport::TestCase
+class Spina::EmailAddressPartTypeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
