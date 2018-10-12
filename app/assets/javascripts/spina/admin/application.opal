@@ -7,11 +7,6 @@ require 'jquery_ujs'
 
 require 'turbolinks'
 
-# Stimulus
-
-require 'spina/stimulus.umd'
-require_tree './controllers'
-
 # File Upload
 
 require 'activestorage'
@@ -49,10 +44,10 @@ require 'spina/admin/trix'
 
 require 'spina/admin/scaffold'
 
-# Opal
+# Stimulus
 
-require 'opal'
-require 'rails-ujs'
+require 'spina/stimulus.umd'
+require_tree './controllers'
 
 # Conferences
 
