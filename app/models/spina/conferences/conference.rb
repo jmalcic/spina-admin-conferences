@@ -71,9 +71,9 @@ module Spina
         return unless date
         start_date = Date.parse(date)
         if dates
-          assign_attributes(dates: start_date...dates.end)
+          assign_attributes(dates: start_date..dates.end)
         else
-          assign_attributes(dates: start_date...start_date.next_day)
+          assign_attributes(dates: start_date..start_date.next_day)
         end
       end
 
@@ -84,9 +84,9 @@ module Spina
         return unless date
         finish_date = Date.parse(date)
         if dates
-          assign_attributes(dates: dates.begin...finish_date)
+          assign_attributes(dates: dates.begin..finish_date)
         else
-          assign_attributes(dates: finish_date.prev_day...finish_date)
+          assign_attributes(dates: finish_date.prev_day..finish_date)
         end
       end
 
