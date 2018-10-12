@@ -17,9 +17,10 @@ module Spina
                                   :spina_conferences_delegate_id
 
       validates_presence_of :title, :date, :start_time, :abstract, :presenters
-      validates :date, conference_date: true, unless: proc { |a| a.date.blank? }
+      validates :start_time, conference_date: true,
+                             unless: proc { |a| a.date.blank? }
 
-      scope :sorted, -> { order start_time: :desc }
+      scope :sorted, -> { order start_datetime: :desc }
 
       # `:name` is used by the `:conference_page_part` to create a
       # `ConferencePage`
@@ -37,9 +38,19 @@ module Spina
         name.demodulize.parameterize.pluralize
       end
 
-      def start_datetime
-        return unless date && start_time
-        date + start_time.hour.hours + start_time.min.minutes
+      def date
+        start_datetime&.to_date
+      end
+      def date=(date)
+        @date = date
+      end
+      def start_time
+        start_datetime
+      end
+      def start_time=(time)
+        @time = time
+        return unless @date
+        self.start_datetime = "#{@date} #{@time}".to_datetime.in_time_zone
       end
     end
   end

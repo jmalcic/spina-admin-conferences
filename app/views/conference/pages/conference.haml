@@ -14,6 +14,7 @@
     - presentation_type.presentations.each do |presentation|
       %article
         %h3= presentation.title
+        = time_tag presentation.start_datetime, l(presentation.start_datetime, format: :long)
         %address
           - presentation.presenters.each do |presenter|
             = "#{presenter.full_name}, #{presenter.institution.name}"
