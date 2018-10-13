@@ -54,10 +54,6 @@
     name: 'current_conference_alert',
     title: 'Alert',
     partable_type: 'Spina::Line'
-  }, {
-    name: 'logo',
-    title: 'Logo',
-    partable_type: 'Spina::Image'
   }]
 
   theme.structures = [{
