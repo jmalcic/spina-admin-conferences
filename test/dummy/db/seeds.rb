@@ -14,9 +14,11 @@ module Spina
     Room.create institution_id: 2, building: 'Medical school', number: 'G.152'
     Room.create institution_id: 2, building: 'Medical school', number: 'G.16'
     Conference.create institution_id: 1, start_date: '2017-04-07',
-                      finish_date: '2017-04-09'
+                      finish_date: '2017-04-09',
+                      room_ids: [1, 2, 3]
     Conference.create institution_id: 2, start_date: '2018-04-09',
-                      finish_date: '2018-04-11'
+                      finish_date: '2018-04-11',
+                      room_ids: [4, 5, 6]
     PresentationType.create conference_id: 1, name: 'Plenary', minutes: 80,
                             room_possession_ids: [2]
     PresentationType.create conference_id: 1, name: 'Poster', minutes: 30,
