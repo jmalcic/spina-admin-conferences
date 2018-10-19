@@ -121,6 +121,8 @@ en:
         city: City
         start_date: Start date
         finish_date: Finish date
+        rooms: Rooms
+        rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
       spina/conferences/delegate:
         first_name: First name
         last_name: Last name

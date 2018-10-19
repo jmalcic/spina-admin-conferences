@@ -11,6 +11,8 @@ module Spina
 
       validates_presence_of :number, :building
 
+      scope :sorted, -> { order :building, :number }
+
       def building_and_number
         "#{building} #{number}"
       end

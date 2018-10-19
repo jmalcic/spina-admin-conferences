@@ -20,5 +20,14 @@
         .horizontal-form-content
           = f.date_field :finish_date, value: (@conference.finish_date.prev_day.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Conference.human_attribute_name :rooms
+          %small= (Spina::Conferences::Conference.human_attribute_name :rooms_description).try(:html_safe)
+        .horizontal-form-content
+          .multiple.select-dropdown
+            = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: @conference.institution), :id, :name, {}, { multiple: true, required: true }
+
   - unless @conference.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('spina.conferences.conferences.delete_confirmation', conference: @conference.institution_and_year) }, class: 'button button-link button-danger'

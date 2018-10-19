@@ -6,8 +6,6 @@ module Spina
     class Conference < ApplicationRecord
       include ConferencePagePartable
 
-      before_validation :set_up_room_possessions, on: [:create, :save]
-
       belongs_to :institution, inverse_of: :conferences
       has_many :room_possessions, dependent: :destroy
       has_many :rooms, through: :room_possessions
@@ -18,7 +16,10 @@ module Spina
                               association_foreign_key:
                                   :spina_conferences_delegate_id
 
-      validates_presence_of :start_date, :finish_date
+      validates_associated :room_possessions
+      validates_associated :presentation_types
+
+      validates_presence_of :start_date, :finish_date, :room_ids
       validates :finish_date, finish_date: true, unless: (proc do |a|
         a.dates.blank?
       end)
@@ -87,12 +88,6 @@ module Spina
           assign_attributes(dates: dates.begin..finish_date)
         else
           assign_attributes(dates: finish_date.prev_day..finish_date)
-        end
-      end
-
-      def set_up_room_possessions
-        institution.rooms.each do |room|
-          rooms << room
         end
       end
     end
