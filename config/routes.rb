@@ -17,6 +17,7 @@ Spina::Engine.routes.draw do
       resources :delegates, except: [:show]
       resources :presentations, except: [:show] do
         resources :delegates, except: [:show]
+        post :import, on: :collection
       end
       resources :presentation_types do
         resources :rooms, :presentations, except: [:show]

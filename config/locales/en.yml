@@ -72,6 +72,7 @@ en:
         all_presentations: All presentations
         presentation_details: Presentation details
         presenters: Presenters
+        import: Import CSV
       website:
         presentations: Presentations
         delegates: Delegates
