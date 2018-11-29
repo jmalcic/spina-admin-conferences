@@ -52,7 +52,7 @@ module Spina
 
         def set_ancestry
           if defined? parent_page
-            parent_page.id
+            parent_page&.id
           else
             Spina::Resource.find_by(name: resource).parent_page_id
           end

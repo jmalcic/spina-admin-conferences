@@ -19,6 +19,7 @@ module Spina
       validates_presence_of :title, :date, :start_time, :abstract, :presenters
       validates :start_time, conference_date: true,
                              unless: proc { |a| a.date.blank? }
+      validates_associated :presenters
 
       scope :sorted, -> { order start_datetime: :desc }
 
@@ -29,7 +30,7 @@ module Spina
       # `#parent_page` is used by the `:conference_page_part` to create a
       # `Resource`
       def parent_page
-        conference.conference_page_part.conference_page
+        conference&.conference_page_part&.conference_page
       end
 
       # `#view_template` is used by the `:conference_page_part` to create a
