@@ -153,7 +153,7 @@ GEM
     mini_racer (0.2.4)
       libv8 (>= 6.3)
     minitest (5.11.3)
-    mobility (0.8.5)
+    mobility (0.8.6)
       i18n (>= 0.6.10, < 2)
       request_store (~> 1.0)
     nio4r (2.3.1)
