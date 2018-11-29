@@ -19,6 +19,10 @@ module Spina
             else
               Spina::Conferences::Room.all
             end
+          respond_to do |format|
+            format.html
+            format.xml { render layout: false }
+          end
         end
 
         def new

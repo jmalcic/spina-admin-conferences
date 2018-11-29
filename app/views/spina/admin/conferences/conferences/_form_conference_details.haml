@@ -1,12 +1,12 @@
 #conference_details.tab-content.active
   .well
-    .horizontal-form
+    .horizontal-form{ data: { controller: 'conference-room-ids', 'conference-room-ids': { url: admin_conferences_institution_rooms_path('%s') } } }
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Conferences::Conference.human_attribute_name :institution
         .horizontal-form-content
           .select-dropdown
-            = f.collection_select :institution_id, Spina::Conferences::Institution.all, :id, :name, { required: true }
+            = f.collection_select :institution_id, Spina::Conferences::Institution.all, :id, :name, { required: true }, data: { action: 'conference-room-ids#updateOptions', target: 'conference-room-ids.inputId' }
 
       .horizontal-form-group
         .horizontal-form-label
@@ -27,7 +27,10 @@
           %small= (Spina::Conferences::Conference.human_attribute_name :rooms_description).try(:html_safe)
         .horizontal-form-content
           .multiple.select-dropdown
-            = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: @conference.institution), :id, :name, {}, { multiple: true, required: true }
+            - if @conference.new_record?
+              = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: Spina::Conferences::Institution.first), :id, :name, {}, { multiple: true, required: true, data: { target: 'conference-room-ids.outputOptions' } }
+            - else
+              = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: @conference.institution), :id, :name, {}, { multiple: true, required: true, data: { target: 'conference-room-ids.outputOptions' } }
 
   - unless @conference.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('spina.conferences.conferences.delete_confirmation', conference: @conference.institution_and_year) }, class: 'button button-link button-danger'
