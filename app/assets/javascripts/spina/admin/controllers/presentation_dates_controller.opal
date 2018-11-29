@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './list_items_controller'
+
 class PresentationDatesController < ListItemsController
   def update_options
     get_xml { |xml| build_options(xml) }
