@@ -5,6 +5,8 @@ module Spina
     # This class represents presentation types (e.g. plenaries, poster
     # presentations, etc.)
     class PresentationType < ApplicationRecord
+      attribute :duration, :interval
+
       belongs_to :conference, inverse_of: :presentation_types
       has_many :room_uses, dependent: :destroy
       has_many :room_possessions, through: :room_uses

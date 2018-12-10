@@ -37,9 +37,9 @@
     title: 'Meetings',
     partable_type: 'Spina::Structure'
   }, {
-    name: 'submission_email_address',
-    title: 'Submission email address',
-    partable_type: 'Spina::Conferences::EmailAddressPart'
+    name: 'submission_url',
+    title: 'Submission URL',
+    partable_type: 'Spina::Conferences::UrlPart'
   }, {
     name: 'submission_date',
     title: 'Submission date',
@@ -148,7 +148,7 @@
     name: 'conference',
     title: 'Conference',
     description: 'Contains information and content for a conference',
-    page_parts: %w[text submission_email_address submission_date submission_text
+    page_parts: %w[text submission_url submission_date submission_text
                    gallery socials meetings]
   }, {
     name: 'presentation',
