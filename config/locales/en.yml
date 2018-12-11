@@ -32,12 +32,16 @@
 en:
   spina:
     email: Email
+
     media_library:
       images: Images # This translation is apparently not provided by Spina for some reason
+
     images:
       delete: Delete # Ditto
+
     conferences:
       title: Conferences
+
       conferences:
         new: New conference
         save: Save conference
@@ -48,6 +52,7 @@ en:
         presentations: Presentations
         presentation_types: Presentation types
         rooms: Rooms
+
       delegates:
         new: New delegate
         save: Save delegate
@@ -56,6 +61,7 @@ en:
         delegate_details: Delegate details
         conferences: Conferences
         presentations: Presentations
+
       presenters:
         new: New presenter
         save: Save presenter
@@ -64,6 +70,7 @@ en:
         presenter_details: Presenter details
         conferences: Conferences
         presentations: Presentations
+
       presentations:
         new: New presentation
         save: Save presentation
@@ -73,6 +80,7 @@ en:
         presentation_details: Presentation details
         presenters: Presenters
         import: Import CSV
+
       website:
         presentations: Presentations
         delegates: Delegates
@@ -81,6 +89,7 @@ en:
         institutions: Institutions
         rooms: Rooms
         dietary_requirements: Dietary requirements
+
       presentation_types:
         new: New presentation type
         save: Save presentation type
@@ -89,6 +98,7 @@ en:
         presentation_type_details: Presentation type details
         presentations: Presentations
         rooms: Rooms
+
       dietary_requirements:
         new: New dietary requirement
         save: Save dietary requirement
@@ -96,6 +106,7 @@ en:
         no_dietary_requirements: There are no dietary requirements
         dietary_requirement_details: Dietary requirement details
         delegates: Delegates
+
       institutions:
         new: New institution
         save: Save institution
@@ -105,6 +116,7 @@ en:
         rooms: Rooms
         conferences: Conferences
         delegates: Delegates
+
       rooms:
         new: New room
         save: Save room
@@ -112,9 +124,46 @@ en:
         no_rooms: There are no rooms
         room_details: Room details
         presentations: Presentations
+
       room_uses:
         no_room_uses: There are no rooms in use
+
   activerecord:
+    models:
+      spina/page:
+        one: Page
+        other: Pages
+      spina/user:
+        one: User
+        other: Users
+      spina/photo:
+        one: Image
+        other: Images
+      spina/attachment:
+        one: Document
+        other: Documents
+      spina/conferences/conference:
+        one: Conference
+        other: Conferences
+      spina/conferences/delegate:
+        one: Delegate
+        other: Delegates
+      spina/conferences/presentation:
+        one: Presentation
+        other: Presentations
+      spina/conferences/presentation_type:
+        one: Presentation type
+        other: Presentation types
+      spina/conferences/dietary_requirement:
+        one: Dietary requirement
+        other: Dietary requirements
+      spina/conferences/institution:
+        one: Institution
+        other: Institutions
+      spina/conferences/room:
+        one: Room
+        other: Rooms
+
     attributes:
       spina/conferences/conference:
         institution: Institution
@@ -124,6 +173,7 @@ en:
         finish_date: Finish date
         rooms: Rooms
         rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
+
       spina/conferences/delegate:
         first_name: First name
         last_name: Last name
@@ -135,6 +185,7 @@ en:
         conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
         dietary_requirements: Dietary requirements
         dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
+
       spina/conferences/presentation:
         title: Title
         date: Date
@@ -146,21 +197,26 @@ en:
         presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
         room_use: Room used
+
       spina/conferences/presentation_type:
         name: Name
         duration: Duration
         duration_description: Enter in minutes
         room_uses: Rooms used
         room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
+
       spina/conferences/dietary_requirement:
         name: Name
+
       spina/conferences/institution:
         name: Name
         city: City
         logo: Logo
+
       spina/conferences/room:
         building: Building
         number: Number
+
   errors:
     messages:
       outside_conference: is not during the selected conference
