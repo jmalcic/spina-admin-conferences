@@ -275,6 +275,27 @@ en-GB:
       spina/attachment:
         one: Document
         other: Documents
+      spina/conferences/conference:
+        one: Conference
+        other: Conferences
+      spina/conferences/delegate:
+        one: Delegate
+        other: Delegates
+      spina/conferences/presentation:
+        one: Presentation
+        other: Presentations
+      spina/conferences/presentation_type:
+        one: Presentation type
+        other: Presentation types
+      spina/conferences/dietary_requirement:
+        one: Dietary requirement
+        other: Dietary requirements
+      spina/conferences/institution:
+        one: Institution
+        other: Institutions
+      spina/conferences/room:
+        one: Room
+        other: Rooms
 
     attributes:
       spina/account:
