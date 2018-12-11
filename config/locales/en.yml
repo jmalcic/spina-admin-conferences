@@ -224,3 +224,6 @@ en:
       invalid_time: is not a time
       before_start_date: is not after start date
       invalid_http_https_url: is not a valid HTTP or HTTPS URL
+
+  languages:
+    en-GB: British English

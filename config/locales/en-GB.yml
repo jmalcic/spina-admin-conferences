@@ -444,5 +444,6 @@ en-GB:
       other: "%{count} new messages"
 
   languages:
+    en-GB: British English
     en: English
     nl: Dutch
