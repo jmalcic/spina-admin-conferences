@@ -18,7 +18,7 @@
         .horizontal-form-label
           = Spina::Conferences::Conference.human_attribute_name :finish_date
         .horizontal-form-content
-          = f.date_field :finish_date, value: (@conference.finish_date.prev_day.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:finish_date), required: true
+          = f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
 
       .horizontal-form-group

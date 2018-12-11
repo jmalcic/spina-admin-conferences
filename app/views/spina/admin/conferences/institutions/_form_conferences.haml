@@ -13,8 +13,8 @@
           - @institution.conferences.each do |conference|
             %tr
               %td= link_to conference.year, spina.edit_admin_conferences_conference_path(conference)
-              %td= time_tag conference.dates.begin, l(conference.dates.begin, format: :long) unless conference.dates.blank?
-              %td= time_tag conference.dates.end.prev_day, l(conference.dates.end.prev_day, format: :long) unless conference.dates.blank?
+              %td= time_tag conference.dates.min, l(conference.dates.min, format: :long) unless conference.dates.blank?
+              %td= time_tag conference.dates.max, l(conference.dates.max, format: :long) unless conference.dates.blank?
               %td.align-right
                 = link_to spina.edit_admin_conferences_conference_path(conference), class: 'button button-small button-link' do
                   = icon('pencil-outline')
