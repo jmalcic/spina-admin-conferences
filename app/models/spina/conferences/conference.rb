@@ -50,19 +50,19 @@ module Spina
 
       # Returns the year of `#start_date`.
       def year
-        dates.begin.year
+        dates.min.year
       end
 
       # Returns the beginning of the range of `:dates` the conference occurs,
       # or else today's date.
       def start_date
-        dates&.begin || nil
+        dates&.min || nil
       end
 
       # Returns the end of the range of `:dates` the conference occurs,
       # or else tomorrow's date.
       def finish_date
-        dates&.end || nil
+        dates&.max || nil
       end
 
       # Sets the beginning of the range of `:dates` the conference occurs,
@@ -71,8 +71,8 @@ module Spina
       def start_date=(date)
         return unless date
         start_date = Date.parse(date)
-        if dates
-          assign_attributes(dates: start_date..dates.end)
+        if dates&.max
+          assign_attributes(dates: start_date..dates.max)
         else
           assign_attributes(dates: start_date..start_date.next_day)
         end
@@ -84,8 +84,8 @@ module Spina
       def finish_date=(date)
         return unless date
         finish_date = Date.parse(date)
-        if dates
-          assign_attributes(dates: dates.begin..finish_date)
+        if dates&.min
+          assign_attributes(dates: dates.min..finish_date)
         else
           assign_attributes(dates: finish_date.prev_day..finish_date)
         end
