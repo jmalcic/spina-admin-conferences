@@ -6,7 +6,7 @@ module Spina
     # presentation
     class RoomUse < ApplicationRecord
       belongs_to :room_possession, inverse_of: :room_uses
-      belongs_to :presentation_type, inverse_of: :room_uses
+      belongs_to :presentation_type, inverse_of: :room_uses, touch: true
       has_many :presentations, dependent: :nullify
 
       validates_inclusion_of(
