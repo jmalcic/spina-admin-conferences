@@ -18,7 +18,11 @@ module Spina
         end
 
         def new
-          @conference = Spina::Conferences::Conference.new
+          @conference = if params[:conference]
+                          Spina::Conferences::Conference.new(conference_params)
+                        else
+                          Spina::Conferences::Conference.new
+                        end
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
           render layout: 'spina/admin/admin'
         end
@@ -41,7 +45,7 @@ module Spina
 
         def update
           @conference = Spina::Conferences::Conference.find params[:id]
-          add_breadcrumb @conference.institution_and_year
+          set_update_breadcrumb
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path
           else
@@ -61,6 +65,10 @@ module Spina
           add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
         end
 
+        def set_update_breadcrumb
+          add_breadcrumb @conference.institution_and_year if @conference
+        end
+
         def set_tabs
           @tabs = %w[conference_details delegates presentation_types rooms presentations]
         end
@@ -68,16 +76,6 @@ module Spina
         def conference_params
           params.require(:conference).permit(:start_date, :finish_date,
                                              :institution_id, room_ids: [])
-        end
-
-        def dates
-          @conference.dates.to_a.collect do |date|
-            { label: l(date, format: :short), date: date }
-          end
-        end
-
-        def presentation_types
-          @conference.presentation_types
         end
       end
     end

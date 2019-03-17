@@ -1,7 +1,10 @@
 *.gem
 .bundle/
+.idea/
 log/*.log
+node_modules/
 pkg/
+public/
 test/dummy/db/*.sqlite3
 test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
@@ -10,7 +13,7 @@ test/dummy/yarn-error.log
 test/dummy/storage/
 test/dummy/tmp/
 test/dummy/public/
-.idea/
+tmp/
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

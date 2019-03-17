@@ -434,6 +434,7 @@ en-GB:
         outside_conference: is not during the selected conference
         invalid_email_address: is not an email address
         invalid_time: is not a time
+        invalid_date: is not a date
         before_start_date: is not after start date
         invalid_http_https_url: is not a valid HTTP or HTTPS URL
 

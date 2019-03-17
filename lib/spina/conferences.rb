@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require 'spina'
-require 'opal-rails'
-require 'opal-sprockets'
-require 'opal-browser'
-require 'dotenv-rails'
-require 'uglifier'
+require 'spina/conferences/engine'
 
 module Spina
   module Conferences
-    require 'spina/conferences/engine'
+    # Your code goes here...
   end
 end

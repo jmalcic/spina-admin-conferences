@@ -11,6 +11,7 @@
     = render 'spina/shared/analytics'
     = stylesheet_link_tag 'conference/application', media: 'all', data: {turbolinks_track: true}
     = javascript_include_tag 'conference/application', data: {turbolinks_track: true}
+    = javascript_pack_tag 'application', data: {turbolinks_track: true}
   %body
     = render 'spina/shared/admin_bar'
     .grid

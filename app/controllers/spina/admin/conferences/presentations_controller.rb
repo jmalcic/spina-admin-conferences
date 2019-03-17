@@ -11,13 +11,11 @@ module Spina
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
-          @presentations =
-            if params[:room_id]
-              Spina::Conferences::Room.find(params[:room_id])
-                                      .presentations.sorted
-            else
-              Spina::Conferences::Presentation.sorted
-            end
+          @presentations = if params[:room_id]
+                             Spina::Conferences::Room.find(params[:room_id]).presentations.sorted
+                           else
+                             Spina::Conferences::Presentation.sorted
+                           end
         end
 
         def new

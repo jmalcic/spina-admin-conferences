@@ -22,7 +22,7 @@
           - if @presentation.conference.blank?
             - if Spina::Conferences::PresentationType.any?
               .select-dropdown
-                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::PresentationType.all, :id, :name), data: {action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions'}
+                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::PresentationType.all, :id, :name), data: { action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions'}
             - else
               = t('spina.conferences.presentation_types.no_presentation_types')
           - else
@@ -33,7 +33,7 @@
         .horizontal-form-label
           = Spina::Conferences::Presentation.human_attribute_name :room_use
         .horizontal-form-content
-          - if @presentation.conference.blank?
+          - if @presentation.room_use.blank?
             - if Spina::Conferences::RoomUse.any?
               .select-dropdown
                 = f.collection_select :room_use_id, Spina::Conferences::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }

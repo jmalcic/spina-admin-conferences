@@ -5,9 +5,21 @@
     = form_with url: import_admin_conferences_presentations_path do |f|
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
-  = link_to spina.new_admin_conferences_presentation_path, class: 'button button-primary', style: 'margin-right: 0' do
-    = icon('plus')
-    = t('spina.conferences.presentations.new')
+  %span{data: {dropdown: true}}
+    = link_to spina.new_admin_conferences_presentation_path(params: { institution: Spina::Conferences::Conference&.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: {trigger: ('dropdown' if Spina::Conferences::Conference.many?), target: '#create_conference_dropdown'} do
+      = icon('plus')
+      = t('spina.conferences.presentations.new')
+
+    .sliding-dropdown#create_conference_dropdown.align-right
+      .slide{ class: :active, data: { controller: 'presentation-type-ids presentation-room-use-ids presentation-dates', 'presentation-type-ids': { url: admin_conferences_conference_presentation_types_path('%s') }, 'presentation-room-use-ids': { url: admin_conferences_presentation_type_room_uses_path('%s') }, 'presentation-dates': { url: admin_conferences_conference_path('%s') } } }
+        = form_for [:admin_conferences, Spina::Conferences::Presentation.new], url: spina.new_admin_conferences_presentation_path, method: :get do |f|
+          .select-dropdown
+            = select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name), data: { action: 'presentation-dates#updateOptions presentation-type-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
+          .select-dropdown
+            = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted.first.presentation_types, :id, :name), data: { action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions' }
+          .select-dropdown
+            = f.collection_select :room_use_id, Spina::Conferences::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
+          = f.submit t('spina.conferences.presentations.new'), class: 'button button-primary'
 
 .well
   .table-container

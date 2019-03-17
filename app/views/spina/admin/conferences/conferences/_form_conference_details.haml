@@ -27,10 +27,7 @@
           %small= (Spina::Conferences::Conference.human_attribute_name :rooms_description).try(:html_safe)
         .horizontal-form-content
           .multiple.select-dropdown
-            - if @conference.new_record?
-              = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: Spina::Conferences::Institution.first), :id, :name, {}, { multiple: true, required: true, data: { target: 'conference-room-ids.outputOptions' } }
-            - else
-              = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: @conference.institution), :id, :name, {}, { multiple: true, required: true, data: { target: 'conference-room-ids.outputOptions' } }
+            = f.collection_select :room_ids, Spina::Conferences::Room.sorted.where(institution: (@conference.institution || Spina::Conferences::Institution.first)), :id, :name, {}, { multiple: true, required: true, data: { target: 'conference-room-ids.outputOptions' } }
 
   - unless @conference.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('spina.conferences.conferences.delete_confirmation', conference: @conference.institution_and_year) }, class: 'button button-link button-danger'
