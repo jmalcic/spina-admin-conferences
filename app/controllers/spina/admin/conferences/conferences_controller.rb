@@ -44,7 +44,7 @@ module Spina
 
         def update
           @conference = Spina::Conferences::Conference.find params[:id]
-          add_breadcrumb @conference.institution_and_year
+          set_update_breadcrumb
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path
           else
@@ -62,6 +62,10 @@ module Spina
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
+        end
+
+        def set_update_breadcrumb
+          add_breadcrumb @conference.institution_and_year if @conference
         end
 
         def set_tabs
