@@ -17,7 +17,11 @@ module Spina
         end
 
         def new
-          @conference = Spina::Conferences::Conference.new
+          @conference = if params[:conference]
+                          Spina::Conferences::Conference.new conference_params
+                        else
+                          Spina::Conferences::Conference.new
+                        end
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
           render layout: 'spina/admin/admin'
         end
