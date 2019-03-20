@@ -11,13 +11,11 @@ module Spina
         layout 'spina/admin/conferences/conferences'
 
         def index
-          @presentation_types =
-            if params[:conference_id]
-              Spina::Conferences::Conference.find(params[:conference_id])
-                                        .presentation_types.sorted
-            else
-              Spina::Conferences::PresentationType.sorted
-            end
+          @presentation_types = if params[:conference_id]
+                                  Spina::Conferences::Conference.find(params[:conference_id]).presentation_types.sorted
+                                else
+                                  Spina::Conferences::PresentationType.sorted
+                                end
         end
 
         def new

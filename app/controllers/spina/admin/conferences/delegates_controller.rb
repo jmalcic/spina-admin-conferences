@@ -9,8 +9,7 @@ module Spina
         def index
           @delegates =
             if params[:institution_id]
-              Spina::Conferences::Institution.find(params[:institution_id])
-                .delegates.sorted
+              Spina::Conferences::Institution.find(params[:institution_id]).delegates.sorted
             else
               Spina::Conferences::Delegate.sorted
             end
