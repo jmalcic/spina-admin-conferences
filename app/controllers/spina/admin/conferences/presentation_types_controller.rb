@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages presentation types
-      class PresentationTypesController < AdminController
+      class PresentationTypesController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 

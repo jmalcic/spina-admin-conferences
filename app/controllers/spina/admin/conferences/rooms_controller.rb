@@ -2,7 +2,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages rooms and sets breadcrumbs
-      class RoomsController < AdminController
+      class RoomsController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 

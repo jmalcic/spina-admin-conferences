@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages presentations and sets breadcrumbs
-      class PresentationsController < AdminController
+      class PresentationsController < ::Spina::Admin::AdminController
         include Importable
 
         before_action :set_breadcrumbs

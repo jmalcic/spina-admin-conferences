@@ -2,7 +2,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages dietary requirements
-      class DietaryRequirementsController < AdminController
+      class DietaryRequirementsController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
