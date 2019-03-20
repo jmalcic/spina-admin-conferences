@@ -76,16 +76,6 @@ module Spina
           params.require(:conference).permit(:start_date, :finish_date,
                                              :institution_id, room_ids: [])
         end
-
-        def dates
-          @conference.dates.to_a.collect do |date|
-            { label: l(date, format: :short), date: date }
-          end
-        end
-
-        def presentation_types
-          @conference.presentation_types
-        end
       end
     end
   end
