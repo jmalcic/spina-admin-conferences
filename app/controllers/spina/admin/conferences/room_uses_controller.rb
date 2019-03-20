@@ -7,7 +7,6 @@ module Spina
           @room_uses = Spina::Conferences::PresentationType.find(
             params[:presentation_type_id]
           ).room_uses
-          respond_to { |format| format.xml { render layout: false } }
         end
       end
     end

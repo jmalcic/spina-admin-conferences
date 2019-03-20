@@ -14,7 +14,6 @@ module Spina
 
         def show
           @conference = Spina::Conferences::Conference.find params[:id]
-          respond_to { |format| format.xml { render layout: false } }
         end
 
         def new
