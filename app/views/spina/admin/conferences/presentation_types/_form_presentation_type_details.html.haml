@@ -1,12 +1,14 @@
 #presentation_type_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'presentation-type-room-use-ids', 'presentation-type-room-use-ids': { url: admin_conferences_conference_path('%s') } } }
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Conferences::PresentationType.human_attribute_name :conference
-        .horizontal-form-content
-          .select-dropdown
-            = f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :institution_and_year, {}, data: { action: 'presentation-type-room-use-ids#updateOptions', target: 'presentation-type-room-use-ids.inputId' }
+    = f.hidden_field :conference_id if @presentation_type.conference
+    .horizontal-form
+      - unless @presentation_type.conference
+        .horizontal-form-group
+          .horizontal-form-label
+            = Spina::Conferences::PresentationType.human_attribute_name :conference
+          .horizontal-form-content
+            .select-dropdown
+              = f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :institution_and_year
 
       .horizontal-form-group
         .horizontal-form-label
@@ -29,10 +31,10 @@
           - if Spina::Conferences::Room.any?
             - if @presentation_type.conference.blank?
               .multiple.select-dropdown
-                = f.collection_select :room_possession_ids, Spina::Conferences::RoomPossession.all, :id, :room_name, {}, multiple: true, required: true, data: { target: 'presentation-type-room-use-ids.outputOptions' }
+                = f.collection_select :room_possession_ids, Spina::Conferences::RoomPossession.all, :id, :room_name, {}, multiple: true, required: true
             - else
               .multiple.select-dropdown
-                = f.collection_select :room_possession_ids, @presentation_type.conference.room_possessions, :id, :room_name, {}, multiple: true, required: true, data: { target: 'presentation-type-room-use-ids.outputOptions' }
+                = f.collection_select :room_possession_ids, @presentation_type.conference.room_possessions, :id, :room_name, {}, multiple: true, required: true
           - else
             = t('spina.conferences.rooms.no_rooms')
 
