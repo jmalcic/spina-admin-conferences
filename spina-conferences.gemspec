@@ -20,12 +20,8 @@ Gem::Specification.new do |spec|
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.' unless spec.respond_to?(:metadata)
 
-  spec.add_dependency 'opal-activesupport', '~> 0.3'
-  spec.add_dependency 'opal-browser', '~> 0.2'
-  spec.add_dependency 'opal-rails', '~> 0.9'
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.add_development_dependency 'uglifier', '>= 1.3.0'
   spec.add_dependency 'pg', '>= 0.18', '< 2.0'
   spec.add_dependency 'rails', '~> 5.2'
   spec.add_dependency 'spina', '~> 1.0'
