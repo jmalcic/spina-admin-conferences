@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'spina'
-require 'dotenv-rails'
+require 'spina/conferences/engine'
+require 'js-routes'
 
 module Spina
-  module Conferences
-    require 'spina/conferences/engine'
+  module Conferences #:nodoc:
+    # Your code goes here...
   end
 end
