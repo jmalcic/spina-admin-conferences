@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Conferences
       # This class manages institutions and sets breadcrumbs
-      class InstitutionsController < AdminController
+      class InstitutionsController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 

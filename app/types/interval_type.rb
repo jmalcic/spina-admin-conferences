@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This type maps between ActiveSupport::Duration and interval in PostgreSQL
 class IntervalType < ActiveRecord::Type::Value
   def cast_value(value)
     case value

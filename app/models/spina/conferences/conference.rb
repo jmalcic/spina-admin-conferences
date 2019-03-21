@@ -19,7 +19,7 @@ module Spina
       validates_associated :room_possessions
       validates_associated :presentation_types
 
-      validates_presence_of :start_date, :finish_date, :room_ids
+      validates :start_date, :finish_date, :room_ids, presence: true
       validates :finish_date, finish_date: true, unless: (proc do |a|
         a.dates.blank?
       end)
@@ -70,6 +70,7 @@ module Spina
       # missing entirely.
       def start_date=(date)
         return unless date
+
         start_date = Date.parse(date)
         if dates&.max
           assign_attributes(dates: start_date..dates.max)
@@ -83,6 +84,7 @@ module Spina
       # missing entirely.
       def finish_date=(date)
         return unless date
+
         finish_date = Date.parse(date)
         if dates&.min
           assign_attributes(dates: dates.min..finish_date)

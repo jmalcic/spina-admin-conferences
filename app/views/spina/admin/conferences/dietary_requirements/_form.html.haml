@@ -1,0 +1,33 @@
+- if @dietary_requirement.errors.any?
+  - content_for :notifications do
+    .notification.notification-danger.animated.fadeInRight
+      = icon('exclamation')
+      .notification-message
+        =t 'spina.notifications.alert'
+        %small
+          - @dietary_requirement.errors.full_messages.each do |message|
+            = message
+            - unless @dietary_requirement.errors.full_messages[-1] == message
+              %br
+      = link_to '#', data: { close_notification: true } do
+        = icon('cross')
+
+= form_for [:admin_conferences, @dietary_requirement], html: { autocomplete: "off" } do |f|
+  %header#header
+    = render partial: 'spina/admin/shared/breadcrumbs'
+
+    #header_actions
+      %button.button.button-primary{ type: 'submit' }
+        = icon('check')
+        =t 'spina.conferences.dietary_requirements.save'
+
+      = link_to t('spina.cancel'), spina.admin_conferences_dietary_requirements_path, class: 'button', style: 'margin-right: 0'
+
+    %nav#secondary.tabs
+      %ul
+        - @tabs.each_with_index do |tab, i|
+          %li{class: (i==0 ? 'active' : '')}
+            = link_to t("spina.conferences.dietary_requirements.#{tab}"), "##{tab}"
+
+  - @tabs.each do |tab|
+    = render "spina/admin/conferences/dietary_requirements/form_#{tab}", f: f

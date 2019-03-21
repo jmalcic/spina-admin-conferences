@@ -6,6 +6,8 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
 
+      attr_writer :date
+
       belongs_to :room_use, touch: true
       has_one :presentation_type, through: :room_use
       has_one :room_possession, through: :room_use
@@ -42,16 +44,16 @@ module Spina
       def date
         start_datetime&.to_date
       end
-      def date=(date)
-        @date = date
-      end
+
       def start_time
         start_datetime
       end
+
       def start_time=(time)
         @time = time
         return unless @date
-        self.start_datetime = "#{@date} #{@time}".to_datetime.in_time_zone
+
+        self.start_datetime = "#{@date} #{@time}".to_time.in_time_zone
       end
     end
   end

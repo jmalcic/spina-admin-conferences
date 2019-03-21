@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_155705) do
+ActiveRecord::Schema.define(version: 2019_01_26_194256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,55 @@ ActiveRecord::Schema.define(version: 2018_10_17_155705) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "hc_applications_applicants", force: :cascade do |t|
+    t.string "slug"
+    t.string "development_roles", array: true
+    t.text "learning_goal"
+    t.text "interests"
+    t.text "recent_accomplishment"
+    t.string "links", array: true
+    t.string "origin_country"
+    t.date "graduation_month"
+    t.boolean "wants_mailing_list"
+    t.boolean "wants_team_assignment"
+    t.text "other_info"
+    t.bigint "hacker_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hacker_id"], name: "index_hc_applications_applicants_on_hacker_id"
+  end
+
+  create_table "hc_applications_hackers", force: :cascade do |t|
+    t.integer "mlh_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "gender"
+    t.date "date_of_birth"
+    t.string "email"
+    t.string "phone_number"
+    t.string "institution"
+    t.string "study_level"
+    t.string "course"
+    t.string "shirt_size"
+    t.string "dietary_restrictions"
+    t.string "special_needs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hc_applications_teams", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hc_applications_visa_requests", force: :cascade do |t|
+    t.date "needed_by"
+    t.bigint "applicant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_id"], name: "index_hc_applications_visa_requests_on_applicant_id"
   end
 
   create_table "spina_accounts", id: :serial, force: :cascade do |t|
@@ -389,6 +438,9 @@ ActiveRecord::Schema.define(version: 2018_10_17_155705) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "hc_applications_applicants", "hc_applications_hackers", column: "hacker_id", on_delete: :cascade
+  add_foreign_key "hc_applications_visa_requests", "hc_applications_applicants", column: "applicant_id", on_delete: :cascade
   add_foreign_key "spina_conferences_conference_page_parts", "spina_pages", column: "conference_page_id", on_delete: :cascade
   add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade

@@ -1,28 +1,21 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Conferences
       # This class manages rooms and sets breadcrumbs
-      class RoomsController < AdminController
+      class RoomsController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
         layout 'spina/admin/conferences/institutions'
 
         def index
-          @rooms =
-            if params[:institution_id]
-              Spina::Conferences::Institution.find(params[:institution_id])
-                .rooms
-            elsif params[:presentation_type_id]
-              Spina::Conferences::PresentationType.find(params[:presentation_type_id])
-                .rooms
-            else
-              Spina::Conferences::Room.all
-            end
-          respond_to do |format|
-            format.html
-            format.xml { render layout: false }
-          end
+          @rooms = if params[:presentation_type_id]
+                     Spina::Conferences::PresentationType.find(params[:presentation_type_id]).rooms
+                   else
+                     Spina::Conferences::Room.all
+                   end
         end
 
         def new

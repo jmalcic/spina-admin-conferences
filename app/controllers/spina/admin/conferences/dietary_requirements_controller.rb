@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Conferences
       # This class manages dietary requirements
-      class DietaryRequirementsController < AdminController
+      class DietaryRequirementsController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -58,11 +60,12 @@ module Spina
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.delegates'), admin_conferences_delegates_path
-          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'), admin_conferences_dietary_requirements_path
+          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'),
+                         admin_conferences_dietary_requirements_path
         end
 
         def set_tabs
-          @tabs = %w{dietary_requirement_details delegates}
+          @tabs = %w[dietary_requirement_details delegates]
         end
 
         def dietary_requirement_params

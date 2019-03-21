@@ -31,9 +31,7 @@ module Spina
           Spina::Resource.find_or_create_by(name: resource) do |resource|
             resource.label = resource.name.titleize
             resource.view_template = page_partable_parameter
-            if defined? self.class.parent_page
-              resource.parent_page_id = self.class.parent_page.id
-            end
+            resource.parent_page_id = self.class.parent_page.id if defined? self.class.parent_page
           end
         end
 
