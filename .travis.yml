@@ -7,5 +7,3 @@ after_success:
 before_script:
   - bundle exec rails db:setup
 language: ruby
-rvm:
-  - 2.6
