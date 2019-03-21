@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages conferences and sets breadcrumbs
-      class ConferencesController < AdminController
+      class ConferencesController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -14,12 +14,11 @@ module Spina
 
         def show
           @conference = Spina::Conferences::Conference.find params[:id]
-          respond_to { |format| format.xml { render layout: false } }
         end
 
         def new
           @conference = if params[:conference]
-                          Spina::Conferences::Conference.new(conference_params)
+                          Spina::Conferences::Conference.new conference_params
                         else
                           Spina::Conferences::Conference.new
                         end
@@ -74,8 +73,7 @@ module Spina
         end
 
         def conference_params
-          params.require(:conference).permit(:start_date, :finish_date,
-                                             :institution_id, room_ids: [])
+          params.require(:conference).permit(:start_date, :finish_date, :institution_id, room_ids: [])
         end
       end
     end

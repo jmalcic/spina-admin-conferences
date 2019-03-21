@@ -6,9 +6,7 @@ module Spina
     # `:conference_page_part`.
     class ConferencePage < Page
       after_create do
-        unless resource
-          navigations << Spina::Navigation.where(auto_add_pages: true)
-        end
+        navigations << Spina::Navigation.where(auto_add_pages: true) unless resource
       end
 
       has_one :conference_page_part, dependent: :destroy

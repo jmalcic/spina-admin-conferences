@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 module Spina
   module Admin
     module Conferences
       # This class manages delegates and sets breadcrumbs
-      class DelegatesController < AdminController
+      class DelegatesController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
           @delegates =
             if params[:institution_id]
-              Spina::Conferences::Institution.find(params[:institution_id])
-                .delegates.sorted
+              Spina::Conferences::Institution.find(params[:institution_id]).delegates.sorted
             else
               Spina::Conferences::Delegate.sorted
             end

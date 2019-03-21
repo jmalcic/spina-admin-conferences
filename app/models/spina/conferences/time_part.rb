@@ -11,16 +11,16 @@ module Spina
       def date
         content&.to_date
       end
-      def date=(date)
-        @date = date
-      end
+
       def time
         content || nil
       end
+
       def time=(time)
         @time = time
         return unless @date
-        self.content = "#{@date} #{@time}".to_datetime.in_time_zone
+
+        self.content = "#{@date} #{@time}".to_time.in_time_zone
       end
     end
   end

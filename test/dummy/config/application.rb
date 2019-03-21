@@ -6,12 +6,12 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require 'spina/conferences'
-
-require 'webpacker'
+require 'dotenv-rails'
 
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    Dotenv.load('../../.env')
     config.load_defaults 6.0
     config.autoloader = :classic
 

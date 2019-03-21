@@ -4,28 +4,30 @@ module Spina
   module Admin
     module Conferences
       # This class manages presentation types
-      class PresentationTypesController < AdminController
+      class PresentationTypesController < ::Spina::Admin::AdminController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
         layout 'spina/admin/conferences/conferences'
 
         def index
-          @presentation_types =
-            if params[:conference_id]
-              Spina::Conferences::Conference.find(params[:conference_id])
-                                        .presentation_types.sorted
-            else
-              Spina::Conferences::PresentationType.sorted
-            end
+          @presentation_types = if params[:conference_id]
+                                  Spina::Conferences::Conference.find(params[:conference_id]).presentation_types.sorted
+                                else
+                                  Spina::Conferences::PresentationType.sorted
+                                end
           respond_to do |format|
             format.html
-            format.xml { render layout: false }
+            format.json { render json: @presentation_types }
           end
         end
 
         def new
-          @presentation_type = Spina::Conferences::PresentationType.new
+          @presentation_type = if params[:presentation_type]
+                                 Spina::Conferences::PresentationType.new presentation_type_params
+                               else
+                                 Spina::Conferences::PresentationType.new
+                               end
           add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
           render layout: 'spina/admin/admin'
         end

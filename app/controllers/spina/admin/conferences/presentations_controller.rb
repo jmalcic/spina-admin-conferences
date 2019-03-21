@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages presentations and sets breadcrumbs
-      class PresentationsController < AdminController
+      class PresentationsController < ::Spina::Admin::AdminController
         include Importable
 
         before_action :set_breadcrumbs
@@ -19,7 +19,11 @@ module Spina
         end
 
         def new
-          @presentation = Spina::Conferences::Presentation.new
+          @presentation = if params[:presentation]
+                            Spina::Conferences::Presentation.new presentation_params
+                          else
+                            Spina::Conferences::Presentation.new
+                          end
           add_breadcrumb I18n.t('spina.conferences.presentations.new')
           render layout: 'spina/admin/admin'
         end

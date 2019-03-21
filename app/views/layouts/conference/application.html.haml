@@ -1,0 +1,32 @@
+!!!
+%html{ lang: I18n.locale }
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'description', content: current_page.description }
+    %meta{ name: 'viewport', content: 'initial-scale=1.0' }
+    = csrf_meta_tags
+    %meta{ name: 'turbolinks-cache-control', content: 'no-preview' }
+    %title= "#{current_page.seo_title} — #{current_account.name}"
+    = render 'spina/shared/google_site_verification'
+    = render 'spina/shared/analytics'
+    = stylesheet_link_tag 'conference/application', media: 'all', data: { turbolinks_track: true }
+  %body
+    = render 'spina/shared/admin_bar'
+    .grid
+      %header
+        %h1= current_account.name
+        = render "#{current_theme.name}/shared/navigation"
+      %main
+        %header<
+          %nav
+            %ol
+              - current_page.ancestors.each do |ancestor|
+                %li= link_to ancestor.menu_title, ancestor.materialized_path
+              %li= current_page.menu_title
+          = yield(:header)
+        = yield
+      %footer
+        = render "#{current_theme.name}/shared/footer"
+
+    = spina_link
+    = render 'spina/shared/social'
