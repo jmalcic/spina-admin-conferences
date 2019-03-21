@@ -16,6 +16,10 @@ module Spina
                                 else
                                   Spina::Conferences::PresentationType.sorted
                                 end
+          respond_to do |format|
+            format.html
+            format.json { render json: @presentation_types }
+          end
         end
 
         def new
