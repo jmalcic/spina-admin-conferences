@@ -19,7 +19,7 @@ module Spina
       validates_associated :room_possessions
       validates_associated :presentation_types
 
-      validates_presence_of :start_date, :finish_date, :room_ids
+      validates :start_date, :finish_date, :room_ids, presence: true
       validates :finish_date, finish_date: true, unless: (proc do |a|
         a.dates.blank?
       end)
