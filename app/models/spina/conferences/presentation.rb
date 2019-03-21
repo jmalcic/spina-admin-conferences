@@ -6,6 +6,8 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
 
+      attr_writer :date
+
       belongs_to :room_use, touch: true
       has_one :presentation_type, through: :room_use
       has_one :room_possession, through: :room_use
