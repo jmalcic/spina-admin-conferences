@@ -1,16 +1,15 @@
 !!!
-%html{lang: I18n.locale}
+%html{ lang: I18n.locale }
   %head
-    %meta{charset: 'utf-8'}
-    %meta{name: 'description', content: current_page.description}
-    %meta{name: 'viewport', content: 'initial-scale=1.0'}
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'description', content: current_page.description }
+    %meta{ name: 'viewport', content: 'initial-scale=1.0' }
     = csrf_meta_tags
-    %meta{name: 'turbolinks-cache-control', content: 'no-preview'}
+    %meta{ name: 'turbolinks-cache-control', content: 'no-preview' }
     %title= "#{current_page.seo_title} — #{current_account.name}"
     = render 'spina/shared/google_site_verification'
     = render 'spina/shared/analytics'
-    = stylesheet_link_tag 'conference/application', media: 'all', data: {turbolinks_track: true}
-    = javascript_include_tag 'conference/application', data: {turbolinks_track: true}
+    = stylesheet_link_tag 'conference/application', media: 'all', data: { turbolinks_track: true }
   %body
     = render 'spina/shared/admin_bar'
     .grid
