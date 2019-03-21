@@ -60,11 +60,12 @@ module Spina
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.delegates'), admin_conferences_delegates_path
-          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'), admin_conferences_dietary_requirements_path
+          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'),
+                         admin_conferences_dietary_requirements_path
         end
 
         def set_tabs
-          @tabs = %w{dietary_requirement_details delegates}
+          @tabs = %w[dietary_requirement_details delegates]
         end
 
         def dietary_requirement_params
