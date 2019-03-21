@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'js-routes', '~> 1.4'
   spec.add_dependency 'pg', '>= 0.18', '< 2.0'
-  spec.add_dependency 'rails', '~> 5.2'
+  spec.add_dependency 'rails', '~> 6.0.beta3'
   spec.add_dependency 'spina', '~> 1.0'
 
   spec.add_development_dependency 'capybara'
