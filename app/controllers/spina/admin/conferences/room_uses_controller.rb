@@ -6,15 +6,12 @@ module Spina
       # This class shows room uses
       class RoomUsesController < ::Spina::Admin::AdminController
         def index
-          @room_uses = if params[:presentation_type_id]
-                         Spina::Conferences::PresentationType.find(params[:presentation_type_id]).room_uses
-                       else
-                         Spina::Conferences::PresentationType.all
-                       end
-          respond_to do |format|
-            format.html
-            format.json { render json: @room_uses, methods: :room_name }
+          begin
+            @room_uses = Spina::Conferences::PresentationType.find(params[:presentation_type_id]).room_uses
+          rescue ActiveRecord::RecordNotFound
+            @room_uses = Spina::Conferences::RoomUse.all
           end
+          respond_to { |format| format.json { render json: @room_uses, methods: :room_name } }
         end
       end
     end
