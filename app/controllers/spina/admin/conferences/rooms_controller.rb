@@ -11,9 +11,7 @@ module Spina
         layout 'spina/admin/conferences/institutions'
 
         def index
-          @rooms = if params[:institution_id]
-                     Spina::Conferences::Institution.find(params[:institution_id]).rooms
-                   elsif params[:presentation_type_id]
+          @rooms = if params[:presentation_type_id]
                      Spina::Conferences::PresentationType.find(params[:presentation_type_id]).rooms
                    else
                      Spina::Conferences::Room.all
