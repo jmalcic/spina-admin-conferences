@@ -70,6 +70,7 @@ module Spina
       # missing entirely.
       def start_date=(date)
         return unless date
+
         start_date = Date.parse(date)
         if dates&.max
           assign_attributes(dates: start_date..dates.max)
@@ -83,6 +84,7 @@ module Spina
       # missing entirely.
       def finish_date=(date)
         return unless date
+
         finish_date = Date.parse(date)
         if dates&.min
           assign_attributes(dates: dates.min..finish_date)
