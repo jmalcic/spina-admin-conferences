@@ -4,8 +4,6 @@ module Spina
   module Conferences
     # This class represents times.
     class TimePart < ApplicationRecord
-      attr_writer :date
-
       has_many :page_parts, as: :page_partable
       has_many :layout_parts, as: :layout_partable
       has_many :structure_parts, as: :structure_partable
@@ -22,7 +20,7 @@ module Spina
         @time = time
         return unless @date
 
-        self.content = "#{@date} #{@time}".to_datetime.in_time_zone
+        self.content = "#{@date} #{@time}".to_time.in_time_zone
       end
     end
   end
