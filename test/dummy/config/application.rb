@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require 'spina/conferences'
+require 'dotenv-rails'
 
 module Dummy
   class Application < Rails::Application
