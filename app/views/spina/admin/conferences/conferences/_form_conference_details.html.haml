@@ -1,12 +1,15 @@
 #conference_details.tab-content.active
   .well
-    = f.hidden_field :institution_id if @conference.institution
+
     .horizontal-form
-      - unless @conference.institution
-        .horizontal-form-group
-          .horizontal-form-label
-            = Spina::Conferences::Conference.human_attribute_name :institution
-          .horizontal-form-content
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::Conference.human_attribute_name :institution
+        .horizontal-form-content
+          - if @conference.institution
+            = f.hidden_field :institution_id
+            = @conference.institution.name
+          - else
             .select-dropdown
               = f.collection_select :institution_id, Spina::Conferences::Institution.all, :id, :name, { required: true }
 

@@ -1,12 +1,15 @@
 #presentation_type_details.tab-content.active
   .well
-    = f.hidden_field :conference_id if @presentation_type.conference
+
     .horizontal-form
-      - unless @presentation_type.conference
-        .horizontal-form-group
-          .horizontal-form-label
-            = Spina::Conferences::PresentationType.human_attribute_name :conference
-          .horizontal-form-content
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Conferences::PresentationType.human_attribute_name :conference
+        .horizontal-form-content
+          - if @presentation_type.conference
+            = f.hidden_field :conference_id
+            = @presentation_type.conference.name
+          - else
             .select-dropdown
               = f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :institution_and_year
 

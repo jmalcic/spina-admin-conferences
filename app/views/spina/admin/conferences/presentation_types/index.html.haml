@@ -7,9 +7,13 @@
     .sliding-dropdown#create_conference_dropdown.align-right
       .slide{ class: :active }
         = form_for [:admin_presentation_types, Spina::Conferences::PresentationType.new], url: spina.new_admin_conferences_presentation_type_path, method: :get do |f|
-          .select-dropdown
-            = f.collection_select :conference_id, Spina::Conferences::Conference.all, :id, :name, { required: true }
-          = f.submit t('spina.conferences.conferences.new'), class: 'button button-primary'
+          .form-group
+            .form-label
+              = Spina::Conferences::PresentationType.human_attribute_name :conference
+            .form-control
+              .select-dropdown
+                = f.collection_select :conference_id, Spina::Conferences::Conference.all, :id, :name, { required: true }
+          = f.submit t('spina.conferences.presentation_types.new'), class: 'button button-primary'
 
 .well
   .table-container

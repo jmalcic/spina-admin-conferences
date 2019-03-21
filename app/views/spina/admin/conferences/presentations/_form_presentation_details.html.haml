@@ -1,6 +1,6 @@
 #presentation_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'presentation-type-ids presentation-room-use-ids presentation-dates', 'presentation-type-ids': { url: admin_conferences_conference_presentation_types_path('%s') }, 'presentation-room-use-ids': { url: admin_conferences_presentation_type_room_uses_path('%s') }, 'presentation-dates': { url: admin_conferences_conference_path('%s') } } }
+    .horizontal-form
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Conferences::Presentation.human_attribute_name :conference
@@ -8,12 +8,11 @@
           - if @presentation.conference.blank?
             - if Spina::Conferences::Conference.any?
               .select-dropdown
-                = select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name), data: { action: 'presentation-dates#updateOptions presentation-type-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
+                = select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name)
             - else
               = t('spina.conferences.conferences.no_conferences')
           - else
-            .select-dropdown
-              = select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name, @presentation.conference.id), data: { action: 'presentation-dates#updateOptions presentation-type-ids#updateOptions', target: 'presentation-type-ids.inputId presentation-dates.inputId' }
+            = @presentation.conference.name
 
       .horizontal-form-group
         .horizontal-form-label
@@ -22,12 +21,11 @@
           - if @presentation.conference.blank?
             - if Spina::Conferences::PresentationType.any?
               .select-dropdown
-                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::PresentationType.all, :id, :name), data: { action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions'}
+                = select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::PresentationType.all, :id, :name)
             - else
               = t('spina.conferences.presentation_types.no_presentation_types')
           - else
-            .select-dropdown
-              = select_tag :presentation_type_id, options_from_collection_for_select(@presentation.conference.presentation_types, :id, :name, @presentation.presentation_type.id), data: { action: 'presentation-room-use-ids#updateOptions', target: 'presentation-room-use-ids.inputId presentation-type-ids.outputOptions' }
+            = @presentation.presentation_type.name
 
       .horizontal-form-group
         .horizontal-form-label
@@ -36,12 +34,12 @@
           - if @presentation.room_use.blank?
             - if Spina::Conferences::RoomUse.any?
               .select-dropdown
-                = f.collection_select :room_use_id, Spina::Conferences::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
+                = f.collection_select :room_use_id, Spina::Conferences::Conference.sorted.first.presentation_types.first.room_uses, :id, :room_name
             - else
               = t('spina.conferences.room_uses.no_room_uses')
           - else
-            .select-dropdown
-              = f.collection_select :room_use_id, @presentation.conference.presentation_types.first.room_uses, :id, :room_name, {}, { data: { target: 'presentation-room-use-ids.outputOptions' } }
+            = f.hidden_field :room_use_id
+            = @presentation.room_use.room_name
 
       .horizontal-form-group
         .horizontal-form-label
@@ -50,12 +48,12 @@
           - if @presentation.conference.blank?
             - if Spina::Conferences::Conference.any?
               .select-dropdown
-                = f.select :date, Spina::Conferences::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, {}, { data: { target: 'presentation-dates.outputOptions' } }
+                = f.select :date, Spina::Conferences::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }
             - else
               = t('spina.conferences.conferences.no_conferences')
           - else
             .select-dropdown
-              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }, {}, { data: { target: 'presentation-dates.outputOptions' } }
+              = f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }
 
       .horizontal-form-group
         .horizontal-form-label
