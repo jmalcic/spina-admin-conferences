@@ -11,10 +11,8 @@ module Spina
       has_many :rooms, through: :room_possessions
       has_many :presentation_types, dependent: :destroy
       has_many :presentations, through: :presentation_types
-      has_and_belongs_to_many :delegates,
-                              foreign_key: :spina_conferences_conference_id,
-                              association_foreign_key:
-                                  :spina_conferences_delegate_id
+      has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id,
+                                          association_foreign_key: :spina_conferences_delegate_id
 
       validates_associated :room_possessions
       validates_associated :presentation_types
