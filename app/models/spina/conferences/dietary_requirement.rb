@@ -12,7 +12,7 @@ module Spina
                               association_foreign_key:
                                 :spina_conferences_delegate_id
 
-      validates_presence_of :name
+      validates :name, presence: true
 
       scope :sorted, -> { order :name }
     end

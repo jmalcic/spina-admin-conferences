@@ -18,9 +18,8 @@ module Spina
                               association_foreign_key:
                                   :spina_conferences_delegate_id
 
-      validates_presence_of :title, :date, :start_time, :abstract, :presenters
-      validates :start_time, conference_date: true,
-                             unless: proc { |a| a.date.blank? }
+      validates :title, :date, :start_time, :abstract, :presenters, presence: true
+      validates :start_time, conference_date: true, unless: proc { |a| a.date.blank? }
       validates_associated :presenters
 
       scope :sorted, -> { order start_datetime: :desc }

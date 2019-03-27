@@ -9,7 +9,7 @@ module Spina
       has_many :room_uses, through: :room_possessions
       has_many :presentations, through: :room_uses
 
-      validates_presence_of :number, :building
+      validates :number, :building, presence: true
 
       scope :sorted, -> { order :building, :number }
 

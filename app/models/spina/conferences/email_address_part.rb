@@ -9,9 +9,7 @@ module Spina
       has_many :layout_parts, as: :layout_partable
       has_many :structure_parts, as: :structure_partable
 
-      validates :content, email_address: true, unless: (proc do |a|
-        a.content.blank?
-      end)
+      validates :content, email_address: true, unless: proc { |a| a.content.blank? }
     end
   end
 end

@@ -9,13 +9,9 @@ module Spina
       belongs_to :presentation_type, inverse_of: :room_uses, touch: true
       has_many :presentations, dependent: :nullify
 
-      validates_inclusion_of(
-        :room_possession,
-        in: lambda do |room_use|
-          room_use.presentation_type.conference.room_possessions
-        end,
-        message: 'does not belong to the associated conference'
-      )
+      validates :room_possession, inclusion: { in: ->(room_use) { room_use.conference.room_possessions },
+                                               message: 'does not belong to the associated conference',
+                                               unless: proc { |a| a.conference.blank? } }
       validates_associated :room_possession
 
       def room_name

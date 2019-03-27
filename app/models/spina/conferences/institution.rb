@@ -11,7 +11,7 @@ module Spina
       has_many :room_posessions, through: :rooms
       has_many :delegates, dependent: :destroy
 
-      validates_presence_of :name, :city
+      validates :name, :city, presence: true
     end
   end
 end

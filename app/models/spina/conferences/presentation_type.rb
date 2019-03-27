@@ -12,8 +12,8 @@ module Spina
       has_many :room_possessions, through: :room_uses
       has_many :presentations, through: :room_uses
 
-      validates_presence_of :name, :minutes, :room_uses
-      validates_numericality_of :minutes, greater_than_or_equal_to: 1
+      validates :name, :minutes, :room_uses, presence: true
+      validates :minutes, numericality: { greater_than_or_equal_to: 1 }
       validates_associated :room_uses
 
       scope :sorted, -> { order :name }

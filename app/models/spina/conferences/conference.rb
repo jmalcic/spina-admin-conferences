@@ -19,10 +19,8 @@ module Spina
       validates_associated :room_possessions
       validates_associated :presentation_types
 
-      validates :start_date, :finish_date, :room_ids, presence: true
-      validates :finish_date, finish_date: true, unless: (proc do |a|
-        a.dates.blank?
-      end)
+      validates :start_date, :finish_date, :room_ids, :institution_id, presence: true
+      validates :finish_date, finish_date: true, unless: proc { |a| a.dates.blank? }
 
       scope :sorted, -> { order dates: :desc }
 
