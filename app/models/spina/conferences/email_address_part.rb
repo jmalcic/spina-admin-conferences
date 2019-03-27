@@ -2,8 +2,7 @@
 
 module Spina
   module Conferences
-    # This class represents email addresses.
-    # The format is validated.
+    # This class represents email addresses. The format is validated.
     class EmailAddressPart < ApplicationRecord
       has_many :page_parts, as: :page_partable
       has_many :layout_parts, as: :layout_partable

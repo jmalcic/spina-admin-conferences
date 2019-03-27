@@ -24,12 +24,10 @@ module Spina
 
       scope :sorted, -> { order start_datetime: :desc }
 
-      # `:name` is used by the `:conference_page_part` to create a
-      # `ConferencePage`
+      # `:name` is used by the `:conference_page_part` to create a `ConferencePage`
       alias_attribute :name, :title
 
-      # `#parent_page` is used by the `:conference_page_part` to create a
-      # `Resource`
+      # `#parent_page` is used by the `:conference_page_part` to create a `Resource`
       def parent_page
         conference&.conference_page_part&.conference_page
       end

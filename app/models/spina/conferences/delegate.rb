@@ -3,15 +3,6 @@
 module Spina
   module Conferences
     # This class represents conference delegates.
-    # A `Delegate` may belong to multiple `:conferences`, and a `Conference`
-    # may have many `:delegates`. A `Delegate` may have (present) multiple
-    # `:presentations`, and a `Presentation` may have (be presented by)
-    # multiple `:delegates`. A `Delegate` may have many
-    # `:dietary_requirements` and conversely a `DietaryRequirement` may have
-    # many `:delegates`.
-    # Destroying a `Delegate` does not affect associated `:conferences` and
-    # `:presentations`.
-    # The format of an `:email_address` is validated.
     class Delegate < ApplicationRecord
       belongs_to :institution
       has_and_belongs_to_many :conferences,

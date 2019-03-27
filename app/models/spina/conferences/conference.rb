@@ -51,14 +51,12 @@ module Spina
         dates.min.year
       end
 
-      # Returns the beginning of the range of `:dates` the conference occurs,
-      # or else today's date.
+      # Returns the beginning of the range of `:dates` the conference occurs, or else today's date.
       def start_date
         dates&.min || nil
       end
 
-      # Returns the end of the range of `:dates` the conference occurs,
-      # or else tomorrow's date.
+      # Returns the end of the range of `:dates` the conference occurs, or else tomorrow's date.
       def finish_date
         dates&.max || nil
       end

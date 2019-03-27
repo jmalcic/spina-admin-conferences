@@ -3,8 +3,7 @@
 module Spina
   module Conferences
     # This class represents dietary requirements.
-    # A `DietaryRequirement` belongs to many `:delegates`, and a `Delegate` may
-    # have many `:dietary_requirements`.
+    # A `DietaryRequirement` belongs to many `:delegates`, and a `Delegate` may have many `:dietary_requirements`.
     class DietaryRequirement < ApplicationRecord
       has_and_belongs_to_many :delegates,
                               foreign_key:
