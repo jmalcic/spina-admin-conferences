@@ -4,9 +4,8 @@ require 'active_support/concern'
 
 module Spina
   module Conferences
-    # This module adds a `has_one` relation to a `:conference_page_part` and
-    # a callback to build a `ConferencePagePart` before the creation of an
-    # instance.
+    # This module adds a `has_one` relation to a `:conference_page_part` and a callback to build a `ConferencePagePart`
+    # before the creation of an instance.
     module ConferencePagePartable
       extend ActiveSupport::Concern
 
@@ -21,7 +20,7 @@ module Spina
         before_validation :set_up_conference_page, on: :create
         after_destroy { conference_page_part&.destroy }
 
-        has_one :conference_page_part, as: :conference_page_partable
+        has_one :conference_page_part, as: :conference_page_partable, inverse_of: :conference_page_partable
         has_one :conference_page, through: :conference_page_part
 
         private
