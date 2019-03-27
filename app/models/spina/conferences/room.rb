@@ -17,7 +17,7 @@ module Spina
         "#{building} #{number}"
       end
 
-      alias_method :name, :building_and_number
+      alias name building_and_number
     end
   end
 end
