@@ -32,18 +32,6 @@ module Spina
       # `ConferencePage`
       alias name institution_and_year
 
-      # `#parent_page` is used by the `:conference_page_part` to create a
-      # `Resource`
-      def self.parent_page
-        Spina::Page.find_by(name: name.demodulize.parameterize.pluralize)
-      end
-
-      # `#view_template` is used by the `:conference_page_part` to create a
-      # `Resource`
-      def self.view_template
-        name.demodulize.parameterize.pluralize
-      end
-
       # Returns the year of `#start_date`.
       def year
         dates.min.year

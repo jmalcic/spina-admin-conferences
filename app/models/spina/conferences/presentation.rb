@@ -25,17 +25,6 @@ module Spina
       # `:name` is used by the `:conference_page_part` to create a `ConferencePage`
       alias_attribute :name, :title
 
-      # `#parent_page` is used by the `:conference_page_part` to create a `Resource`
-      def parent_page
-        conference&.conference_page_part&.conference_page
-      end
-
-      # `#view_template` is used by the `:conference_page_part` to create a
-      # `Resource`
-      def self.view_template
-        name.demodulize.parameterize.pluralize
-      end
-
       def date
         start_datetime&.to_date
       end
