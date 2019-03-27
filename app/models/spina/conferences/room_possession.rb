@@ -13,9 +13,7 @@ module Spina
                                     message: 'does not belong to the associated institution' },
                        unless: proc { |a| a.conference.blank? }
 
-      def room_name
-        room.name
-      end
+      delegate :name, to: :room, prefix: true
     end
   end
 end

@@ -13,9 +13,7 @@ module Spina
                                                unless: proc { |a| a.conference.blank? } }
       validates_associated :room_possession
 
-      def room_name
-        room_possession.room.name
-      end
+      delegate :room_name, to: :room_possession
     end
   end
 end
