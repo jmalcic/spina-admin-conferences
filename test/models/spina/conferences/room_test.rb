@@ -2,8 +2,19 @@
 
 require 'test_helper'
 
-class Spina::Conferences::RoomTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+module Spina
+  module Conferences
+    class RoomTest < ActiveSupport::TestCase
+      setup do
+        @room = spina_conferences_rooms(:lecture_block_2)
+      end
+
+      test 'room attributes must not be empty' do
+        room = Room.new
+        assert room.invalid?
+        assert room.errors[:number].any?
+        assert room.errors[:building].any?
+      end
+    end
+  end
 end
