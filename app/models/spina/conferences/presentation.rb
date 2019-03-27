@@ -12,11 +12,9 @@ module Spina
       has_one :presentation_type, through: :room_use
       has_one :room_possession, through: :room_use
       has_one :conference, through: :presentation_type
-      has_and_belongs_to_many :presenters,
-                              class_name: 'Spina::Conferences::Delegate',
-                              foreign_key: :spina_conferences_presentation_id,
-                              association_foreign_key:
-                                  :spina_conferences_delegate_id
+      has_and_belongs_to_many :presenters, class_name: 'Spina::Conferences::Delegate',
+                                           foreign_key: :spina_conferences_presentation_id,
+                                           association_foreign_key: :spina_conferences_delegate_id
 
       validates :title, :date, :start_time, :abstract, :presenters, presence: true
       validates :start_time, conference_date: true, unless: proc { |a| a.date.blank? }
