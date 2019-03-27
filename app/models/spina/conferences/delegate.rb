@@ -24,7 +24,7 @@ module Spina
 
       # Returns full name and institution, used to identify delegates.
       def full_name_and_institution
-        full_name + ", #{institution.name}"
+        "#{full_name}, #{institution.name}"
       end
 
       # Returns last name and first name, used for sorting delegates.
@@ -34,7 +34,7 @@ module Spina
 
       # Returns reversed name and institution, used for sorting delegates.
       def reversed_name_and_institution
-        reversed_name + ", #{institution.name}"
+        "#{reversed_name}, #{institution.name}"
       end
     end
   end
