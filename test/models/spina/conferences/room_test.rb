@@ -5,9 +5,7 @@ require 'test_helper'
 module Spina
   module Conferences
     class RoomTest < ActiveSupport::TestCase
-      setup do
-        @room = spina_conferences_rooms(:lecture_block_2)
-      end
+      setup { @room = spina_conferences_rooms :lecture_block_2 }
 
       test 'room attributes must not be empty' do
         room = Room.new

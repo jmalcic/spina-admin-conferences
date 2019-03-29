@@ -5,9 +5,7 @@ require 'test_helper'
 module Spina
   module Conferences
     class PresentationTypeTest < ActiveSupport::TestCase
-      setup do
-        @presentation_type = spina_conferences_presentation_types(:plenary_1)
-      end
+      setup { @presentation_type = spina_conferences_presentation_types :plenary_1 }
 
       test 'presentation type attributes must not be empty' do
         presentation_type = PresentationType.new

@@ -5,9 +5,7 @@ require 'test_helper'
 module Spina
   module Conferences
     class InstitutionTest < ActiveSupport::TestCase
-      setup do
-        @institution = spina_conferences_institutions(:university_of_atlantis)
-      end
+      setup { @institution = spina_conferences_institutions :university_of_atlantis }
 
       test 'institution attributes must not be empty' do
         institution = Institution.new

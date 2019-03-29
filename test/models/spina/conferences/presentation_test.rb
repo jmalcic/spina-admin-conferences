@@ -5,9 +5,7 @@ require 'test_helper'
 module Spina
   module Conferences
     class PresentationTest < ActiveSupport::TestCase
-      setup do
-        @presentation = spina_conferences_presentations(:asymmetry_and_antisymmetry)
-      end
+      setup { @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry }
 
       test 'presentation attributes must not be empty' do
         presentation = Presentation.new
