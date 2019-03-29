@@ -38,7 +38,7 @@
           %small= (Spina::Conferences::Delegate.human_attribute_name :conferences_description).try(:html_safe)
         .horizontal-form-content
           .multiple.select-dropdown
-            = f.collection_select :conference_ids, Spina::Conferences::Conference.order(:dates), :id, :institution_and_year, {}, { multiple: true, required: true }
+            = f.collection_select :conference_ids, Spina::Conferences::Conference.order(:dates), :id, :name, {}, { multiple: true, required: true }
 
       .horizontal-form-group
         .horizontal-form-label

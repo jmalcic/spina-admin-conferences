@@ -28,7 +28,7 @@ module Spina
 
         def edit
           @conference = Spina::Conferences::Conference.find params[:id]
-          add_breadcrumb @conference.institution_and_year
+          add_breadcrumb @conference.name
           render layout: 'spina/admin/admin'
         end
 
@@ -65,7 +65,7 @@ module Spina
         end
 
         def set_update_breadcrumb
-          add_breadcrumb @conference.institution_and_year if @conference
+          add_breadcrumb @conference.name if @conference
         end
 
         def set_tabs

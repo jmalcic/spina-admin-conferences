@@ -11,7 +11,7 @@
             = @presentation_type.conference.name
           - else
             .select-dropdown
-              = f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :institution_and_year
+              = f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :name
 
       .horizontal-form-group
         .horizontal-form-label

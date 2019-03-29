@@ -3,7 +3,7 @@
 
 - Spina::Conferences::Conference.sorted.each do |conference|
   %article
-    %h2= link_to conference.institution_and_year, conference.materialized_path
+    %h2= link_to conference.name, conference.materialized_path
     = time_tag conference.dates.min, l(conference.dates.min, format: :long)
     to
     = time_tag conference.dates.max, l(conference.dates.max, format: :long)
