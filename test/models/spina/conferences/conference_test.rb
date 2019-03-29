@@ -16,22 +16,24 @@ module Spina
       end
 
       test 'start and finish dates must be dates' do
+        assert @conference.valid?
         assert_not @conference.errors[:start_date].any?
         assert_not @conference.errors[:finish_date].any?
-        invalid_conference = Conference.new(institution: @conference.institution, start_date: 'Time.zone.today.iso8601',
-                                            finish_date: 'Time.zone.yesterday.iso8601', rooms: @conference.rooms)
-        assert invalid_conference.invalid?
-        assert invalid_conference.errors[:start_date].any?
-        assert invalid_conference.errors[:finish_date].any?
+        @conference.start_date = 'Time.zone.today.iso8601'
+        @conference.finish_date = 'Time.zone.yesterday.iso8601'
+        assert @conference.invalid?
+        assert @conference.errors[:start_date].any?
+        assert @conference.errors[:finish_date].any?
       end
 
       test 'finish date must be after start date' do
+        assert @conference.valid?
         assert_not @conference.errors[:start_date].any?
         assert_not @conference.errors[:finish_date].any?
-        invalid_conference = Conference.new(institution: @conference.institution, start_date: Time.zone.today.iso8601,
-                                            finish_date: Time.zone.yesterday.iso8601, rooms: @conference.rooms)
-        assert invalid_conference.invalid?
-        assert invalid_conference.errors[:finish_date].any?
+        @conference.start_date = Time.zone.today.iso8601
+        @conference.finish_date = Time.zone.yesterday.iso8601
+        assert @conference.invalid?
+        assert @conference.errors[:finish_date].any?
       end
 
       test 'returns a name' do
