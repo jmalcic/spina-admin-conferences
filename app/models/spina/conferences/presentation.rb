@@ -30,14 +30,14 @@ module Spina
       alias_attribute :name, :title
 
       def set_from_start_datetime
-        return unless start_datetime
+        return unless start_datetime.present?
 
         self.date ||= start_datetime.to_date
         self.start_time ||= start_datetime
       end
 
       def update_start_datetime
-        self.start_datetime = "#{date} #{start_time}".to_time.in_time_zone if date && start_time
+        self.start_datetime = "#{date} #{start_time}".to_time.in_time_zone if date.present? && start_time.present?
       end
     end
   end

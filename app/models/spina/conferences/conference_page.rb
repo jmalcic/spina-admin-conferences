@@ -5,7 +5,7 @@ module Spina
     # This class inherits from `Spina::Page` and differs in having a `:conference_page_part`.
     class ConferencePage < Page
       after_create do
-        navigations << Spina::Navigation.where(auto_add_pages: true) unless resource
+        navigations << Spina::Navigation.where(auto_add_pages: true) unless resource.present?
       end
 
       has_one :conference_page_part, dependent: :destroy, inverse_of: :conference_page

@@ -22,7 +22,7 @@ module Spina
       end
 
       def update_content
-        self.content = "#{date} #{time}".to_time.in_time_zone if date && time
+        self.content = "#{date} #{time}".to_time.in_time_zone if date.present? && time.present?
       end
     end
   end

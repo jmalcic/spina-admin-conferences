@@ -23,11 +23,11 @@ module Spina
       scope :sorted, -> { order :name }
 
       def set_from_duration
-        self.minutes ||= duration / ActiveSupport::Duration::SECONDS_PER_MINUTE if duration
+        self.minutes ||= duration / ActiveSupport::Duration::SECONDS_PER_MINUTE if duration.present?
       end
 
       def set_duration
-        self.duration = minutes.minutes if minutes
+        self.duration = minutes.minutes if minutes.present?
       end
     end
   end
