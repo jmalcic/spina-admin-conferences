@@ -7,7 +7,7 @@ module Spina
       include ConferencePagePartable
 
       after_initialize :set_dates
-      after_validation :update_dates
+      before_validation :update_dates
 
       attribute :start_date, :date
       attribute :finish_date, :date
