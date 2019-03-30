@@ -11,8 +11,6 @@ plenary_1:
     value: 4800
     parts:
       :minutes: 80
-  room_possessions:
-    - lecture_block_3
 
 poster_1:
   conference: university_of_atlantis_2017
@@ -21,8 +19,6 @@ poster_1:
     value: 1800
     parts:
       :minutes: 30
-  room_possessions:
-    - lecture_block_entrance
 
 oral_1:
   conference: university_of_atlantis_2017
@@ -31,9 +27,6 @@ oral_1:
     value: 1200
     parts:
       :minutes: 20
-  room_possessions:
-    - lecture_block_2
-    - lecture_block_3
 
 plenary_2:
   conference: university_of_shangri_la_2018
@@ -42,8 +35,6 @@ plenary_2:
     value: 4800
     parts:
       :minutes: 80
-  room_possessions:
-    - medical_school_g_152
 
 poster_2:
   conference: university_of_shangri_la_2018

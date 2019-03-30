@@ -7,15 +7,7 @@
 university_of_atlantis_2017:
   institution: university_of_atlantis
   dates: !ruby/range 2017-04-07..2017-04-09
-  rooms:
-    - lecture_block_2
-    - lecture_block_3
-    - lecture_block_entrance
 
 university_of_shangri_la_2018:
   institution: university_of_shangri_la
   dates: !ruby/range 2018-04-09..2018-04-11
-  rooms:
-    - medical_school_g_14
-    - medical_school_g_152
-    - medical_school_g_16

@@ -10,6 +10,7 @@ asymmetry_and_antisymmetry:
   abstract: Lorem ipsum
   presenters:
     - joe_bloggs
+  room_use: oral_1_lecture_block_2_uoa_2017
 
 no_island:
   title: No Island is an Island
@@ -17,3 +18,4 @@ no_island:
   abstract: Dolor sit amen
   presenters:
     - brandon_krapp
+  room_use: oral_1_lecture_block_2_uoa_2017
