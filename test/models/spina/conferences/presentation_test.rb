@@ -16,6 +16,19 @@ module Spina
         assert presentation.errors[:abstract].any?
         assert presentation.errors[:presenters].any?
       end
+
+      test 'date must be during conference' do
+        assert @presentation.valid?
+        assert_not @presentation.errors[:date].any?
+        @presentation.date = @presentation.conference.dates.max + 1.day
+        assert @presentation.invalid?
+        assert @presentation.errors[:date].any?
+      end
+
+      test 'returns a name' do
+        assert @presentation.respond_to? :name
+        assert @presentation.name.class == String
+      end
     end
   end
 end

@@ -6,7 +6,11 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
 
-      attr_writer :date
+      after_initialize :set_start_datetime
+      before_validation :update_start_datetime
+
+      attribute :date, :date
+      attribute :start_time, :time
 
       belongs_to :room_use, touch: true
       has_one :presentation_type, through: :room_use
@@ -17,7 +21,7 @@ module Spina
                                            association_foreign_key: :spina_conferences_delegate_id
 
       validates :title, :date, :start_time, :abstract, :presenters, presence: true
-      validates :start_time, conference_date: true, unless: proc { |a| a.date.blank? }
+      validates :date, conference_date: true
       validates_associated :presenters
 
       scope :sorted, -> { order start_datetime: :desc }
@@ -25,19 +29,15 @@ module Spina
       # `:name` is used by the `:conference_page_part` to create a `ConferencePage`
       alias_attribute :name, :title
 
-      def date
-        start_datetime&.to_date
+      def set_start_datetime
+        return unless start_datetime
+
+        self.date ||= start_datetime.to_date
+        self.start_time ||= start_datetime
       end
 
-      def start_time
-        start_datetime
-      end
-
-      def start_time=(time)
-        @time = time
-        return unless @date
-
-        self.start_datetime = "#{@date} #{@time}".to_time.in_time_zone
+      def update_start_datetime
+        self.start_datetime = "#{date} #{start_time}".to_time.in_time_zone if date && start_time
       end
     end
   end
