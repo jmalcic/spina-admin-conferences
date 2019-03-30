@@ -26,7 +26,7 @@ module Spina
 
         def edit
           @room = Spina::Conferences::Room.find params[:id]
-          add_breadcrumb @room.building_and_number
+          add_breadcrumb @room.name
           render layout: 'spina/admin/admin'
         end
 
@@ -42,7 +42,7 @@ module Spina
 
         def update
           @room = Spina::Conferences::Room.find params[:id]
-          add_breadcrumb @room.building_and_number
+          add_breadcrumb @room.name
           if @room.update(conference_params)
             redirect_to admin_conferences_rooms_path
           else

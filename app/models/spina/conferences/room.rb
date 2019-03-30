@@ -13,11 +13,9 @@ module Spina
 
       scope :sorted, -> { order :building, :number }
 
-      def building_and_number
+      def name
         "#{building} #{number}"
       end
-
-      alias name building_and_number
     end
   end
 end
