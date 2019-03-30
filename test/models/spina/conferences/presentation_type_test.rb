@@ -14,6 +14,25 @@ module Spina
         assert presentation_type.errors[:minutes].any?
         assert presentation_type.errors[:room_uses].any?
       end
+
+      test 'minutes must be an integer' do
+        assert @presentation_type.valid?
+        assert_not @presentation_type.errors[:minutes].any?
+        @presentation_type.minutes = '15.minutes'
+        assert @presentation_type.invalid?
+        assert @presentation_type.errors[:minutes].any?
+      end
+
+      test 'minutes must be a greater than or equal to 1' do
+        assert @presentation_type.valid?
+        assert_not @presentation_type.errors[:minutes].any?
+        @presentation_type.minutes = 0
+        assert @presentation_type.invalid?
+        assert @presentation_type.errors[:minutes].any?
+        @presentation_type.minutes = -1
+        assert @presentation_type.invalid?
+        assert @presentation_type.errors[:minutes].any?
+      end
     end
   end
 end
