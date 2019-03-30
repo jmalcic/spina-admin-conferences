@@ -6,7 +6,7 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
 
-      after_initialize :set_start_datetime
+      after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
 
       attribute :date, :date
@@ -29,7 +29,7 @@ module Spina
       # `:name` is used by the `:conference_page_part` to create a `ConferencePage`
       alias_attribute :name, :title
 
-      def set_start_datetime
+      def set_from_start_datetime
         return unless start_datetime
 
         self.date ||= start_datetime.to_date

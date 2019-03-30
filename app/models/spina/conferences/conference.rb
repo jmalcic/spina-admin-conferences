@@ -6,7 +6,7 @@ module Spina
     class Conference < ApplicationRecord
       include ConferencePagePartable
 
-      after_initialize :set_dates
+      after_initialize :set_from_dates
       before_validation :update_dates
 
       attribute :start_date, :date
@@ -36,7 +36,7 @@ module Spina
         "#{institution_name} #{dates&.min&.year}"
       end
 
-      def set_dates
+      def set_from_dates
         return unless dates
 
         self.start_date ||= dates.min
