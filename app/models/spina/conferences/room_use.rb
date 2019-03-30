@@ -11,7 +11,7 @@ module Spina
 
       validates :room_possession, inclusion: { in: ->(room_use) { room_use.conference.room_possessions },
                                                message: 'does not belong to the associated conference',
-                                               unless: proc { |a| a.conference.blank? } }
+                                               unless: proc { |room_use| room_use.conference.blank? } }
       validates_associated :room_possession
 
       delegate :room_name, to: :room_possession
