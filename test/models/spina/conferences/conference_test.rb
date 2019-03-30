@@ -19,8 +19,8 @@ module Spina
         assert @conference.valid?
         assert_not @conference.errors[:start_date].any?
         assert_not @conference.errors[:finish_date].any?
-        @conference.start_date = 'Time.zone.today.iso8601'
-        @conference.finish_date = 'Time.zone.yesterday.iso8601'
+        @conference.start_date = 'Time.zone.yesterday.iso8601'
+        @conference.finish_date = 'Time.zone.today.iso8601'
         assert @conference.invalid?
         assert @conference.errors[:start_date].any?
         assert @conference.errors[:finish_date].any?
