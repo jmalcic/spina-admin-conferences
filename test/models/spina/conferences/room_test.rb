@@ -13,6 +13,11 @@ module Spina
         assert room.errors[:number].any?
         assert room.errors[:building].any?
       end
+
+      test 'returns a name' do
+        assert @room.respond_to? :name
+        assert @room.name.class == String
+      end
     end
   end
 end
