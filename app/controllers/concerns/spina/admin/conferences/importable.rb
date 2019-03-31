@@ -13,8 +13,8 @@ module Spina
         included do
           def import_csv(file)
             CSV.read file.path, encoding: 'UTF-8', headers: true,
-                                   header_converters: :symbol,
-                                   converters: %i[date_time date]
+                                header_converters: :symbol,
+                                converters: %i[date_time date]
           end
         end
       end
