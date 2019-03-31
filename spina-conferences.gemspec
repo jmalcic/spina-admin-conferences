@@ -35,5 +35,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'web-console'
   spec.add_development_dependency 'webdrivers'
-  spec.add_development_dependency 'simplecov'
 end
