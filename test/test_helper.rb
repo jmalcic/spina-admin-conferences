@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+
+SimpleCov.start
+
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
 

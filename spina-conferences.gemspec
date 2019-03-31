@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mini_racer'
   spec.add_development_dependency 'puma'
   spec.add_development_dependency 'selenium-webdriver'
+  spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'web-console'
   spec.add_development_dependency 'webdrivers'
 end
