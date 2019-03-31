@@ -18,7 +18,8 @@ module Spina
         before_validation :set_up_conference_page, on: :create
         after_destroy { conference_page_part&.destroy }
 
-        has_one :conference_page_part, as: :conference_page_partable, inverse_of: :conference_page_partable
+        has_one :conference_page_part, as: :conference_page_partable, inverse_of: :conference_page_partable,
+                                       dependent: false
         has_one :conference_page, through: :conference_page_part
 
         private
