@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 module Spina
   module Admin
+    # noinspection RubyClassModuleNamingConvention
     class DietaryRequirementsControllerTest < ActionDispatch::IntegrationTest
       include Engine.routes.url_helpers
       include ::Spina::Conferences
