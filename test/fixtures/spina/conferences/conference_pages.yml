@@ -4,8 +4,26 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+university_of_atlantis_2017_page:
+  resource: conferences
+  view_template: conference
+  deletable: false
+  type: Spina::Conferences::ConferencePage
+
+university_of_shangri_la_2018_page:
+  resource: conferences
+  view_template: conference
+  deletable: false
+  type: Spina::Conferences::ConferencePage
+
+asymmetry_and_antisymmetry_page:
+  resource: presentations
+  view_template: presentation
+  deletable: false
+  type: Spina::Conferences::ConferencePage
+
+no_island_page:
+  resource: presentations
+  view_template: presentation
+  deletable: false
+  type: Spina::Conferences::ConferencePage

@@ -47,7 +47,7 @@
         - if @presentations.any?
           - @presentations.each do |presentation|
             %tr
-              %td= presentation.conference.institution_and_year
+              %td= presentation.conference.name
               %td= link_to presentation.title, spina.edit_admin_conferences_presentation_path(presentation)
               %td
                 - presentation.presenters.each do |presenter|

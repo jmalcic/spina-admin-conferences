@@ -29,7 +29,7 @@
         - if @presentation_types.any?
           - @presentation_types.each do |presentation_type|
             %tr
-              %td= presentation_type.conference.institution_and_year
+              %td= presentation_type.conference.name
               %td= link_to presentation_type.name, spina.edit_admin_conferences_presentation_type_path(presentation_type)
               %td= time_tag presentation_type.duration, presentation_type.duration.inspect unless presentation_type.duration.blank?
               %td.align-right

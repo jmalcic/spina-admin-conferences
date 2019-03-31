@@ -1,7 +1,16 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
-class Spina::TimePartTypeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+module Spina
+  class TimePartTypeTest < ActiveSupport::TestCase
+    setup { @time_part = spina_conferences_time_parts :valid_time }
+
+    test 'content must be a time' do
+      assert @time_part.valid?
+      assert_not @time_part.errors[:content].any?
+      @time_part.content = 'invalid'
+      assert @time_part.content.nil?
+    end
+  end
 end

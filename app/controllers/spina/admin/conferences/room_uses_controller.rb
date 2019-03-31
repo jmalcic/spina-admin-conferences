@@ -5,11 +5,13 @@ module Spina
     module Conferences
       # This class shows room uses
       class RoomUsesController < ::Spina::Admin::AdminController
+        include ::Spina::Conferences
+
         def index
           begin
-            @room_uses = Spina::Conferences::PresentationType.find(params[:presentation_type_id]).room_uses
+            @room_uses = PresentationType.find(params[:presentation_type_id]).room_uses
           rescue ActiveRecord::RecordNotFound
-            @room_uses = Spina::Conferences::RoomUse.all
+            @room_uses = RoomUse.all
           end
           respond_to { |format| format.json { render json: @room_uses, methods: :room_name } }
         end

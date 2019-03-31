@@ -30,7 +30,7 @@
         - if @conferences.any?
           - @conferences.each do |conference|
             %tr
-              %td= link_to conference.year, spina.edit_admin_conferences_conference_path(conference)
+              %td= link_to conference.dates.min.year, spina.edit_admin_conferences_conference_path(conference)
               %td= conference.institution.name
               %td= time_tag conference.dates.min, l(conference.dates.min, format: :long) unless conference.dates.blank?
               %td= time_tag conference.dates.max, l(conference.dates.max, format: :long) unless conference.dates.blank?

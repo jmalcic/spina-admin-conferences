@@ -9,17 +9,11 @@ module Spina
       has_many :room_uses, dependent: :destroy
       has_many :presentation_types, through: :room_uses
 
-      validates_inclusion_of(
-        :room,
-        in: lambda do |room_possession|
-          room_possession.conference.institution.rooms
-        end,
-        message: 'does not belong to the associated institution'
-      )
+      validates :room, inclusion: { in: ->(room_possession) { room_possession.conference.institution.rooms },
+                                    message: 'does not belong to the associated institution' },
+                       unless: proc { |room_possession| room_possession.conference.blank? }
 
-      def room_name
-        room.name
-      end
+      delegate :name, to: :room, prefix: true
     end
   end
 end

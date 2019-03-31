@@ -1,7 +1,34 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
-class Spina::Conferences::PresentationTypeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+module Spina
+  module Conferences
+    class PresentationTest < ActiveSupport::TestCase
+      setup { @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry }
+
+      test 'presentation attributes must not be empty' do
+        presentation = Presentation.new
+        assert presentation.invalid?
+        assert presentation.errors[:title].any?
+        assert presentation.errors[:date].any?
+        assert presentation.errors[:start_time].any?
+        assert presentation.errors[:abstract].any?
+        assert presentation.errors[:presenters].any?
+      end
+
+      test 'date must be during conference' do
+        assert @presentation.valid?
+        assert_not @presentation.errors[:date].any?
+        @presentation.date = @presentation.conference.dates.max + 1.day
+        assert @presentation.invalid?
+        assert @presentation.errors[:date].any?
+      end
+
+      test 'returns a name' do
+        assert @presentation.respond_to? :name
+        assert @presentation.name.class == String
+      end
+    end
+  end
 end

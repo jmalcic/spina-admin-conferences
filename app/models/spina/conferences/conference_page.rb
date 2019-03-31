@@ -2,19 +2,16 @@
 
 module Spina
   module Conferences
-    # This class inherits from `Spina::Page` and differs in having a
-    # `:conference_page_part`.
+    # This class inherits from `Spina::Page` and differs in having a `:conference_page_part`.
     class ConferencePage < Page
       after_create do
-        navigations << Spina::Navigation.where(auto_add_pages: true) unless resource
+        navigations << Spina::Navigation.where(auto_add_pages: true) if resource.blank?
       end
 
-      has_one :conference_page_part, dependent: :destroy
-      has_one :conference, through: :conference_page_part,
-                           source: :conference_page_partable,
+      has_one :conference_page_part, dependent: :destroy, inverse_of: :conference_page
+      has_one :conference, through: :conference_page_part, source: :conference_page_partable,
                            source_type: 'Spina::Conferences::Conference'
-      has_one :presentation, through: :conference_page_part,
-                             source: :conference_page_partable,
+      has_one :presentation, through: :conference_page_part, source: :conference_page_partable,
                              source_type: 'Spina::Conferences::Presentation'
     end
   end
