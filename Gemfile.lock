@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/SpinaCMS/Spina.git
-  revision: 3de50e81ec82416507c6f4f9d4360e9a2683fd2f
+  revision: cb7bd6cd29e0283e362f3b79c793665cb0ff4140
   specs:
     spina (1.0.3)
       ancestry
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 15ca8ad0c1e94d11d0deb02535bc286e077d43ce
+  revision: 002684e36e813469c3585e193f0698784c88278b
   specs:
     actioncable (6.0.0.beta3)
       actionpack (= 6.0.0.beta3)
@@ -85,6 +85,7 @@ GIT
       activesupport (= 6.0.0.beta3)
     activestorage (6.0.0.beta3)
       actionpack (= 6.0.0.beta3)
+      activejob (= 6.0.0.beta3)
       activerecord (= 6.0.0.beta3)
       marcel (~> 0.3.1)
     activesupport (6.0.0.beta3)
@@ -92,7 +93,7 @@ GIT
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-      zeitwerk (~> 1.4, >= 1.4.2)
+      zeitwerk (~> 1.4, >= 1.4.3)
     rails (6.0.0.beta3)
       actioncable (= 6.0.0.beta3)
       actionmailbox (= 6.0.0.beta3)
@@ -132,10 +133,10 @@ GEM
     ancestry (3.0.5)
       activerecord (>= 3.2.0)
     bcrypt (3.1.12)
-    bindex (0.5.0)
+    bindex (0.6.0)
     breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
-    capybara (3.15.0)
+    capybara (3.16.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -151,15 +152,15 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
-    dotenv (2.7.1)
-    dotenv-rails (2.7.1)
-      dotenv (= 2.7.1)
+    dotenv (2.7.2)
+    dotenv-rails (2.7.2)
+      dotenv (= 2.7.2)
       railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.10.0)
-    font_awesome5_rails (0.5.0)
+    font_awesome5_rails (0.6.0)
       railties (>= 4.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -220,7 +221,7 @@ GEM
       request_store (~> 1.0)
     net_http_ssl_fix (0.0.10)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
     public_suffix (3.0.3)
@@ -241,7 +242,7 @@ GEM
     regexp_parser (1.3.0)
     request_store (1.4.1)
       rack (>= 1.4)
-    ruby_parser (3.13.0)
+    ruby_parser (3.13.1)
       sexp_processor (~> 4.9)
     rubyzip (1.2.2)
     sass (3.7.3)
@@ -280,7 +281,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webdrivers (3.7.0)
+    webdrivers (3.7.1)
       net_http_ssl_fix
       nokogiri (~> 1.6)
       rubyzip (~> 1.0)
@@ -290,7 +291,7 @@ GEM
     websocket-extensions (0.1.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (1.4.2)
+    zeitwerk (1.4.3)
 
 PLATFORMS
   ruby
