@@ -5,7 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 
-dummy_account:
-  name: 'My Website'
-  preferences:
-    :theme: 'conference'
+joe:
+  name: Joe
+  email: someone@someaddress.com
+  password_digest: <%= BCrypt::Password.create('password') %>
+  admin: true
