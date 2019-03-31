@@ -63,7 +63,7 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w{delegate_details conferences presentations}
+          @tabs = %w[delegate_details conferences presentations]
         end
 
         def delegate_params

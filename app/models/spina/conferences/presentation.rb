@@ -30,7 +30,7 @@ module Spina
       alias_attribute :name, :title
 
       def set_from_start_datetime
-        return unless start_datetime.present?
+        return if start_datetime.blank?
 
         self.date ||= start_datetime.to_date
         self.start_time ||= start_datetime

@@ -56,7 +56,7 @@ module Spina
         def import
           @presentations = import_csv(params[:file]).collect do |row|
             conference = Conference.where(
-              institution: Institution.find_by(name: row[:conference_institution],city: row[:conference_city])
+              institution: Institution.find_by(name: row[:conference_institution], city: row[:conference_city])
             ).find_by(['dates @> ?::date', row[:date]])
             room_use = RoomUse.find_by(
               presentation_type: PresentationType.find_by(conference: conference, name: row[:presentation_type]),

@@ -37,7 +37,7 @@ module Spina
       end
 
       def set_from_dates
-        return unless dates.present?
+        return if dates.blank?
 
         self.start_date ||= dates.min
         self.finish_date ||= dates.max

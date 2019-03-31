@@ -66,7 +66,7 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w{room_details presentations}
+          @tabs = %w[room_details presentations]
         end
 
         def conference_params
