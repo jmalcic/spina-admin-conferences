@@ -4,14 +4,15 @@ addons:
       - chromium-chromedriver
   chrome: stable
   postgresql: 9.6
-  code_climate:
-    repo_token: 9136fc9fa7bc99df183ee4fb173f7a424361191785f303954ea0262f896a86df
-after_success:
-  - bundle exec codeclimate-test-reporter
 before_install:
   - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
   - gem update --system
   - gem install bundler
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   - bundle exec rails db:setup
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 language: ruby
