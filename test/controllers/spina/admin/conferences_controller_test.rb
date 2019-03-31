@@ -25,7 +25,7 @@ module Spina
       end
 
       test 'should create conference' do
-        assert_difference(%w[Conference.count ConferencePage.count ConferencePagePart.count]) do
+        assert_difference(%w[Conference.count ConferencePagePart.count ConferencePage.count]) do
           attributes = @conference.attributes
           attributes[:room_ids] = @conference.rooms.collect(&:id)
           post admin_conferences_conferences_url, params: { conference: attributes }
@@ -45,7 +45,7 @@ module Spina
       end
 
       test 'should destroy conference' do
-        assert_difference(%w[Conference.count ConferencePage.count ConferencePagePart.count], -1) do
+        assert_difference(%w[Conference.count ConferencePagePart.count ConferencePage.count], -1) do
           delete admin_conferences_conference_url(@conference)
         end
 

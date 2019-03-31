@@ -5,7 +5,12 @@
 # below each fixture, per the syntax in the comments below
 #
 
-dummy_account:
-  name: My Website
-  preferences:
-    :theme: conference
+conferences:
+  label: Conferences
+  name: conferences
+  view_template: conference
+
+presentations:
+  label: Presentations
+  name: presentations
+  view_template: presentation

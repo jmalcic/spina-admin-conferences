@@ -10,8 +10,6 @@ module Spina
       extend ActiveSupport::Concern
 
       included do
-        attr_reader :conference_page
-
         define_model_callbacks :initializer
 
         delegate :materialized_path, to: :'conference_page_part.conference_page'
@@ -27,7 +25,7 @@ module Spina
 
         def set_up_resource
           resource_name = self.class.name.demodulize.parameterize
-          @resource = Spina::Resource.find_or_create_by(name: resource_name.pluralize) do |resource|
+          @resource = Spina::Resource.find_or_create_by name: resource_name.pluralize do |resource|
             resource.label = resource_name.pluralize.titleize
             resource.view_template = resource_name
           end
@@ -35,8 +33,8 @@ module Spina
 
         def set_up_conference_page
           template = @resource&.view_template || set_up_resource&.view_template
-          self.conference_page = ConferencePage.create(title: name, view_template: template, deletable: false,
-                                                       resource: @resource)
+          self.conference_page = ConferencePage.create title: name, view_template: template, deletable: false,
+                                                       resource: @resource
         end
       end
     end
