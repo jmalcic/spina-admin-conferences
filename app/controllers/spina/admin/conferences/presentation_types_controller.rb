@@ -5,6 +5,8 @@ module Spina
     module Conferences
       # This class manages presentation types
       class PresentationTypesController < ::Spina::Admin::AdminController
+        include ::Spina::Conferences
+
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -12,9 +14,9 @@ module Spina
 
         def index
           @presentation_types = if params[:conference_id]
-                                  Spina::Conferences::Conference.find(params[:conference_id]).presentation_types.sorted
+                                  Conference.find(params[:conference_id]).presentation_types.sorted
                                 else
-                                  Spina::Conferences::PresentationType.sorted
+                                  PresentationType.sorted
                                 end
           respond_to do |format|
             format.html
@@ -24,23 +26,22 @@ module Spina
 
         def new
           @presentation_type = if params[:presentation_type]
-                                 Spina::Conferences::PresentationType.new presentation_type_params
+                                 PresentationType.new presentation_type_params
                                else
-                                 Spina::Conferences::PresentationType.new
+                                 PresentationType.new
                                end
           add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
           render layout: 'spina/admin/admin'
         end
 
         def edit
-          @presentation_type = Spina::Conferences::PresentationType.find params[:id]
+          @presentation_type = PresentationType.find params[:id]
           add_breadcrumb @presentation_type.name
           render layout: 'spina/admin/admin'
         end
 
         def create
-          @presentation_type =
-            Spina::Conferences::PresentationType.new presentation_type_params
+          @presentation_type = PresentationType.new presentation_type_params
           add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
           if @presentation_type.save
             redirect_to admin_conferences_presentation_types_path
@@ -50,7 +51,7 @@ module Spina
         end
 
         def update
-          @presentation_type = Spina::Conferences::PresentationType.find params[:id]
+          @presentation_type = PresentationType.find params[:id]
           add_breadcrumb @presentation_type.name
           if @presentation_type.update(presentation_type_params)
             redirect_to admin_conferences_presentation_types_path
@@ -60,7 +61,7 @@ module Spina
         end
 
         def destroy
-          @presentation_type = Spina::Conferences::PresentationType.find params[:id]
+          @presentation_type = PresentationType.find params[:id]
           @presentation_type.destroy
           redirect_to admin_conferences_presentation_types_path
         end

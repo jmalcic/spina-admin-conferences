@@ -5,27 +5,29 @@ module Spina
     module Conferences
       # This class manages institutions and sets breadcrumbs
       class InstitutionsController < ::Spina::Admin::AdminController
+        include ::Spina::Conferences
+
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
-          @institutions = Spina::Conferences::Institution.all
+          @institutions = Institution.all
         end
 
         def new
-          @institution = Spina::Conferences::Institution.new
+          @institution = Institution.new
           add_breadcrumb I18n.t('spina.conferences.institutions.new')
           render layout: 'spina/admin/admin'
         end
 
         def edit
-          @institution = Spina::Conferences::Institution.find params[:id]
+          @institution = Institution.find params[:id]
           add_breadcrumb @institution.name
           render layout: 'spina/admin/admin'
         end
 
         def create
-          @institution = Spina::Conferences::Institution.new(conference_params)
+          @institution = Institution.new(conference_params)
           add_breadcrumb I18n.t('spina.conferences.institutions.new')
           if @institution.save
             redirect_to admin_conferences_institutions_path
@@ -35,7 +37,7 @@ module Spina
         end
 
         def update
-          @institution = Spina::Conferences::Institution.find params[:id]
+          @institution = Institution.find params[:id]
           add_breadcrumb @institution.name
           if @institution.update(conference_params)
             redirect_to admin_conferences_institutions_path
@@ -45,7 +47,7 @@ module Spina
         end
 
         def destroy
-          @institution = Spina::Conferences::Institution.find params[:id]
+          @institution = Institution.find params[:id]
           @institution.destroy
           redirect_to admin_conferences_institutions_path
         end

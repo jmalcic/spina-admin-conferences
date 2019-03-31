@@ -5,32 +5,33 @@ module Spina
     module Conferences
       # This class manages delegates and sets breadcrumbs
       class DelegatesController < ::Spina::Admin::AdminController
+        include ::Spina::Conferences
+
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
-          @delegates =
-            if params[:institution_id]
-              Spina::Conferences::Institution.find(params[:institution_id]).delegates.sorted
-            else
-              Spina::Conferences::Delegate.sorted
-            end
+          @delegates = if params[:institution_id]
+                         Institution.find(params[:institution_id]).delegates.sorted
+                       else
+                         Delegate.sorted
+                       end
         end
 
         def new
-          @delegate = Spina::Conferences::Delegate.new
+          @delegate = Delegate.new
           add_breadcrumb I18n.t('spina.conferences.delegates.new')
           render layout: 'spina/admin/admin'
         end
 
         def edit
-          @delegate = Spina::Conferences::Delegate.find params[:id]
+          @delegate = Delegate.find params[:id]
           add_breadcrumb "#{@delegate.first_name} #{@delegate.last_name}"
           render layout: 'spina/admin/admin'
         end
 
         def create
-          @delegate = Spina::Conferences::Delegate.new delegate_params
+          @delegate = Delegate.new delegate_params
           add_breadcrumb I18n.t('spina.conferences.delegates.new')
           if @delegate.save
             redirect_to admin_conferences_delegates_path
@@ -40,7 +41,7 @@ module Spina
         end
 
         def update
-          @delegate = Spina::Conferences::Delegate.find params[:id]
+          @delegate = Delegate.find params[:id]
           add_breadcrumb "#{@delegate.first_name} #{@delegate.last_name}"
           if @delegate.update(delegate_params)
             redirect_to admin_conferences_delegates_path
@@ -50,13 +51,9 @@ module Spina
         end
 
         def destroy
-          @delegate = Spina::Conferences::Delegate.find params[:id]
+          @delegate = Delegate.find params[:id]
           @delegate.destroy
-          if Delegate.any? || DietaryRequirement.any? || Conference.any?
-            redirect_to admin_conferences_delegates_path
-          else
-            redirect_to admin_conferences_conferences_path
-          end
+          redirect_to admin_conferences_delegates_path
         end
 
         private
