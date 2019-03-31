@@ -5,7 +5,7 @@ addons:
   chrome: stable
   postgresql: 9.6
   code_climate:
-    repo_token: 037ca5a6e6f161c0be2342bf441d7330dbcf4dd4da7fccea86cd543adf54e5af
+    repo_token: 9136fc9fa7bc99df183ee4fb173f7a424361191785f303954ea0262f896a86df
 after_success:
   - bundle exec codeclimate-test-reporter
 before_install:
