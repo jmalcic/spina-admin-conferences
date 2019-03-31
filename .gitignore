@@ -1,5 +1,6 @@
 *.gem
 .bundle/
+coverage/
 .env
 .idea/
 log/*.log
