@@ -16,3 +16,4 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 gem 'spina', github: 'SpinaCMS/Spina'
+gem 'rails', github: 'rails/rails'
