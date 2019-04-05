@@ -3,7 +3,7 @@
     .notification.notification-danger.animated.fadeInRight
       = icon('exclamation')
       .notification-message
-        =t 'spina.notifications.alert'
+        = t 'spina.notifications.alert'
         %small
         - @room.errors.full_messages.each do |message|
           = message
@@ -19,7 +19,7 @@
     #header_actions
       %button.button.button-primary{ type: 'submit' }
         = icon('check')
-        =t 'spina.conferences.rooms.save'
+        = t 'spina.conferences.rooms.save'
 
       = link_to t('spina.cancel'), spina.admin_conferences_rooms_path, class: 'button', style: 'margin-right: 0'
 

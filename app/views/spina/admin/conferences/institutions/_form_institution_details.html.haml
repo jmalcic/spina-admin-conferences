@@ -16,14 +16,14 @@
             .placeholder
               %span.button.button-small.button-round
                 %i.icon.icon-dots
-                =t 'spina.images.choose_image'
+                = t 'spina.images.choose_image'
 
               - if f.object.logo&.file&.attached?
                 %br/
 
                 %span.button.button-small.button-round{data: {action: "click->image-form#remove", target: "image-form.button"}}
                   %i.icon.icon-trash
-                  =t 'spina.images.remove_image'
+                  = t 'spina.images.remove_image'
 
             - if f.object.logo&.file&.attached?
               .image{data: {target: 'image-form.image'}}= image_tag variant(f.object.logo.file, resize: "300x300^", crop: "300x300+0+0")
