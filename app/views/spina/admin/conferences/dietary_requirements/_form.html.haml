@@ -3,7 +3,7 @@
     .notification.notification-danger.animated.fadeInRight
       = icon('exclamation')
       .notification-message
-        =t 'spina.notifications.alert'
+        = t 'spina.notifications.alert'
         %small
           - @dietary_requirement.errors.full_messages.each do |message|
             = message
@@ -19,14 +19,14 @@
     #header_actions
       %button.button.button-primary{ type: 'submit' }
         = icon('check')
-        =t 'spina.conferences.dietary_requirements.save'
+        = t 'spina.conferences.dietary_requirements.save'
 
       = link_to t('spina.cancel'), spina.admin_conferences_dietary_requirements_path, class: 'button', style: 'margin-right: 0'
 
     %nav#secondary.tabs
       %ul
         - @tabs.each_with_index do |tab, i|
-          %li{class: (i==0 ? 'active' : '')}
+          %li{ class: (i==0 ? 'active' : '') }
             = link_to t("spina.conferences.dietary_requirements.#{tab}"), "##{tab}"
 
   - @tabs.each do |tab|

@@ -13,13 +13,7 @@
 
       %tbody
         - if @dietary_requirements.any?
-          - @dietary_requirements.each do |dietary_requirement|
-            %tr
-              %td= link_to dietary_requirement.name, spina.edit_admin_conferences_dietary_requirement_path(dietary_requirement)
-              %td.align-right
-                = link_to spina.edit_admin_conferences_dietary_requirement_path(dietary_requirement), class: 'button button-small button-link' do
-                  = icon('pencil-outline')
-                  = t('spina.edit')
+          = render partial: 'spina/admin/conferences/shared/dietary_requirement', collection: @dietary_requirements
 
         - else
           %tr

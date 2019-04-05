@@ -3,28 +3,23 @@
 
     .horizontal-form
       .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Conferences::PresentationType.human_attribute_name :conference
+        .horizontal-form-label= Spina::Conferences::PresentationType.human_attribute_name :conference
         .horizontal-form-content
           - if @presentation_type.conference
             = f.hidden_field :conference_id
             = @presentation_type.conference.name
           - else
-            .select-dropdown
-              = f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :name
+            .select-dropdown= f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :name
 
       .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Conferences::PresentationType.human_attribute_name :name
-        .horizontal-form-content
-          = f.text_field :name, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:name), required: true
+        .horizontal-form-label= Spina::Conferences::PresentationType.human_attribute_name :name
+        .horizontal-form-content= f.text_field :name, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:name), required: true
 
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Conferences::PresentationType.human_attribute_name :duration
           %small= Spina::Conferences::PresentationType.human_attribute_name :duration_description
-        .horizontal-form-content
-          = f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
+        .horizontal-form-content= f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
 
       .horizontal-form-group
         .horizontal-form-label
@@ -33,11 +28,9 @@
         .horizontal-form-content
           - if Spina::Conferences::Room.any?
             - if @presentation_type.conference.blank?
-              .multiple.select-dropdown
-                = f.collection_select :room_possession_ids, Spina::Conferences::RoomPossession.all, :id, :room_name, {}, multiple: true, required: true
+              .multiple.select-dropdown= f.collection_select :room_possession_ids, Spina::Conferences::RoomPossession.all, :id, :room_name, {}, multiple: true, required: true
             - else
-              .multiple.select-dropdown
-                = f.collection_select :room_possession_ids, @presentation_type.conference.room_possessions, :id, :room_name, {}, multiple: true, required: true
+              .multiple.select-dropdown= f.collection_select :room_possession_ids, @presentation_type.conference.room_possessions, :id, :room_name, {}, multiple: true, required: true
           - else
             = t('spina.conferences.rooms.no_rooms')
 

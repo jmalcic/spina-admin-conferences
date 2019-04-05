@@ -14,14 +14,7 @@
 
       %tbody
         - if @institutions.any?
-          - @institutions.each do |institution|
-            %tr
-              %td= link_to institution.name, spina.edit_admin_conferences_institution_path(institution)
-              %td= institution.city
-              %td.align-right
-                = link_to spina.edit_admin_conferences_institution_path(institution), class: 'button button-small button-link' do
-                  = icon('pencil-outline')
-                  = t('spina.edit')
+          = render partial: 'spina/admin/conferences/shared/institution', collection: @institutions
 
         - else
           %tr

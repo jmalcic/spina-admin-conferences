@@ -175,6 +175,7 @@ en-GB:
 
     conferences:
       title: Conferences
+
       conferences:
         new: New conference
         save: Save conference
