@@ -1,0 +1,8 @@
+%tr
+  %td= presentation_type.conference.name
+  %td= link_to presentation_type.name, spina.edit_admin_conferences_presentation_type_path(presentation_type)
+  %td= time_tag presentation_type.duration, presentation_type.duration.inspect unless presentation_type.duration.blank?
+  %td.align-right
+    = link_to spina.edit_admin_conferences_presentation_type_path(presentation_type), class: 'button button-small button-link' do
+      = icon('pencil-outline')
+      = t('spina.edit')

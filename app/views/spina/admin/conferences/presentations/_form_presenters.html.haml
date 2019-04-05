@@ -10,20 +10,7 @@
 
       %tbody
         - if @presentation.presenters.any?
-          - @presentation.presenters.each do |presenter|
-            %tr
-              %td= link_to presenter.full_name, spina.edit_admin_conferences_delegate_path(presenter)
-              %td
-                = presenter.email_address
-                - unless presenter.email_address.blank?
-                  = mail_to presenter.email_address, class: 'button button-small button-link' do
-                    = icon('mail')
-                    = t('spina.email')
-              %td= presenter.institution.name
-              %td.align-right
-                = link_to spina.edit_admin_conferences_delegate_path(presenter), class: 'button button-small button-link' do
-                  = icon('pencil-outline')
-                  = t('spina.edit')
+          = render partial: 'spina/admin/conferences/shared/delegate', collection: @presentation.presenters
 
         - else
           %tr
