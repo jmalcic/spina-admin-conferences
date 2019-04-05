@@ -1,12 +1,12 @@
 - content_for(:header_actions) do
-  %label.button{for: 'file'}
+  %label.button{ for: 'file' }
     = icon('cog')
     = t('spina.conferences.presentations.import')
     = form_with url: import_admin_conferences_presentations_path do |f|
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
-  %span{data: {dropdown: true}}
-    = link_to spina.new_admin_conferences_presentation_path(params: { institution: Spina::Conferences::Conference&.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: {trigger: ('dropdown' if Spina::Conferences::Conference.many?), target: '#create_conference_dropdown'} do
+  %span{ data: { dropdown: true } }
+    = link_to spina.new_admin_conferences_presentation_path(params: { institution: Spina::Conferences::Conference&.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: { trigger: ('dropdown' if Spina::Conferences::Conference.many?), target: '#create_conference_dropdown' } do
       = icon('plus')
       = t('spina.conferences.presentations.new')
 

@@ -26,7 +26,7 @@
     %nav#secondary.tabs
       %ul
         - @tabs.each_with_index do |tab, i|
-          %li{class: (i==0 ? 'active' : '')}
+          %li{ class: (i==0 ? 'active' : '') }
             = link_to t("spina.conferences.dietary_requirements.#{tab}"), "##{tab}"
 
   - @tabs.each do |tab|

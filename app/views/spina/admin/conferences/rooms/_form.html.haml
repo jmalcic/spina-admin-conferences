@@ -26,7 +26,7 @@
     %nav#secondary.tabs
       %ul
         - @tabs.each_with_index do |tab, i|
-          %li{class: (i==0 ? 'active' : '')}= link_to t("spina.conferences.rooms.#{tab}"), "##{tab}"
+          %li{ class: (i==0 ? 'active' : '')}= link_to t("spina.conferences.rooms.#{tab}"), "##{tab}"
 
   - @tabs.each do |tab|
     = render "spina/admin/conferences/rooms/form_#{tab}", f: f

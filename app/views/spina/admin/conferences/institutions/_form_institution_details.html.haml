@@ -11,7 +11,7 @@
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Conferences::Institution.human_attribute_name :logo
-        .horizontal-form-content{data: {controller: "image-form"}}
+        .horizontal-form-content{ data: { controller: "image-form" } }
           = link_to admin_media_picker_path(selected_ids: [f.object.logo_id], hidden_field_id: 'media_picker_logo_id'), remote: true, class: 'media_picker clearfix' do
             .placeholder
               %span.button.button-small.button-round
@@ -21,14 +21,14 @@
               - if f.object.logo&.file&.attached?
                 %br/
 
-                %span.button.button-small.button-round{data: {action: "click->image-form#remove", target: "image-form.button"}}
+                %span.button.button-small.button-round{ data: { action: "click->image-form#remove", target: "image-form.button" } }
                   %i.icon.icon-trash
                   = t 'spina.images.remove_image'
 
             - if f.object.logo&.file&.attached?
-              .image{data: {target: 'image-form.image'}}= image_tag variant(f.object.logo.file, resize: "300x300^", crop: "300x300+0+0")
+              .image{ data: { target: 'image-form.image' } }= image_tag variant(f.object.logo.file, resize: "300x300^", crop: "300x300+0+0")
 
-            = f.hidden_field :logo_id, data: {hidden_field_id: "media_picker_logo_id", target: 'image-form.field'}
+            = f.hidden_field :logo_id, data: { hidden_field_id: "media_picker_logo_id", target: 'image-form.field' }
 
 
   - unless @institution.new_record?
