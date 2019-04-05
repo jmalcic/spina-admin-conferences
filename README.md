@@ -1,6 +1,9 @@
 # Conferences
 
-:warning: this plugin currently has no tests
+[![Build Status](https://travis-ci.com/jmalcic/spina-conferences.svg?branch=master)](https://travis-ci.com/jmalcic/spina-conferences)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2c1604dd7f5b412daf2c/maintainability)](https://codeclimate.com/github/jmalcic/spina-conferences/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2c1604dd7f5b412daf2c/test_coverage)](https://codeclimate.com/github/jmalcic/spina-conferences/test_coverage)
+[![Depfu](https://badges.depfu.com/badges/3ed8bb4d2b51e09704fa45b9b0a946c1/overview.svg)](https://depfu.com/github/jmalcic/spina-conferences?project_id=7280)
 
 *Conferences* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
