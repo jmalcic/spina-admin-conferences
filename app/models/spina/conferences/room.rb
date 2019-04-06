@@ -4,6 +4,8 @@ module Spina
   module Conferences
     # This class represents rooms in an institution.
     class Room < ApplicationRecord
+      include ::Spina::Admin::Conferences
+
       belongs_to :institution, inverse_of: :rooms, autosave: true
       has_many :room_possessions, dependent: :destroy
       has_many :room_uses, through: :room_possessions
@@ -12,6 +14,10 @@ module Spina
       validates :number, :building, presence: true
 
       scope :sorted, -> { order :building, :number }
+
+      def self.import(file)
+        RoomImportJob.perform_later IO.read(file)
+      end
 
       def name
         "#{building} #{number}"
