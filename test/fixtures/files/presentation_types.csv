@@ -1,0 +1,8 @@
+conference_institution_name,conference_institution_city,conference_start_date,conference_finish_date,name,minutes,rooms
+University of Atlantis,Atlantis,2017-04-07,2017-04-09,Plenary,80,"[{""building"": ""Lecture block"", ""number"": ""3""}]"
+University of Atlantis,Atlantis,2017-04-07,2017-04-09,Poster,30,"[{""building"": ""Lecture block"", ""number"": ""entrance""}]"
+University of Atlantis,Atlantis,2017-04-07,2017-04-09,Oral,20,"[{""building"": ""Lecture block"", ""number"": ""2""},
+{""building"": ""Lecture block"", ""number"": ""3""}]"
+University of Shangri-La,Shangri-La,2018-04-09,2018-04-11,Plenary,80,"[{""building"": ""Medical school"", ""number"": ""G.152""}]"
+University of Shangri-La,Shangri-La,2018-04-09,2018-04-11,Poster,30,"[{""building"": ""Medical school"", ""number"": ""G.14""}]"
+University of Shangri-La,Shangri-La,2018-04-09,2018-04-11,Oral,20,"[{""building"": ""Medical school"", ""number"": ""G.152""}, {""building"": ""Medical school"", ""number"": ""G.16""}]"

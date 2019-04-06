@@ -4,6 +4,8 @@ module Spina
   module Conferences
     # This class represents presentation types (e.g. plenaries, poster presentations, etc.)
     class PresentationType < ApplicationRecord
+      include ::Spina::Admin::Conferences
+
       after_initialize :set_from_duration
       before_validation :set_duration
 
@@ -21,6 +23,10 @@ module Spina
       validates_associated :room_uses
 
       scope :sorted, -> { order :name }
+
+      def self.import(file)
+        PresentationTypeImportJob.perform_later IO.read(file)
+      end
 
       def set_from_duration
         self.minutes ||= duration / ActiveSupport::Duration::SECONDS_PER_MINUTE if duration.present?
