@@ -54,6 +54,10 @@ module Spina
           redirect_to admin_conferences_rooms_path
         end
 
+        def import
+          Room.import params[:file]
+        end
+
         private
 
         def set_breadcrumbs

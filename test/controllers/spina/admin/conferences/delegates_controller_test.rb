@@ -52,6 +52,13 @@ module Spina
 
           assert_redirected_to admin_conferences_delegates_url
         end
+
+        test 'should enqueue delegate import' do
+          assert_enqueued_with job: DelegateImportJob do
+            post import_admin_conferences_delegates_url,
+                 params: { file: fixture_file_upload(file_fixture('delegates.csv')) }
+          end
+        end
       end
     end
   end

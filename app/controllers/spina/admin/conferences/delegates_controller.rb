@@ -52,6 +52,10 @@ module Spina
           redirect_to admin_conferences_delegates_path
         end
 
+        def import
+          Delegate.import params[:file]
+        end
+
         private
 
         def set_breadcrumbs

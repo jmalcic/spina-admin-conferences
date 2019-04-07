@@ -54,6 +54,10 @@ module Spina
           redirect_to admin_conferences_dietary_requirements_path
         end
 
+        def import
+          DietaryRequirement.import params[:file]
+        end
+
         private
 
         def set_breadcrumbs
