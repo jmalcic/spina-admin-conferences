@@ -11,7 +11,7 @@ module Spina
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
-          @presentations = params[:room_id] ? Room.find(params[:room_id]).presentations.sorted : Presentation.sorted
+          @presentations = Presentation.sorted
         end
 
         def new
