@@ -10,29 +10,25 @@ module Spina
 
         test 'that number of presentation types changes' do
           assert_difference 'PresentationType.count', 6 do
-            PresentationTypeImportJob.perform_now File.open(file_fixture('presentation_types.csv'),
-                                                            filename: 'presentation_types.csv')
+            PresentationTypeImportJob.perform_now File.open(file_fixture('presentation_types.csv'))
           end
         end
 
         test 'that number of room uses changes' do
           assert_difference 'RoomUse.count', 8 do
-            PresentationTypeImportJob.perform_now File.open(file_fixture('presentation_types.csv'),
-                                                            filename: 'presentation_types.csv')
+            PresentationTypeImportJob.perform_now File.open(file_fixture('presentation_types.csv'))
           end
         end
 
         test 'presentation type scheduling' do
           assert_enqueued_with job: PresentationTypeImportJob do
-            PresentationType.import File.open(file_fixture('presentation_types.csv'),
-                                              filename: 'presentation_types.csv')
+            PresentationType.import File.open(file_fixture('presentation_types.csv'))
           end
         end
 
         test 'presentation type performing' do
           assert_performed_with job: PresentationTypeImportJob do
-            PresentationType.import File.open(file_fixture('presentation_types.csv'),
-                                              filename: 'presentation_types.csv')
+            PresentationType.import File.open(file_fixture('presentation_types.csv'))
           end
         end
       end
