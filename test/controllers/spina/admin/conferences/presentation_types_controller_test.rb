@@ -12,12 +12,15 @@ module Spina
 
         setup do
           @presentation_type = spina_conferences_presentation_types :plenary_1
+          @conference = spina_conferences_conferences :university_of_atlantis_2017
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
         test 'should get index' do
           get admin_conferences_presentation_types_url
+          assert_response :success
+          get admin_conferences_conference_presentation_types_url(conference_id: @conference.id)
           assert_response :success
         end
 
