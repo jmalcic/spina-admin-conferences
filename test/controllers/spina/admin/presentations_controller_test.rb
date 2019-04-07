@@ -52,6 +52,13 @@ module Spina
 
           assert_redirected_to admin_conferences_presentations_url
         end
+
+        test 'should enqueue presentation import' do
+          assert_enqueued_with job: PresentationImportJob do
+            post import_admin_conferences_presentations_url,
+                 params: { file: fixture_file_upload(file_fixture('presentations.csv')) }
+          end
+        end
       end
     end
   end
