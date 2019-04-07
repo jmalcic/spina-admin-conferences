@@ -26,7 +26,7 @@ module Spina
         end
 
         test 'should create delegate' do
-          assert_difference('Delegate.count') do
+          assert_difference 'Delegate.count' do
             attributes = @delegate.attributes
             attributes[:conference_ids] = @delegate.conferences.collect(&:id)
             post admin_conferences_delegates_url, params: { delegate: attributes }
@@ -46,7 +46,7 @@ module Spina
         end
 
         test 'should destroy delegate' do
-          assert_difference('Delegate.count', -1) do
+          assert_difference 'Delegate.count', -1 do
             delete admin_conferences_delegate_url(@delegate)
           end
 

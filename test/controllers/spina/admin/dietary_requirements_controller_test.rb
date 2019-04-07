@@ -27,7 +27,7 @@ module Spina
         end
 
         test 'should create dietary requirement' do
-          assert_difference('DietaryRequirement.count') do
+          assert_difference 'DietaryRequirement.count' do
             post admin_conferences_dietary_requirements_url, params: {
               dietary_requirement: @dietary_requirement.attributes
             }
@@ -49,7 +49,7 @@ module Spina
         end
 
         test 'should destroy dietary requirement' do
-          assert_difference('DietaryRequirement.count', -1) do
+          assert_difference 'DietaryRequirement.count', -1 do
             delete admin_conferences_dietary_requirement_url(@dietary_requirement)
           end
 

@@ -27,7 +27,7 @@ module Spina
         end
 
         test 'should create presentation type' do
-          assert_difference('PresentationType.count') do
+          assert_difference 'PresentationType.count' do
             attributes = @presentation_type.attributes
             attributes[:room_possession_ids] = @presentation_type.room_possession_ids
             post admin_conferences_presentation_types_url, params: { presentation_type: attributes }
@@ -49,7 +49,7 @@ module Spina
         end
 
         test 'should destroy presentation type' do
-          assert_difference('PresentationType.count', -1) do
+          assert_difference 'PresentationType.count', -1 do
             delete admin_conferences_presentation_type_url(@presentation_type)
           end
 

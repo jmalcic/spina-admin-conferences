@@ -26,7 +26,7 @@ module Spina
         end
 
         test 'should create room' do
-          assert_difference('Room.count') do
+          assert_difference 'Room.count' do
             post admin_conferences_rooms_url, params: { room: @room.attributes }
           end
 
@@ -44,8 +44,9 @@ module Spina
         end
 
         test 'should destroy room' do
-          assert_difference('Room.count', -1) { delete admin_conferences_room_url(@room) }
-
+          assert_difference 'Room.count', -1 do
+            delete admin_conferences_room_url(@room)
+          end
           assert_redirected_to admin_conferences_rooms_url
         end
       end

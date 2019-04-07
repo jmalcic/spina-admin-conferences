@@ -26,7 +26,7 @@ module Spina
         end
 
         test 'should create institution' do
-          assert_difference('Institution.count') do
+          assert_difference 'Institution.count' do
             post admin_conferences_institutions_url, params: { institution: @institution.attributes }
           end
 
@@ -44,7 +44,7 @@ module Spina
         end
 
         test 'should destroy institution' do
-          assert_difference('Institution.count', -1) do
+          assert_difference 'Institution.count', -1 do
             delete admin_conferences_institution_url(@institution)
           end
 
