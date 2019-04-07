@@ -5,6 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Conferences
+      # noinspection RubyClassModuleNamingConvention
       class DietaryRequirementImportJobTest < ActiveJob::TestCase
         include ::Spina::Conferences
 
