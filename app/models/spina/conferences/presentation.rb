@@ -4,6 +4,7 @@ module Spina
   module Conferences
     # This class represents conference presentations.
     class Presentation < ApplicationRecord
+      include ::Spina::Admin::Conferences
       include ConferencePagePartable
 
       after_initialize :set_from_start_datetime
@@ -28,6 +29,12 @@ module Spina
 
       # `:name` is used by the `:conference_page_part` to create a `ConferencePage`
       alias_attribute :name, :title
+
+      def self.import(file)
+        PresentationImportJob.perform_later IO.read(file)
+      end
+
+      private
 
       def set_from_start_datetime
         return if start_datetime.blank?
