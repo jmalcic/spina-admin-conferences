@@ -57,18 +57,6 @@ module Spina
                               institution: find_delegate_institution(presenter['institution'])
           end
         end
-
-        # rescue_from ActiveRecord::RecordNotFound do |exception|
-        #   # Do something with the exception
-        # end
-        #
-        # rescue_from ActiveRecord::RecordInvalid do |exception|
-        #   # Do something with the exception
-        # end
-        #
-        # rescue_from ActiveRecord::AssociationTypeMismatch do |exception|
-        #   # Do something with the exception
-        # end
       end
     end
   end
