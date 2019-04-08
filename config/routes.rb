@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'resque/server'
-
 Spina::Engine.routes.draw do
   namespace :admin, path: Spina.config.backend_path do
     resources :conference_pages, controller: 'conferences/conference_pages'
@@ -30,7 +28,6 @@ Spina::Engine.routes.draw do
       resources :dietary_requirements, except: [:show] do
         post :import, on: :collection
       end
-      mount Resque::Server, at: '/jobs'
     end
   end
 end
