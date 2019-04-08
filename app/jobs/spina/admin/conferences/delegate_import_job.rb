@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 module Spina
   module Admin
     module Conferences
       # This job imports rooms from CSV files
-      class DelegateImportJob < ApplicationJob
+      class DelegateImportJob < ImportJob
         include ::Spina::Conferences
 
         queue_as :default
@@ -20,11 +18,6 @@ module Spina
                                conferences: find_conferences(row), dietary_requirements: find_dietary_requirements(row)
             end
           end
-        end
-
-        def import(csv)
-          CSV.parse csv, encoding: 'UTF-8', headers: true, header_converters: :symbol,
-                         converters: %i[date_time date]
         end
 
         def find_institution(row)
