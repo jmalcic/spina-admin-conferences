@@ -9,7 +9,7 @@
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
 See the wiki for details of the types of data supported.
 The plugin also includes four extra page parts for Spina pages: `Spina::Conferences::Date`, `Spina::Conferences::Url`, `Spina::Conferences::EmailAddress`, and `Spina::Conferences::Time`.
-`Spina::Conferences::Url` and `Spina::Conferences::EmailAddress` both have validators for the format of HTTP(S) URLs (using `URI`) and email addresses respectively.
+`Spina::Conferences::Url` and `Spina::Conferences::EmailAddress` both have validators for the format of HTTP(S) URLs and email addresses respectively.
 
 ## Usage
 
@@ -27,10 +27,6 @@ The menu structure will then be as follows:
     * Delegates
     
     * Presentations
-    
-You'll want to set up an institution first, then a conference,
-then delegates, which must belong to at least one conference,
-and then presentations, which must belong to one conference and at least one delegate.
 
 After installing the plugin, you just need to start your server in the usual way:
 ```bash
@@ -91,17 +87,10 @@ $ rake db:migrate
 
 ### Configuring the main Rails app
 
-Conferences uses Opal, which makes use of ES6 syntax, 
-so if you're using Uglifier, `:harmony` must be enabled when running the app in production.
-
-```ruby
-# config/environments/production.rb
-
-# Other config code…
-
-# Compress JavaScripts and CSS.
-config.assets.js_compressor = Uglifier.new(harmony: true)
-```
+Conferences requires a job queueing backend for import functionality, and you'll also want to cache pages listing
+presentations, conferences, and so on. Read about this in the Rails guides covering
+[Active Job](https://guides.rubyonrails.org/active_job_basics.html) and
+[caching](https://guides.rubyonrails.org/caching_with_rails.html).
 
 ## Contributing
 
