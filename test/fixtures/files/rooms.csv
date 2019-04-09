@@ -1,7 +1,7 @@
-"institution_name","institution_city","building","number"
-"University of Atlantis","Atlantis","Lecture block","2"
-"University of Atlantis","Atlantis","Lecture block","3"
-"University of Atlantis","Atlantis","Lecture block","entrance"
-"University of Shangri-La","Shangri-La","Medical school","G.14"
-"University of Shangri-La","Shangri-La","Medical school","G.152"
-"University of Shangri-La","Shangri-La","Medical school","G.16"
+institution,building,number
+"{""name"": ""University of Atlantis"", ""city"": ""Atlantis""}",Lecture block,2
+"{""name"": ""University of Atlantis"", ""city"": ""Atlantis""}",Lecture block,3
+"{""name"": ""University of Atlantis"", ""city"": ""Atlantis""}",Lecture block,entrance
+"{""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}",Medical school,G.14
+"{""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}",Medical school,G.152
+"{""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}",Medical school,G.16
