@@ -13,8 +13,8 @@ module Spina
           rows = import csv
           Conference.transaction do
             rows.collect do |row|
-              institution = find_institution row[:institution], from_json: true
-              rooms = find_rooms row[:rooms], from_json: true, with_institution: institution
+              institution = find_institution row[:institution]
+              rooms = find_rooms row[:rooms], with_institution: institution
               Conference.create! institution: institution, dates: row[:start_date]..row[:finish_date], rooms: rooms
             end
           end
