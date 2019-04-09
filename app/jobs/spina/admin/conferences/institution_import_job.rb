@@ -10,9 +10,9 @@ module Spina
         queue_as :default
 
         def perform(csv)
-          rows = import csv
+          @rows = import csv
           Institution.transaction do
-            rows.collect do |row|
+            @rows.collect do |row|
               Institution.create! name: row[:name], city: row[:city],
                                   rooms_attributes: construct_rooms_params(row[:rooms])
             end

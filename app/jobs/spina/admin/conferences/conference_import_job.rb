@@ -10,9 +10,9 @@ module Spina
         queue_as :default
 
         def perform(csv)
-          rows = import csv
+          @rows = import csv
           Conference.transaction do
-            rows.collect do |row|
+            @rows.collect do |row|
               institution = find_institution row[:institution]
               Conference.create! institution: institution, dates: row[:start_date]..row[:finish_date],
                                  rooms: find_rooms(row[:rooms], with_institution: institution)

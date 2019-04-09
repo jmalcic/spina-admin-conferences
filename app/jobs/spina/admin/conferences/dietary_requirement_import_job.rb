@@ -10,9 +10,9 @@ module Spina
         queue_as :default
 
         def perform(csv)
-          rows = import csv
+          @rows = import csv
           DietaryRequirement.transaction do
-            rows.collect do |row|
+            @rows.collect do |row|
               DietaryRequirement.create! name: row[:name]
             end
           end
