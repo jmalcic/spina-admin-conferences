@@ -13,10 +13,10 @@ module Spina
           rows = import csv
           Presentation.transaction do
             rows.collect do |row|
-              conference = find_conference row[:conference]
+              row[:room_use][:conference] = row[:conference]
               Presentation.create! title: row[:title], date: row[:date], start_time: row[:start_time],
                                    abstract: row[:abstract], presenters: find_delegates(row[:presenters]),
-                                   room_use: find_room_use(row[:room_use], with_conference: conference)
+                                   room_use: find_room_use(row[:room_use])
             end
           end
         end

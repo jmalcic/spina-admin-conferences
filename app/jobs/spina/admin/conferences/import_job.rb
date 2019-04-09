@@ -9,86 +9,72 @@ module Spina
       class ImportJob < ApplicationJob
         include ::Spina::Conferences
 
+        CSV::Converters[:json] = lambda do |field|
+          JSON.parse field, symbolize_names: true
+        rescue JSON::ParserError
+          field
+        end
+
         def import(csv)
-          CSV.parse csv, encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: %i[date_time date]
+          CSV.parse csv, encoding: 'UTF-8', headers: true, header_converters: :symbol,
+                         converters: %i[date_time date json]
         end
 
         def find_institution(params)
-          params = parse_params(params)
           Institution.find_by! name: params[:name], city: params[:city]
         end
 
-        def find_room(params, with_institution: nil)
-          params = parse_params(params)
-          institution = with_institution || find_institution(room[:institution])
-          Room.find_by! building: params[:building], number: params[:number], institution: institution
+        def find_room(params)
+          Room.find_by! building: params[:building], number: params[:number],
+                        institution: find_institution(params[:institution])
         end
 
-        def find_rooms(params, with_institution: nil)
-          params = parse_params(params)
-          params.collect do |room|
-            institution = with_institution || find_institution(room[:institution])
-            find_room room, with_institution: institution
-          end
+        def find_rooms(params)
+          params.collect { |room| find_room room }
         end
 
         def find_dietary_requirements(params)
-          params = parse_params(params)
           params.collect do |dietary_requirement|
             DietaryRequirement.find_by! name: dietary_requirement[:name]
           end
         end
 
         def find_conference(params)
-          params = parse_params(params)
           Conference.find_by! institution: find_institution(params[:institution]),
                               dates: params[:start_date]..params[:finish_date]
         end
 
         def find_conferences(params)
-          params = parse_params(params)
           params.collect { |conference| find_conference conference }
         end
 
-        def find_room_possession(params, with_conference: nil)
-          params = parse_params(params)
-          conference = with_conference || find_conference(room_possession[:conference])
-          room = find_room params[:room], with_institution: conference.institution
+        def find_room_possession(params)
+          conference = find_conference(params[:conference])
+          params[:room][:institution] = conference.institution
+          room = find_room params[:room]
           RoomPossession.find_by! room: room, conference: conference
         end
 
-        def find_room_possessions(params, with_conference: nil)
-          params = parse_params(params)
-          params.collect do |room_possession|
-            conference = with_conference || find_conference(room_possession[:conference])
-            find_room_possession room_possession, with_conference: conference
-          end
+        def find_room_possessions(params)
+          params.collect { |room_possession| find_room_possession(room_possession) }
         end
 
-        def find_presentation_type(params, with_conference: nil)
-          params = parse_params(params)
-          conference = with_conference || find_conference(params[:conference])
-          PresentationType.find_by! conference: conference, name: params[:name]
+        def find_presentation_type(params)
+          PresentationType.find_by! conference: find_conference(params[:conference]), name: params[:name]
         end
 
         def find_delegates(params)
-          params = parse_params(params)
           params.collect do |presenter|
             Delegate.find_by! first_name: presenter[:first_name], last_name: presenter[:last_name],
                               institution: find_institution(presenter[:institution])
           end
         end
 
-        def find_room_use(params, with_conference: nil)
-          params = parse_params(params)
-          conference = with_conference || find_conference(params[:conference])
-          presentation_type = find_presentation_type params[:presentation_type], with_conference: conference
-          room_possession = find_room_possession params[:room_possession], with_conference: conference
-          RoomUse.find_by! presentation_type: presentation_type, room_possession: room_possession
-        end
-
-        def parse_params(params)
-          params.is_a?(String) ? JSON.parse(params, symbolize_names: true) : params
+        def find_room_use(params)
+          params[:presentation_type][:conference] = params[:conference]
+          params[:room_possession][:conference] = params[:conference]
+          RoomUse.find_by! presentation_type: find_presentation_type(params[:presentation_type]),
+                           room_possession: find_room_possession(params[:room_possession])
         end
       end
     end

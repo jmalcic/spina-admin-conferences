@@ -13,10 +13,10 @@ module Spina
           rows = import csv
           PresentationType.transaction do
             rows.collect do |row|
-              conference = find_conference row[:conference]
-              PresentationType.create! name: row[:name], minutes: row[:minutes], conference: conference,
-                                       room_possessions: find_room_possessions(row[:room_possessions],
-                                                                               with_conference: conference)
+              row[:room_possessions].each { |room_possession| room_possession[:conference] = row[:conference] }
+              PresentationType.create! name: row[:name], minutes: row[:minutes],
+                                       conference: find_conference(row[:conference]),
+                                       room_possessions: find_room_possessions(row[:room_possessions])
             end
           end
         end
