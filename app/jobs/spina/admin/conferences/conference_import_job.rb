@@ -13,20 +13,10 @@ module Spina
           rows = import csv
           Conference.transaction do
             rows.collect do |row|
-              Conference.create! institution: find_institution(row), dates: row[:start_date]..row[:finish_date],
-                                 rooms: find_rooms(row)
+              institution = find_institution row[:institution], from_json: true
+              rooms = find_rooms row[:rooms], from_json: true, with_institution: institution
+              Conference.create! institution: institution, dates: row[:start_date]..row[:finish_date], rooms: rooms
             end
-          end
-        end
-
-        def find_institution(row)
-          Institution.find_by! name: row[:institution_name], city: row[:institution_city]
-        end
-
-        def find_rooms(row)
-          rooms = ActiveSupport::JSON.decode(row[:rooms])
-          rooms.collect do |room|
-            Room.find_by! building: room['building'], number: room['number'], institution: find_institution(row)
           end
         end
       end
