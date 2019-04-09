@@ -13,8 +13,8 @@ module Spina
           rows = import csv
           Room.transaction do
             rows.collect do |row|
-              institution = find_institution row[:institution]
-              Room.create! building: row[:building], number: row[:number], institution: institution
+              Room.create! building: row[:building], number: row[:number],
+                           institution: find_institution(row[:institution])
             end
           end
         end

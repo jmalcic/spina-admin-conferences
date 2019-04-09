@@ -14,8 +14,8 @@ module Spina
           Conference.transaction do
             rows.collect do |row|
               institution = find_institution row[:institution]
-              rooms = find_rooms row[:rooms], with_institution: institution
-              Conference.create! institution: institution, dates: row[:start_date]..row[:finish_date], rooms: rooms
+              Conference.create! institution: institution, dates: row[:start_date]..row[:finish_date],
+                                 rooms: find_rooms(row[:rooms], with_institution: institution)
             end
           end
         end

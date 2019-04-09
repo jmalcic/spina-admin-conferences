@@ -13,14 +13,15 @@ module Spina
           rows = import csv
           Institution.transaction do
             rows.collect do |row|
-              Institution.create! name: row[:name], city: row[:city], rooms_attributes: decode_rooms(row)
+              Institution.create! name: row[:name], city: row[:city],
+                                  rooms_attributes: construct_rooms_params(row[:rooms])
             end
           end
         end
 
-        def decode_rooms(row)
-          rooms = ActiveSupport::JSON.decode(row[:rooms])
-          rooms.collect { |room| { building: room['building'], number: room['number'] } }
+        def construct_rooms_params(params)
+          params = parse_params(params)
+          params.collect { |room| { building: room[:building], number: room[:number] } }
         end
       end
     end
