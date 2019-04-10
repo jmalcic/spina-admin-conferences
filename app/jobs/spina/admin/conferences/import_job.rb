@@ -16,8 +16,8 @@ module Spina
         end
 
         def import(csv)
-          CSV.parse csv, encoding: 'UTF-8', headers: true, header_converters: :symbol,
-                         converters: %i[date_time date json]
+          CSV.parse(csv, encoding: 'UTF-8', headers: true, header_converters: :symbol,
+                         converters: %i[date_time date json]).collect { |row| yield(row) }
         end
 
         def find_institution(params)
@@ -50,9 +50,9 @@ module Spina
 
         def find_room_possession(params)
           conference = find_conference(params[:conference])
-          params[:room][:institution] = conference.institution
-          room = find_room params[:room]
-          RoomPossession.find_by! room: room, conference: conference
+          room_params = params[:room]
+          room_params[:institution] = conference.institution
+          RoomPossession.find_by! room: find_room(room_params), conference: conference
         end
 
         def find_room_possessions(params)
@@ -71,10 +71,19 @@ module Spina
         end
 
         def find_room_use(params)
-          params[:presentation_type][:conference] = params[:conference]
-          params[:room_possession][:conference] = params[:conference]
-          RoomUse.find_by! presentation_type: find_presentation_type(params[:presentation_type]),
-                           room_possession: find_room_possession(params[:room_possession])
+          presentation_type_params = params[:presentation_type]
+          room_possession_params = params[:room_possession]
+          copy_value :conference, from: params, to: presentation_type_params
+          copy_value :conference, from: params, to: room_possession_params
+          RoomUse.find_by! presentation_type: find_presentation_type(presentation_type_params),
+                           room_possession: find_room_possession(room_possession_params)
+        end
+
+        def copy_value(value, from: nil, to: nil)
+          return unless from.present? && to.present?
+
+          source = from[value]
+          to.is_a?(Array) ? to.each { |element| element[value] = source } : to[value] = source
         end
       end
     end

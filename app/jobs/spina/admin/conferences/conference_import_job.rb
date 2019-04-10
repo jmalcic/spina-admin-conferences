@@ -10,12 +10,12 @@ module Spina
         queue_as :default
 
         def perform(csv)
-          rows = import csv
           Conference.transaction do
-            rows.collect do |row|
-              row[:rooms].each { |room| room[:institution] = row[:institution] }
-              Conference.create! institution: find_institution(row[:institution]),
-                                 dates: row[:start_date]..row[:finish_date], rooms: find_rooms(row[:rooms])
+            import(csv) do |row|
+              rooms = row[:rooms]
+              copy_value :institution, from: row, to: rooms
+              Conference.create! institution: find_institution(row[:institution]), dates: row[:start_date]..row[:finish_date],
+                                 rooms: find_rooms(rooms)
             end
           end
         end
