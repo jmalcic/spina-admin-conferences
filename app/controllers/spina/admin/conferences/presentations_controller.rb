@@ -6,13 +6,12 @@ module Spina
       # This class manages presentations and sets breadcrumbs
       class PresentationsController < ::Spina::Admin::AdminController
         include ::Spina::Conferences
-        include Importable
 
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
         def index
-          @presentations = params[:room_id] ? Room.find(params[:room_id]).presentations.sorted : Presentation.sorted
+          @presentations = Presentation.sorted
         end
 
         def new
@@ -54,46 +53,7 @@ module Spina
         end
 
         def import
-          @presentations = import_csv(params[:file]).collect do |row|
-            conference = Conference.where(
-              institution: Institution.find_by(name: row[:conference_institution], city: row[:conference_city])
-            ).find_by(['dates @> ?::date', row[:date]])
-            room_use = RoomUse.find_by(
-              presentation_type: PresentationType.find_by(conference: conference, name: row[:presentation_type]),
-              room_possession: RoomPossession.find_by(
-                conference: conference,
-                room: Room.find_by(building: row[:building], number: row[:room])
-              )
-            )
-            presenters =
-              row[:presenters].split(';').collect do |presenter_names|
-                delegate = Delegate.find_or_initialize_by(
-                  first_name: presenter_names.split(',')[1],
-                  last_name: presenter_names.split(',')[0],
-                  institution:
-                    Institution.find_or_initialize_by(name: row[:institution_name], city: row[:institution_city])
-                )
-                delegate.conferences << conference if delegate && conference
-                delegate.save
-                delegate
-              end
-            params[:presentation] = {
-              title: row[:title],
-              date: row[:date],
-              start_time: row[:start_time],
-              abstract: row[:abstract],
-              room_use_id: room_use&.id,
-              presenter_ids: presenters.map(&:id)
-            }
-            Presentation.new presentation_params
-          end
-          Presentation.transaction do
-            @presentations.each(&:save!)
-          rescue ActiveRecord::RecordInvalid => error
-            @presentations = Presentation.sorted
-            flash.now[:alert] = error.message
-            render :index
-          end
+          Presentation.import params[:file]
         end
 
         private

@@ -186,6 +186,7 @@ en-GB:
         presentations: Presentations
         presentation_types: Presentation types
         rooms: Rooms
+        import: Import CSV
 
       delegates:
         new: New delegate
@@ -195,6 +196,7 @@ en-GB:
         delegate_details: Delegate details
         conferences: Conferences
         presentations: Presentations
+        import: Import CSV
 
       presenters:
         new: New presenter
@@ -232,6 +234,7 @@ en-GB:
         presentation_type_details: Presentation type details
         presentations: Presentations
         rooms: Rooms
+        import: Import CSV
 
       dietary_requirements:
         new: New dietary requirement
@@ -240,6 +243,7 @@ en-GB:
         no_dietary_requirements: There are no dietary requirements
         dietary_requirement_details: Dietary requirement details
         delegates: Delegates
+        import: Import CSV
 
       institutions:
         new: New institution
@@ -250,6 +254,7 @@ en-GB:
         rooms: Rooms
         conferences: Conferences
         delegates: Delegates
+        import: Import CSV
 
       rooms:
         new: New room
@@ -258,6 +263,7 @@ en-GB:
         no_rooms: There are no rooms
         room_details: Room details
         presentations: Presentations
+        import: Import CSV
 
       room_uses:
         no_room_uses: There are no rooms in use

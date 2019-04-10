@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'mini_racer'
   spec.add_development_dependency 'puma'
+  spec.add_development_dependency 'resque'
   spec.add_development_dependency 'selenium-webdriver'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'web-console'

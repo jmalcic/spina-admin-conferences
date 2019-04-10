@@ -4,6 +4,8 @@ module Spina
   module Conferences
     # This class represents conference delegates.
     class Delegate < ApplicationRecord
+      include ::Spina::Admin::Conferences
+
       belongs_to :institution
       has_and_belongs_to_many :conferences, foreign_key: :spina_conferences_delegate_id,
                                             association_foreign_key: :spina_conferences_conference_id
@@ -16,6 +18,10 @@ module Spina
       validates :email_address, email_address: true, if: :email_address
 
       scope :sorted, -> { order :last_name, :first_name }
+
+      def self.import(file)
+        DelegateImportJob.perform_later IO.read(file)
+      end
 
       # Returns first name and last name, used to address delegates.
       def full_name

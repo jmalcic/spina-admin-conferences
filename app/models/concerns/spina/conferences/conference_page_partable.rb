@@ -10,12 +10,9 @@ module Spina
       extend ActiveSupport::Concern
 
       included do
-        define_model_callbacks :initializer
-
         delegate :materialized_path, to: :'conference_page_part.conference_page'
 
-        after_initializer :set_up_resource
-        before_validation :set_up_conference_page, on: :create
+        before_create :set_up_conference_page
         after_destroy { conference_page_part&.destroy }
 
         has_one :conference_page_part, as: :conference_page_partable, inverse_of: :conference_page_partable,
@@ -24,18 +21,11 @@ module Spina
 
         private
 
-        def set_up_resource
-          resource_name = self.class.name.demodulize.parameterize
-          @resource = Spina::Resource.find_or_create_by name: resource_name.pluralize do |resource|
-            resource.label = resource_name.pluralize.titleize
-            resource.view_template = resource_name
-          end
-        end
-
         def set_up_conference_page
-          template = @resource&.view_template || set_up_resource&.view_template
+          resource = Spina::Resource.find_or_create_by name: 'conference_pages', label: 'Conference pages'
+          template = self.class.name.demodulize.parameterize
           self.conference_page = ConferencePage.create title: name, view_template: template, deletable: false,
-                                                       resource: @resource
+                                                       resource: resource
         end
       end
     end

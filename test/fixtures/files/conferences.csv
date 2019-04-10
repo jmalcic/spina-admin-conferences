@@ -1,0 +1,3 @@
+institution,start_date,finish_date,rooms
+"{""name"": ""University of Atlantis"", ""city"": ""Atlantis""}",2017-04-07,2017-04-09,"[{""building"": ""Lecture block"", ""number"": ""2""}, {""building"": ""Lecture block"", ""number"": ""3""}, {""building"": ""Lecture block"", ""number"": ""entrance""}]"
+"{""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}",2018-04-09,2018-04-11,"[{""building"": ""Medical school"", ""number"": ""G.14""}, {""building"": ""Medical school"", ""number"": ""G.152""}, {""building"": ""Medical school"", ""number"": ""G.16""}]"

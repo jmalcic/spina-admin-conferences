@@ -6,18 +6,28 @@ Spina::Engine.routes.draw do
     namespace :conferences do
       root to: 'conferences#index'
       resources :conferences do
+        post :import, on: :collection
         resources :presentation_types, only: [:index]
       end
-      resources :institutions, except: [:show]
-      resources :rooms, except: [:show]
-      resources :delegates, except: [:show]
+      resources :institutions, except: [:show] do
+        post :import, on: :collection
+      end
+      resources :rooms, except: [:show] do
+        post :import, on: :collection
+      end
+      resources :delegates, except: [:show] do
+        post :import, on: :collection
+      end
       resources :presentations, except: [:show] do
         post :import, on: :collection
       end
       resources :presentation_types do
+        post :import, on: :collection
         resources :room_uses, only: [:index]
       end
-      resources :dietary_requirements, except: [:show]
+      resources :dietary_requirements, except: [:show] do
+        post :import, on: :collection
+      end
     end
   end
 end

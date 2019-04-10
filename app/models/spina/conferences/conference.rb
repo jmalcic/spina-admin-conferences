@@ -4,6 +4,7 @@ module Spina
   module Conferences
     # This class represents conferences.
     class Conference < ApplicationRecord
+      include ::Spina::Admin::Conferences
       include ConferencePagePartable
 
       after_initialize :set_from_dates
@@ -25,10 +26,14 @@ module Spina
       validates_associated :room_possessions
       validates_associated :presentation_types
 
-      validates :start_date, :finish_date, :room_ids, :institution_id, presence: true
+      validates :start_date, :finish_date, :rooms, :institution, presence: true
       validates :finish_date, finish_date: true, unless: proc { |conference| conference.start_date.blank? }
 
       scope :sorted, -> { order dates: :desc }
+
+      def self.import(file)
+        ConferenceImportJob.perform_later IO.read(file)
+      end
 
       # Returns the `:name` of the associated `:institution`, and year of the beginning of `:dates`, commonly used to
       # identify a conference.

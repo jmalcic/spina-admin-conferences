@@ -1,4 +1,10 @@
 - content_for(:header_actions) do
+  %label.button{ for: 'file' }
+    = icon('cog')
+    = t('spina.conferences.rooms.import')
+    = form_with url: import_admin_conferences_rooms_path do |f|
+      = f.submit style: 'display: none'
+      = f.file_field :file, multiple: false, style: 'display: none'
   = link_to spina.new_admin_conferences_room_path, class: 'button button-primary', style: 'margin-right: 0' do
     = icon('plus')
     = t('spina.conferences.rooms.new')

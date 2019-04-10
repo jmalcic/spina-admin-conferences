@@ -52,6 +52,10 @@ module Spina
           redirect_to admin_conferences_institutions_path
         end
 
+        def import
+          Institution.import params[:file]
+        end
+
         private
 
         def set_breadcrumbs

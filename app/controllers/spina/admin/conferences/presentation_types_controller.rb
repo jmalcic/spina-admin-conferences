@@ -66,6 +66,10 @@ module Spina
           redirect_to admin_conferences_presentation_types_path
         end
 
+        def import
+          PresentationType.import params[:file]
+        end
+
         private
 
         def set_breadcrumbs

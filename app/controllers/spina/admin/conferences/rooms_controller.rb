@@ -13,11 +13,7 @@ module Spina
         layout 'spina/admin/conferences/institutions'
 
         def index
-          @rooms = if params[:presentation_type_id]
-                     PresentationType.find(params[:presentation_type_id]).rooms
-                   else
-                     Room.all
-                   end
+          @rooms = Room.all
         end
 
         def new
@@ -56,6 +52,10 @@ module Spina
           @room = Room.find params[:id]
           @room.destroy
           redirect_to admin_conferences_rooms_path
+        end
+
+        def import
+          Room.import params[:file]
         end
 
         private
