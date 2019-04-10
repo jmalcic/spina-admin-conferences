@@ -14,8 +14,8 @@ module Spina
             import(csv) do |row|
               rooms = row[:rooms]
               copy_value :institution, from: row, to: rooms
-              Conference.create! institution: find_institution(row[:institution]), dates: row[:start_date]..row[:finish_date],
-                                 rooms: find_rooms(rooms)
+              Conference.create! institution: find_institution(row[:institution]),
+                                 dates: row[:start_date]..row[:finish_date], rooms: find_rooms(rooms)
             end
           end
         end
