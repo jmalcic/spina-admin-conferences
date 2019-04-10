@@ -12,13 +12,17 @@ module Spina
         def perform(csv)
           Delegate.transaction do
             import(csv) do |row|
-              delegate = Delegate.find_or_create_by! email_address: row[:email_address] do |new_delegate|
-                new_delegate.first_name = row[:first_name]
-                new_delegate.last_name = row[:last_name]
-                set_params new_delegate, row
-              end
+              delegate = find_or_create_delegate(row)
               set_params delegate, row unless delegate.new_record?
             end
+          end
+        end
+
+        def find_or_create_delegate(row)
+          Delegate.find_or_create_by! email_address: row[:email_address] do |new_delegate|
+            new_delegate.first_name = row[:first_name]
+            new_delegate.last_name = row[:last_name]
+            set_params new_delegate, row
           end
         end
 
