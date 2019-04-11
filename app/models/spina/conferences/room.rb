@@ -4,8 +4,6 @@ module Spina
   module Conferences
     # This class represents rooms in an institution.
     class Room < ApplicationRecord
-      include ::Spina::Admin::Conferences
-
       belongs_to :institution, inverse_of: :rooms, autosave: true
       has_many :room_possessions, dependent: :destroy
       has_many :room_uses, through: :room_possessions
