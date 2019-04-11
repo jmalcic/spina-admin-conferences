@@ -12,7 +12,10 @@ module Spina
         Delegate.transaction do
           import(csv) do |row|
             delegate = find_or_create_delegate(row)
-            set_params delegate, row unless delegate.new_record?
+            unless delegate.new_record?
+              set_params delegate, row
+              delegate.save
+            end
           end
         end
       end
