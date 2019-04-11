@@ -10,7 +10,7 @@
 
       %tbody
         - if @institution.conferences.any?
-          = render partial: 'spina/admin/conferences/shared/conference', collection: @conferences
+          = render partial: 'spina/admin/conferences/shared/conference', collection: @institution.conferences
 
         - else
           %tr
