@@ -4,7 +4,6 @@ module Spina
   module Conferences
     # This class represents conference presentations.
     class Presentation < ApplicationRecord
-      include ::Spina::Admin::Conferences
       include ConferencePagePartable
 
       after_initialize :set_from_start_datetime

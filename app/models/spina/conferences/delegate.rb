@@ -4,8 +4,6 @@ module Spina
   module Conferences
     # This class represents conference delegates.
     class Delegate < ApplicationRecord
-      include ::Spina::Admin::Conferences
-
       belongs_to :institution
       has_and_belongs_to_many :conferences, foreign_key: :spina_conferences_delegate_id,
                                             association_foreign_key: :spina_conferences_conference_id
