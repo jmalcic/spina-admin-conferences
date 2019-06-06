@@ -4,6 +4,7 @@ module Spina
   module Conferences
     class Engine < ::Rails::Engine #:nodoc:
       isolate_namespace Spina::Conferences
+      paths['public'] = 'public'
 
       config.before_initialize do
         ::Spina::Plugin.register do |plugin|
@@ -21,6 +22,8 @@ module Spina
       config.after_initialize do
         @webpacker = ::Webpacker::Instance.new root_path: root
       end
+
+      config.app_middleware.use ::ActionDispatch::Static, paths['public'].first
 
       class << self
         attr_reader :webpacker
