@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'webpacker'
+
 module Spina
   module Admin
     module Conferences
