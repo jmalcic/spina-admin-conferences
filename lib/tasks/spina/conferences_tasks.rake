@@ -18,3 +18,5 @@ namespace :spina_conferences do
     end
   end
 end
+
+Rake::Task[:'app:assets:precompile'].enhance [:'spina_conferences:webpacker:compile']
