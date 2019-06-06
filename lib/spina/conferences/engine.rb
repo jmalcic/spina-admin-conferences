@@ -16,6 +16,14 @@ module Spina
         # Load helpers from engine
         Spina::ApplicationController.helper 'spina/conferences/conference_pages'
       end
+
+      config.after_initialize do
+        @webpacker = ::Webpacker::Instance.new root_path: root
+      end
+
+      class << self
+        attr_reader :webpacker
+      end
     end
   end
 end

@@ -3,6 +3,7 @@
 require 'spina'
 require 'spina/conferences/engine'
 require 'js-routes'
+require 'webpacker'
 
 module Spina
   module Conferences #:nodoc:
