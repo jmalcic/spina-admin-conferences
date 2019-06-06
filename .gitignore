@@ -13,8 +13,10 @@ test/dummy/yarn-error.log
 test/dummy/storage/
 test/dummy/tmp/
 test/dummy/public/assets/
-test/dummy/public/packs/
+test/dummy/public/packs*/
 tmp/
+node_modules/
+public/packs*/
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
