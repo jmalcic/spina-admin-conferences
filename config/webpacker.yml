@@ -39,6 +39,7 @@ default: &default
     - .sass
     - .scss
     - .css
+    - .erb
     - .module.sass
     - .module.scss
     - .module.css
