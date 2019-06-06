@@ -3,6 +3,7 @@
 require 'spina'
 require 'spina/conferences/engine'
 require 'js-routes'
+require 'icalendar'
 
 module Spina
   module Conferences #:nodoc:

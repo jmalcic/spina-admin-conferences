@@ -40,6 +40,18 @@ module Spina
         "#{institution_name} #{dates&.min&.year}"
       end
 
+      def to_ics
+        event = Icalendar::Event.new
+        event.dtstart = start_date
+        event.dtstart.ical_params = { value: 'DATE' }
+        event.dtend = finish_date
+        event.dtend.ical_params = { value: 'DATE' }
+        event.location = institution.name
+        event.categories = self.class.name.demodulize.upcase
+        event.summary = name
+        event
+      end
+
       def set_from_dates
         return if dates.blank?
 
