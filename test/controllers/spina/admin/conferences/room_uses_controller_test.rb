@@ -6,7 +6,7 @@ module Spina
   module Admin
     module Conferences
       class RoomUsesControllerTest < ActionDispatch::IntegrationTest
-        include Engine.routes.url_helpers
+        include ::Spina::Engine.routes.url_helpers
         include ::Spina::Conferences
 
         setup do
@@ -16,7 +16,8 @@ module Spina
         end
 
         test 'should get index' do
-          get admin_conferences_presentation_type_room_uses_url(presentation_type_id: @presentation_type.id), as: :json
+          get admin_conferences_presentation_type_room_uses_url(presentation_type_id: @presentation_type.id,
+                                                                format: :json)
           assert_response :success
         end
       end

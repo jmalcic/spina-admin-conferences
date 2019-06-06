@@ -6,7 +6,7 @@ module Spina
   module Admin
     module Conferences
       class RoomsControllerTest < ActionDispatch::IntegrationTest
-        include Engine.routes.url_helpers
+        include ::Spina::Engine.routes.url_helpers
         include ::Spina::Conferences
 
         setup do
