@@ -21,7 +21,7 @@ module Spina
       end
 
       config.after_initialize do
-        @webpacker = ::Webpacker::Instance.new root_path: root
+        @webpacker = ::Webpacker::Instance.new root_path: root, config_path: root.join('config/webpacker.yml')
       end
 
       config.app_middleware.use ::ActionDispatch::Static, paths['public'].first
