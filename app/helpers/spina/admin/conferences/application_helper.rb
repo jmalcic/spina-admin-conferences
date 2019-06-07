@@ -21,11 +21,11 @@ module Spina
         private
 
         def update_webpacker_instance(instance)
-          @webpacker = instance || Webpacker.instance
+          @webpacker = instance || ::Webpacker.instance
         end
 
         def current_webpacker_instance
-          @webpacker || Webpacker.instance
+          @webpacker || ::Webpacker.instance
         end
       end
     end
