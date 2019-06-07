@@ -16,7 +16,7 @@ test/dummy/public/assets/
 test/dummy/public/packs*/
 tmp/
 node_modules/
-public/packs*/
+public/spina-conferences-packs*/
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
