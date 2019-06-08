@@ -6,6 +6,8 @@ module Spina
     module Eventable
       extend ActiveSupport::Concern
 
+      private
+
       def make_calendar(*objects, **options)
         calendar = Icalendar::Calendar.new
         calendar.x_wr_calname = options[:name] if options[:name]
