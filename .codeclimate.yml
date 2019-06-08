@@ -1,3 +1,5 @@
+exclude_patterns:
+  - babel.config.js
 plugins:
   rubocop:
     enabled: true
