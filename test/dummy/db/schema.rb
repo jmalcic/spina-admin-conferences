@@ -15,76 +15,6 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
-  end
-
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "hc_applications_applicants", force: :cascade do |t|
-    t.string "slug"
-    t.string "development_roles", array: true
-    t.text "learning_goal"
-    t.text "interests"
-    t.text "recent_accomplishment"
-    t.string "links", array: true
-    t.string "origin_country"
-    t.date "graduation_month"
-    t.boolean "wants_mailing_list"
-    t.boolean "wants_team_assignment"
-    t.text "other_info"
-    t.bigint "hacker_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hacker_id"], name: "index_hc_applications_applicants_on_hacker_id"
-  end
-
-  create_table "hc_applications_hackers", force: :cascade do |t|
-    t.integer "mlh_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "gender"
-    t.date "date_of_birth"
-    t.string "email"
-    t.string "phone_number"
-    t.string "institution"
-    t.string "study_level"
-    t.string "course"
-    t.string "shirt_size"
-    t.string "dietary_restrictions"
-    t.string "special_needs"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "hc_applications_teams", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "hc_applications_visa_requests", force: :cascade do |t|
-    t.date "needed_by"
-    t.bigint "applicant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["applicant_id"], name: "index_hc_applications_visa_requests_on_applicant_id"
-  end
-
   create_table "spina_accounts", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -438,9 +368,6 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
     t.datetime "password_reset_sent_at"
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "hc_applications_applicants", "hc_applications_hackers", column: "hacker_id", on_delete: :cascade
-  add_foreign_key "hc_applications_visa_requests", "hc_applications_applicants", column: "applicant_id", on_delete: :cascade
   add_foreign_key "spina_conferences_conference_page_parts", "spina_pages", column: "conference_page_id", on_delete: :cascade
   add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
