@@ -9,7 +9,7 @@ module Spina
       def index
         @conferences = Conference.sorted
         respond_to do |format|
-          format.ics { render body: make_calendar(@conferences, name: @current_account.name).to_ical }
+          format.ics { render body: make_calendar(@conferences, name: current_account.name).to_ical }
         end
       end
 
