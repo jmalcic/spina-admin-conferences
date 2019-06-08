@@ -10,8 +10,9 @@ end
 def enhance_assets_precompile
   # yarn:install was added in Rails 5.1
   deps = yarn_install_available? ? [] : ['spina_conferences:webpacker:yarn_install']
+  webpack_compilation_task = Rake::Task['spina_conferences:webpacker:compile']
   Rake::Task['assets:precompile'].enhance(deps) do
-    Rake::Task['spina_conferences:webpacker:compile'].invoke
+    webpack_compilation_task.invoke
   end
 end
 
