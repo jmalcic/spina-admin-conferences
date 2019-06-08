@@ -6,15 +6,6 @@ module Spina
     class PresentationsController < ApplicationController
       include Eventable
 
-      def index
-        @presentations = if params[:conference_id]
-                           Conference.find(params[:conference_id]).presentations
-                         else
-                           Presentation.sorted
-                         end
-        respond_to { |format| format.ics { render plain: make_calendar(@presentations).to_ical } }
-      end
-
       def show
         @presentation = Presentation.find(params[:id])
         respond_to do |format|

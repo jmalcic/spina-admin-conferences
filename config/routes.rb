@@ -4,10 +4,8 @@
 
 Spina::Engine.routes.draw do
   namespace :conferences, path: 'calendars' do
-    resources :presentations, only: %i[index show]
-    resources :conferences, only: %i[index show] do
-      resources :presentations, only: :index
-    end
+    resources :presentations, only: [:show]
+    resources :conferences, only: %i[index show]
   end
   namespace :admin, path: Spina.config.backend_path do
     resources :conference_pages, controller: 'conferences/conference_pages'
