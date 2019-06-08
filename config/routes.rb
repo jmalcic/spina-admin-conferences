@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
+
 Spina::Engine.routes.draw do
+  namespace :conferences, path: 'calendars' do
+    resources :presentations, only: [:show]
+    resources :conferences, only: %i[index show]
+  end
   namespace :admin, path: Spina.config.backend_path do
     resources :conference_pages, controller: 'conferences/conference_pages'
     namespace :conferences do
@@ -31,3 +37,5 @@ Spina::Engine.routes.draw do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength

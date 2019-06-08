@@ -34,6 +34,22 @@ module Spina
         PresentationImportJob.perform_later IO.read(file)
       end
 
+      # rubocop:disable Metrics/AbcSize
+
+      def to_ics
+        event = Icalendar::Event.new
+        event.dtstart = start_datetime
+        event.dtend = start_datetime + presentation_type.duration
+        event.location = room_use.room_name
+        presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
+        event.categories = self.class.name.demodulize.upcase
+        event.summary = title
+        event.description = abstract.try(:html_safe)
+        event
+      end
+
+      # rubocop:enable Metrics/AbcSize
+
       private
 
       def set_from_start_datetime

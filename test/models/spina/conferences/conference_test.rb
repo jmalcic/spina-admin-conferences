@@ -37,8 +37,15 @@ module Spina
       end
 
       test 'returns a name' do
-        assert @conference.respond_to? :name
         assert @conference.name.class == String
+      end
+
+      test 'returns an associated page' do
+        assert @conference.conference_page.class == ConferencePage
+      end
+
+      test 'returns an iCal event' do
+        assert @conference.to_ics.class == Icalendar::Event
       end
     end
   end

@@ -7,7 +7,7 @@ module Spina
     module Conferences
       # noinspection RubyClassModuleNamingConvention
       class DietaryRequirementsControllerTest < ActionDispatch::IntegrationTest
-        include Engine.routes.url_helpers
+        include ::Spina::Engine.routes.url_helpers
         include ::Spina::Conferences
 
         setup do
