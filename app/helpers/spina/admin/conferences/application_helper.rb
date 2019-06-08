@@ -13,19 +13,15 @@ module Spina
         helper_methods.each do |method|
           alias_method :"base_#{method}", :"#{method}"
           redefine_method method do |*args, **options|
-            update_webpacker_instance options.delete(:instance)
+            @webpacker = options.delete(:instance) || ::Webpacker.instance
             send :"base_#{method}", *args, **options
           end
         end
 
         private
 
-        def update_webpacker_instance(instance)
-          @webpacker = instance || ::Webpacker.instance
-        end
-
         def current_webpacker_instance
-          @webpacker || ::Webpacker.instance
+          @webpacker
         end
       end
     end
