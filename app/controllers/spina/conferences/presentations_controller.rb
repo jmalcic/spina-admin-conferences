@@ -8,9 +8,7 @@ module Spina
 
       def show
         @presentation = Presentation.find(params[:id])
-        respond_to do |format|
-          format.ics { render body: make_calendar(@presentation).to_ical }
-        end
+        respond_to { |format| format.ics { render body: make_calendar(@presentation).to_ical } }
       end
     end
   end
