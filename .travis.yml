@@ -7,11 +7,17 @@ addons:
       - libvips-dev
   chrome: stable
   postgresql: 9.6
+cache:
+  bundler: true
+  directories:
+    - node_modules
+  yarn: true
 services:
   - redis
 before_install:
   - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
   - nvm install
+  - yarn
   - gem update --system
   - gem install bundler
 before_script:
