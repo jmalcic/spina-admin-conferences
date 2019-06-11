@@ -18,12 +18,10 @@ end
 
 namespace :spina_conferences do
   namespace :webpacker do
-    desc 'Support for older Rails versions. Install all JavaScript dependencies as specified via Yarn'
     task :yarn_install do
       system 'yarn install --no-progress'
     end
 
-    desc 'Compile JavaScript packs using webpack for production with digests'
     task compile: %i[environment] do
       Webpacker.with_node_env('production') do
         if Spina::Conferences::Engine.webpacker.commands.compile
