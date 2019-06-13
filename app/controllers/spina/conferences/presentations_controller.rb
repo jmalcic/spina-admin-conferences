@@ -7,7 +7,9 @@ module Spina
       include Eventable
 
       def show
-        @presentation = Presentation.find(params[:id])
+        @presentation = Presentation.includes(:presentation_type,
+                                              presenters: :institution,
+                                              room_use: [room_possession: :room]).find(params[:id])
         respond_to { |format| format.ics { render body: make_calendar(@presentation).to_ical } }
       end
     end
