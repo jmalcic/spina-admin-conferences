@@ -21,12 +21,14 @@ module Spina
         def new
           @conference = params[:conference] ? Conference.new(conference_params) : Conference.new
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
+          @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
           render layout: 'spina/admin/admin'
         end
 
         def edit
           @conference = Conference.find params[:id]
           add_breadcrumb @conference.name
+          @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
           render layout: 'spina/admin/admin'
         end
 
@@ -36,6 +38,7 @@ module Spina
           if @conference.save
             redirect_to admin_conferences_conferences_path
           else
+            @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
             render :new, layout: 'spina/admin/admin'
           end
         end
@@ -46,6 +49,7 @@ module Spina
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path
           else
+            @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
             render :edit, layout: 'spina/admin/admin'
           end
         end
@@ -71,11 +75,11 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w[conference_details delegates presentation_types rooms presentations]
+          @tabs = %w[conference_details content delegates presentation_types rooms presentations]
         end
 
         def conference_params
-          params.require(:conference).permit(:start_date, :finish_date, :institution_id, room_ids: [])
+          params.require(:conference).permit!
         end
       end
     end

@@ -17,12 +17,14 @@ module Spina
         def new
           @presentation = params[:presentation] ? Presentation.new(presentation_params) : Presentation.new
           add_breadcrumb I18n.t('spina.conferences.presentations.new')
+          @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
           render layout: 'spina/admin/admin'
         end
 
         def edit
           @presentation = Presentation.find params[:id]
           add_breadcrumb @presentation.title
+          @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
           render layout: 'spina/admin/admin'
         end
 
@@ -32,6 +34,7 @@ module Spina
           if @presentation.save
             redirect_to admin_conferences_presentations_path
           else
+            @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
             render :new, layout: 'spina/admin/admin'
           end
         end
@@ -42,6 +45,7 @@ module Spina
           if @presentation.update(presentation_params)
             redirect_to admin_conferences_presentations_path
           else
+            @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
             render :edit, layout: 'spina/admin/admin'
           end
         end
@@ -64,11 +68,11 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w[presentation_details presenters]
+          @tabs = %w[presentation_details content presenters]
         end
 
         def presentation_params
-          params.require(:presentation).permit(:title, :date, :start_time, :abstract, :room_use_id, presenter_ids: [])
+          params.require(:presentation).permit!
         end
       end
     end
