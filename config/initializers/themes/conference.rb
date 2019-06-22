@@ -190,3 +190,58 @@
 
   theme.plugins = ['conferences']
 end
+
+::Spina::Conferences::Theme.register do |theme|
+  theme.name = 'conference'
+
+  theme.parts = [{
+    name: 'text',
+    title: 'Text',
+    partable_type: 'Spina::Text'
+  }, {
+    name: 'gallery',
+    title: 'Gallery',
+    partable_type: 'Spina::ImageCollection'
+  }, {
+    name: 'submission_url',
+    title: 'Submission URL',
+    partable_type: 'Spina::Conferences::UrlPart'
+  }, {
+    name: 'submission_date',
+    title: 'Submission date',
+    partable_type: 'Spina::Conferences::DatePart'
+  }, {
+    name: 'submission_text',
+    title: 'Submission text',
+    partable_type: 'Spina::Line'
+  }, {
+    name: 'socials',
+    title: 'Socials',
+    partable_type: 'Spina::Structure'
+  }, {
+    name: 'meetings',
+    title: 'Meetings',
+    partable_type: 'Spina::Structure'
+  }, {
+    name: 'presentation',
+    title: 'Presentation',
+    partable_type: 'Spina::Attachment'
+  }, {
+    name: 'handout',
+    title: 'Handout',
+    partable_type: 'Spina::Attachment'
+  }, {
+    name: 'poster',
+    title: 'Poster',
+    partable_type: 'Spina::Attachment'
+  }]
+
+  theme.models = {
+    'Spina::Conferences::Conference': {
+      parts: %w[text submission_url submission_date submission_text gallery socials meetings]
+    },
+    'Spina::Conferences::Presentation': {
+      parts: %w[presentation handout poster]
+    }
+  }
+end
