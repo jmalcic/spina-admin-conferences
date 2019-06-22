@@ -1,0 +1,9 @@
+#content.tab-content.well
+  .horizontal-form
+    = f.fields_for :parts do |ff|
+      .horizontal-form-group.page-part{ data: { name: ff.object.name } }
+        = render "spina/admin/base_partables/#{partable_type_partial_namespace(ff.object.partable_type)}/form", f: ff
+        = ff.hidden_field :id
+        = ff.hidden_field :title
+        = ff.hidden_field :partable_type
+        = ff.hidden_field :name
