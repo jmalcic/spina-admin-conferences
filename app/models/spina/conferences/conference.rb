@@ -5,6 +5,7 @@ module Spina
     # This class represents conferences.
     class Conference < ApplicationRecord
       include ConferencePagePartable
+      include ::Spina::Partable
 
       after_initialize :set_from_dates
       before_validation :update_dates
@@ -19,6 +20,8 @@ module Spina
       has_many :presentations, through: :presentation_types
       has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id,
                                           association_foreign_key: :spina_conferences_delegate_id
+      has_many :parts, dependent: :destroy, as: :pageable
+      accepts_nested_attributes_for :parts, allow_destroy: true
 
       delegate :name, to: :institution, prefix: true, allow_nil: true
 
@@ -61,6 +64,15 @@ module Spina
 
       def update_dates
         self.dates = start_date..finish_date if (start_date != dates&.min) || (finish_date != dates&.max)
+      end
+
+      def model_config(conferences_theme)
+        conferences_theme.models[self.class.name.to_sym]
+      end
+
+      def model_parts(theme)
+        conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
+        conferences_theme.parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
       end
     end
   end

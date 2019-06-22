@@ -5,6 +5,7 @@ module Spina
     # This class represents conference presentations.
     class Presentation < ApplicationRecord
       include ConferencePagePartable
+      include ::Spina::Partable
 
       after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
@@ -20,6 +21,8 @@ module Spina
       has_and_belongs_to_many :presenters, class_name: 'Spina::Conferences::Delegate',
                                            foreign_key: :spina_conferences_presentation_id,
                                            association_foreign_key: :spina_conferences_delegate_id
+      has_many :parts, dependent: :destroy, as: :pageable
+      accepts_nested_attributes_for :parts, allow_destroy: true
 
       validates :title, :date, :start_time, :abstract, :presenters, presence: true
       validates :date, conference_date: true
@@ -49,6 +52,15 @@ module Spina
       end
 
       # rubocop:enable Metrics/AbcSize
+
+      def model_config(conferences_theme)
+        conferences_theme.models[self.class.name.to_sym]
+      end
+
+      def model_parts(theme)
+        conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
+        conferences_theme.parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+      end
 
       private
 
