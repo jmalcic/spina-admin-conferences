@@ -1,6 +1,6 @@
 #content.tab-content.well
   .horizontal-form
-    = f.fields_for :parts do |ff|
+    = f.fields_for :parts, @parts do |ff|
       = ff.hidden_field :id
       = ff.hidden_field :title
       = ff.hidden_field :partable_type
