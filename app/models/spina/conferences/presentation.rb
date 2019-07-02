@@ -10,6 +10,7 @@ module Spina
       after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
       after_create { conference_page.update parent: conference.conference_page }
+      after_save -> { parts.each(&:save) }
 
       attribute :date, :date
       attribute :start_time, :time
@@ -37,6 +38,14 @@ module Spina
         PresentationImportJob.perform_later IO.read(file)
       end
 
+      def self.description
+        nil
+      end
+
+      def self.seo_title
+        'Presentations'
+      end
+
       # rubocop:disable Metrics/AbcSize
 
       def to_ics
@@ -59,7 +68,23 @@ module Spina
 
       def model_parts(theme)
         conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
-        theme.parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+        theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+      end
+
+      def description
+        content('abstract') || nil
+      end
+
+      alias seo_title name
+
+      def ancestors
+        [conference]
+      end
+
+      alias menu_title name
+
+      def raw_part(name)
+        parts.find_by(name: name)
       end
 
       private

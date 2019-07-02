@@ -9,6 +9,7 @@ module Spina
 
       after_initialize :set_from_dates
       before_validation :update_dates
+      after_save -> { parts.each(&:save) }
 
       attribute :start_date, :date
       attribute :finish_date, :date
@@ -35,6 +36,18 @@ module Spina
 
       def self.import(file)
         ConferenceImportJob.perform_later IO.read(file)
+      end
+
+      def self.description
+        nil
+      end
+
+      def self.seo_title
+        'Conferences'
+      end
+
+      class << self
+        alias menu_title seo_title
       end
 
       # Returns the `:name` of the associated `:institution`, and year of the beginning of `:dates`, commonly used to
@@ -72,8 +85,30 @@ module Spina
 
       def model_parts(theme)
         conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
-        theme.parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+        theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
       end
+
+      def raw_part(name)
+        parts.find_by(name: name)
+      end
+
+      def description
+        content('text') || nil
+      end
+
+      alias seo_title name
+
+      def ancestors
+        nil
+      end
+
+      alias menu_title name
+
+      def materialized_path
+        ::Spina::Engine.routes.url_helpers.conferences_conference_path self
+      end
+
+      alias menu_title name
     end
   end
 end
