@@ -144,22 +144,6 @@
     title: 'About',
     description: 'Contains information about the society',
     page_parts: %w[text constitution minutes partner_societies contact]
-  }, {
-    name: 'conference',
-    title: 'Conference',
-    description: 'Contains information and content for a conference',
-    page_parts: %w[text submission_url submission_date submission_text
-                   gallery socials meetings]
-  }, {
-    name: 'presentation',
-    title: 'Presentation',
-    description: 'Contains content for a presentation',
-    page_parts: %w[]
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    description: 'List of conferences',
-    page_parts: %w[]
   }]
 
   theme.custom_pages = [{
@@ -167,11 +151,6 @@
     title: 'Homepage',
     deletable: false,
     view_template: 'homepage'
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    deletable: false,
-    view_template: 'conferences'
   }, {
     name: 'about',
     title: 'About',
