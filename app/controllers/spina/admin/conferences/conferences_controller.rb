@@ -79,7 +79,7 @@ module Spina
         end
 
         def conference_params
-          params.require(:conference).permit!
+          params.require(:conference).except(:id).permit!
         end
       end
     end

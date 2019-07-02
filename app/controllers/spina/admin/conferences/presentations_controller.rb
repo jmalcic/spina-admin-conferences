@@ -72,7 +72,7 @@ module Spina
         end
 
         def presentation_params
-          params.require(:presentation).permit!
+          params.require(:presentation).except(:id).permit!
         end
       end
     end
