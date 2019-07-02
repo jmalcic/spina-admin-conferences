@@ -9,7 +9,6 @@ module Spina
 
       after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
-      after_create { conference_page.update parent: conference.conference_page }
       after_save -> { parts.each(&:save) }
 
       attribute :date, :date
