@@ -7,7 +7,7 @@ module Spina
       include Eventable
 
       layout 'conference/application'
-      prepend_view_path File.expand_path('../../../views/conference', __dir__)
+      append_view_path File.expand_path('../../../views/conference', __dir__)
 
       def show
         @presentation = Presentation.includes(:presentation_type,

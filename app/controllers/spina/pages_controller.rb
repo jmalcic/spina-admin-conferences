@@ -6,7 +6,7 @@ module Spina
 
     before_action :current_spina_user_can_view_page?, except: [:robots]
 
-    prepend_view_path File.expand_path('../../views/conference', __dir__)
+    append_view_path File.expand_path('../../views/conference', __dir__)
 
     helper_method :page
 
