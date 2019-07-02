@@ -34,8 +34,9 @@
                 = link_to 'Conferences', spina.conferences_conferences_url, class: %w[d-block py-2 border-top border-black-fade text-bold]
           .d-none.d-lg-flex.flex-justify-end
             = main_navigation %w[flex-self-center flex-shrink-0], %w[px-md-1 px-lg-2], %w[px-md-1 px-lg-2 text-bold], request
-            = link_to_unless_current 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2] do
-              = link_to 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2 text-bold]
+            .flex-lg-self-center
+              = link_to_unless_current 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2] do
+                = link_to 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2 text-bold]
       - if ancestors&.present?
         .box-shadow-medium.px-3.px-md-4.py-2.mt-4
           .container-md= render 'shared/breadcrumbs'
