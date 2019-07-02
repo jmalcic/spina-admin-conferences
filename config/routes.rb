@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/BlockLength
 
 Spina::Engine.routes.draw do
-  namespace :conferences, path: 'calendars' do
+  namespace :conferences, path: 'conferences_alpha' do
     resources :presentations, only: [:show]
     resources :conferences, only: %i[index show]
   end
