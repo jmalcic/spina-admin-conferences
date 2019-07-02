@@ -20,6 +20,10 @@ module Spina
       def menu_title
         @page.menu_title
       end
+
+      def raw_part(name)
+        @page.page_parts.find_by(name: name)
+      end
     end
   end
 end

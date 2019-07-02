@@ -25,10 +25,6 @@ module Spina
       def latest_conference
         Conference.sorted.first
       end
-
-      def raw_part(name)
-        @page.page_parts.find_by(name: name)
-      end
     end
   end
 end
