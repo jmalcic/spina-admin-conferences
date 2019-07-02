@@ -59,7 +59,7 @@ module Spina
 
       def model_parts(theme)
         conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
-        conferences_theme.parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+        theme.parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
       end
 
       private

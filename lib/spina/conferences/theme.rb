@@ -3,7 +3,7 @@
 module Spina
   module Conferences
     class Theme
-      attr_accessor :name, :parts, :models
+      attr_accessor :name, :models
 
       class << self
         def find_by_name(name)
@@ -20,7 +20,6 @@ module Spina
       end
 
       def initialize
-        @parts = []
         @models = []
       end
     end

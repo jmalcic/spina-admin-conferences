@@ -48,6 +48,18 @@
     name: 'submission_text',
     title: 'Submission text',
     partable_type: 'Spina::Line'
+  }, {
+    name: 'presentation',
+    title: 'Presentation',
+    partable_type: 'Spina::Attachment'
+  }, {
+    name: 'handout',
+    title: 'Handout',
+    partable_type: 'Spina::Attachment'
+  }, {
+    name: 'poster',
+    title: 'Poster',
+    partable_type: 'Spina::Attachment'
   }]
 
   theme.layout_parts = [{
@@ -144,22 +156,6 @@
     title: 'About',
     description: 'Contains information about the society',
     page_parts: %w[text constitution minutes partner_societies contact]
-  }, {
-    name: 'conference',
-    title: 'Conference',
-    description: 'Contains information and content for a conference',
-    page_parts: %w[text submission_url submission_date submission_text
-                   gallery socials meetings]
-  }, {
-    name: 'presentation',
-    title: 'Presentation',
-    description: 'Contains content for a presentation',
-    page_parts: %w[]
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    description: 'List of conferences',
-    page_parts: %w[]
   }]
 
   theme.custom_pages = [{
@@ -167,11 +163,6 @@
     title: 'Homepage',
     deletable: false,
     view_template: 'homepage'
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    deletable: false,
-    view_template: 'conferences'
   }, {
     name: 'about',
     title: 'About',
@@ -193,48 +184,6 @@ end
 
 ::Spina::Conferences::Theme.register do |theme|
   theme.name = 'conference'
-
-  theme.parts = [{
-    name: 'text',
-    title: 'Text',
-    partable_type: 'Spina::Text'
-  }, {
-    name: 'gallery',
-    title: 'Gallery',
-    partable_type: 'Spina::ImageCollection'
-  }, {
-    name: 'submission_url',
-    title: 'Submission URL',
-    partable_type: 'Spina::Conferences::UrlPart'
-  }, {
-    name: 'submission_date',
-    title: 'Submission date',
-    partable_type: 'Spina::Conferences::DatePart'
-  }, {
-    name: 'submission_text',
-    title: 'Submission text',
-    partable_type: 'Spina::Line'
-  }, {
-    name: 'socials',
-    title: 'Socials',
-    partable_type: 'Spina::Structure'
-  }, {
-    name: 'meetings',
-    title: 'Meetings',
-    partable_type: 'Spina::Structure'
-  }, {
-    name: 'presentation',
-    title: 'Presentation',
-    partable_type: 'Spina::Attachment'
-  }, {
-    name: 'handout',
-    title: 'Handout',
-    partable_type: 'Spina::Attachment'
-  }, {
-    name: 'poster',
-    title: 'Poster',
-    partable_type: 'Spina::Attachment'
-  }]
 
   theme.models = {
     'Spina::Conferences::Conference': {
