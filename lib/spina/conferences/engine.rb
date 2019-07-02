@@ -16,8 +16,7 @@ module Spina
       config.to_prepare do
         # Load helpers from engine
         ::Spina::Admin::AdminController.helper 'spina/admin/conferences/application'
-        ::Spina::PagesController.helper 'spina/conferences/conference_pages'
-        ::Spina::ApplicationController.helper 'spina/conferences/application'
+        ::Spina::PagesController.helper 'spina/conferences/pages'
       end
 
       config.after_initialize do
