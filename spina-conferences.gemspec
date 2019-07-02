@@ -24,8 +24,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'icalendar', '~> 2.5'
   spec.add_dependency 'js-routes', '~> 1.4'
+  spec.add_dependency 'octicons_helper', '~> 9.1'
   spec.add_dependency 'pg', '>= 0.18', '< 2.0'
   spec.add_dependency 'rails', '~> 6.0.0.rc1'
+  spec.add_dependency 'rails-i18n', '~> 6.0.0.beta1'
   spec.add_dependency 'spina', '~> 1.0'
   spec.add_dependency 'webpacker', '~> 4.0'
 
