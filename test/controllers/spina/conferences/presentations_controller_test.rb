@@ -7,11 +7,14 @@ module Spina
     class PresentationsControllerTest < ActionDispatch::IntegrationTest
       include ::Spina::Engine.routes.url_helpers
 
-      setup do
-        @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry
-      end
+      setup { @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry }
 
       test 'should show presentation' do
+        get conferences_presentation_url(@presentation)
+        assert_response :success
+      end
+
+      test 'should show presentation as ics' do
         get conferences_presentation_url(@presentation, format: :ics)
         assert_response :success
       end
