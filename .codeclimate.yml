@@ -13,6 +13,7 @@ exclude_patterns:
   - '**/*_test.go'
   - '**/*.d.ts'
   - '*.config.js'
+  - public/
 plugins:
   rubocop:
     enabled: true
