@@ -8,7 +8,6 @@ Spina::Engine.routes.draw do
     resources :conferences, only: %i[index show]
   end
   namespace :admin, path: Spina.config.backend_path do
-    resources :conference_pages, controller: 'conferences/conference_pages'
     namespace :conferences do
       root to: 'conferences#index'
       resources :conferences, except: [:show] do
