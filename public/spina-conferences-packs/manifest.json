@@ -1,32 +1,25 @@
 {
-  "conference/application.css": "/spina-conferences-packs/css/conference/application-f35b03b1.css",
-  "conference/application.js": "/spina-conferences-packs/js/conference/application-becc4a157f6debd032ae.js",
-  "conference/application.js.map": "/spina-conferences-packs/js/conference/application-becc4a157f6debd032ae.js.map",
+  "conference/application.js": "/spina-conferences-packs/js/conference/application-b2ed3f4d3602653990e3.js",
+  "conference/application.js.map": "/spina-conferences-packs/js/conference/application-b2ed3f4d3602653990e3.js.map",
   "conference/controllers/itemnav_controller.js": "/spina-conferences-packs/js/conference/controllers/itemnav_controller-b4c1d5225083e45507a8.js",
   "conference/controllers/itemnav_controller.js.map": "/spina-conferences-packs/js/conference/controllers/itemnav_controller-b4c1d5225083e45507a8.js.map",
-  "conference/controllers/slideshow_controller.js": "/spina-conferences-packs/js/conference/controllers/slideshow_controller-98aecadab030392dfa52.js",
-  "conference/controllers/slideshow_controller.js.map": "/spina-conferences-packs/js/conference/controllers/slideshow_controller-98aecadab030392dfa52.js.map",
-  "conference/controllers/underlinenav_controller.js": "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-f44ac7815d86c794c2b0.js",
-  "conference/controllers/underlinenav_controller.js.map": "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-f44ac7815d86c794c2b0.js.map",
-  "conference/styles/_custom.css": "/spina-conferences-packs/css/conference/styles/_custom-d243519c.css",
-  "conference/styles/_custom.js": "/spina-conferences-packs/js/conference/styles/_custom-8f686ab9c54b9993beef.js",
-  "conference/styles/_custom.js.map": "/spina-conferences-packs/js/conference/styles/_custom-8f686ab9c54b9993beef.js.map",
-  "conference/styles/_variables.css": "/spina-conferences-packs/css/conference/styles/_variables-61ea61c6.css",
-  "conference/styles/_variables.js": "/spina-conferences-packs/js/conference/styles/_variables-7181ed5978e06cf57ff6.js",
-  "conference/styles/_variables.js.map": "/spina-conferences-packs/js/conference/styles/_variables-7181ed5978e06cf57ff6.js.map",
-  "conference/styles/application.css": "/spina-conferences-packs/css/conference/styles/application-f35b03b1.css",
-  "conference/styles/application.js": "/spina-conferences-packs/js/conference/styles/application-2dc1472ff7fa605ec396.js",
-  "conference/styles/application.js.map": "/spina-conferences-packs/js/conference/styles/application-2dc1472ff7fa605ec396.js.map",
+  "conference/controllers/slideshow_controller.js": "/spina-conferences-packs/js/conference/controllers/slideshow_controller-3ca4993085d628ed4f13.js",
+  "conference/controllers/slideshow_controller.js.map": "/spina-conferences-packs/js/conference/controllers/slideshow_controller-3ca4993085d628ed4f13.js.map",
+  "conference/controllers/underlinenav_controller.js": "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-aa0edfd91d223710be9e.js",
+  "conference/controllers/underlinenav_controller.js.map": "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-aa0edfd91d223710be9e.js.map",
+  "conference/styles/_custom.css": "/spina-conferences-packs/css/conference/styles/_custom-00f02cee.css",
+  "conference/styles/_custom.js": "/spina-conferences-packs/js/conference/styles/_custom-78059322fc2500dc5e11.js",
+  "conference/styles/_custom.js.map": "/spina-conferences-packs/js/conference/styles/_custom-78059322fc2500dc5e11.js.map",
+  "conference/styles/application.css": "/spina-conferences-packs/css/conference/styles/application-1bdd85d8.css",
+  "conference/styles/application.js": "/spina-conferences-packs/js/conference/styles/application-69e8230208fc090ee1b0.js",
+  "conference/styles/application.js.map": "/spina-conferences-packs/js/conference/styles/application-69e8230208fc090ee1b0.js.map",
   "entrypoints": {
     "conference/application": {
-      "css": [
-        "/spina-conferences-packs/css/conference/application-f35b03b1.css"
-      ],
       "js": [
-        "/spina-conferences-packs/js/conference/application-becc4a157f6debd032ae.js"
+        "/spina-conferences-packs/js/conference/application-b2ed3f4d3602653990e3.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/conference/application-becc4a157f6debd032ae.js.map"
+        "/spina-conferences-packs/js/conference/application-b2ed3f4d3602653990e3.js.map"
       ]
     },
     "conference/controllers/itemnav_controller": {
@@ -39,92 +32,81 @@
     },
     "conference/controllers/slideshow_controller": {
       "js": [
-        "/spina-conferences-packs/js/conference/controllers/slideshow_controller-98aecadab030392dfa52.js"
+        "/spina-conferences-packs/js/conference/controllers/slideshow_controller-3ca4993085d628ed4f13.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/conference/controllers/slideshow_controller-98aecadab030392dfa52.js.map"
+        "/spina-conferences-packs/js/conference/controllers/slideshow_controller-3ca4993085d628ed4f13.js.map"
       ]
     },
     "conference/controllers/underlinenav_controller": {
       "js": [
-        "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-f44ac7815d86c794c2b0.js"
+        "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-aa0edfd91d223710be9e.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-f44ac7815d86c794c2b0.js.map"
+        "/spina-conferences-packs/js/conference/controllers/underlinenav_controller-aa0edfd91d223710be9e.js.map"
       ]
     },
     "conference/styles/_custom": {
       "css": [
-        "/spina-conferences-packs/css/conference/styles/_custom-d243519c.css"
+        "/spina-conferences-packs/css/conference/styles/_custom-00f02cee.css"
       ],
       "js": [
-        "/spina-conferences-packs/js/conference/styles/_custom-8f686ab9c54b9993beef.js"
+        "/spina-conferences-packs/js/conference/styles/_custom-78059322fc2500dc5e11.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/conference/styles/_custom-8f686ab9c54b9993beef.js.map"
-      ]
-    },
-    "conference/styles/_variables": {
-      "css": [
-        "/spina-conferences-packs/css/conference/styles/_variables-61ea61c6.css"
-      ],
-      "js": [
-        "/spina-conferences-packs/js/conference/styles/_variables-7181ed5978e06cf57ff6.js"
-      ],
-      "js.map": [
-        "/spina-conferences-packs/js/conference/styles/_variables-7181ed5978e06cf57ff6.js.map"
+        "/spina-conferences-packs/js/conference/styles/_custom-78059322fc2500dc5e11.js.map"
       ]
     },
     "conference/styles/application": {
       "css": [
-        "/spina-conferences-packs/css/conference/styles/application-f35b03b1.css"
+        "/spina-conferences-packs/css/conference/styles/application-1bdd85d8.css"
       ],
       "js": [
-        "/spina-conferences-packs/js/conference/styles/application-2dc1472ff7fa605ec396.js"
+        "/spina-conferences-packs/js/conference/styles/application-69e8230208fc090ee1b0.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/conference/styles/application-2dc1472ff7fa605ec396.js.map"
+        "/spina-conferences-packs/js/conference/styles/application-69e8230208fc090ee1b0.js.map"
       ]
     },
     "spina/admin/conferences/application": {
       "js": [
-        "/spina-conferences-packs/js/spina/admin/conferences/application-2da77944101366816b69.js"
+        "/spina-conferences-packs/js/spina/admin/conferences/application-7b40e9558c95bd2c8a67.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/spina/admin/conferences/application-2da77944101366816b69.js.map"
+        "/spina-conferences-packs/js/spina/admin/conferences/application-7b40e9558c95bd2c8a67.js.map"
       ]
     },
     "spina/admin/conferences/controllers/presentation_presentation_types_controller": {
       "js": [
-        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-dca1f62cd00efd9b7eed.js"
+        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-04cb0c0d5b7b3b11035f.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-dca1f62cd00efd9b7eed.js.map"
+        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-04cb0c0d5b7b3b11035f.js.map"
       ]
     },
     "spina/admin/conferences/controllers/presentation_room_uses_controller": {
       "js": [
-        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-d4e6b693a71f6dc127cb.js"
+        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-0eeda344164d55ed2b50.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-d4e6b693a71f6dc127cb.js.map"
+        "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-0eeda344164d55ed2b50.js.map"
       ]
     },
     "spina/admin/conferences/controllers/record_list_controller": {
       "js": [
-        "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-91d1d5873f9e93e56037.js"
+        "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-6911ad75cc9a9bd93e23.js"
       ],
       "js.map": [
-        "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-91d1d5873f9e93e56037.js.map"
+        "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-6911ad75cc9a9bd93e23.js.map"
       ]
     }
   },
-  "spina/admin/conferences/application.js": "/spina-conferences-packs/js/spina/admin/conferences/application-2da77944101366816b69.js",
-  "spina/admin/conferences/application.js.map": "/spina-conferences-packs/js/spina/admin/conferences/application-2da77944101366816b69.js.map",
-  "spina/admin/conferences/controllers/presentation_presentation_types_controller.js": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-dca1f62cd00efd9b7eed.js",
-  "spina/admin/conferences/controllers/presentation_presentation_types_controller.js.map": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-dca1f62cd00efd9b7eed.js.map",
-  "spina/admin/conferences/controllers/presentation_room_uses_controller.js": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-d4e6b693a71f6dc127cb.js",
-  "spina/admin/conferences/controllers/presentation_room_uses_controller.js.map": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-d4e6b693a71f6dc127cb.js.map",
-  "spina/admin/conferences/controllers/record_list_controller.js": "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-91d1d5873f9e93e56037.js",
-  "spina/admin/conferences/controllers/record_list_controller.js.map": "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-91d1d5873f9e93e56037.js.map"
+  "spina/admin/conferences/application.js": "/spina-conferences-packs/js/spina/admin/conferences/application-7b40e9558c95bd2c8a67.js",
+  "spina/admin/conferences/application.js.map": "/spina-conferences-packs/js/spina/admin/conferences/application-7b40e9558c95bd2c8a67.js.map",
+  "spina/admin/conferences/controllers/presentation_presentation_types_controller.js": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-04cb0c0d5b7b3b11035f.js",
+  "spina/admin/conferences/controllers/presentation_presentation_types_controller.js.map": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_presentation_types_controller-04cb0c0d5b7b3b11035f.js.map",
+  "spina/admin/conferences/controllers/presentation_room_uses_controller.js": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-0eeda344164d55ed2b50.js",
+  "spina/admin/conferences/controllers/presentation_room_uses_controller.js.map": "/spina-conferences-packs/js/spina/admin/conferences/controllers/presentation_room_uses_controller-0eeda344164d55ed2b50.js.map",
+  "spina/admin/conferences/controllers/record_list_controller.js": "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-6911ad75cc9a9bd93e23.js",
+  "spina/admin/conferences/controllers/record_list_controller.js.map": "/spina-conferences-packs/js/spina/admin/conferences/controllers/record_list_controller-6911ad75cc9a9bd93e23.js.map"
 }
