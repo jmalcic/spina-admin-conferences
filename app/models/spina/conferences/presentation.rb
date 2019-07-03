@@ -6,6 +6,7 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
       include ::Spina::Partable
+      include Pageable
 
       after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
@@ -60,15 +61,6 @@ module Spina
       end
 
       # rubocop:enable Metrics/AbcSize
-
-      def model_config(conferences_theme)
-        conferences_theme.models[self.class.name.to_sym]
-      end
-
-      def model_parts(theme)
-        conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
-        theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
-      end
 
       def description
         content('abstract') || nil

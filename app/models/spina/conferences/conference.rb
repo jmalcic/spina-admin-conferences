@@ -79,15 +79,6 @@ module Spina
         self.dates = start_date..finish_date if (start_date != dates&.min) || (finish_date != dates&.max)
       end
 
-      def model_config(conferences_theme)
-        conferences_theme.models[self.class.name.to_sym]
-      end
-
-      def model_parts(theme)
-        conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
-        theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
-      end
-
       def description
         content('text') || nil
       end
@@ -103,8 +94,6 @@ module Spina
       def materialized_path
         ::Spina::Engine.routes.url_helpers.conferences_conference_path self
       end
-
-      alias menu_title name
     end
   end
 end
