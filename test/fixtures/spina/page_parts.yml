@@ -1,0 +1,68 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+about_page_text_part:
+  name: text
+  title: Text
+  page_partable_type: Spina::Text
+  page_partable: lipsum_paragraph
+  page: about_page
+
+homepage_text_part:
+  name: text
+  title: Text
+  page_partable_type: Spina::Text
+  page_partable: lipsum_paragraph
+  page: homepage
+
+information_page_text_part:
+  name: text
+  title: Text
+  page_partable_type: Spina::Text
+  page_partable: lipsum_paragraph
+  page: information_page
+
+homepage_gallery_part:
+  name: gallery
+  title: Gallery
+  page_partable_type: Spina::ImageCollection
+  page_partable: gallery_image_collection
+  page: homepage_page
+
+constitution_part:
+  name: constitution
+  title: Constitution
+  page_partable_type: Spina::Attachment
+  page_partable: constitution_attachment
+  page: about_page
+
+partner_societies_part:
+  name: partner_societies
+  title: Partner societies
+  page_partable_type: Spina::Structure
+  page_partable: partner_societies_structure
+  page: about_page
+
+minutes_part:
+  name: minutes
+  title: Minutes
+  page_partable_type: Spina::Structure
+  page_partable: minutes_structure
+  page: about_page
+
+contact_part:
+  name: contact
+  title: Contact
+  page_partable_type: Spina::Text
+  page_partable: lipsum_paragraph
+  page: about_page
+
+committee_bios_part:
+  name: committee_bios
+  title: Committee bios
+  page_partable_type: Spina::Structure
+  page_partable: committee_bios_structure
+  page: about_page

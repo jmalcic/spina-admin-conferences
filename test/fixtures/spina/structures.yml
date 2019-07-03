@@ -4,8 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-valid_date:
-  content: 2019-01-01
+meetings_structure: {}
 
-invalid_date:
-  content: 2019-43-98
+committee_bios_structure: {}
+
+sponsors_structure: {}
+
+minutes_structure: {}
+
+socials_structure: {}
+
+partner_societies_structure: {}

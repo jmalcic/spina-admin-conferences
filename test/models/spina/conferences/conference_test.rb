@@ -40,10 +40,6 @@ module Spina
         assert @conference.name.class == String
       end
 
-      test 'returns an associated page' do
-        assert @conference.conference_page.class == ConferencePage
-      end
-
       test 'returns an iCal event' do
         assert @conference.to_ics.class == Icalendar::Event
       end

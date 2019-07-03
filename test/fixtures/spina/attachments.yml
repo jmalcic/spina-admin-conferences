@@ -4,8 +4,10 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-valid_date:
-  content: 2019-01-01
+constitution_attachment: {}
 
-invalid_date:
-  content: 2019-43-98
+slides_attachment: {}
+
+handout_attachment: {}
+
+poster_attachment: {}

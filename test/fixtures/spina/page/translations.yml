@@ -4,8 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-valid_date:
-  content: 2019-01-01
+homepage_translation:
+  title: Homepage
+  locale: en-GB
+  translated_model: homepage_page
 
-invalid_date:
-  content: 2019-43-98
+information_translation:
+  title: Information
+  locale: en-GB
+  translated_model: information_page
+
+about_translation:
+  title: About
+  locale: en-GB
+  translated_model: about_page
