@@ -88,10 +88,6 @@ module Spina
         theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
       end
 
-      def raw_part(name)
-        parts.find_by(name: name)
-      end
-
       def description
         content('text') || nil
       end

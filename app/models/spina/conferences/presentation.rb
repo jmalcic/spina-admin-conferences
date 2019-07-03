@@ -82,10 +82,6 @@ module Spina
 
       alias menu_title name
 
-      def raw_part(name)
-        parts.find_by(name: name)
-      end
-
       private
 
       def set_from_start_datetime
