@@ -5,8 +5,8 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
     [*Spina::Conferences::Conference.all, *Spina::Conferences::Presentation.all].each do |pageable|
       migrate_page_parts_to_parts(pageable)
       conference_page = pageable.conference_page
-      pageable.conference_page_part.delete
-      conference_page.destroy
+      pageable.conference_page_part&.delete
+      conference_page&.destroy
     end
     destroy_root_page
     Spina::Resource.destroy_by name: 'conference_pages', label: 'Conference pages'
@@ -26,8 +26,8 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
   end
 
   def migrate_page_parts_to_parts(conference_pageable)
-    page_parts = conference_pageable.conference_page.page_parts
-    page_parts.each do |page_part|
+    page_parts = conference_pageable.conference_page&.page_parts
+    page_parts&.each do |page_part|
       conference_pageable.parts.create title: page_part.title, name: page_part.name, partable: page_part.page_partable
       page_part.delete
     end
@@ -50,7 +50,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
   end
 
   def destroy_root_page
-    root_page = Spina::Page.find_by! name: 'conferences', view_template: 'conferences'
-    root_page.destroy
+    root_page = Spina::Page.find_by name: 'conferences', view_template: 'conferences'
+    root_page&.destroy
   end
 end
