@@ -14,9 +14,9 @@
     %title= "#{seo_title  ||  current_account.content(:default_seo_title)} — #{current_account.name}"
     = render 'spina/shared/google_site_verification'
     = render 'spina/shared/analytics'
+    = render 'hooks/styles'
     = stylesheet_link_tag 'conference/application', media: 'all', data: { turbolinks_track: true }
     = javascript_pack_tag 'conference/application', instance: Spina::Conferences::Engine.webpacker
-    = stylesheet_pack_tag 'conference/application', instance: Spina::Conferences::Engine.webpacker
   %body.bg-light.height-full.d-flex.flex-column
     = render 'spina/shared/admin_bar'
     = spina_link

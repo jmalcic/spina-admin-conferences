@@ -1,3 +1,5 @@
+@import turbolinks
+
 // Admin editing
 @import spina/application
 @import spina_front_end
@@ -9,19 +11,3 @@
   position: static
 .spina-link, #admin_bar
   font-family: $font-family
-
-body
-  .grid
-    width: 1024px
-    max-width: 90vw
-    margin: 5vw auto
-    display: grid
-    grid-template-columns: repeat(auto-fill, 32px)
-    grid-column-gap: 32px
-    grid-auto-flow: row
-    header
-      grid-column: 1 / 4
-    main
-      grid-column: 4 / -1
-    footer
-      grid-column: 1 / -1
