@@ -2,6 +2,7 @@
 
 module Spina
   module Conferences
+    # The join model between a pageable and a partable
     class Part < ApplicationRecord
       include Spina::Part
       include Spina::Optionable
