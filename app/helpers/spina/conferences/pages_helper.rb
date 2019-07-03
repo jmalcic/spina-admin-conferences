@@ -21,7 +21,11 @@ module Spina
         @page.menu_title
       end
 
-      def raw_part(name)
+      def part(name)
+        part!(name) || 'shared/blank'
+      end
+
+      def part!(name)
         @page.page_parts.find_by(name: name)
       end
     end

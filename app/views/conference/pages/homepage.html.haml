@@ -12,4 +12,4 @@
           .markdown-body.my-4.text-shadow-dark= content(:text).try(:html_safe)
           .d-block.mt-4= link_to 'More info', spina.conferences_conference_path(latest_conference), class: %w(btn btn-large f3)
   %footer.px-3.px-md-4
-    .container-md= render "#{current_theme.name}/shared/footer"
+    .container-md= render 'shared/footer'

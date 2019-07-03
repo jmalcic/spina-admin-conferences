@@ -20,6 +20,14 @@ module Spina
       def menu_title
         @conference&.menu_title || Conference.menu_title
       end
+
+      def part(name)
+        part!(name) || 'shared/blank'
+      end
+
+      def part!(name)
+        @conference.parts.find_by(name: name)
+      end
     end
   end
 end

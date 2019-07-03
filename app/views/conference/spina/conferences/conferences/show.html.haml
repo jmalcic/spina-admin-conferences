@@ -12,7 +12,7 @@
           = ", #{@conference.institution.city}" unless @conference.institution.name.include? @conference.institution.city
     = responsive_image_tag @conference.institution.logo.file, variant: { resize_to_limit: [300, 60] }, draggable: false, class: %w[flex-shrink-0 pl-md-4 pt-4 pt-md-0] if @conference.institution.logo
 
-= render @conference.raw_part(:gallery), controls: true
+= render part(:gallery), controls: true
 
 - content_for :content do
   - if @conference.content(:submission_date)&.>= Date.today
@@ -31,12 +31,12 @@
         %button.btn-link.UnderlineNav-item.selected{ title: 'Information', target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } } Information
         %button.btn-link.UnderlineNav-item{ title: 'Presentations', target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } } Presentations
         %button.btn-link.UnderlineNav-item{ title: 'Events', target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } } Events
-    .markdown-body.my-4{ data: { target: 'underlinenav.itemContent' } }= render @conference.raw_part(:text)
+    .markdown-body.my-4{ data: { target: 'underlinenav.itemContent' } }= render part(:text)
     %div{ data: { target: 'underlinenav.itemContent' } }
       = render 'shared/subnav', collection: @conference.presentation_types.order(:name), method: :name, cached: true do
         = link_to spina.conferences_conference_url(@conference, protocol: :webcal, format: :ics), class: %w[btn btn-primary float-sm-right mb-1 mb-sm-0], role: :button do
           = octicon 'calendar'
           Subscribe
-    %div{ data: { target: 'underlinenav.itemContent' } }= render 'shared/subnav', collection: [@conference.raw_part(:socials), @conference.raw_part(:meetings)], method: :title, cached: true
+    %div{ data: { target: 'underlinenav.itemContent' } }= render 'shared/subnav', collection: [*part!(:socials), *part!(:meetings)], method: :title, cached: true
 
-  = render @conference.raw_part(:sponsors), cached: true
+  = render part(:sponsors), cached: true

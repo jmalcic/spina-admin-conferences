@@ -8,9 +8,9 @@
       %div= @presentation.room_use.room_name
     - if @presentation.has_content?(:slides) || @presentation.has_content?(:handout) || @presentation.has_content?(:poster)
       .BtnGroup.mt-1
-        = render @presentation.raw_part(:slides)
-        = render @presentation.raw_part(:handout)
-        = render @presentation.raw_part(:poster)
+        = render part(:slides)
+        = render part(:handout)
+        = render part(:poster)
     = link_to spina.conferences_presentation_url(@presentation, format: :ics), class: %w[btn mt-1], role: :button do
       = octicon 'calendar'
       Download event

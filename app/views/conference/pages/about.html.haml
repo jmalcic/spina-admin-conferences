@@ -4,9 +4,9 @@
 
 - content_for :content do
   - cache current_page do
-    = render raw_part(:text)
-    = render raw_part(:contact)
+    = render part(:text)
+    = render part(:contact)
     .clearfix.gutter.mb-n4.mt-n4.my-md-4
-      .col-12.col-md-6.float-md-left.my-4.my-md-0= render raw_part(:constitution)
-      .col-12.col-md-6.float-md-left.my-4.my-md-0= render raw_part(:minutes), list_item_class: %w[flex-items-center d-flex]
-    = render raw_part(:partner_societies), list_item_class: %w[flex-row-reverse d-md-flex]
+      .col-12.col-md-6.float-md-left.my-4.my-md-0= render part(:constitution)
+      .col-12.col-md-6.float-md-left.my-4.my-md-0= render part(:minutes), list_item_class: %w[flex-items-center d-flex]
+    = render part(:partner_societies), list_item_class: %w[flex-row-reverse d-md-flex]
