@@ -72,7 +72,10 @@ module Spina
         end
 
         def presentation_params
-          params.require(:presentation).except(:id).permit!
+          params.require(:presentation).permit(:title, :date, :start_time, :abstract, :room_use_id,
+                                               presenter_ids: [],
+                                               parts_attributes: [:id, :title, :name, :partable_type, :partable_id,
+                                                                  partable_attributes: {}])
         end
       end
     end

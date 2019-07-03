@@ -79,7 +79,10 @@ module Spina
         end
 
         def conference_params
-          params.require(:conference).except(:id).permit!
+          params.require(:conference).permit(:start_date, :finish_date, :institution_id,
+                                             room_ids: [],
+                                             parts_attributes: [:id, :title, :name, :partable_type, :partable_id,
+                                                                partable_attributes: {}])
         end
       end
     end
