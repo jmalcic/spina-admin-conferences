@@ -11,7 +11,7 @@ Spina::Engine.routes.draw do
     resources :conference_pages, controller: 'conferences/conference_pages'
     namespace :conferences do
       root to: 'conferences#index'
-      resources :conferences do
+      resources :conferences, except: [:show] do
         post :import, on: :collection
         resources :presentation_types, only: [:index]
       end

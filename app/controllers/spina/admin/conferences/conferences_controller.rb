@@ -14,10 +14,6 @@ module Spina
           @conferences = Conference.sorted
         end
 
-        def show
-          @conference = Conference.find params[:id]
-        end
-
         def new
           @conference = params[:conference] ? Conference.new(conference_params) : Conference.new
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
