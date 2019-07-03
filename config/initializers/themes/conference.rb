@@ -195,7 +195,7 @@
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: %w[text current_conference_alert gallery]
+    page_parts: %w[text gallery]
   }, {
     name: 'information',
     title: 'Information',
