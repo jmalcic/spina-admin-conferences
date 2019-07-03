@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_22_141805) do
+ActiveRecord::Schema.define(version: 2019_07_01_174807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,7 +316,6 @@ ActiveRecord::Schema.define(version: 2019_06_22_141805) do
     t.integer "position"
     t.boolean "active", default: true
     t.integer "resource_id"
-    t.string "type"
     t.index ["resource_id"], name: "index_spina_pages_on_resource_id"
   end
 
