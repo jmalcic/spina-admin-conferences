@@ -2,6 +2,7 @@
 
 module Spina
   module Conferences
+    # Renders navigation elements from navigations
     class MenuPresenter
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::UrlHelper
@@ -69,6 +70,7 @@ module Spina
 
       def render_children?(item)
         return true unless depth
+
         item.depth < depth
       end
     end
