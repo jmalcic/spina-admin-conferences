@@ -21,14 +21,14 @@ module Spina
         def new
           @conference = params[:conference] ? Conference.new(conference_params) : Conference.new
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
-          @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
+          set_parts
           render layout: 'spina/admin/admin'
         end
 
         def edit
           @conference = Conference.find params[:id]
           add_breadcrumb @conference.name
-          @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
+          set_parts
           render layout: 'spina/admin/admin'
         end
 
@@ -38,7 +38,7 @@ module Spina
           if @conference.save
             redirect_to admin_conferences_conferences_path
           else
-            @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
+            set_parts
             render :new, layout: 'spina/admin/admin'
           end
         end
@@ -49,7 +49,7 @@ module Spina
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path
           else
-            @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
+            set_parts
             render :edit, layout: 'spina/admin/admin'
           end
         end
@@ -72,6 +72,10 @@ module Spina
 
         def set_update_breadcrumb
           add_breadcrumb @conference.name if @conference
+        end
+
+        def set_parts
+          @parts = @conference.model_parts(current_theme).map { |part| @conference.part(part) }
         end
 
         def set_tabs

@@ -17,14 +17,14 @@ module Spina
         def new
           @presentation = params[:presentation] ? Presentation.new(presentation_params) : Presentation.new
           add_breadcrumb I18n.t('spina.conferences.presentations.new')
-          @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
+          set_parts
           render layout: 'spina/admin/admin'
         end
 
         def edit
           @presentation = Presentation.find params[:id]
           add_breadcrumb @presentation.title
-          @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
+          set_parts
           render layout: 'spina/admin/admin'
         end
 
@@ -34,7 +34,7 @@ module Spina
           if @presentation.save
             redirect_to admin_conferences_presentations_path
           else
-            @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
+            set_parts
             render :new, layout: 'spina/admin/admin'
           end
         end
@@ -45,7 +45,7 @@ module Spina
           if @presentation.update(presentation_params)
             redirect_to admin_conferences_presentations_path
           else
-            @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
+            set_parts
             render :edit, layout: 'spina/admin/admin'
           end
         end
@@ -63,8 +63,11 @@ module Spina
         private
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.presentations'),
-                         admin_conferences_presentations_path
+          add_breadcrumb I18n.t('spina.conferences.website.presentations'), admin_conferences_presentations_path
+        end
+
+        def set_parts
+          @parts = @presentation.model_parts(current_theme).map { |part| @presentation.part(part) }
         end
 
         def set_tabs
