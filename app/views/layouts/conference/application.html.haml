@@ -2,10 +2,10 @@
 %html.height-full{ lang: I18n.locale }
   %head
     %meta{ charset: 'utf-8' }
-    %meta{ name: 'author', content: 'ULAB committee' }
+    %meta{ name: 'author', content: current_account.name }
     %meta{ name: 'description', content: description ||  current_account.content(:default_seo_description) }
     %meta{ name: 'viewport', content: 'initial-scale=1.0' }
-    %meta{ name: 'keywords', content: 'linguistics, conference, undergraduate, UK, Britain' }
+    %meta{ name: 'keywords', content: current_account.content(:seo_keywords) }
     %meta{ name: 'og:title', content: seo_title ||  current_account.content(:default_seo_title) }
     %meta{ name: 'og:description', content: description ||  current_account.content(:default_seo_description) }
     %base{ target: '_blank' }
@@ -21,26 +21,9 @@
     = render 'spina/shared/admin_bar'
     = spina_link
     %header{ style: 'z-index: 1' }
-      .px-3.px-md-4.my-4
-        .container-md.d-flex.flex-lg-justify-between.flex-column.flex-lg-row
-          .d-flex.flex-lg-self-center.flex-lg-auto.mr-lg-2
-            = render 'shared/logo'
-          .d-lg-none.mt-3
-            %details.details-reset
-              %summary.btn.btn-outline
-                = octicon 'three-bars'
-              = main_navigation %w[d-flex flex-column flex-self-stretch mt-3], %w[d-block py-2 border-top border-black-fade], %w[d-block py-2 border-top border-black-fade text-bold], request
-              = link_to_unless_current 'Conferences', spina.conferences_conferences_url, class: %w[d-block py-2 border-top border-black-fade] do
-                = link_to 'Conferences', spina.conferences_conferences_url, class: %w[d-block py-2 border-top border-black-fade text-bold]
-          .d-none.d-lg-flex.flex-justify-end
-            = main_navigation %w[flex-self-center flex-shrink-0], %w[px-md-1 px-lg-2], %w[px-md-1 px-lg-2 text-bold], request
-            .flex-lg-self-center
-              = link_to_unless_current 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2] do
-                = link_to 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2 text-bold]
-      - if ancestors&.present?
-        .box-shadow-medium.px-3.px-md-4.py-2.mt-4
-          .container-md= render 'shared/breadcrumbs'
-    = render 'conference/shared/alert' if current_account&.has_content? :current_conference_alert
+      = render 'shared/navigation'
+      = render 'shared/breadcrumbs' if ancestors&.present?
+    = render 'shared/alert' if current_account&.has_content? :current_conference_alert
     = yield
     - if content_for? :content
       .px-3.px-md-4
