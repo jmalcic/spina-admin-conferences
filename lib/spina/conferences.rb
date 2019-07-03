@@ -5,6 +5,7 @@ require 'spina/conferences/engine'
 require 'spina/conferences/theme'
 require 'js-routes'
 require 'icalendar'
+require 'octicons_helper'
 require 'rails-i18n'
 
 module Spina
