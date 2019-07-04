@@ -73,10 +73,8 @@ module Spina
         private
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.conferences'),
-                         admin_conferences_conferences_path
-          add_breadcrumb I18n.t('spina.conferences.website.presentation_types'),
-                         admin_conferences_presentation_types_path
+          add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
+          add_breadcrumb I18n.t('spina.conferences.website.presentation_types'), admin_conferences_presentation_types_path
         end
 
         def set_tabs
@@ -84,15 +82,7 @@ module Spina
         end
 
         def presentation_type_params
-          params.require(:presentation_type).permit(:name, :minutes,
-                                                    :conference_id,
-                                                    room_possession_ids: [])
-        end
-
-        def room_uses
-          @presentation_type.room_uses.collect do |room_use|
-            { id: room_use.id, room_name: room_use.room_name }
-          end
+          params.require(:presentation_type).permit(:name, :minutes, :conference_id, room_possession_ids: [])
         end
       end
     end
