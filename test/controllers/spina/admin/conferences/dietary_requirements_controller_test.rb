@@ -12,6 +12,7 @@ module Spina
 
         setup do
           @dietary_requirement = spina_conferences_dietary_requirements :pescetarian
+          @invalid_dietary_requirement = DietaryRequirement.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -32,8 +33,15 @@ module Spina
               dietary_requirement: @dietary_requirement.attributes
             }
           end
-
           assert_redirected_to admin_conferences_dietary_requirements_url
+        end
+
+        test 'should fail to create invalid dietary requirement' do
+          assert_no_difference 'DietaryRequirement.count' do
+            post admin_conferences_dietary_requirements_url,
+                 params: { dietary_requirement: @invalid_dietary_requirement.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
@@ -46,6 +54,12 @@ module Spina
             dietary_requirement: @dietary_requirement.attributes
           }
           assert_redirected_to admin_conferences_dietary_requirements_url
+        end
+
+        test 'should fail to update invalid dietary requirement' do
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
+                params: { dietary_requirement: @invalid_dietary_requirement.attributes }
+          assert_response :success
         end
 
         test 'should destroy dietary requirement' do

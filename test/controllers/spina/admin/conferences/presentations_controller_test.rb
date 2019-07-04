@@ -11,6 +11,7 @@ module Spina
 
         setup do
           @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry
+          @invalid_presentation = Presentation.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -31,8 +32,14 @@ module Spina
             attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
             post admin_conferences_presentations_url, params: { presentation: attributes }
           end
-
           assert_redirected_to admin_conferences_presentations_url
+        end
+
+        test 'should fail to create invalid presentation' do
+          assert_no_difference 'Presentation.count' do
+            post admin_conferences_presentations_url, params: { presentation: @invalid_presentation.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
@@ -45,11 +52,16 @@ module Spina
           assert_redirected_to admin_conferences_presentations_url
         end
 
+        test 'should fail to update invalid presentation' do
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: @invalid_presentation.attributes }
+          assert_response :success
+        end
+
         test 'should destroy presentation' do
           assert_difference 'Presentation.count', -1 do
             delete admin_conferences_presentation_url(@presentation)
           end
-
           assert_redirected_to admin_conferences_presentations_url
         end
 

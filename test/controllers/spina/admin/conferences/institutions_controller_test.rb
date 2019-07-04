@@ -11,6 +11,7 @@ module Spina
 
         setup do
           @institution = spina_conferences_institutions :university_of_atlantis
+          @invalid_institution = Institution.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -29,8 +30,14 @@ module Spina
           assert_difference 'Institution.count' do
             post admin_conferences_institutions_url, params: { institution: @institution.attributes }
           end
-
           assert_redirected_to admin_conferences_institutions_url
+        end
+
+        test 'should fail to create invalid institution' do
+          assert_no_difference 'Institution.count' do
+            post admin_conferences_institutions_url, params: { institution: @invalid_institution.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
@@ -43,11 +50,16 @@ module Spina
           assert_redirected_to admin_conferences_institutions_url
         end
 
+        test 'should fail to update invalid institution' do
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: @invalid_institution.attributes }
+          assert_response :success
+        end
+
         test 'should destroy institution' do
           assert_difference 'Institution.count', -1 do
             delete admin_conferences_institution_url(@institution)
           end
-
           assert_redirected_to admin_conferences_institutions_url
         end
 

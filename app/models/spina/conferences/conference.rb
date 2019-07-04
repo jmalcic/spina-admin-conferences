@@ -14,6 +14,7 @@ module Spina
 
       attribute :start_date, :date
       attribute :finish_date, :date
+      attribute :year, :integer
 
       belongs_to :institution, inverse_of: :conferences
       has_many :room_possessions, dependent: :destroy
@@ -27,7 +28,7 @@ module Spina
 
       delegate :name, to: :institution, prefix: true, allow_nil: true
 
-      validates_associated :room_possessions
+      validates_associated :room_possessions, unless: proc { |conference| conference.institution.blank? }
       validates_associated :presentation_types
 
       validates :start_date, :finish_date, :rooms, :institution, presence: true
@@ -60,10 +61,10 @@ module Spina
       def to_ics
         event = Icalendar::Event.new
         event.dtstart = start_date
-        event.dtstart.ical_params = { value: 'DATE' }
+        event.dtstart&.ical_params = { value: 'DATE' }
         event.dtend = finish_date
-        event.dtend.ical_params = { value: 'DATE' }
-        event.location = institution.name
+        event.dtend&.ical_params = { value: 'DATE' }
+        event.location = institution&.name
         event.categories = self.class.name.demodulize.upcase
         event.summary = name
         event
@@ -72,12 +73,15 @@ module Spina
       def set_from_dates
         return if dates.blank?
 
-        self.start_date ||= dates.min
-        self.finish_date ||= dates.max
+        self.start_date ||= (dates.min || Date.today)
+        self.finish_date ||= (dates.max || Date.today)
+        self.year ||= (start_date.year || Date.today.year)
       end
 
       def update_dates
-        self.dates = start_date..finish_date if (start_date != dates&.min) || (finish_date != dates&.max)
+        self.dates = start_date..dates&.max if start_date.present? && start_date != dates&.min
+        self.dates = dates&.min..finish_date if finish_date.present? && finish_date != dates&.max
+        self.dates = nil if start_date.blank? && finish_date.blank?
       end
 
       def description

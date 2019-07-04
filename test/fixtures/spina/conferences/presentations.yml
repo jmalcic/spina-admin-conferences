@@ -19,3 +19,11 @@ no_island:
   presenters:
     - brandon_krapp
   room_use: oral_1_lecture_block_2_uoa_2017
+
+invalid_presentation:
+  title: Whorfianism must be revived
+  start_datetime: 2000-04-07 10:00
+  abstract: Lorem ipsum
+  presenters:
+    - joe_bloggs
+  room_use: oral_1_lecture_block_2_uoa_2017

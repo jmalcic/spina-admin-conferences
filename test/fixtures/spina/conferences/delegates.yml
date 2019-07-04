@@ -9,6 +9,7 @@ joe_bloggs:
   last_name: Bloggs
   institution: university_of_atlantis
   email_address: someone@someaddress.com
+  url: https://www.bloggs.com
   conferences:
     - university_of_atlantis_2017
     - university_of_shangri_la_2018
@@ -22,3 +23,10 @@ brandon_krapp:
   conferences:
     - university_of_shangri_la_2018
   dietary_requirements: vegan
+
+mr_nobody:
+  first_name: Mr
+  last_name: Nobody
+  institution: university_of_shangri_la
+  conferences:
+    - university_of_shangri_la_2018

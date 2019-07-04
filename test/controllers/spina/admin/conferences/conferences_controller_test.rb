@@ -11,6 +11,7 @@ module Spina
 
         setup do
           @conference = spina_conferences_conferences :university_of_atlantis_2017
+          @invalid_conference = Conference.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -31,8 +32,14 @@ module Spina
             attributes[:room_ids] = @conference.rooms.collect(&:id)
             post admin_conferences_conferences_url, params: { conference: attributes }
           end
-
           assert_redirected_to admin_conferences_conferences_url
+        end
+
+        test 'should fail to create invalid conference' do
+          assert_no_difference 'Conference.count' do
+            post admin_conferences_conferences_url, params: { conference: @invalid_conference.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
@@ -45,11 +52,16 @@ module Spina
           assert_redirected_to admin_conferences_conferences_url
         end
 
+        test 'should fail to update invalid conference' do
+          patch admin_conferences_conference_url(@conference),
+                params: { conference: @invalid_conference.attributes }
+          assert_response :success
+        end
+
         test 'should destroy conference' do
           assert_difference 'Conference.count', -1 do
             delete admin_conferences_conference_url(@conference)
           end
-
           assert_redirected_to admin_conferences_conferences_url
         end
 

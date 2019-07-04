@@ -11,6 +11,7 @@ module Spina
 
         setup do
           @delegate = spina_conferences_delegates :joe_bloggs
+          @invalid_delegate = Delegate.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -31,8 +32,14 @@ module Spina
             attributes[:conference_ids] = @delegate.conferences.collect(&:id)
             post admin_conferences_delegates_url, params: { delegate: attributes }
           end
-
           assert_redirected_to admin_conferences_delegates_url
+        end
+
+        test 'should fail to create invalid delegate' do
+          assert_no_difference 'Delegate.count' do
+            post admin_conferences_delegates_url, params: { delegate: @invalid_delegate.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
@@ -45,11 +52,16 @@ module Spina
           assert_redirected_to admin_conferences_delegates_url
         end
 
+        test 'should fail to update invalid delegate' do
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @invalid_delegate.attributes }
+          assert_response :success
+        end
+
         test 'should destroy delegate' do
           assert_difference 'Delegate.count', -1 do
             delete admin_conferences_delegate_url(@delegate)
           end
-
           assert_redirected_to admin_conferences_delegates_url
         end
 

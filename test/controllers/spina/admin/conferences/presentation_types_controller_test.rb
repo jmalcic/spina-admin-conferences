@@ -12,6 +12,7 @@ module Spina
 
         setup do
           @presentation_type = spina_conferences_presentation_types :plenary_1
+          @invalid_presentation_type = PresentationType.new
           @conference = spina_conferences_conferences :university_of_atlantis_2017
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -35,8 +36,15 @@ module Spina
             attributes[:room_possession_ids] = @presentation_type.room_possession_ids
             post admin_conferences_presentation_types_url, params: { presentation_type: attributes }
           end
-
           assert_redirected_to admin_conferences_presentation_types_url
+        end
+
+        test 'should fail to create invalid presentation type' do
+          assert_no_difference 'PresentationType.count' do
+            post admin_conferences_presentation_types_url,
+                 params: { presentation_type: @invalid_presentation_type.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
@@ -51,11 +59,16 @@ module Spina
           assert_redirected_to admin_conferences_presentation_types_url
         end
 
+        test 'should fail to update invalid presentation type' do
+          patch admin_conferences_presentation_type_url(@presentation_type),
+                params: { presentation_type: @invalid_presentation_type.attributes }
+          assert_response :success
+        end
+
         test 'should destroy presentation type' do
           assert_difference 'PresentationType.count', -1 do
             delete admin_conferences_presentation_type_url(@presentation_type)
           end
-
           assert_redirected_to admin_conferences_presentation_types_url
         end
 
