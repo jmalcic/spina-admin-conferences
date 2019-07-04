@@ -30,6 +30,11 @@ module Spina
           assert_response :success
         end
 
+        test 'should get new with params' do
+          get new_admin_conferences_presentation_type_url, params: { presentation_type: @presentation_type.attributes }
+          assert_response :success
+        end
+
         test 'should create presentation type' do
           assert_difference 'PresentationType.count' do
             attributes = @presentation_type.attributes
