@@ -17,6 +17,13 @@ module Spina
         # Load helpers from engine
         ::Spina::Admin::AdminController.helper 'spina/admin/conferences/application'
         ::Spina::PagesController.helper 'spina/conferences/pages'
+        # Add patches
+        page_partables = [::Spina::Attachment, ::Spina::AttachmentCollection, ::Spina::Image, ::Spina::ImageCollection,
+                          ::Spina::Line, ::Spina::Option, ::Spina::Structure, ::Spina::Text]
+        ::Spina::PagesController.send(:include, Spina::Conferences::LoadPathExtensions)
+        page_partables.each { |partable| partable.send(:include, Spina::Conferences::AssociationExtensions) }
+        ::Spina::Option.send(:include, Spina::Conferences::OptionExtensions)
+        ::Spina::Structure.send(:include, Spina::Conferences::StructureExtensions)
       end
 
       config.after_initialize do
