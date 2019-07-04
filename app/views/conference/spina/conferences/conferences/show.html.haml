@@ -4,9 +4,9 @@
       %h1.mb-1= @conference.name
       .text-gray
         %div
-          = time_tag @conference.dates.min, l(@conference.dates.min, format: :long)
+          = time_tag @conference.start_date, l(@conference.start_date, format: :long)
           to
-          = time_tag @conference.dates.max, l(@conference.dates.max, format: :long)
+          = time_tag @conference.finish_date, l(@conference.finish_date, format: :long)
         %address<
           = "#{@conference.institution.name}"
           = ", #{@conference.institution.city}" unless @conference.institution.name.include? @conference.institution.city

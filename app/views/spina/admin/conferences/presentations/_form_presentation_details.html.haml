@@ -40,11 +40,11 @@
         .horizontal-form-content
           - if @presentation.conference.blank?
             - if Spina::Conferences::Conference.any?
-              .select-dropdown= f.select :date, Spina::Conferences::Conference.sorted.first.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }
+              .select-dropdown= f.select :date, Spina::Conferences::Conference.sorted.first.dates.collect { |date| [l(date, format: :short), date.strftime("%Y-%m-%d")] }
             - else
               = t('spina.conferences.conferences.no_conferences')
           - else
-            .select-dropdown= f.select :date, @presentation.conference.dates.collect { |d| [l(d, format: :short), d.strftime("%Y-%m-%d")] }
+            .select-dropdown= f.select :date, @presentation.conference.dates.collect { |date| [l(date, format: :short), date.strftime("%Y-%m-%d")] }
 
       .horizontal-form-group
         .horizontal-form-label
