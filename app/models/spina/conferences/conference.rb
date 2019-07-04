@@ -73,15 +73,18 @@ module Spina
       def set_from_dates
         return if dates.blank?
 
-        self.start_date ||= (dates.min || Date.today)
-        self.finish_date ||= (dates.max || Date.today)
-        self.year ||= (start_date.year || Date.today.year)
+        self.start_date ||= dates.begin
+        self.finish_date ||= dates.end
+        self.year ||= start_date.year
+        clear_attribute_changes %i[start_date finish_date year]
       end
 
       def update_dates
-        self.dates = start_date..dates&.max if start_date.present? && start_date != dates&.min
-        self.dates = dates&.min..finish_date if finish_date.present? && finish_date != dates&.max
-        self.dates = nil if start_date.blank? && finish_date.blank?
+        return unless changed_attributes.include?(:start_date) || changed_attributes.include?(:finish_date)
+
+        new_start_date = changed_attributes.include?(:start_date) ? start_date : dates&.begin
+        new_finish_date = changed_attributes.include?(:finish_date) ? finish_date : dates&.end
+        self.dates = new_start_date..new_finish_date
       end
 
       def description
