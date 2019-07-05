@@ -15,7 +15,7 @@ module Spina
             copy_value :institution, from: row, to: rooms
             current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
             conference = Conference.new
-            parts = conference.model_parts(current_theme).map { |part| conference.part(part) }
+            parts = Conference.model_parts(current_theme).map { |part| conference.part(part) }
             conference.update! institution: find_institution(row[:institution]), start_date: row[:start_date],
                                finish_date: row[:finish_date], rooms: find_rooms(rooms), parts: parts
           end

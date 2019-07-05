@@ -34,7 +34,7 @@ module Spina
             attributes = @presentation.attributes
             attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
             current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
-            parts = @invalid_presentation.model_parts(current_theme).map { |part| @invalid_presentation.part(part) }
+            parts = Presentation.model_parts(current_theme).map { |part| @invalid_presentation.part(part) }
             attributes[:parts_attributes] = parts.collect(&:attributes)
             post admin_conferences_presentations_url, params: { presentation: attributes }
           end

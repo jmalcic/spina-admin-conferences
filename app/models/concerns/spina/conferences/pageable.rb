@@ -8,13 +8,15 @@ module Spina
     module Pageable
       extend ActiveSupport::Concern
 
-      def model_config(conferences_theme)
-        conferences_theme.models[self.class.name.to_sym]
-      end
+      class_methods do
+        def model_config(conferences_theme)
+          conferences_theme.models[name.to_sym]
+        end
 
-      def model_parts(theme)
-        conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
-        theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+        def model_parts(theme)
+          conferences_theme = Conferences::THEMES.find { |conference_theme| conference_theme.name == theme.name }
+          theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+        end
       end
     end
   end

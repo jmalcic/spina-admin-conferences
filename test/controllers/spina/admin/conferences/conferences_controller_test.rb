@@ -43,7 +43,7 @@ module Spina
             attributes = @conference.attributes
             attributes[:room_ids] = @conference.rooms.collect(&:id)
             current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
-            parts = @invalid_conference.model_parts(current_theme).map { |part| @invalid_conference.part(part) }
+            parts = Conference.model_parts(current_theme).map { |part| @invalid_conference.part(part) }
             attributes[:parts_attributes] = parts.collect(&:attributes)
             post admin_conferences_conferences_url, params: { conference: attributes }
           end
