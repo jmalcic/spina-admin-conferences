@@ -24,6 +24,7 @@ module Spina
         page_partables.each { |partable| partable.send(:include, Spina::Conferences::AssociationExtensions) }
         ::Spina::Option.send(:include, Spina::Conferences::OptionExtensions)
         ::Spina::Structure.send(:include, Spina::Conferences::StructureExtensions)
+        ::Spina::Admin::PagesHelper.send(:include, Spina::Admin::Conferences::PagesHelperExtensions)
       end
 
       config.after_initialize do
