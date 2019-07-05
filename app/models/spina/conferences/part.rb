@@ -7,7 +7,7 @@ module Spina
       include Spina::Part
       include Spina::Optionable
 
-      belongs_to :pageable, polymorphic: true
+      belongs_to :pageable, inverse_of: :parts, polymorphic: true
       belongs_to :partable, polymorphic: true, optional: true
 
       accepts_nested_attributes_for :partable, allow_destroy: true

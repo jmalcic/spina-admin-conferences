@@ -22,7 +22,7 @@ module Spina
       has_and_belongs_to_many :presenters, class_name: 'Spina::Conferences::Delegate',
                                            foreign_key: :spina_conferences_presentation_id,
                                            association_foreign_key: :spina_conferences_delegate_id
-      has_many :parts, dependent: :destroy, as: :pageable
+      has_many :parts, inverse_of: :pageable, dependent: :destroy, as: :pageable
       accepts_nested_attributes_for :parts, allow_destroy: true
 
       validates :title, :date, :start_time, :abstract, :presenters, :parts, presence: true

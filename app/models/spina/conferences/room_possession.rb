@@ -6,8 +6,9 @@ module Spina
     class RoomPossession < ApplicationRecord
       belongs_to :room, inverse_of: :room_possessions
       belongs_to :conference, inverse_of: :room_possessions
-      has_many :room_uses, dependent: :destroy
+      has_many :room_uses, inverse_of: :room_possession, dependent: :destroy
       has_many :presentation_types, through: :room_uses
+      has_one :institution, through: :conference
 
       validates :room, inclusion: { in: ->(room_possession) { room_possession.conference.institution.rooms },
                                     message: 'does not belong to the associated institution' },

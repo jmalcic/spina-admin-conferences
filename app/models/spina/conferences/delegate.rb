@@ -4,7 +4,7 @@ module Spina
   module Conferences
     # This class represents conference delegates.
     class Delegate < ApplicationRecord
-      belongs_to :institution
+      belongs_to :institution, inverse_of: :delegates
       has_and_belongs_to_many :conferences, foreign_key: :spina_conferences_delegate_id,
                                             association_foreign_key: :spina_conferences_conference_id
       has_and_belongs_to_many :presentations, foreign_key: :spina_conferences_delegate_id,

@@ -17,13 +17,13 @@ module Spina
       attribute :year, :integer
 
       belongs_to :institution, inverse_of: :conferences
-      has_many :room_possessions, dependent: :destroy
+      has_many :room_possessions, inverse_of: :conference, dependent: :destroy
       has_many :rooms, through: :room_possessions
-      has_many :presentation_types, dependent: :destroy
+      has_many :presentation_types, inverse_of: :conference, dependent: :destroy
       has_many :presentations, through: :presentation_types
       has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id,
                                           association_foreign_key: :spina_conferences_delegate_id
-      has_many :parts, dependent: :destroy, as: :pageable
+      has_many :parts, inverse_of: :pageable, dependent: :destroy, as: :pageable
       accepts_nested_attributes_for :parts, allow_destroy: true
 
       delegate :name, to: :institution, prefix: true, allow_nil: true
