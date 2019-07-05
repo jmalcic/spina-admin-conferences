@@ -12,6 +12,13 @@ text:
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
 
+empty_text:
+  name: text
+  title: Text
+  partable_type: Spina::Text
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
+  
 gallery:
   name: gallery
   title: Gallery
@@ -19,6 +26,13 @@ gallery:
   partable: gallery_image_collection
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
+
+gallery:
+  name: gallery
+  title: Gallery
+  partable_type: Spina::ImageCollection
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
 
 slides:
   name: slides
@@ -52,6 +66,13 @@ socials:
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
 
+empty_socials:
+  name: socials
+  title: Socials
+  partable_type: Spina::Structure
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
+
 meetings:
   name: meetings
   title: Meetings
@@ -59,6 +80,13 @@ meetings:
   partable: minutes_structure
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
+
+empty_meetings:
+  name: meetings
+  title: Meetings
+  partable_type: Spina::Structure
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
 
 submission_url:
   name: submission_url
@@ -68,6 +96,13 @@ submission_url:
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
 
+empty_submission_url:
+  name: submission_url
+  title: Submission URL
+  partable_type: Spina::Conferences::UrlPart
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
+
 submission_date:
   name: submission_date
   title: Submission date
@@ -75,6 +110,13 @@ submission_date:
   partable: valid_date
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
+
+empty_submission_date:
+  name: submission_date
+  title: Submission date
+  partable_type: Spina::Conferences::DatePart
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
 
 submission_text:
   name: submission_text
@@ -84,6 +126,13 @@ submission_text:
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
 
+empty_submission_text:
+  name: submission_text
+  title: Submission text
+  partable_type: Spina::Line
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018
+
 sponsors:
   name: sponsors
   title: Sponsors
@@ -91,3 +140,10 @@ sponsors:
   partable: sponsors_structure
   pageable_type: Spina::Conferences::Conference
   pageable: university_of_atlantis_2017
+
+empty_sponsors:
+  name: sponsors
+  title: Sponsors
+  partable_type: Spina::Structure
+  pageable_type: Spina::Conferences::Conference
+  pageable: university_of_shangri_la_2018

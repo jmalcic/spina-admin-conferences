@@ -13,6 +13,7 @@ module Spina
         assert conference.errors[:start_date].any?
         assert conference.errors[:finish_date].any?
         assert conference.errors[:institution].any?
+        assert conference.errors[:parts].any?
       end
 
       test 'start and finish dates must be dates' do

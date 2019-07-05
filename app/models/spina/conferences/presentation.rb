@@ -25,7 +25,7 @@ module Spina
       has_many :parts, dependent: :destroy, as: :pageable
       accepts_nested_attributes_for :parts, allow_destroy: true
 
-      validates :title, :date, :start_time, :abstract, :presenters, presence: true
+      validates :title, :date, :start_time, :abstract, :presenters, :parts, presence: true
       validates :date, conference_date: true
       validates_associated :presenters
 

@@ -31,7 +31,7 @@ module Spina
       validates_associated :room_possessions, unless: proc { |conference| conference.institution.blank? }
       validates_associated :presentation_types
 
-      validates :start_date, :finish_date, :rooms, :institution, presence: true
+      validates :start_date, :finish_date, :rooms, :institution, :parts, presence: true
       validates :finish_date, finish_date: true, unless: proc { |conference| conference.start_date.blank? }
 
       scope :sorted, -> { order dates: :desc }
