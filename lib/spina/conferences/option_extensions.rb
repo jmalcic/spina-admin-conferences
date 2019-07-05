@@ -4,6 +4,7 @@ require 'active_support/concern'
 
 module Spina
   module Conferences
+    # Adds method returning the relevant part type
     module OptionExtensions
       extend ActiveSupport::Concern
 
