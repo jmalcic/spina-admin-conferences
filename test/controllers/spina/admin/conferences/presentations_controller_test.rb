@@ -24,6 +24,9 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_presentation_url
           assert_response :success
+          assert_select '#presenters tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.presenters.no_presenters')
+          end
         end
 
         test 'should create presentation' do
@@ -45,6 +48,9 @@ module Spina
         test 'should get edit' do
           get edit_admin_conferences_presentation_url(@presentation)
           assert_response :success
+          assert_select('#presenters tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 3 }
+          end
         end
 
         test 'should update presentation' do

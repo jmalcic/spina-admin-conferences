@@ -24,6 +24,15 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_institution_url
           assert_response :success
+          assert_select '#conferences tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.conferences.no_conferences')
+          end
+          assert_select '#delegates tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.delegates.no_delegates')
+          end
+          assert_select '#rooms tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.rooms.no_rooms')
+          end
         end
 
         test 'should create institution' do
@@ -43,6 +52,15 @@ module Spina
         test 'should get edit' do
           get edit_admin_conferences_institution_url(@institution)
           assert_response :success
+          assert_select('#conferences tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 5 }
+          end
+          assert_select('#delegates tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 3 }
+          end
+          assert_select('#rooms tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
         end
 
         test 'should update institution' do

@@ -24,6 +24,18 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_conference_url
           assert_response :success
+          assert_select '#delegates tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.delegates.no_delegates')
+          end
+          assert_select '#presentation_types tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.presentation_types.no_presentation_types')
+          end
+          assert_select '#presentations tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+          end
+          assert_select '#rooms tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.rooms.no_rooms')
+          end
         end
 
         test 'should create conference' do
@@ -45,6 +57,18 @@ module Spina
         test 'should get edit' do
           get edit_admin_conferences_conference_url(@conference)
           assert_response :success
+          assert_select('#delegates tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 3 }
+          end
+          assert_select '#presentation_types tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select('#rooms tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
         end
 
         test 'should update conference' do

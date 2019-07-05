@@ -24,6 +24,12 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_delegate_url
           assert_response :success
+          assert_select '#conferences tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.conferences.no_conferences')
+          end
+          assert_select '#presentations tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+          end
         end
 
         test 'should create delegate' do
@@ -45,6 +51,12 @@ module Spina
         test 'should get edit' do
           get edit_admin_conferences_delegate_url(@delegate)
           assert_response :success
+          assert_select '#conferences tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 5 }
+          end
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
         end
 
         test 'should update delegate' do

@@ -24,6 +24,9 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_room_url
           assert_response :success
+          assert_select '#presentations tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+          end
         end
 
         test 'should create room' do
@@ -43,6 +46,9 @@ module Spina
         test 'should get edit' do
           get edit_admin_conferences_room_url(@room)
           assert_response :success
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
         end
 
         test 'should update room' do
