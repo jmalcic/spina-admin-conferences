@@ -7,12 +7,12 @@ module Spina
     def self.conference_parts
       current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
       conference = Conference.new
-      conference.model_parts(current_theme).collect { |part| conference.part(part) }
+      Conference.model_parts(current_theme).collect { |part| conference.part(part) }
     end
     def self.presentation_parts
       current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
       presentation = Presentation.new
-      presentation.model_parts(current_theme).collect { |part| presentation.part(part) }
+      Presentation.model_parts(current_theme).collect { |part| presentation.part(part) }
     end
     Institution.create!(
       name: 'University of Atlantis',
