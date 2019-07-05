@@ -74,7 +74,8 @@ module Spina
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
-          add_breadcrumb I18n.t('spina.conferences.website.presentation_types'), admin_conferences_presentation_types_path
+          add_breadcrumb I18n.t('spina.conferences.website.presentation_types'),
+                         admin_conferences_presentation_types_path
         end
 
         def set_tabs
