@@ -15,6 +15,5 @@ require 'rails-i18n'
 
 module Spina
   module Conferences #:nodoc:
-    THEMES = []
   end
 end

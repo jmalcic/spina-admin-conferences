@@ -3,21 +3,24 @@
 module Spina
   module Conferences
     class Theme
-      attr_accessor :name, :models
+      @themes = []
 
       class << self
-        def find_by_name(name)
-          ::Spina::Conferences::THEMES.find { |theme| theme.name == name }
-        end
-
-        def register
-          theme = ::Spina::Conferences::Theme.new
-          yield theme
-          raise 'Missing theme name' if theme.name.nil?
-
-          ::Spina::Conferences::THEMES << theme
-        end
+        attr_accessor :themes
       end
+
+      def self.register
+        theme = ::Spina::Conferences::Theme.new
+        yield theme
+        raise 'Missing theme name' if theme.name.nil?
+        @themes << theme
+      end
+
+      def self.find_by(name: nil)
+        @themes.bsearch { |theme| theme.name == name }
+      end
+
+      attr_accessor :name, :models
 
       def initialize
         @models = []
