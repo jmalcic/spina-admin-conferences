@@ -10,13 +10,13 @@ module Spina
         extend ActiveSupport::Concern
   
         included do
-          redefine_method :link_to_add_structure_item_fields do |f, &block|
+          redefine_method :link_to_add_structure_item_fields do |form, &block|
             item = StructureItem.new
-            fields = f.fields_for(:structure_items, item, child_index: item.object_id) do |builder|
-              build_structure_parts(f.object.base_part.name, item)
-              render("spina/admin/structure_items/fields", f: builder)
+            fields = form.fields_for(:structure_items, item, child_index: item.object_id) do |builder|
+              build_structure_parts(form.object.base_part.name, item)
+              render('spina/admin/structure_items/fields', f: builder)
             end
-            link_to '#', class: "add_structure_item_fields button button-link", data: {id: item.object_id, fields: fields.gsub("\n", "")} do
+            link_to '#', class: 'add_structure_item_fields button button-link', data: { id: item.object_id, fields: fields.delete('\n') } do
               icon('plus')
             end
           end
