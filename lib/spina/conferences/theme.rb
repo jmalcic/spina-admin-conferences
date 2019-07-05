@@ -10,9 +10,10 @@ module Spina
       end
 
       def self.register
-        theme = ::Spina::Conferences::Theme.new
+        theme = Theme.new
         yield theme
         raise 'Missing theme name' if theme.name.nil?
+
         @themes << theme
       end
 
