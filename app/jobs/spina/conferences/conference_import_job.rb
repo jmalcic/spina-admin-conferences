@@ -13,13 +13,18 @@ module Spina
           import(csv) do |row|
             rooms = row[:rooms]
             copy_value :institution, from: row, to: rooms
-            current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
-            conference = Conference.new
-            parts = Conference.model_parts(current_theme).map { |part| conference.part(part) }
-            conference.update! institution: find_institution(row[:institution]), start_date: row[:start_date],
-                               finish_date: row[:finish_date], rooms: find_rooms(rooms), parts: parts
+            Conference.create! institution: find_institution(row[:institution]), start_date: row[:start_date],
+                               finish_date: row[:finish_date], rooms: find_rooms(rooms), parts: theme_parts
           end
         end
+      end
+
+      private
+
+      def theme_parts
+        current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
+        conference = Conference.new
+        Conference.model_parts(current_theme).map { |part| conference.part(part) }
       end
     end
   end
