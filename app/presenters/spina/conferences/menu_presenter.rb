@@ -8,70 +8,39 @@ module Spina
       include ActionView::Helpers::UrlHelper
       include ActiveSupport::Configurable
 
-      attr_reader :request
-      attr_accessor :collection, :output_buffer
-
       # Configuration
-      config_accessor :menu_tag, :menu_css,
-                      :list_tag, :list_css,
-                      :list_item_tag, :list_item_css,
-                      :link_tag_css,
-                      :include_drafts,
-                      :depth, :inactive_link_tag_css # root nodes are at depth 0
+      config_accessor :output_buffer, :depth # root nodes are at depth 0  
 
-      # Default configuration
-      self.menu_tag = :nav
-      self.list_tag = :ul
-      self.list_item_tag = :li
-      self.include_drafts = false
-
-      def initialize(collection, request)
+      def initialize(collection, request, css)
         @collection = collection
         @request = request
+        @css = css
       end
 
       def to_html
-        roots ? render_menu(roots) : nil
+        render_menu
       end
 
       private
 
-      def roots
-        return @collection.navigation_items.roots if @collection.navigation_items&.roots&.present?
-
-        nil
+      def render_menu
+        content_tag(:nav, class: @css[:menu]) { render_items }
       end
 
-      def render_menu(collection)
-        content_tag(menu_tag, class: menu_css) do
-          render_items(scoped_collection(collection))
-        end
-      end
-
-      def render_items(collection)
-        collection.inject(ActiveSupport::SafeBuffer.new) do |buffer, item|
+      def render_items
+        scoped_collection.inject(ActiveSupport::SafeBuffer.new) do |buffer, item|
           buffer << render_item(item)
         end
       end
 
       def render_item(item)
-        link_to_unless_current item.menu_title, item.materialized_path,
-                               class: link_tag_css, data: { page_id: item.page_id } do
-          link_to item.menu_title, item.materialized_path,
-                  class: inactive_link_tag_css,
-                  data: { page_id: item.page_id }
+        link_to_unless_current item.menu_title, item.materialized_path, class: @css[:link] do
+          link_to item.menu_title, item.materialized_path, class: [*@css[:link], *@css[:inactive_link]]
         end
       end
 
-      def scoped_collection(collection)
-        scoped = collection.joins(:page).where(spina_pages: { resource_id: nil }).active.in_menu.sorted
-        include_drafts ? scoped : scoped.live
-      end
-
-      def render_children?(item)
-        return true unless depth
-
-        item.depth < depth
+      def scoped_collection
+        @collection.navigation_items.roots.joins(:page).where(spina_pages: { resource_id: nil }).active.in_menu.sorted.live
       end
     end
   end

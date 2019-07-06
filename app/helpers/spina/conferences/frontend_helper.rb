@@ -6,19 +6,13 @@ module Spina
       include WebpackHelper
       include AssetHelper
 
-      def main_navigation(menu_css, link_tag_css, inactive_link_tag_css, request)
-        presenter = MenuPresenter.new(::Spina::Navigation.find_by(name: 'main'), request)
-        presenter.menu_css = menu_css
-        presenter.link_tag_css = link_tag_css
-        presenter.inactive_link_tag_css = inactive_link_tag_css
+      def main_navigation(request, css: {})
+        presenter = MenuPresenter.new(::Spina::Navigation.find_by(name: 'main'), request, css)
         presenter.to_html
       end
 
-      def footer_navigation(menu_css, link_tag_css, inactive_link_tag_css, request)
-        presenter = MenuPresenter.new(::Spina::Navigation.find_by(name: 'footer'), request)
-        presenter.menu_css = menu_css
-        presenter.link_tag_css = link_tag_css
-        presenter.inactive_link_tag_css = inactive_link_tag_css
+      def footer_navigation(request, css: {})
+        presenter = MenuPresenter.new(::Spina::Navigation.find_by(name: 'footer'), request, css)
         presenter.to_html
       end
 

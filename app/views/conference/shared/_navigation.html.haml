@@ -6,11 +6,11 @@
       %details.details-reset
         %summary.btn.btn-outline
           = octicon 'three-bars'
-        = main_navigation %w[d-flex flex-column flex-self-stretch mt-3], %w[d-block py-2 border-top border-black-fade], %w[d-block py-2 border-top border-black-fade text-bold], request
+        = main_navigation request, css: { menu: %w[d-flex flex-column flex-self-stretch mt-3], link: %w[d-block py-2 border-top border-black-fade], inactive_link: 'text-bold' }
         = link_to_unless_current 'Conferences', spina.conferences_conferences_url, class: %w[d-block py-2 border-top border-black-fade] do
           = link_to 'Conferences', spina.conferences_conferences_url, class: %w[d-block py-2 border-top border-black-fade text-bold]
     .d-none.d-lg-flex.flex-justify-end
-      = main_navigation %w[flex-self-center flex-shrink-0], %w[px-md-1 px-lg-2], %w[px-md-1 px-lg-2 text-bold], request
+      = main_navigation request, css: { menu: %w[flex-self-center flex-shrink-0], link: %w[px-md-1 px-lg-2], inactive_link: 'text-bold' }
       .flex-lg-self-center
         = link_to_unless_current 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2] do
           = link_to 'Conferences', spina.conferences_conferences_url, class: %w[px-md-1 px-lg-2 text-bold]
