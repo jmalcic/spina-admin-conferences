@@ -9,7 +9,7 @@ module Spina
       extend ActiveSupport::Concern
 
       included do
-        append_view_path File.expand_path('../../views/conference', __dir__)
+        append_view_path File.expand_path('../../../app/views/conference', __dir__)
       end
     end
   end
