@@ -32,7 +32,7 @@ module Spina
       end
 
       def render_item(item)
-        link_to item.menu_title, item.materialized_path, class: [*@css[:link], (current_page? *@css[:inactive_link])]
+        link_to item.menu_title, item.materialized_path, class: [@css[:link], (@css[:inactive_link] if current_page?)]
       end
 
       def scoped_collection
