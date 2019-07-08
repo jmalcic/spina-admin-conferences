@@ -36,7 +36,8 @@ module Spina
       end
 
       def scoped_collection
-        @collection.navigation_items.roots.joins(:page).where(spina_pages: { resource_id: nil }).active.in_menu.sorted.live
+        @collection.navigation_items.roots.joins(:page).where(spina_pages: { resource_id: nil }).active.in_menu.sorted
+          .live
       end
     end
   end
