@@ -80,10 +80,9 @@ module Spina
       end
 
       def update_dates
-        return unless changed_attributes.include?(:start_date) || changed_attributes.include?(:finish_date)
+        changed_attributes_inquirer = ActiveSupport::ArrayInquirer.new(changed_attributes.keys)
+        return unless changed_attributes_inquirer.any?(:start_date, :finish_date)
 
-        new_start_date = changed_attributes.include?(:start_date) ? start_date : dates&.begin
-        new_finish_date = changed_attributes.include?(:finish_date) ? finish_date : dates&.end
         self.dates = new_start_date..new_finish_date
       end
 
@@ -101,6 +100,16 @@ module Spina
 
       def materialized_path
         ::Spina::Engine.routes.url_helpers.conferences_conference_path self
+      end
+
+      private
+
+      def new_start_date
+        changed_attributes.include?(:start_date) ? start_date : dates&.begin
+      end
+
+      def new_finish_date
+        changed_attributes.include?(:finish_date) ? finish_date : dates&.end
       end
     end
   end
