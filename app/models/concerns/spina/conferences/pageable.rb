@@ -9,13 +9,8 @@ module Spina
       extend ActiveSupport::Concern
 
       class_methods do
-        def model_config(conferences_theme)
-          conferences_theme.models[name.to_sym]
-        end
-
         def model_parts(theme)
-          conferences_theme = Theme.find_by(name: theme.name)
-          theme.page_parts.select { |page_part| page_part[:name].in? model_config(conferences_theme)[:parts] }
+          theme.page_parts.select { |page_part| page_part[:name].in? theme.models[name.to_sym][:parts] }
         end
       end
     end

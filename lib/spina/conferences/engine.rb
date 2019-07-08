@@ -7,6 +7,7 @@ module Spina
       paths['public'] = 'public'
 
       config.before_initialize do
+        ::Spina::Theme.send(:include, Spina::Conferences::ThemeExtensions)
         ::Spina::Plugin.register do |plugin|
           plugin.name = 'conferences'
           plugin.namespace = 'conferences'

@@ -2,7 +2,7 @@
 
 require 'spina'
 require 'spina/conferences/engine'
-require 'spina/conferences/theme'
+require 'spina/conferences/theme_extensions'
 require 'spina/conferences/load_path_extensions'
 require 'spina/conferences/association_extensions'
 require 'spina/conferences/option_extensions'

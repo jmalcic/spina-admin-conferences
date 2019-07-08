@@ -230,10 +230,6 @@
   }]
 
   theme.plugins = ['conferences']
-end
-
-::Spina::Conferences::Theme.register do |theme|
-  theme.name = 'conference'
 
   theme.models = {
     'Spina::Conferences::Conference': {
