@@ -2,8 +2,8 @@
 
 module Spina
   module Conferences
+    # Adds method to initializer setting instance variable
     module ThemeExtensions
-      # Adds method to initializer setting instance variable
       extend ActiveSupport::Concern
 
       included do
