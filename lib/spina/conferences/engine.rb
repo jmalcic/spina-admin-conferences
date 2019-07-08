@@ -21,8 +21,8 @@ module Spina
         # Add patches
         page_partables = [::Spina::Attachment, ::Spina::AttachmentCollection, ::Spina::Image, ::Spina::ImageCollection,
                           ::Spina::Line, ::Spina::Option, ::Spina::Structure, ::Spina::Text]
-        ::Spina::PagesController.send(:include, Spina::Conferences::LoadPathExtensions)
-        page_partables.each { |partable| partable.send(:include, Spina::Conferences::AssociationExtensions) }
+        ::Spina::PagesController.send(:include, Spina::Conferences::PagesControllerExtensions)
+        page_partables.each { |partable| partable.send(:include, Spina::Conferences::PartableExtensions) }
         ::Spina::Option.send(:include, Spina::Conferences::OptionExtensions)
         ::Spina::Structure.send(:include, Spina::Conferences::StructureExtensions)
         ::Spina::Admin::PagesHelper.send(:include, Spina::Admin::Conferences::PagesHelperExtensions)

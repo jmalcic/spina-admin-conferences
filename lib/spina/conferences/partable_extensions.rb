@@ -5,7 +5,7 @@ require 'active_support/concern'
 module Spina
   module Conferences
     # Adds part association for Spina partables
-    module AssociationExtensions
+    module PartableExtensions
       extend ActiveSupport::Concern
 
       included do
