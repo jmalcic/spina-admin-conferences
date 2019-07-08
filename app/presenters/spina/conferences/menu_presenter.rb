@@ -9,7 +9,7 @@ module Spina
       include ActiveSupport::Configurable
 
       # Configuration
-      config_accessor :output_buffer, :depth # root nodes are at depth 0  
+      config_accessor :output_buffer, :depth # root nodes are at depth 0
 
       def initialize(collection, request, css)
         @collection = collection
