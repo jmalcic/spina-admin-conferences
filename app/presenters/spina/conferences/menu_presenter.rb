@@ -28,15 +28,11 @@ module Spina
       end
 
       def render_items
-        scoped_collection.inject(ActiveSupport::SafeBuffer.new) do |buffer, item|
-          buffer << render_item(item)
-        end
+        scoped_collection.inject(ActiveSupport::SafeBuffer.new) { |buffer, item| buffer << render_item(item) }
       end
 
       def render_item(item)
-        link_to_unless_current item.menu_title, item.materialized_path, class: @css[:link] do
-          link_to item.menu_title, item.materialized_path, class: [*@css[:link], *@css[:inactive_link]]
-        end
+        link_to item.menu_title, item.materialized_path, class: [*@css[:link], (current_page? *@css[:inactive_link])]
       end
 
       def scoped_collection
