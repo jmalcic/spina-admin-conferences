@@ -5,7 +5,7 @@ module Spina
     module AssetHelper #:nodoc:
       METHODS_TO_RESIZE = %i[resize_to_limit resize_to_fit resize_to_fill resize_and_pad].freeze
 
-      def responsive_image_tag(image, options = {})
+      def responsive_image_tag(image, **options)
         return if image.blank?
 
         options = options.symbolize_keys
