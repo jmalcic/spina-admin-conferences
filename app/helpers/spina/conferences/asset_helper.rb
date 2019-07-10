@@ -19,10 +19,10 @@ module Spina
         @options = options.symbolize_keys
         @variant_options = @options.delete(:variant)
         @factors = @options.delete(:factors) || [1, 2, 3, 4]
-        @options[:srcset] = get_variants
+        @options[:srcset] = variants
       end
 
-      def get_variants
+      def variants
         @factors.inject({}) do |srcset, factor|
           url = main_app.url_for(@image.variant(resize_options(factor)))
           srcset.update(url => "#{factor}x")
