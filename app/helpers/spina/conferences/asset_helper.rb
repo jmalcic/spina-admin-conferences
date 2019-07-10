@@ -3,7 +3,7 @@
 module Spina
   module Conferences
     module AssetHelper #:nodoc:
-      METHODS_TO_RESIZE = %i[resize_to_limit resize_to_fit resize_to_fill resize_and_pad]
+      METHODS_TO_RESIZE = %i[resize_to_limit resize_to_fit resize_to_fill resize_and_pad].freeze
 
       def responsive_image_tag(image, options = {})
         return if image.blank?
