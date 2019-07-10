@@ -4,29 +4,21 @@ module Spina
   module Conferences
     module ConferencesHelper #:nodoc:
       include FrontendHelper
+      include MetadataHelper
+      include PartsHelper
 
       def ancestors
-        @conference&.ancestors || nil
+        @conference&.ancestors
       end
 
-      def description
-        @conference&.description || Conference.description
+      private
+
+      def metadata_object
+        @conference || Conference
       end
 
-      def seo_title
-        @conference&.seo_title || Conference.seo_title
-      end
-
-      def menu_title
-        @conference&.menu_title || Conference.menu_title
-      end
-
-      def part(name)
-        part!(name) || 'shared/blank'
-      end
-
-      def part!(name)
-        @conference.parts.find_by(name: name)
+      def parts_object
+        @conference
       end
     end
   end
