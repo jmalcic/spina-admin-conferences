@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails-i18n', '~> 6.0.0.beta1'
   spec.add_dependency 'spina', '~> 1.0'
   spec.add_dependency 'webpacker', '~> 4.0'
+  spec.add_dependency 'image_processing', '~> 1.9'
 
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'dotenv-rails'
