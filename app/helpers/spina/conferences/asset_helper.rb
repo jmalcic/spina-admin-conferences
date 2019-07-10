@@ -8,24 +8,29 @@ module Spina
       def responsive_image_tag(image, **options)
         return if image.blank?
 
-        options = options.symbolize_keys
-        variant_options = options.delete(:variant)
-        factors = options.delete(:factors) || [1, 2, 3, 4]
-        options[:srcset] = get_variants(image, factors, variant_options)
-        image_tag main_app.url_for(image.variant(variant_options)), options
+        @image = image
+        process_options(options)
+        image_tag main_app.url_for(@image.variant(@variant_options)), @options
       end
 
       private
 
-      def get_variants(image, factors, options)
-        factors.inject({}) do |srcset, factor|
-          url = main_app.url_for(image.variant(resize_options(factor, options)))
+      def process_options(options)
+        @options = options.symbolize_keys
+        @variant_options = @options.delete(:variant)
+        @factors = @options.delete(:factors) || [1, 2, 3, 4]
+        @options[:srcset] = get_variants
+      end
+
+      def get_variants
+        @factors.inject({}) do |srcset, factor|
+          url = main_app.url_for(@image.variant(resize_options(factor)))
           srcset.update(url => "#{factor}x")
         end
       end
 
-      def resize_options(factor, options)
-        options.to_h { |key, value| [key, resize_dimensions(key, factor, value)] }
+      def resize_options(factor)
+        @variant_options.to_h { |key, value| [key, resize_dimensions(key, factor, value)] }
       end
 
       def resize_dimensions(key, factor, dimensions)
