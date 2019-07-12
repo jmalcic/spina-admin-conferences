@@ -22,7 +22,7 @@ module Spina
       private
 
       def theme_parts
-        current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
+        current_theme = ::Spina::THEMES.find { |theme| theme.name == ::Spina::Account.first.theme }
         conference = Conference.new
         Conference.model_parts(current_theme).map { |part| conference.part(part) }
       end
