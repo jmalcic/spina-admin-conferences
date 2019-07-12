@@ -40,7 +40,7 @@ module Spina
         ConferenceImportJob.perform_later IO.read(file)
       end
 
-      def self.description
+      def self.seo_description
         nil
       end
 
@@ -86,7 +86,7 @@ module Spina
         self.dates = new_start_date..new_finish_date
       end
 
-      def description
+      def seo_description
         content('text') || nil
       end
 

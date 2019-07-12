@@ -3,8 +3,8 @@
 module Spina
   module Conferences
     module MetadataHelper #:nodoc:
-      def description
-        metadata_object.description
+      def seo_description
+        metadata_object.seo_description
       end
 
       def seo_title

@@ -3,11 +3,11 @@
   %head
     %meta{ charset: 'utf-8' }
     %meta{ name: 'author', content: current_account.name }
-    %meta{ name: 'description', content: description ||  current_account.content(:default_seo_description) }
+    %meta{ name: 'description', content: seo_description ||  current_account.content(:default_seo_description) }
     %meta{ name: 'viewport', content: 'initial-scale=1.0' }
     %meta{ name: 'keywords', content: current_account.content(:seo_keywords) }
     %meta{ name: 'og:title', content: seo_title ||  current_account.content(:default_seo_title) }
-    %meta{ name: 'og:description', content: description ||  current_account.content(:default_seo_description) }
+    %meta{ name: 'og:description', content: seo_description ||  current_account.content(:default_seo_description) }
     %base{ target: '_blank' }
     = csrf_meta_tags
     %meta{ name: 'turbolinks-cache-control', content: 'no-preview' }
