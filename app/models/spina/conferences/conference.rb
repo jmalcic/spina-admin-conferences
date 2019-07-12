@@ -10,6 +10,7 @@ module Spina
 
       after_initialize :set_from_dates
       before_validation :update_dates
+      after_save :update_from_dates
       after_save -> { parts.each(&:save) }
 
       attribute :start_date, :date
@@ -55,16 +56,18 @@ module Spina
       # Returns the `:name` of the associated `:institution`, and year of the beginning of `:dates`, commonly used to
       # identify a conference.
       def name
-        "#{institution_name} #{dates&.min&.year}"
+        "#{institution_name} #{year}"
       end
 
       def to_ics
         event = Icalendar::Event.new
+        return event unless valid?
+
         event.dtstart = start_date
-        event.dtstart&.ical_params = { value: 'DATE' }
+        event.dtstart.ical_params = { value: 'DATE' }
         event.dtend = finish_date
-        event.dtend&.ical_params = { value: 'DATE' }
-        event.location = institution&.name
+        event.dtend.ical_params = { value: 'DATE' }
+        event.location = institution.name
         event.categories = self.class.name.demodulize.upcase
         event.summary = name
         event
@@ -79,11 +82,20 @@ module Spina
         clear_attribute_changes %i[start_date finish_date year]
       end
 
+      def update_from_dates
+        return if dates.blank?
+
+        self.start_date = dates.begin
+        self.finish_date = dates.end
+        self.year = start_date.year
+        clear_attribute_changes %i[start_date finish_date year]
+      end
+
       def update_dates
         changed_attributes_inquirer = ActiveSupport::ArrayInquirer.new(changed_attributes.keys)
         return unless changed_attributes_inquirer.any?(:start_date, :finish_date)
 
-        self.dates = new_start_date..new_finish_date
+        self.dates = start_date..finish_date
       end
 
       def seo_description
@@ -100,16 +112,6 @@ module Spina
 
       def materialized_path
         ::Spina::Engine.routes.url_helpers.conferences_conference_path self
-      end
-
-      private
-
-      def new_start_date
-        changed_attributes.include?(:start_date) ? start_date : dates&.begin
-      end
-
-      def new_finish_date
-        changed_attributes.include?(:finish_date) ? finish_date : dates&.end
       end
     end
   end
