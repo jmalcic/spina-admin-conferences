@@ -3,17 +3,7 @@
 module Spina
   module Conferences
     module MetadataHelper #:nodoc:
-      def seo_description
-        metadata_object.seo_description
-      end
-
-      def seo_title
-        metadata_object.seo_title
-      end
-
-      def menu_title
-        metadata_object.menu_title
-      end      
+      delegate :seo_description, :seo_title, :menu_title, to: :metadata_object
     end
   end
 end
