@@ -10,7 +10,7 @@ module Spina
         private
 
         def model_parts(name)
-          current_theme.page_parts.select { |page_part| page_part[:name].in? current_theme.models[name][:parts] }
+          current_theme.page_parts.select { |page_part| page_part[:name].in? current_theme.models[name.to_sym][:parts] }
         end
       end
     end

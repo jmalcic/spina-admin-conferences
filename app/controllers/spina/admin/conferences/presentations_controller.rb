@@ -68,7 +68,7 @@ module Spina
         end
 
         def set_parts
-          @parts = model_parts(:presentation).map { |part| @presentation.part(part) }
+          @parts = model_parts(Presentation.name).map { |part| @presentation.part(part) }
         end
 
         def set_tabs

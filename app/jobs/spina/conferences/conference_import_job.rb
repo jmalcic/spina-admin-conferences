@@ -24,7 +24,7 @@ module Spina
 
       def theme_parts
         conference = Conference.new
-        model_parts(:conference).map { |part| conference.part(part) }
+        model_parts(Conference.name).map { |part| conference.part(part) }
       end
     end
   end
