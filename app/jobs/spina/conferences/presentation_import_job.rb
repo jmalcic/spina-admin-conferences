@@ -4,7 +4,6 @@ module Spina
   module Conferences
     # This job imports presentations from CSV files
     class PresentationImportJob < ImportJob
-      include ::Spina::Conferences
       include Pageable
 
       queue_as :default

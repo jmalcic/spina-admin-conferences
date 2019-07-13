@@ -6,8 +6,6 @@ module Spina
   module Conferences
     # This job imports CSV files
     class ImportJob < ApplicationJob
-      include ::Spina::Conferences
-
       CSV::Converters[:json] = lambda do |field|
         JSON.parse field, symbolize_names: true
       rescue JSON::ParserError
