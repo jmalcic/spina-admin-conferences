@@ -72,7 +72,7 @@ module Spina
         end
 
         def set_parts
-          @parts = model_parts(Conference.name).map { |part| @conference.part(part) }
+          @parts = model_parts(Conference).map { |part| @conference.part(part) }
         end
 
         def set_tabs

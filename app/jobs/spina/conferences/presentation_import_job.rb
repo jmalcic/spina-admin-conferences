@@ -25,7 +25,7 @@ module Spina
 
       def theme_parts
         presentation = Presentation.new
-        model_parts(Presentation.name).map { |part| presentation.part(part) }
+        model_parts(Presentation).map { |part| presentation.part(part) }
       end
     end
   end
