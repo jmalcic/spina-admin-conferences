@@ -42,9 +42,9 @@ module Spina
           assert_difference 'Conference.count' do
             attributes = @conference.attributes
             attributes[:room_ids] = @conference.rooms.collect(&:id)
-            current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
-            parts = Conference.model_parts(current_theme).map { |part| @invalid_conference.part(part) }
-            attributes[:parts_attributes] = parts.collect(&:attributes)
+            attributes[:parts_attributes] = @conference.parts.collect do |part|
+              part.attributes.reject { |key, _value| %w[id pageable_id].include? key }
+            end
             post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_redirected_to admin_conferences_conferences_url

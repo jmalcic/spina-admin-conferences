@@ -6,6 +6,7 @@ module Spina
       # This class manages conferences and sets breadcrumbs
       class ConferencesController < ::Spina::Admin::AdminController
         include ::Spina::Conferences
+        include Pageable
 
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
@@ -71,7 +72,7 @@ module Spina
         end
 
         def set_parts
-          @parts = Conference.model_parts(current_theme).map { |part| @conference.part(part) }
+          @parts = model_parts(:conference).map { |part| @conference.part(part) }
         end
 
         def set_tabs

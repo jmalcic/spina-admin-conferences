@@ -5,6 +5,7 @@ module Spina
     # This job imports conferences from CSV files
     class ConferenceImportJob < ImportJob
       include ::Spina::Conferences
+      include Pageable
 
       queue_as :default
 
@@ -22,9 +23,8 @@ module Spina
       private
 
       def theme_parts
-        current_theme = ::Spina::THEMES.find { |theme| theme.name == ::Spina::Account.first.theme }
         conference = Conference.new
-        Conference.model_parts(current_theme).map { |part| conference.part(part) }
+        model_parts(:conference).map { |part| conference.part(part) }
       end
     end
   end

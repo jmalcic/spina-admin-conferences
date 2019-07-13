@@ -232,10 +232,10 @@
   theme.plugins = ['conferences']
 
   theme.models = {
-    'Spina::Conferences::Conference': {
+    conference: {
       parts: %w[text submission_url submission_date submission_text gallery socials meetings sponsors]
     },
-    'Spina::Conferences::Presentation': {
+    presentation: {
       parts: %w[slides handout poster]
     }
   }

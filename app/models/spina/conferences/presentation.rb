@@ -6,7 +6,6 @@ module Spina
     class Presentation < ApplicationRecord
       include ConferencePagePartable
       include ::Spina::Partable
-      include Pageable
 
       after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
