@@ -3,9 +3,7 @@
 module Spina
   module Conferences
     module PresentationsHelper #:nodoc:
-      include FrontendHelper
-      include MetadataHelper
-      include PartsHelper
+      include PageableHelper
 
       def ancestors
         return if @presentation.blank?
