@@ -5,15 +5,20 @@ module Spina
   User.first_or_create name: 'Joe', email: 'someone@someaddress.com', password: 'password', admin: true
   module Conferences
     def self.conference_parts
-      current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
       conference = Conference.new
-      Conference.model_parts(current_theme).collect { |part| conference.part(part) }
+      model_parts(Conference).collect { |part| conference.part(part) }
     end
+
     def self.presentation_parts
-      current_theme = ::Spina::Theme.find_by_name(::Spina::Account.first.theme)
       presentation = Presentation.new
-      Presentation.model_parts(current_theme).collect { |part| presentation.part(part) }
+      model_parts(Presentation).collect { |part| presentation.part(part) }
     end
+
+    def self.model_parts(klass)
+      current_theme = ::Spina::THEMES.find { |theme| theme.name == ::Spina::Account.first.theme }
+      current_theme.page_parts.select { |part| part[:name].in? current_theme.models[klass.to_s.to_sym][:parts] }
+    end
+
     Institution.create!(
       name: 'University of Atlantis',
       city: 'Atlantis',
