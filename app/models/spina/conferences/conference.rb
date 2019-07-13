@@ -62,6 +62,8 @@ module Spina
 
       def to_ics
         event = Icalendar::Event.new
+        return event if invalid?
+
         event.dtstart = start_date
         event.dtstart.ical_param(:value, 'DATE')
         event.dtend = finish_date

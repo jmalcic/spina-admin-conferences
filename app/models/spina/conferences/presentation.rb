@@ -49,6 +49,8 @@ module Spina
 
       def to_ics
         event = Icalendar::Event.new
+        return event if invalid?
+
         event.dtstart = start_datetime
         event.dtend = start_datetime + presentation_type.duration
         event.location = room_use.room_name

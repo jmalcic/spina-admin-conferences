@@ -32,6 +32,7 @@ module Spina
 
       test 'returns an iCal event' do
         assert @presentation.to_ics.class == Icalendar::Event
+        assert Presentation.new.to_ics.class == Icalendar::Event
       end
     end
   end
