@@ -61,6 +61,15 @@ module Spina
         assert_nil new_conference.year, 'is nil for new records'
       end
 
+      test 'dates range is updated correctly' do
+        start_date = @conference.start_date + 5.years
+        finish_date = @conference.finish_date + 5.years
+        @conference.update(start_date: start_date)
+        assert_equal @conference.start_date, start_date
+        @conference.update(finish_date: finish_date)
+        assert_equal @conference.finish_date, finish_date
+      end
+
       test 'returns a name' do
         assert @conference.name.class == String
       end
