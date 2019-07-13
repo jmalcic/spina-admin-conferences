@@ -58,19 +58,21 @@ module Spina
         "#{institution_name} #{year}"
       end
 
+      # rubocop:disable Metrics/AbcSize
+
       def to_ics
         event = Icalendar::Event.new
-        return event unless valid?
-
         event.dtstart = start_date
-        event.dtstart.ical_params = { value: 'DATE' }
+        event.dtstart.ical_param(:value, 'DATE')
         event.dtend = finish_date
-        event.dtend.ical_params = { value: 'DATE' }
+        event.dtend.ical_param(:value, 'DATE')
         event.location = institution.name
         event.categories = self.class.name.demodulize.upcase
         event.summary = name
         event
       end
+
+      # rubocop:enable Metrics/AbcSize
 
       def set_from_dates
         return if dates.blank?
