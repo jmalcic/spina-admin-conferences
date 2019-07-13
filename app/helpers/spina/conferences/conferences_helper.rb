@@ -8,7 +8,9 @@ module Spina
       include PartsHelper
 
       def ancestors
-        @conference&.ancestors
+        return if @conference.blank?
+
+        @conference.ancestors
       end
 
       private
