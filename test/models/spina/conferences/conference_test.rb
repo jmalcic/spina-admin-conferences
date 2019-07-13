@@ -13,6 +13,7 @@ module Spina
         assert conference.errors[:start_date].any?
         assert conference.errors[:finish_date].any?
         assert conference.errors[:institution].any?
+        assert conference.errors[:parts].any?
       end
 
       test 'start and finish dates must be dates' do
@@ -36,16 +37,46 @@ module Spina
         assert @conference.errors[:finish_date].any?
       end
 
+      test 'start date is set correctly' do
+        assert_equal @conference.start_date, @conference.dates.begin, 'is set after initialisation'
+        @conference.update(dates: (@conference.dates.begin - 1.day)..@conference.dates.end)
+        assert_equal @conference.start_date, @conference.dates.begin, 'is updated after save'
+        new_conference = Conference.new
+        assert_nil new_conference.start_date, 'is nil for new records'
+      end
+
+      test 'finish date is set correctly' do
+        assert_equal @conference.finish_date, @conference.dates.end, 'is set after initialisation'
+        @conference.update(dates: @conference.dates.begin..(@conference.dates.end + 1.day))
+        assert_equal @conference.finish_date, @conference.dates.end, 'is updated after save'
+        new_conference = Conference.new
+        assert_nil new_conference.finish_date, 'is nil for new records'
+      end
+
+      test 'year is set correctly' do
+        assert_equal @conference.year, @conference.dates.begin.year, 'is set after initialisation'
+        @conference.update(dates: (@conference.dates.begin - 1.year)..@conference.dates.end)
+        assert_equal @conference.year, @conference.dates.begin.year, 'is updated after save'
+        new_conference = Conference.new
+        assert_nil new_conference.year, 'is nil for new records'
+      end
+
+      test 'dates range is updated correctly' do
+        start_date = @conference.start_date + 5.years
+        finish_date = @conference.finish_date + 5.years
+        @conference.update(start_date: start_date)
+        assert_equal @conference.start_date, start_date
+        @conference.update(finish_date: finish_date)
+        assert_equal @conference.finish_date, finish_date
+      end
+
       test 'returns a name' do
         assert @conference.name.class == String
       end
 
-      test 'returns an associated page' do
-        assert @conference.conference_page.class == ConferencePage
-      end
-
       test 'returns an iCal event' do
         assert @conference.to_ics.class == Icalendar::Event
+        assert Conference.new.to_ics.class == Icalendar::Event
       end
     end
   end

@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_131354) do
+ActiveRecord::Schema.define(version: 2019_07_04_135524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "spina_accounts", id: :serial, force: :cascade do |t|
     t.string "name"
@@ -55,8 +76,8 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
   end
 
   create_table "spina_conferences_conferences", force: :cascade do |t|
-    t.daterange "dates"
-    t.bigint "institution_id"
+    t.daterange "dates", null: false
+    t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["institution_id"], name: "index_spina_conferences_conferences_on_institution_id"
@@ -74,11 +95,11 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
   end
 
   create_table "spina_conferences_delegates", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "email_address"
     t.string "url"
-    t.bigint "institution_id"
+    t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["institution_id"], name: "index_spina_conferences_delegates_on_institution_id"
@@ -95,7 +116,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
   end
 
   create_table "spina_conferences_dietary_requirements", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -107,30 +128,39 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
   end
 
   create_table "spina_conferences_institutions", force: :cascade do |t|
-    t.string "name"
-    t.string "city"
+    t.string "name", null: false
+    t.string "city", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "logo_id"
     t.index ["logo_id"], name: "index_spina_conferences_institutions_on_logo_id"
   end
 
-  create_table "spina_conferences_presentation_types", force: :cascade do |t|
+  create_table "spina_conferences_parts", force: :cascade do |t|
+    t.string "title"
     t.string "name"
-    t.interval "duration"
-    t.bigint "conference_id"
+    t.string "partable_type"
+    t.bigint "partable_id"
+    t.string "pageable_type"
+    t.bigint "pageable_id"
+  end
+
+  create_table "spina_conferences_presentation_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.interval "duration", null: false
+    t.bigint "conference_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["conference_id"], name: "index_spina_conferences_presentation_types_on_conference_id"
   end
 
   create_table "spina_conferences_presentations", force: :cascade do |t|
-    t.string "title"
-    t.text "abstract"
-    t.bigint "room_use_id"
+    t.string "title", null: false
+    t.text "abstract", null: false
+    t.bigint "room_use_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "start_datetime"
+    t.datetime "start_datetime", null: false
     t.index ["room_use_id"], name: "index_spina_conferences_presentations_on_room_use_id"
   end
 
@@ -149,9 +179,9 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
   end
 
   create_table "spina_conferences_rooms", force: :cascade do |t|
-    t.string "number"
-    t.string "building"
-    t.bigint "institution_id"
+    t.string "number", null: false
+    t.string "building", null: false
+    t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["institution_id"], name: "index_spina_conferences_rooms_on_institution_id"
@@ -286,7 +316,6 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
     t.integer "position"
     t.boolean "active", default: true
     t.integer "resource_id"
-    t.string "type"
     t.index ["resource_id"], name: "index_spina_pages_on_resource_id"
   end
 
@@ -368,6 +397,7 @@ ActiveRecord::Schema.define(version: 2019_04_08_131354) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "spina_conferences_conference_page_parts", "spina_pages", column: "conference_page_id", on_delete: :cascade
   add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade

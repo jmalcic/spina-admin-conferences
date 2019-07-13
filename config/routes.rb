@@ -3,15 +3,14 @@
 # rubocop:disable Metrics/BlockLength
 
 Spina::Engine.routes.draw do
-  namespace :conferences, path: 'calendars' do
+  namespace :conferences, path: 'conferences' do
     resources :presentations, only: [:show]
     resources :conferences, only: %i[index show]
   end
   namespace :admin, path: Spina.config.backend_path do
-    resources :conference_pages, controller: 'conferences/conference_pages'
     namespace :conferences do
       root to: 'conferences#index'
-      resources :conferences do
+      resources :conferences, except: [:show] do
         post :import, on: :collection
         resources :presentation_types, only: [:index]
       end

@@ -4,6 +4,6 @@
 # after the start date.
 class FinishDateValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    record.errors.add(attribute, :before_start_date) unless value.present? && value > record.start_date
+    record.errors.add(attribute, :before_start_date) unless value.blank? || value >= record.start_date
   end
 end

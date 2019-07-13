@@ -12,11 +12,11 @@
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Conferences::Conference.human_attribute_name :start_date
-        .horizontal-form-content= f.date_field :start_date, value: (@conference.dates.min.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:start_date), required: true
+        .horizontal-form-content= f.date_field :start_date, value: (@conference.start_date.strftime("%Y-%m-%d") if @conference.start_date.present?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:start_date), required: true
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Conferences::Conference.human_attribute_name :finish_date
-        .horizontal-form-content= f.date_field :finish_date, value: (@conference.dates.max.strftime("%Y-%m-%d") unless @conference.dates.blank?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:finish_date), required: true
+        .horizontal-form-content= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), class: 'datepicker', placeholder: Spina::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
 
       .horizontal-form-group

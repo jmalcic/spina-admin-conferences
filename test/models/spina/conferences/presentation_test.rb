@@ -5,12 +5,7 @@ require 'test_helper'
 module Spina
   module Conferences
     class PresentationTest < ActiveSupport::TestCase
-      include Engine.routes.url_helpers
-
-      setup do
-        @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry
-        @presentation.conference_page.save
-      end
+      setup { @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry }
 
       test 'presentation attributes must not be empty' do
         presentation = Presentation.new
@@ -20,6 +15,7 @@ module Spina
         assert presentation.errors[:start_time].any?
         assert presentation.errors[:abstract].any?
         assert presentation.errors[:presenters].any?
+        assert presentation.errors[:parts].any?
       end
 
       test 'date must be during conference' do
@@ -34,12 +30,9 @@ module Spina
         assert @presentation.name.class == String
       end
 
-      test 'returns an associated page' do
-        assert @presentation.conference_page.class == ConferencePage
-      end
-
       test 'returns an iCal event' do
         assert @presentation.to_ics.class == Icalendar::Event
+        assert Presentation.new.to_ics.class == Icalendar::Event
       end
     end
   end

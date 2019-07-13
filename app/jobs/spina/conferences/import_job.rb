@@ -6,8 +6,6 @@ module Spina
   module Conferences
     # This job imports CSV files
     class ImportJob < ApplicationJob
-      include ::Spina::Conferences
-
       CSV::Converters[:json] = lambda do |field|
         JSON.parse field, symbolize_names: true
       rescue JSON::ParserError
@@ -29,7 +27,7 @@ module Spina
       end
 
       def find_rooms(params)
-        params.collect { |room| find_room room }
+        params.collect(&method(:find_room))
       end
 
       def find_dietary_requirements(params)
@@ -44,7 +42,7 @@ module Spina
       end
 
       def find_conferences(params)
-        params.collect { |conference| find_conference conference }
+        params.collect(&method(:find_conference))
       end
 
       def find_room_possession(params)
@@ -55,7 +53,7 @@ module Spina
       end
 
       def find_room_possessions(params)
-        params.collect { |room_possession| find_room_possession(room_possession) }
+        params.collect(&method(:find_room_possession))
       end
 
       def find_presentation_type(params)

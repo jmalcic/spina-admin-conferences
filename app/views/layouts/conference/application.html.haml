@@ -1,32 +1,34 @@
 !!!
-%html{ lang: I18n.locale }
+%html.height-full{ lang: I18n.locale }
   %head
     %meta{ charset: 'utf-8' }
-    %meta{ name: 'description', content: current_page.description }
+    %meta{ name: 'author', content: current_account.name }
+    %meta{ name: 'description', content: seo_description ||  current_account.content(:default_seo_description) }
     %meta{ name: 'viewport', content: 'initial-scale=1.0' }
+    %meta{ name: 'keywords', content: current_account.content(:seo_keywords) }
+    %meta{ name: 'og:title', content: seo_title ||  current_account.content(:default_seo_title) }
+    %meta{ name: 'og:description', content: seo_description ||  current_account.content(:default_seo_description) }
+    %base{ target: '_blank' }
     = csrf_meta_tags
     %meta{ name: 'turbolinks-cache-control', content: 'no-preview' }
-    %title= "#{current_page.seo_title} — #{current_account.name}"
+    %title= "#{seo_title  ||  current_account.content(:default_seo_title)} — #{current_account.name}"
     = render 'spina/shared/google_site_verification'
     = render 'spina/shared/analytics'
+    = render 'hooks/styles'
     = stylesheet_link_tag 'conference/application', media: 'all', data: { turbolinks_track: true }
-  %body
+    = javascript_pack_tag 'conference/application', instance: Spina::Conferences::Engine.webpacker
+  %body.bg-light.height-full.d-flex.flex-column
     = render 'spina/shared/admin_bar'
-    .grid
-      %header
-        %h1= current_account.name
-        = render "#{current_theme.name}/shared/navigation"
-      %main
-        %header<
-          %nav
-            %ol
-              - current_page.ancestors.each do |ancestor|
-                %li= link_to ancestor.menu_title, ancestor.materialized_path
-              %li= current_page.menu_title
-          = yield(:header)
-        = yield
-      %footer
-        = render "#{current_theme.name}/shared/footer"
-
     = spina_link
+    %header{ style: 'z-index: 1' }
+      = render 'shared/navigation'
+      = render 'shared/breadcrumbs' if ancestors&.present?
+    = render 'shared/alert' if current_account&.has_content? :current_conference_alert
+    = yield
+    - if content_for? :content
+      .px-3.px-md-4
+        .container-md
+          .my-4= yield :header
+          .my-4= yield :content
+          %footer.my-4= render 'shared/footer'
     = render 'spina/shared/social'

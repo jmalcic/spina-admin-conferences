@@ -1,0 +1,13 @@
+= render 'shared/list_item', class: %w[d-flex flex-column flex-md-row-reverse flex-justify-start flex-md-justify-between] do
+  = responsive_image_tag conference.institution.logo.file, variant: { resize_to_limit: [300, 60] }, draggable: false, class: %w[pl-md-4 pb-4 pb-md-0] unless conference.institution.logo.blank?
+  .flex-auto
+    %h3.mb-1
+      = link_to conference.name, spina.conferences_conference_path(conference)
+    .text-gray
+      %div
+        = time_tag conference.start_date, l(conference.start_date, format: :long)
+        to
+        = time_tag conference.finish_date, l(conference.finish_date, format: :long)
+      %address<
+        = "#{conference.institution.name}"
+        = ", #{conference.institution.city}" unless conference.institution.name.include? conference.institution.city

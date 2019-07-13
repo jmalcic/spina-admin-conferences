@@ -17,6 +17,18 @@
     title: 'Constitution',
     partable_type: 'Spina::Attachment'
   }, {
+    name: 'slides',
+    title: 'Slides',
+    partable_type: 'Spina::Attachment'
+  }, {
+    name: 'handout',
+    title: 'Handout',
+    partable_type: 'Spina::Attachment'
+  }, {
+    name: 'poster',
+    title: 'Poster',
+    partable_type: 'Spina::Attachment'
+  }, {
     name: 'partner_societies',
     title: 'Partner societies',
     partable_type: 'Spina::Structure'
@@ -48,6 +60,14 @@
     name: 'submission_text',
     title: 'Submission text',
     partable_type: 'Spina::Line'
+  }, {
+    name: 'committee_bios',
+    title: 'Committee bios',
+    partable_type: 'Spina::Structure'
+  }, {
+    name: 'sponsors',
+    title: 'Sponsors',
+    partable_type: 'Spina::Structure'
   }]
 
   theme.layout_parts = [{
@@ -128,12 +148,54 @@
       title: 'Description',
       partable_type: 'Spina::Text'
     }]
+  }, {
+    name: 'committee_bios',
+    structure_parts: [{
+      name: 'name',
+      title: 'Name',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'role',
+      title: 'Role',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'bio',
+      title: 'Bio',
+      partable_type: 'Spina::Text'
+    }, {
+      name: 'profile_picture',
+      title: 'Profile picture',
+      partable_type: 'Spina::Image'
+    }, {
+      name: 'facebook_profile',
+      title: 'Facebook profile',
+      partable_type: 'Spina::Conferences::UrlPart'
+    }, {
+      name: 'twitter_profile',
+      title: 'Twitter profile',
+      partable_type: 'Spina::Conferences::UrlPart'
+    }]
+  }, {
+    name: 'sponsors',
+    structure_parts: [{
+      name: 'name',
+      title: 'Name',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'logo',
+      title: 'Logo',
+      partable_type: 'Spina::Image'
+    }, {
+      name: 'website',
+      title: 'Website',
+      partable_type: 'Spina::Conferences::UrlPart'
+    }]
   }]
 
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: %w[text current_conference_alert gallery]
+    page_parts: %w[text gallery]
   }, {
     name: 'information',
     title: 'Information',
@@ -144,22 +206,6 @@
     title: 'About',
     description: 'Contains information about the society',
     page_parts: %w[text constitution minutes partner_societies contact]
-  }, {
-    name: 'conference',
-    title: 'Conference',
-    description: 'Contains information and content for a conference',
-    page_parts: %w[text submission_url submission_date submission_text
-                   gallery socials meetings]
-  }, {
-    name: 'presentation',
-    title: 'Presentation',
-    description: 'Contains content for a presentation',
-    page_parts: %w[]
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    description: 'List of conferences',
-    page_parts: %w[]
   }]
 
   theme.custom_pages = [{
@@ -167,11 +213,6 @@
     title: 'Homepage',
     deletable: false,
     view_template: 'homepage'
-  }, {
-    name: 'conferences',
-    title: 'Conferences',
-    deletable: false,
-    view_template: 'conferences'
   }, {
     name: 'about',
     title: 'About',
@@ -189,4 +230,13 @@
   }]
 
   theme.plugins = ['conferences']
+
+  theme.models = {
+    'Spina::Conferences::Conference': {
+      parts: %w[text submission_url submission_date submission_text gallery socials meetings sponsors]
+    },
+    'Spina::Conferences::Presentation': {
+      parts: %w[slides handout poster]
+    }
+  }
 end

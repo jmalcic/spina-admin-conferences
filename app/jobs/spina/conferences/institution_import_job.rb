@@ -4,8 +4,6 @@ module Spina
   module Conferences
     # This job imports institutions from CSV files
     class InstitutionImportJob < ImportJob
-      include ::Spina::Conferences
-
       queue_as :default
 
       def perform(csv)

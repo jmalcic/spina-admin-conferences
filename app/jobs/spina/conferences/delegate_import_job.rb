@@ -4,8 +4,6 @@ module Spina
   module Conferences
     # This job imports rooms from CSV files
     class DelegateImportJob < ImportJob
-      include ::Spina::Conferences
-
       queue_as :default
 
       def perform(csv)

@@ -4,8 +4,6 @@ module Spina
   module Conferences
     # This job imports presentation types from CSV files
     class PresentationTypeImportJob < ImportJob
-      include ::Spina::Conferences
-
       queue_as :default
 
       def perform(csv)

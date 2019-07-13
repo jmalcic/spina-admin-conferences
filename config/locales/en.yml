@@ -52,6 +52,7 @@ en:
         presentations: Presentations
         presentation_types: Presentation types
         rooms: Rooms
+        content: Content
         import: Import CSV
 
       delegates:
@@ -81,6 +82,7 @@ en:
         all_presentations: All presentations
         presentation_details: Presentation details
         presenters: Presenters
+        content: Content
         import: Import CSV
 
       website:

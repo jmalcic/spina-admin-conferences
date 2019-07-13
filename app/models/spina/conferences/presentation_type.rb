@@ -11,7 +11,7 @@ module Spina
       attribute :minutes, :integer
 
       belongs_to :conference, inverse_of: :presentation_types
-      has_many :room_uses, dependent: :destroy
+      has_many :room_uses, inverse_of: :presentation_type, dependent: :destroy
       has_many :room_possessions, through: :room_uses
       has_many :rooms, through: :room_possessions
       has_many :presentations, through: :room_uses

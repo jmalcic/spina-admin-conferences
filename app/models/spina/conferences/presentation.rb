@@ -5,10 +5,11 @@ module Spina
     # This class represents conference presentations.
     class Presentation < ApplicationRecord
       include ConferencePagePartable
+      include ::Spina::Partable
 
       after_initialize :set_from_start_datetime
       before_validation :update_start_datetime
-      after_create { conference_page.update parent: conference.conference_page }
+      after_save -> { parts.each(&:save) }
 
       attribute :date, :date
       attribute :start_time, :time
@@ -20,8 +21,10 @@ module Spina
       has_and_belongs_to_many :presenters, class_name: 'Spina::Conferences::Delegate',
                                            foreign_key: :spina_conferences_presentation_id,
                                            association_foreign_key: :spina_conferences_delegate_id
+      has_many :parts, inverse_of: :pageable, dependent: :destroy, as: :pageable
+      accepts_nested_attributes_for :parts, allow_destroy: true
 
-      validates :title, :date, :start_time, :abstract, :presenters, presence: true
+      validates :title, :date, :start_time, :abstract, :presenters, :parts, presence: true
       validates :date, conference_date: true
       validates_associated :presenters
 
@@ -34,10 +37,20 @@ module Spina
         PresentationImportJob.perform_later IO.read(file)
       end
 
+      def self.seo_description
+        nil
+      end
+
+      def self.seo_title
+        'Presentations'
+      end
+
       # rubocop:disable Metrics/AbcSize
 
       def to_ics
         event = Icalendar::Event.new
+        return event if invalid?
+
         event.dtstart = start_datetime
         event.dtend = start_datetime + presentation_type.duration
         event.location = room_use.room_name
@@ -49,6 +62,18 @@ module Spina
       end
 
       # rubocop:enable Metrics/AbcSize
+
+      def seo_description
+        content('abstract') || nil
+      end
+
+      alias seo_title name
+
+      def ancestors
+        [conference]
+      end
+
+      alias menu_title name
 
       private
 

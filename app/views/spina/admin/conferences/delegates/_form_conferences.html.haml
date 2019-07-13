@@ -11,7 +11,7 @@
 
       %tbody
         - if @delegate.conferences.any?
-          = render partial: 'spina/admin/conferences/shared/conference', collection: @conferences
+          = render partial: 'spina/admin/conferences/shared/conference', collection: @delegate.conferences
 
         - else
           %tr

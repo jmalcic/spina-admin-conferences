@@ -12,9 +12,6 @@ module Spina
       included do
         delegate :materialized_path, to: :'conference_page_part.conference_page'
 
-        before_create :set_up_conference_page
-        after_destroy { conference_page_part&.destroy }
-
         has_one :conference_page_part, as: :conference_page_partable, inverse_of: :conference_page_partable,
                                        dependent: false
         has_one :conference_page, through: :conference_page_part

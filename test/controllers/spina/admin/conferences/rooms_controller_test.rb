@@ -11,6 +11,7 @@ module Spina
 
         setup do
           @room = spina_conferences_rooms :lecture_block_2
+          @invalid_room = Room.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -23,24 +24,41 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_room_url
           assert_response :success
+          assert_select '#presentations tbody > tr' do
+            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+          end
         end
 
         test 'should create room' do
           assert_difference 'Room.count' do
             post admin_conferences_rooms_url, params: { room: @room.attributes }
           end
-
           assert_redirected_to admin_conferences_rooms_url
+        end
+
+        test 'should fail to create invalid room' do
+          assert_no_difference 'Room.count' do
+            post admin_conferences_rooms_url, params: { room: @invalid_room.attributes }
+          end
+          assert_response :success
         end
 
         test 'should get edit' do
           get edit_admin_conferences_room_url(@room)
           assert_response :success
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
         end
 
         test 'should update room' do
           patch admin_conferences_room_url(@room), params: { room: @room.attributes }
           assert_redirected_to admin_conferences_rooms_url
+        end
+
+        test 'should fail to update invalid room' do
+          patch admin_conferences_room_url(@room), params: { room: @invalid_room.attributes }
+          assert_response :success
         end
 
         test 'should destroy room' do
