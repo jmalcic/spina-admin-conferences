@@ -44,5 +44,10 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-uglify": "^6.0.2"
   },
+  "scripts": {
+    "prebuild": "yarn lint",
+    "build": "rollup --config rollup.config.js",
+    "lint": "eslint app/javascript",
+    "prepublishOnly": "rm -rf src && cp -R app/javascript/spina/conferences src"
   }
 }
