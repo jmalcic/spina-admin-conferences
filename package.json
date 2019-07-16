@@ -1,6 +1,27 @@
 {
   "name": "spina-conferences",
-  "private": true,
+  "version": "0.1.0",
+  "description": "Conference management plugin for Spina.",
+  "main": "app/assets/javascripts/spina/conferences.js",
+  "files": [
+    "app/assets/javascripts/*.js",
+    "src/*.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "jmalcic/spina-conferences"
+  },
+  "keywords": [
+    "conference-management",
+    "rails",
+    "spina-cms"
+  ],
+  "author": "Justin Malčić <j.malcic@me.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmalcic/spina-conferences/issues"
+  },
+  "homepage": "https://jmalcic.github.io/projects/spina-conferences",
   "dependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -22,7 +43,6 @@
     "webpack": "^4.29.0",
     "webpack-dev-server": "^3.1.14"
   },
-  "version": "0.1.0",
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0"
