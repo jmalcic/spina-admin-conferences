@@ -1,6 +1,5 @@
 path_classifiers:
   generated:
-    test:
-      - app/assets/javascripts/spina/admin/conferences/application.js
-      - app/assets/javascripts/conference/application.js
-      - app/assets/stylesheets/conference/application.css
+    - app/assets/javascripts/spina/admin/conferences/application.js
+    - app/assets/javascripts/conference/application.js
+    - app/assets/stylesheets/conference/application.css
