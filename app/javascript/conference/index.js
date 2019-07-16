@@ -7,18 +7,10 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
-
-import UJS from '@rails/ujs'
-import Turbolinks from 'turbolinks'
-
-require('@rails/activestorage').start()
 import { Application } from 'stimulus'
-import { definitionsFromContext } from 'stimulus/webpack-helpers'
+import * as Controllers from './controllers/index'
 
-UJS.start()
-Turbolinks.start()
 const application = Application.start()
-const context = require.context('./controllers', true, /.js$/)
-application.load(definitionsFromContext(context))
+application.register('itemnav', Controllers.ItemnavController)
+application.register('slideshow', Controllers.SlideshowController)
+application.register('underlinenav', Controllers.UnderlinenavController)

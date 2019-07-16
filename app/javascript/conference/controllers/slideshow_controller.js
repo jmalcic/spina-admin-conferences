@@ -1,6 +1,6 @@
 import { Controller } from 'stimulus'
 
-export default class extends Controller {
+export class SlideshowController extends Controller {
   static targets = ['slide']
 
   get incrementer() {
