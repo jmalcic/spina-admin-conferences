@@ -17,7 +17,6 @@
     = stylesheet_link_tag 'conference/spina', media: 'all', data: { turbolinks_track: true }
     = render 'hooks/stylesheets'
     = stylesheet_link_tag 'conference/application', media: 'all', data: { turbolinks_track: true }
-    = javascript_pack_tag 'conference/application', instance: Spina::Conferences::Engine.webpacker
     = render 'hooks/javascripts'
     = javascript_include_tag 'conference/application'
   %body.bg-light.height-full.d-flex.flex-column
