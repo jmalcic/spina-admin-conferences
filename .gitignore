@@ -9,6 +9,7 @@ test/dummy/storage/
 test/dummy/tmp/
 tmp/
 
+test/dummy/public/assets
 coverage/
 .env
 .idea/
