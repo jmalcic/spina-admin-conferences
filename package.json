@@ -48,6 +48,6 @@
     "prebuild": "yarn lint",
     "build": "rollup --config rollup.config.js",
     "lint": "eslint app/javascript",
-    "prepublishOnly": "rm -rf src && cp -R app/javascript/spina/conferences src"
+    "prepublishOnly": "rm -rf src && cp -R app/javascript src"
   }
 }
