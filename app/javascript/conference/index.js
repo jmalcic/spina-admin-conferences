@@ -8,7 +8,7 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import { Application } from 'stimulus'
-import * as Controllers from './controllers/index'
+import * as Controllers from './controllers'
 
 const application = Application.start()
 application.register('itemnav', Controllers.ItemnavController)
