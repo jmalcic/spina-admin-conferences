@@ -8,6 +8,8 @@ module Spina
       include ActionView::Helpers::UrlHelper
       include ActiveSupport::Configurable
 
+      attr_reader :request
+
       # Configuration
       config_accessor :output_buffer, :depth # root nodes are at depth 0
 
@@ -32,7 +34,8 @@ module Spina
       end
 
       def render_item(item)
-        link_to item.menu_title, item.materialized_path, class: [@css[:link], (@css[:inactive_link] if current_page?)]
+        link_to item.menu_title, item.materialized_path,
+                class: [@css[:link], (@css[:inactive_link] if current_page?(item.materialized_path))]
       end
 
       def scoped_collection
