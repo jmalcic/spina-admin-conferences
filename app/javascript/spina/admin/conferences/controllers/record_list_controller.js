@@ -3,6 +3,8 @@ import { Controller } from 'stimulus'
 export class RecordListController extends Controller {
   static targets = ['inputId', 'outputOptions']
 
+  route = Function('id', `return ${decodeURIComponent(this.data.get('url'))}`)
+
   updateOptions() {
     fetch(this.route(this.inputIdTarget.value), {
       headers: { 'Accept': 'application/json' }
