@@ -4,7 +4,6 @@ module Spina
   module Admin
     module Conferences
       module ApplicationHelper #:nodoc:
-        include ::Spina::Conferences::WebpackHelper
         include ::Spina::Conferences::AssetHelper
       end
     end

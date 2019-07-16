@@ -27,16 +27,6 @@ module Spina
         ::Spina::Structure.send(:include, Spina::Conferences::StructureExtensions)
         ::Spina::Admin::PagesHelper.send(:include, Spina::Admin::Conferences::PagesHelperExtensions)
       end
-
-      config.after_initialize do
-        @webpacker = ::Webpacker::Instance.new root_path: root, config_path: root.join('config/webpacker.yml')
-      end
-
-      config.app_middleware.use ::ActionDispatch::Static, paths['public'].first
-
-      class << self
-        attr_reader :webpacker
-      end
     end
   end
 end
