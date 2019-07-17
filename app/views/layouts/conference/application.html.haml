@@ -14,7 +14,6 @@
     %title= "#{seo_title  ||  current_account.content(:default_seo_title)} — #{current_account.name}"
     = render 'spina/shared/google_site_verification'
     = render 'spina/shared/analytics'
-    = stylesheet_link_tag 'conference/spina', media: 'all', data: { turbolinks_track: true }
     = render 'hooks/stylesheets'
     = render 'hooks/javascripts'
   %body.bg-light.height-full.d-flex.flex-column
