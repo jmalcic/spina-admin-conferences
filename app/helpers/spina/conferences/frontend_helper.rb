@@ -3,7 +3,6 @@
 module Spina
   module Conferences
     module FrontendHelper #:nodoc:
-      include WebpackHelper
       include AssetHelper
 
       def main_navigation(request, css: {})

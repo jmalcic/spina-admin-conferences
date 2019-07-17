@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'icalendar', '~> 2.5'
   spec.add_dependency 'image_processing', '~> 1.9'
-  spec.add_dependency 'js-routes', '~> 1.4'
   spec.add_dependency 'octicons_helper', '~> 9.1'
   spec.add_dependency 'pg', '>= 0.18', '< 2.0'
   spec.add_dependency 'rails', '~> 6.0.0.rc1'

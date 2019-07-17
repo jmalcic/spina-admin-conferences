@@ -8,13 +8,16 @@ homepage_translation:
   title: Homepage
   locale: en-GB
   translated_model: homepage_page
+  materialized_path: /
 
 information_translation:
   title: Information
   locale: en-GB
   translated_model: information_page
+  materialized_path: /information
 
 about_translation:
   title: About
   locale: en-GB
   translated_model: about_page
+  materialized_path: /about

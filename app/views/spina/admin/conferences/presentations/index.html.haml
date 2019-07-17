@@ -11,7 +11,7 @@
       = t('spina.conferences.presentations.new')
 
     .sliding-dropdown#create_conference_dropdown.align-right
-      .slide{ class: :active, data: { controller: 'presentation-presentation-types presentation-room-uses', 'presentation-type-ids': { url: admin_conferences_conference_presentation_types_path('%s') }, 'presentation-room-use-ids': { url: admin_conferences_presentation_type_room_uses_path('%s') }, 'presentation-dates': { url: admin_conferences_conference_path('%s') } } }
+      .slide{ class: :active, data: { controller: 'presentation-presentation-types presentation-room-uses', 'presentation-presentation-types': { url: "`#{admin_conferences_conference_presentation_types_path('${id}')}`" }, 'presentation-room-uses': { url: "`#{admin_conferences_presentation_type_room_uses_path('${id}')}`" } } }
         = form_for [:admin_conferences, Spina::Conferences::Presentation.new], url: spina.new_admin_conferences_presentation_path, method: :get do |f|
           .form-group
             .form-label

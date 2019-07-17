@@ -1,23 +1,19 @@
-*.gem
 .bundle/
-coverage/
-.env
-.idea/
 log/*.log
+node_modules/
 pkg/
-test/dummy/db/*.sqlite3
-test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/node_modules/
 test/dummy/yarn-error.log
 test/dummy/storage/
 test/dummy/tmp/
-test/dummy/public/assets/
-test/dummy/public/packs*/
 tmp/
-node_modules/
-public/spina-conferences-packs-test/
+
+test/dummy/public/assets
+coverage/
+.env
+.idea/
+*.gem
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-test/dummy/config/master.key
+**/config/master.key

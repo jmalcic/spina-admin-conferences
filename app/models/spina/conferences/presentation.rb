@@ -37,7 +37,7 @@ module Spina
         PresentationImportJob.perform_later IO.read(file)
       end
 
-      def self.seo_description
+      def self.description
         nil
       end
 
@@ -63,7 +63,7 @@ module Spina
 
       # rubocop:enable Metrics/AbcSize
 
-      def seo_description
+      def description
         content('abstract') || nil
       end
 

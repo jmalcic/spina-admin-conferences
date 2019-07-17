@@ -1,0 +1,18 @@
+//=require_tree .
+
+@import spina
+
+input::-webkit-calendar-picker-indicator
+  display: none
+input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner-spin-button, input[type="time"]::-webkit-inner-spin-button, input[type="time"]::-webkit-inner-spin-button
+  display: none
+input[type="date"]
+  padding-right: 30px
+
+.multiple.select-dropdown
+  z-index: 0
+  &:before
+    content: none
+  select
+    padding: 11px 10px
+    width: 100%
