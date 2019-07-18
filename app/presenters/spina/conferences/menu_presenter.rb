@@ -26,7 +26,7 @@ module Spina
       private
 
       def render_menu
-        content_tag(:nav, class: @css[:menu]) { render_items }
+        content_tag(:nav, class: @css[:menu], &method(:render_items))
       end
 
       def render_items
