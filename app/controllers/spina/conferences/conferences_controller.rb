@@ -5,9 +5,9 @@ module Spina
     # User-facing controller for conferences, serving both html and ics
     class ConferencesController < ApplicationController
       include Eventable
+      include Templatable
 
       layout 'conference/application'
-      append_view_path File.expand_path('../../../views/conference', __dir__)
 
       def index
         @conferences = Conference.includes(:institution).sorted

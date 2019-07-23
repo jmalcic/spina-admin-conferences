@@ -5,9 +5,9 @@ module Spina
     # User-facing controller for presentations, serving both html and ics
     class PresentationsController < ApplicationController
       include Eventable
+      include Templatable
 
       layout 'conference/application'
-      append_view_path File.expand_path('../../../views/conference', __dir__)
 
       def show
         @presentation = Presentation.includes(:presentation_type,
