@@ -104,6 +104,37 @@ en-GB:
       saving: Saving…
       saved: Page saved
 
+      homepage_jumbotron:
+        more_info: More info
+      committee_bios:
+        title: Committee bios
+        twitter: Twitter
+        facebook: Facebook
+        name_and_role: "%{name}, %{role}"
+        contact_buttons: Contact buttons
+      constitution:
+        title: Constitution
+        uploaded: Uploaded %{date}
+        download: Download
+      contact:
+        title: Contact
+      minutes:
+        title: Minutes
+      minutes_item:
+        minutes_html: Minutes for %{date}
+        download: Download
+      partner_societies:
+        title: Partner societies
+      partner_society:
+        website: Website
+        email: Email
+        contact_buttons: Contact buttons
+
+    image_collections:
+      image_collection:
+        previous: Previous
+        next: Next
+
     resources:
       edit: Edit resource
 
@@ -188,6 +219,22 @@ en-GB:
         rooms: Rooms
         content: Content
         import: Import CSV
+
+        index:
+          subscribe: Subscribe
+
+        show:
+          dates_html: "%{start_date} to %{finish_date}"
+          submit_by_html: Submit abstracts by %{date}
+          submit_abstract: Submit an abstract
+          tabs:
+            information: Information
+            presentations: Presentations
+            events: Events
+          subscribe: Subscribe
+
+        sponsors:
+          title: Sponsors
 
       delegates:
         new: New delegate
@@ -386,57 +433,58 @@ en-GB:
         role: Role
         last_logged_in: Last logged in
 
-      spina/conferences/conference:
-        institution: Institution
-        institution_and_year: Institution and year
-        city: City
-        start_date: Start date
-        finish_date: Finish date
-        rooms: Rooms
-        rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
+      spina/conferences:
+        conference:
+          institution: Institution
+          institution_and_year: Institution and year
+          city: City
+          start_date: Start date
+          finish_date: Finish date
+          rooms: Rooms
+          rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
 
-      spina/conferences/delegate:
-        first_name: First name
-        last_name: Last name
-        name: Name
-        institution: Institution
-        email_address: Email address
-        url: Website
-        conferences: Conferences
-        conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
-        dietary_requirements: Dietary requirements
-        dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
+        delegate:
+          first_name: First name
+          last_name: Last name
+          name: Name
+          institution: Institution
+          email_address: Email address
+          url: Website
+          conferences: Conferences
+          conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
+          dietary_requirements: Dietary requirements
+          dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
 
-      spina/conferences/presentation:
-        title: Title
-        date: Date
-        start_time: Start time
-        start_time_description: Enter in 24-hour format using a colon as the divider
-        abstract: Abstract
-        room_type: Type
-        presenters: Presenters
-        presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-        conference: Conference
-        room_use: Room used
+        presentation:
+          title: Title
+          date: Date
+          start_time: Start time
+          start_time_description: Enter in 24-hour format using a colon as the divider
+          abstract: Abstract
+          room_type: Type
+          presenters: Presenters
+          presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
+          conference: Conference
+          room_use: Room used
 
-      spina/conferences/presentation_type:
-        name: Name
-        duration: Duration
-        duration_description: Enter in minutes
-        room_uses: Rooms used
-        room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
+        presentation_type:
+          name: Name
+          duration: Duration
+          duration_description: Enter in minutes
+          room_uses: Rooms used
+          room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
 
-      spina/conferences/dietary_requirement:
-        name: Name
+        dietary_requirement:
+          name: Name
 
-      spina/conferences/institution:
-        name: Name
-        city: City
-        logo: Logo
+        institution:
+          name: Name
+          city: City
+          logo: Logo
 
-      spina/conferences/room:
-        building: Building
-        number: Number
+        room:
+          building: Building
+          number: Number
 
     errors:
       messages:
@@ -457,3 +505,16 @@ en-GB:
     en-GB: British English
     en: English
     nl: Dutch
+  shared:
+    empty_list:
+      no_items: No %{items} have been added
+    cookies:
+      title: About cookies
+      purpose: We use cookies for security, functionality, and analytics purposes.
+      no_advertizing: We do not use Google Analytics Advertising features.
+      used:
+        rails_html: We use the %{cookie} cookie to track sessions.
+        google_analytics_html: Google Analytics sets the %{cookies} cookies for analytics purposes.
+    footer:
+      copyright: © %{name} %{year}
+      find_on_github: Find us on GitHub
