@@ -5,9 +5,9 @@
       = link_to conference.name, spina.conferences_conference_path(conference)
     .text-gray
       %div
-        = time_tag conference.start_date, l(conference.start_date, format: :long)
+        = time_tag conference.start_date
         to
-        = time_tag conference.finish_date, l(conference.finish_date, format: :long)
+        = time_tag conference.finish_date
       %address<
         = "#{conference.institution.name}"
         = ", #{conference.institution.city}" unless conference.institution.name.include? conference.institution.city

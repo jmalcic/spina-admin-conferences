@@ -1,7 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import { uglify } from 'rollup-plugin-uglify'
-import postcss from 'rollup-plugin-postcss'
 
 const uglifyOptions = {
   mangle: false,
@@ -10,10 +9,6 @@ const uglifyOptions = {
     beautify: true,
     indent_level: 2
   }
-}
-
-const postcssOptions = {
-  extract: true
 }
 
 export default [{
@@ -39,15 +34,5 @@ export default [{
     resolve(),
     babel(),
     uglify(uglifyOptions)
-  ]
-}, {
-  input: 'app/javascript/conference/styles/application.sass',
-  output: {
-    file: 'app/assets/stylesheets/conference/application.css',
-    format: 'umd',
-    name: 'Conference'
-  },
-  plugins: [
-    postcss(postcssOptions)
   ]
 }]

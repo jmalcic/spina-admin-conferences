@@ -1,0 +1,12 @@
+.flex-auto.pl-md-4
+  %h3.d-flex.flex-wrap.mb-1
+    .flex-auto= partner_society.content(:name)
+    .BtnGroup.mt-1.mt-sm-0{ role: :group, aria: { label: t(:'.contact_buttons') } }
+      = link_to partner_society.content(:website), class: %w[btn BtnGroup-item], role: :button do
+        = octicon 'browser'
+        = t :'.website'
+      = link_to "mailto:#{partner_society.content(:email_address)}", class: %w[btn BtnGroup-item], role: :button do
+        = octicon 'mail'
+        = t :'.email'
+  .text-gray= partner_society.content(:description).try(:html_safe) if partner_society.has_content? :description
+= responsive_image_tag partner_society.content(:logo).file, variant: { resize_to_limit: [200, 150] }, draggable: false, class: 'flex-shrink-0' if partner_society.has_content? :logo

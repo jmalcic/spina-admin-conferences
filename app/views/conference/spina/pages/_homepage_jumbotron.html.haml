@@ -1,0 +1,10 @@
+.py-3.py-lg-6
+  .text-white
+    %p.h000-mktg.text-shadow-dark.lh-condensed-ultra= latest_conference.name
+    %address.f2-light.text-shadow-dark= latest_conference.institution.name
+    %time.f2-light.text-shadow-dark<
+      = time_tag latest_conference.start_date, latest_conference.start_date.strftime('%d/%m')
+      –
+      = time_tag latest_conference.finish_date, latest_conference.finish_date.strftime('%d/%m')
+    .markdown-body.my-4.text-shadow-dark= content(:text).try(:html_safe)
+    .d-block.mt-4= link_to t(:'.more_info'), spina.conferences_conference_path(latest_conference), class: %w(btn btn-large f3)

@@ -31,6 +31,38 @@
 
 en:
   spina:
+    pages:
+      homepage_jumbotron:
+        more_info: More info
+      committee_bios:
+        title: Committee bios
+        twitter: Twitter
+        facebook: Facebook
+        name_and_role: "%{name}, %{role}"
+        contact_buttons: Contact buttons
+      constitution:
+        title: Constitution
+        uploaded: Uploaded %{date}
+        download: Download
+      contact:
+        title: Contact
+      minutes:
+        title: Minutes
+      minutes_item:
+        minutes_html: Minutes for %{date}
+        download: Download
+      partner_societies:
+        title: Partner societies
+      partner_society:
+        website: Website
+        email: Email
+        contact_buttons: Contact buttons
+
+    image_collections:
+      image_collection:
+        previous: Previous
+        next: Next
+
     email: Email
 
     media_library:
@@ -54,6 +86,22 @@ en:
         rooms: Rooms
         content: Content
         import: Import CSV
+
+        index:
+          subscribe: Subscribe
+
+        show:
+          dates_html: "%{start_date} to %{finish_date}"
+          submit_by_html: Submit abstracts by %{date}
+          submit_abstract: Submit an abstract
+          tabs:
+            information: Information
+            presentations: Presentations
+            events: Events
+          subscribe: Subscribe
+
+        sponsors:
+          title: Sponsors
 
       delegates:
         new: New delegate
@@ -84,6 +132,16 @@ en:
         presenters: Presenters
         content: Content
         import: Import CSV
+
+        handout:
+          download: Download handout
+        poster:
+          download: Download poster
+        slides:
+          download: Download slides
+
+        show:
+          download_event: Download event
 
       website:
         presentations: Presentations
@@ -236,3 +294,16 @@ en:
 
   languages:
     en-GB: British English
+  shared:
+    empty_list:
+      no_items: No %{items} have been added
+    cookies:
+      title: About cookies
+      purpose: We use cookies for security, functionality, and analytics purposes.
+      no_advertizing: We do not use Google Analytics Advertising features.
+      used:
+        rails_html: We use the %{cookie} cookie to track sessions.
+        google_analytics_html: Google Analytics sets the %{cookies} cookies for analytics purposes.
+    footer:
+      copyright: © %{name} %{year}
+      find_on_github: Find us on GitHub

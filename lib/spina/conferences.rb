@@ -3,7 +3,6 @@
 require 'spina'
 require 'spina/conferences/engine'
 require 'spina/conferences/theme_extensions'
-require 'spina/conferences/pages_controller_extensions'
 require 'spina/conferences/partable_extensions'
 require 'spina/conferences/option_extensions'
 require 'spina/conferences/structure_extensions'

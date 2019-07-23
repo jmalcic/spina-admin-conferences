@@ -1,9 +1,9 @@
 - content_for :header do
   .my-4
-    %h1 Conferences
+    %h1= Spina::Conferences::Conference.model_name.human.pluralize
 
 - content_for :content do
   = link_to spina.conferences_conferences_url(protocol: :webcal, format: :ics), class: %w[btn btn-primary], role: :button do
     = octicon 'calendar'
-    Subscribe
+    = t :'.subscribe'
   %ul= render Spina::Conferences::Conference.sorted, cached: true

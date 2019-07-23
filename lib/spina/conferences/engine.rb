@@ -4,7 +4,6 @@ module Spina
   module Conferences
     class Engine < ::Rails::Engine #:nodoc:
       isolate_namespace Spina::Conferences
-      paths['public'] = 'public'
 
       config.before_initialize do
         ::Spina::Theme.send(:include, Spina::Conferences::ThemeExtensions)
@@ -21,7 +20,7 @@ module Spina
         # Add patches
         page_partables = [::Spina::Attachment, ::Spina::AttachmentCollection, ::Spina::Image, ::Spina::ImageCollection,
                           ::Spina::Line, ::Spina::Option, ::Spina::Structure, ::Spina::Text]
-        ::Spina::PagesController.send(:include, Spina::Conferences::PagesControllerExtensions)
+        ::Spina::PagesController.send(:include, Spina::Conferences::Templatable)
         page_partables.each { |partable| partable.send(:include, Spina::Conferences::PartableExtensions) }
         ::Spina::Option.send(:include, Spina::Conferences::OptionExtensions)
         ::Spina::Structure.send(:include, Spina::Conferences::StructureExtensions)
