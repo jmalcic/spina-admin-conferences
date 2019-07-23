@@ -10,7 +10,7 @@
         .d-flex.flex-justify-between.flex-items-center.height-full
           %button.btn.btn-transparent{ type: :button, data: { action: :'slideshow#previous' } }
             = octicon 'arrow-left'
-            .d-none.d-sm-inline Previous
+            .d-none.d-sm-inline= t :'.previous'
           %button.btn.btn-transparent{ type: :button, data: { action: :'slideshow#next' } }
-            .d-none.d-sm-inline Next
+            .d-none.d-sm-inline= t :'.next'
             = octicon 'arrow-right'

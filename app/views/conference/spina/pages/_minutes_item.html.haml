@@ -1,0 +1,4 @@
+.flex-auto.pr-1= t :'.minutes_html', date: time_tag(minutes.content(:date))
+= link_to main_app.rails_blob_path(minutes.content(:attachment), disposition: :attachment), class: 'btn' do
+  = octicon 'desktop-download'
+  = t :'.download'

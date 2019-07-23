@@ -1,0 +1,12 @@
+%details.details-overlay
+  %summary.btn
+    = octicon 'info'
+    = t :'.title'
+  .position-relative.bg-white.p-3.border{ style: 'z-index: 100' }
+    = t :'.purpose'
+    %br
+    = t :'.used.rails_html', cookie: content_tag(:code, Rails.application.config.session_options[:key])
+    %br
+    = t :'.used.google_analytics_html', cookies: link_to(%w[_ga _gat _gid].collect{ |cookie| content_tag(:code, cookie) }.to_sentence.html_safe, 'https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage')
+    %br
+    = t :'.no_advertizing'
