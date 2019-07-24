@@ -104,37 +104,6 @@ en-GB:
       saving: Saving…
       saved: Page saved
 
-      homepage_jumbotron:
-        more_info: More info
-      committee_bios:
-        title: Committee bios
-        twitter: Twitter
-        facebook: Facebook
-        name_and_role: "%{name}, %{role}"
-        contact_buttons: Contact buttons
-      constitution:
-        title: Constitution
-        uploaded: Uploaded %{date}
-        download: Download
-      contact:
-        title: Contact
-      minutes:
-        title: Minutes
-      minutes_item:
-        minutes_html: Minutes for %{date}
-        download: Download
-      partner_societies:
-        title: Partner societies
-      partner_society:
-        website: Website
-        email: Email
-        contact_buttons: Contact buttons
-
-    image_collections:
-      image_collection:
-        previous: Previous
-        next: Next
-
     resources:
       edit: Edit resource
 
@@ -204,6 +173,11 @@ en-GB:
 
     email: Email
 
+    image_collections:
+      image_collection:
+        previous: Previous
+        next: Next
+
     conferences:
       title: Conferences
 
@@ -219,22 +193,6 @@ en-GB:
         rooms: Rooms
         content: Content
         import: Import CSV
-
-        index:
-          subscribe: Subscribe
-
-        show:
-          dates_html: "%{start_date} to %{finish_date}"
-          submit_by_html: Submit abstracts by %{date}
-          submit_abstract: Submit an abstract
-          tabs:
-            information: Information
-            presentations: Presentations
-            events: Events
-          subscribe: Subscribe
-
-        sponsors:
-          title: Sponsors
 
       delegates:
         new: New delegate
@@ -518,3 +476,61 @@ en-GB:
     footer:
       copyright: © %{name} %{year}
       find_on_github: Find us on GitHub
+
+  conference:
+    spina:
+      pages:
+        homepage_jumbotron:
+          more_info: More info
+        committee_bios:
+          title: Committee bios
+          twitter: Twitter
+          facebook: Facebook
+          name_and_role: "%{name}, %{role}"
+          contact_buttons: Contact buttons
+        constitution:
+          title: Constitution
+          uploaded: Uploaded %{date}
+          download: Download
+        contact:
+          title: Contact
+        minutes:
+          title: Minutes
+        minutes_item:
+          minutes_html: Minutes for %{date}
+          download: Download
+        partner_societies:
+          title: Partner societies
+        partner_society:
+          website: Website
+          email: Email
+          contact_buttons: Contact buttons
+
+      conferences:
+        conferences:
+          index:
+            subscribe: Subscribe
+
+          show:
+            dates_html: "%{start_date} to %{finish_date}"
+            submit_by_html: Submit abstracts by %{date}
+            submit_abstract: Submit an abstract
+            tabs:
+              information: Information
+              presentations: Presentations
+              events: Events
+            subscribe: Subscribe
+
+          sponsors:
+            title: Sponsors
+
+        presentations:
+          handout:
+            download: Download handout
+          poster:
+            download: Download poster
+          slides:
+            download: Download slides
+
+          show:
+            download_event: Download event

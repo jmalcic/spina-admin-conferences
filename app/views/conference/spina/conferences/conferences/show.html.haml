@@ -25,7 +25,7 @@
       .UnderlineNav-body
         %button.btn-link.UnderlineNav-item.selected{ title: t(:'.tabs.information'), target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } }= t(:'.tabs.information')
         %button.btn-link.UnderlineNav-item{ title: t(:'.tabs.presentations'), target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } }= t(:'.tabs.presentations')
-        %button.btn-link.UnderlineNav-item{ title: t(:'.tabs.presentations'), target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } }= t(:'.tabs.presentations')
+        %button.btn-link.UnderlineNav-item{ title: t(:'.tabs.events'), target: '_self', role: 'tab', data: { target: 'underlinenav.item', action: 'underlinenav#select' } }= t(:'.tabs.events')
     .markdown-body.my-4{ data: { target: 'underlinenav.itemContent' } }= render part(:text)
     %div{ data: { target: 'underlinenav.itemContent' } }
       = render 'shared/subnav', collection: @conference.presentation_types.order(:name), method: :name, cached: true do
