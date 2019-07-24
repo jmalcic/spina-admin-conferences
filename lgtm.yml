@@ -1,3 +1,4 @@
+---
 path_classifiers:
   generated:
     - app/assets/javascripts/spina/admin/conferences/application.js
