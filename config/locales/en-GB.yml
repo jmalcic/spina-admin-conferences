@@ -476,6 +476,11 @@ en-GB:
     footer:
       copyright: © %{name} %{year}
       find_on_github: Find us on GitHub
+    list_item:
+      name_and_role: "%{name}, %{role}"
+      twitter: Twitter
+      facebook: Facebook
+      contact_buttons: Contact buttons
 
   conference:
     spina:
@@ -484,10 +489,6 @@ en-GB:
           more_info: More info
         committee_bios:
           title: Committee bios
-          twitter: Twitter
-          facebook: Facebook
-          name_and_role: "%{name}, %{role}"
-          contact_buttons: Contact buttons
         constitution:
           title: Constitution
           uploaded: Uploaded %{date}
