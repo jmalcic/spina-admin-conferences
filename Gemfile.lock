@@ -6,8 +6,8 @@ PATH
       image_processing (~> 1.9)
       octicons_helper (~> 9.1)
       pg (>= 0.18, < 2.0)
-      rails (~> 6.0.0.rc1)
-      rails-i18n (~> 6.0.0.beta1)
+      rails (= 6.0.0.rc1)
+      rails-i18n (= 6.0.0.beta1)
       spina (~> 1.0)
       webpacker (~> 4.0)
 
