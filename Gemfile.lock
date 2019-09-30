@@ -172,7 +172,7 @@ GEM
     mono_logger (1.1.0)
     multi_json (1.13.1)
     mustermann (1.0.3)
-    nio4r (2.4.0)
+    nio4r (2.5.2)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     octicons (9.1.1)
@@ -182,7 +182,7 @@ GEM
       rails
     pg (1.1.4)
     public_suffix (3.1.1)
-    puma (4.0.1)
+    puma (4.2.0)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-protection (2.0.5)
