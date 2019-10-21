@@ -202,6 +202,11 @@
     description: 'Contains general information',
     page_parts: %w[text]
   }, {
+    name: 'show',
+    title: 'Blank',
+    description: 'Blank template',
+    page_parts: []
+  }, {
     name: 'about',
     title: 'About',
     description: 'Contains information about the society',
