@@ -31,6 +31,7 @@
 
 en:
   spina:
+    show: Show
     pages:
       homepage_jumbotron:
         more_info: More info
@@ -125,6 +126,9 @@ en:
         institutions: Institutions
         rooms: Rooms
         dietary_requirements: Dietary requirements
+        inbound_emails: Inbound emails
+        outbound_emails: Outbound emails
+        mailboxes: Mailboxes
 
       presentation_types:
         new: New presentation type
@@ -167,6 +171,25 @@ en:
 
       room_uses:
         no_room_uses: There are no rooms in use
+
+      inbound_emails:
+        save: Save inbound email
+        delete_confirmation: "Are you sure you want to delete the inbound email <strong>%{inbound_email}</strong>?"
+        no_inbound_emails: There are no inbound emails
+        mark_unread: Mark as unread
+        reply: Reply
+
+      outbound_emails:
+        new: New outbound email
+        save: Save outbound email
+        delete_confirmation: "Are you sure you want to delete the outbound email <strong>%{outbound_email}</strong>?"
+        no_outbound_emails: There are no outbound emails
+
+      mailboxes:
+        new: New mailbox
+        save: Save mailbox
+        delete_confirmation: "Are you sure you want to delete the mailbox <strong>%{mailbox}</strong>?"
+        no_mailboxes: There are no mailboxes
 
   activerecord:
     models:
