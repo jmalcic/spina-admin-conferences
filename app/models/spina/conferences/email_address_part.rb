@@ -8,7 +8,7 @@ module Spina
       has_many :layout_parts, as: :layout_partable
       has_many :structure_parts, as: :structure_partable
 
-      validates :content, email_address: true
+      validates :content, email_address: true, allow_blank: true
     end
   end
 end
