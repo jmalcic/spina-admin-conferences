@@ -6,9 +6,12 @@
 #
 homepage_page:
   name: homepage
+  view_template: homepage
 
 information_page:
   name: information
+  view_template: information
 
 about_page:
   name: about
+  view_template: about
