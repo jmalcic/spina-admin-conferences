@@ -2,7 +2,8 @@
 
 module Spina
   module Conferences
-    class ApplicationMailer < ActionMailer::Base #:nodoc:
+    # Base mailer from which other mailers inherit
+    class ApplicationMailer < ActionMailer::Base
       default from: 'from@example.com'
       layout 'mailer'
     end
