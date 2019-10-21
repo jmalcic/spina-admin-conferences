@@ -21,3 +21,9 @@ about_translation:
   locale: en-GB
   translated_model: about_page
   materialized_path: /about
+
+blank_translation:
+  title: Blank
+  locale: en-GB
+  translated_model: blank_page
+  materialized_path: /blank

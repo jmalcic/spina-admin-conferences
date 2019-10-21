@@ -15,3 +15,6 @@ information_page:
 about_page:
   name: about
   view_template: about
+
+blank_page:
+  name: blank
