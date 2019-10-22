@@ -13,7 +13,7 @@ class HttpUrlValidator < ActiveModel::EachValidator
   def parse(*values)
     values.each do |value|
       uri = URI.parse(value)
-      return false unless uri.is_a?(URI::HTTP) && uri.host.present?
+      return uri.is_a?(URI::HTTP) && uri.host.present?
     end
   rescue URI::InvalidURIError
     false

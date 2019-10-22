@@ -13,7 +13,7 @@ class EmailAddressValidator < ActiveModel::EachValidator
   def parse(*values)
     values.each do |value|
       address = Mail::Address.new(value)
-      return false unless address.domain.present? && address.local.present?
+      return address.domain.present? && address.local.present?
     end
   rescue Mail::Field::IncompleteParseError
     false
