@@ -6,7 +6,7 @@
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
   %span{ data: { dropdown: true } }
-    = link_to spina.new_admin_conferences_presentation_path(params: { institution: Spina::Conferences::Conference&.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: { trigger: ('dropdown' if Spina::Conferences::Conference.many?), target: '#create_conference_dropdown' } do
+    = link_to spina.new_admin_conferences_presentation_path(params: { institution: Spina::Conferences::Conference.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: { trigger: ('dropdown' if Spina::Conferences::Conference.many?), target: '#create_conference_dropdown' } do
       = icon('plus')
       = t('spina.conferences.presentations.new')
 

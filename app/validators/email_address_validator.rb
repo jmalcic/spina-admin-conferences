@@ -2,14 +2,20 @@
 
 # This class validates the format of the email address of an object.
 class EmailAddressValidator < ActiveModel::EachValidator
-  def parse(value)
-    address = Mail::Address.new(value)
-    address.domain.present? && address.local.present?
-  rescue Mail::Field::IncompleteParseError
-    false
+  def validate_each(record, attribute, value)
+    return if value.blank?
+
+    record.errors.add(attribute, :invalid_email_address) unless parse(value)
   end
 
-  def validate_each(record, attribute, value)
-    record.errors.add(attribute, :invalid_email_address) unless value.blank? || parse(value)
+  private
+
+  def parse(*values)
+    values.each do |value|
+      address = Mail::Address.new(value)
+      return address.domain.present? && address.local.present?
+    end
+  rescue Mail::Field::IncompleteParseError
+    false
   end
 end

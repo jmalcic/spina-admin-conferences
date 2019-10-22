@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Prepare the ingress controller used to receive mail
+  # config.action_mailbox.ingress = :postfix
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -57,8 +60,8 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "dummy_production"
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = "dummy_production"
 
   config.action_mailer.perform_caching = false
 

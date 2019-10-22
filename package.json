@@ -25,7 +25,9 @@
   "dependencies": {
     "@primer/css": "^12.4.1",
     "@primer/octicons": "^9.1.1",
-    "stimulus": "^1.1.1"
+    "@rails/actiontext": "^6.0.0-rc1",
+    "stimulus": "^1.1.1",
+    "trix": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

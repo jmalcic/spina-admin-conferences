@@ -95,8 +95,7 @@ module Spina
       end
 
       def update_dates
-        changed_attributes_inquirer = ActiveSupport::ArrayInquirer.new(changed_attributes.keys)
-        return unless changed_attributes_inquirer.any?(:start_date, :finish_date)
+        return unless changed_attributes.keys.inquiry.any?(:start_date, :finish_date)
 
         self.dates = start_date..finish_date
       end
