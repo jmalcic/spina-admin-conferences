@@ -14,8 +14,8 @@ const uglifyOptions = {
 export default [{
   input: 'app/javascript/spina/admin/conferences/application',
   output: {
-    file: 'app/assets/javascripts/spina/admin/conferences/application.js',
-    format: 'umd',
+    file: 'app/assets/javascripts/spina/admin/conferences/application.es6',
+    format: 'esm',
     name: 'Spina::Admin::Conferences'
   },
   plugins: [
@@ -26,8 +26,8 @@ export default [{
 }, {
   input: 'app/javascript/conference/application',
   output: {
-    file: 'app/assets/javascripts/conference/application.js',
-    format: 'umd',
+    file: 'app/assets/javascripts/conference/application.es6',
+    format: 'esm',
     name: 'Conference'
   },
   plugins: [
