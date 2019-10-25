@@ -12,7 +12,7 @@ const uglifyOptions = {
 }
 
 export default [{
-  input: 'app/javascript/spina/admin/conferences',
+  input: 'app/javascript/spina/admin/conferences/application',
   output: {
     file: 'app/assets/javascripts/spina/admin/conferences/application.js',
     format: 'umd',
@@ -24,7 +24,7 @@ export default [{
     uglify(uglifyOptions)
   ]
 }, {
-  input: 'app/javascript/conference',
+  input: 'app/javascript/conference/application',
   output: {
     file: 'app/assets/javascripts/conference/application.js',
     format: 'umd',
