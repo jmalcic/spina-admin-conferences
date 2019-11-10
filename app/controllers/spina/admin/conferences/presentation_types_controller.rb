@@ -32,7 +32,8 @@ module Spina
           @presentation_type = PresentationType.new presentation_type_params
           add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
           if @presentation_type.save
-            redirect_to admin_conferences_presentation_types_path
+            redirect_to admin_conferences_presentation_types_path,
+                        flash: { success: t('spina.conferences.presentation_types.saved') }
           else
             render :new, layout: 'spina/admin/admin'
           end
@@ -42,7 +43,8 @@ module Spina
           @presentation_type = PresentationType.find params[:id]
           add_breadcrumb @presentation_type.name
           if @presentation_type.update(presentation_type_params)
-            redirect_to admin_conferences_presentation_types_path
+            redirect_to admin_conferences_presentation_types_path,
+                        flash: { success: t('spina.conferences.presentation_types.saved') }
           else
             render :edit, layout: 'spina/admin/admin'
           end

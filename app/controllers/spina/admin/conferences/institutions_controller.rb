@@ -34,7 +34,8 @@ module Spina
           @institution = Institution.new(conference_params)
           add_breadcrumb I18n.t('spina.conferences.institutions.new')
           if @institution.save
-            redirect_to admin_conferences_institutions_path
+            redirect_to admin_conferences_institutions_path,
+                        flash: { success: t('spina.conferences.institutions.saved') }
           else
             render :new, layout: 'spina/admin/admin'
           end
@@ -44,7 +45,8 @@ module Spina
           @institution = Institution.find params[:id]
           add_breadcrumb @institution.name
           if @institution.update(conference_params)
-            redirect_to admin_conferences_institutions_path
+            redirect_to admin_conferences_institutions_path,
+                        flash: { success: t('spina.conferences.institutions.saved') }
           else
             render :edit, layout: 'spina/admin/admin'
           end

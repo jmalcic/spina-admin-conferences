@@ -41,7 +41,7 @@ module Spina
           @conference = Conference.new(conference_params)
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
           if @conference.save
-            redirect_to admin_conferences_conferences_path
+            redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
           else
             set_parts
             render :new, layout: 'spina/admin/admin'
@@ -52,7 +52,7 @@ module Spina
           @conference = Conference.find params[:id]
           set_update_breadcrumb
           if @conference.update(conference_params)
-            redirect_to admin_conferences_conferences_path
+            redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
           else
             set_parts
             render :edit, layout: 'spina/admin/admin'

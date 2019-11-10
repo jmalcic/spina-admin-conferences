@@ -33,7 +33,8 @@ module Spina
           @presentation = Presentation.new presentation_params
           add_breadcrumb I18n.t('spina.conferences.presentations.new')
           if @presentation.save
-            redirect_to admin_conferences_presentations_path
+            redirect_to admin_conferences_presentations_path,
+                        flash: { success: t('spina.conferences.presentations.saved') }
           else
             set_parts
             render :new, layout: 'spina/admin/admin'
@@ -44,7 +45,8 @@ module Spina
           @presentation = Presentation.find params[:id]
           add_breadcrumb @presentation.title
           if @presentation.update(presentation_params)
-            redirect_to admin_conferences_presentations_path
+            redirect_to admin_conferences_presentations_path,
+                        flash: { success: t('spina.conferences.presentations.saved') }
           else
             set_parts
             render :edit, layout: 'spina/admin/admin'

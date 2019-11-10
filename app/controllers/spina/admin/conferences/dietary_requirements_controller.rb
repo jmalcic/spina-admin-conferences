@@ -32,7 +32,8 @@ module Spina
           @dietary_requirement = DietaryRequirement.new dietary_requirement_params
           add_breadcrumb I18n.t('spina.conferences.dietary_requirements.new')
           if @dietary_requirement.save
-            redirect_to admin_conferences_dietary_requirements_path
+            redirect_to admin_conferences_dietary_requirements_path,
+                        flash: { success: t('spina.conferences.dietary_requirements.saved') }
           else
             render :new, layout: 'spina/admin/admin'
           end
@@ -42,7 +43,8 @@ module Spina
           @dietary_requirement = DietaryRequirement.find params[:id]
           add_breadcrumb @dietary_requirement.name
           if @dietary_requirement.update(dietary_requirement_params)
-            redirect_to admin_conferences_dietary_requirements_path
+            redirect_to admin_conferences_dietary_requirements_path,
+                        flash: { success: t('spina.conferences.dietary_requirements.saved') }
           else
             render :edit, layout: 'spina/admin/admin'
           end
