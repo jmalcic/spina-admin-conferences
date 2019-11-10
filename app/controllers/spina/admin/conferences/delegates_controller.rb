@@ -30,7 +30,7 @@ module Spina
           @delegate = Delegate.new delegate_params
           add_breadcrumb I18n.t('spina.conferences.delegates.new')
           if @delegate.save
-            redirect_to admin_conferences_delegates_path
+            redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
           else
             render :new, layout: 'spina/admin/admin'
           end
@@ -40,7 +40,7 @@ module Spina
           @delegate = Delegate.find params[:id]
           add_breadcrumb "#{@delegate.first_name} #{@delegate.last_name}"
           if @delegate.update(delegate_params)
-            redirect_to admin_conferences_delegates_path
+            redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
           else
             render :edit, layout: 'spina/admin/admin'
           end

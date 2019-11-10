@@ -13,10 +13,18 @@ module Spina
 
         def index
           @conferences = Conference.sorted
+          respond_to do |format|
+            format.html
+            format.json do
+              render json: @conferences, methods: %i[name localized_dates],
+                     include: { room_possessions: { methods: [:room_name] },
+                                presentation_types: { include: { room_uses: { methods: [:room_name] } } } }
+            end
+          end
         end
 
         def new
-          @conference = params[:conference] ? Conference.new(conference_params) : Conference.new
+          @conference = Conference.new
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
           set_parts
           render layout: 'spina/admin/admin'
@@ -33,7 +41,7 @@ module Spina
           @conference = Conference.new(conference_params)
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
           if @conference.save
-            redirect_to admin_conferences_conferences_path
+            redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
           else
             set_parts
             render :new, layout: 'spina/admin/admin'
@@ -44,7 +52,7 @@ module Spina
           @conference = Conference.find params[:id]
           set_update_breadcrumb
           if @conference.update(conference_params)
-            redirect_to admin_conferences_conferences_path
+            redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
           else
             set_parts
             render :edit, layout: 'spina/admin/admin'

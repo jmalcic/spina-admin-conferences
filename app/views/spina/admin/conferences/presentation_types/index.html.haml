@@ -5,21 +5,9 @@
     = form_with url: import_admin_conferences_presentation_types_path do |f|
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
-  %span{ data: { dropdown: true } }
-    = link_to spina.new_admin_conferences_presentation_type_path(params: { confernce: Spina::Conferences::Conference&.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: { trigger: ('dropdown' if Spina::Conferences::Conference.many?), target: '#create_conference_dropdown' } do
-      = icon('plus')
-      = t('spina.conferences.presentation_types.new')
-
-    .sliding-dropdown#create_conference_dropdown.align-right
-      .slide{ class: :active }
-        = form_for [:admin_presentation_types, Spina::Conferences::PresentationType.new], url: spina.new_admin_conferences_presentation_type_path, method: :get do |f|
-          .form-group
-            .form-label
-              = Spina::Conferences::PresentationType.human_attribute_name :conference
-            .form-control
-              .select-dropdown
-                = f.collection_select :conference_id, Spina::Conferences::Conference.all, :id, :name, { required: true }
-          = f.submit t('spina.conferences.presentation_types.new'), class: 'button button-primary'
+  = link_to spina.new_admin_conferences_presentation_type_path, class: 'button button-primary', style: 'margin-right: 0' do
+    = icon('plus')
+    = t('spina.conferences.presentation_types.new')
 
 .well
   .table-container

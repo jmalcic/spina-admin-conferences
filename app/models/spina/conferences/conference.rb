@@ -115,6 +115,10 @@ module Spina
       def materialized_path
         ::Spina::Engine.routes.url_helpers.conferences_conference_path self
       end
+
+      def localized_dates
+        dates.entries.collect { |date| { date: date.iso8601, localization: I18n.localize(date, format: :long) } }
+      end
     end
   end
 end

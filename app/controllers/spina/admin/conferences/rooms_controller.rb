@@ -29,10 +29,10 @@ module Spina
         end
 
         def create
-          @room = Room.new(conference_params)
+          @room = Room.new(room_params)
           add_breadcrumb I18n.t('spina.conferences.rooms.new')
           if @room.save
-            redirect_to admin_conferences_rooms_path
+            redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
           else
             render :new, layout: 'spina/admin/admin'
           end
@@ -41,8 +41,8 @@ module Spina
         def update
           @room = Room.find params[:id]
           add_breadcrumb @room.name
-          if @room.update(conference_params)
-            redirect_to admin_conferences_rooms_path
+          if @room.update(room_params)
+            redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
           else
             render :edit, layout: 'spina/admin/admin'
           end
@@ -69,7 +69,7 @@ module Spina
           @tabs = %w[room_details presentations]
         end
 
-        def conference_params
+        def room_params
           params.require(:room).permit(:building, :number, :institution_id)
         end
       end

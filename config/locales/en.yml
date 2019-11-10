@@ -87,6 +87,7 @@ en:
         rooms: Rooms
         content: Content
         import: Import CSV
+        saved: Conference saved
 
       delegates:
         new: New delegate
@@ -97,6 +98,7 @@ en:
         conferences: Conferences
         presentations: Presentations
         import: Import CSV
+        saved: Delegate saved
 
       presenters:
         new: New presenter
@@ -117,6 +119,7 @@ en:
         presenters: Presenters
         content: Content
         import: Import CSV
+        saved: Presentation saved
 
       website:
         presentations: Presentations
@@ -126,9 +129,6 @@ en:
         institutions: Institutions
         rooms: Rooms
         dietary_requirements: Dietary requirements
-        inbound_emails: Inbound emails
-        outbound_emails: Outbound emails
-        mailboxes: Mailboxes
 
       presentation_types:
         new: New presentation type
@@ -139,6 +139,7 @@ en:
         presentations: Presentations
         rooms: Rooms
         import: Import CSV
+        saved: Presentation type saved
 
       dietary_requirements:
         new: New dietary requirement
@@ -148,6 +149,7 @@ en:
         dietary_requirement_details: Dietary requirement details
         delegates: Delegates
         import: Import CSV
+        saved: Dietary requirement saved
 
       institutions:
         new: New institution
@@ -159,6 +161,7 @@ en:
         conferences: Conferences
         delegates: Delegates
         import: Import CSV
+        saved: Institution saved
 
       rooms:
         new: New room
@@ -168,28 +171,10 @@ en:
         room_details: Room details
         presentations: Presentations
         import: Import CSV
+        saved: Room saved
 
       room_uses:
         no_room_uses: There are no rooms in use
-
-      inbound_emails:
-        save: Save inbound email
-        delete_confirmation: "Are you sure you want to delete the inbound email <strong>%{inbound_email}</strong>?"
-        no_inbound_emails: There are no inbound emails
-        mark_unread: Mark as unread
-        reply: Reply
-
-      outbound_emails:
-        new: New outbound email
-        save: Save outbound email
-        delete_confirmation: "Are you sure you want to delete the outbound email <strong>%{outbound_email}</strong>?"
-        no_outbound_emails: There are no outbound emails
-
-      mailboxes:
-        new: New mailbox
-        save: Save mailbox
-        delete_confirmation: "Are you sure you want to delete the mailbox <strong>%{mailbox}</strong>?"
-        no_mailboxes: There are no mailboxes
 
   activerecord:
     models:
@@ -286,8 +271,15 @@ en:
       invalid_email_address: is not an email address
       invalid_time: is not a time
       invalid_date: is not a date
-      before_start_date: is not after start date
+      before_start_date: is before start date
       invalid_http_https_url: is not a valid HTTP or HTTPS URL
+    models:
+      spina/conferences/room_use:
+        attributes:
+          room_use:
+            does_not_belong_to_associated_conference: does not belong to the associated conference
+          room_possession:
+            does_not_belong_to_associated_institution: does not belong to the associated institution
 
   languages:
     en-GB: British English
@@ -308,6 +300,9 @@ en:
       name_and_role: "%{name}, %{role}"
       twitter: Twitter
       facebook: Facebook
+    subnav:
+      subnav:
+        subscribe: Subscribe
 
   conference:
     spina:

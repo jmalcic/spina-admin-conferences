@@ -37,6 +37,7 @@ module Spina
             }
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
+          assert_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to create invalid dietary requirement' do
@@ -45,6 +46,7 @@ module Spina
                  params: { dietary_requirement: @invalid_dietary_requirement.attributes }
           end
           assert_response :success
+          assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -60,12 +62,14 @@ module Spina
             dietary_requirement: @dietary_requirement.attributes
           }
           assert_redirected_to admin_conferences_dietary_requirements_url
+          assert_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to update invalid dietary requirement' do
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
                 params: { dietary_requirement: @invalid_dietary_requirement.attributes }
           assert_response :success
+          assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should destroy dietary requirement' do

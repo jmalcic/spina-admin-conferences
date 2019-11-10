@@ -21,8 +21,6 @@ module Spina
         test 'should get index' do
           get admin_conferences_presentation_types_url
           assert_response :success
-          get admin_conferences_conference_presentation_types_url(conference_id: @conference.id)
-          assert_response :success
         end
 
         test 'should get new' do
@@ -48,6 +46,7 @@ module Spina
             post admin_conferences_presentation_types_url, params: { presentation_type: attributes }
           end
           assert_redirected_to admin_conferences_presentation_types_url
+          assert_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should fail to create invalid presentation type' do
@@ -56,6 +55,7 @@ module Spina
                  params: { presentation_type: @invalid_presentation_type.attributes }
           end
           assert_response :success
+          assert_not_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -74,12 +74,14 @@ module Spina
             presentation_type: @presentation_type.attributes
           }
           assert_redirected_to admin_conferences_presentation_types_url
+          assert_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation type' do
           patch admin_conferences_presentation_type_url(@presentation_type),
                 params: { presentation_type: @invalid_presentation_type.attributes }
           assert_response :success
+          assert_not_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should destroy presentation type' do

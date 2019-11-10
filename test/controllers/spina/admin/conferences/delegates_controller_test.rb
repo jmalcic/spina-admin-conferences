@@ -39,6 +39,7 @@ module Spina
             post admin_conferences_delegates_url, params: { delegate: attributes }
           end
           assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to create invalid delegate' do
@@ -46,6 +47,7 @@ module Spina
             post admin_conferences_delegates_url, params: { delegate: @invalid_delegate.attributes }
           end
           assert_response :success
+          assert_not_equal 'Delegate saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -62,12 +64,14 @@ module Spina
         test 'should update delegate' do
           patch admin_conferences_delegate_url(@delegate), params: { delegate: @delegate.attributes }
           assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate' do
           patch admin_conferences_delegate_url(@delegate),
                 params: { delegate: @invalid_delegate.attributes }
           assert_response :success
+          assert_not_equal 'Delegate saved', flash[:success]
         end
 
         test 'should destroy delegate' do

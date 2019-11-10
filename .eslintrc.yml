@@ -23,3 +23,10 @@ rules:
   semi:
     - error
     - never
+overrides:
+  - files:
+      - '**/assets/javascripts/**'
+    rules:
+      no-undef:
+        - off
+

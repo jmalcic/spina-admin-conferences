@@ -19,6 +19,9 @@ module Spina
         test 'should get index' do
           get admin_conferences_institutions_url
           assert_response :success
+          get admin_conferences_institutions_url, as: :json
+          assert_response :success
+          assert_equal 'application/json', @response.media_type
         end
 
         test 'should get new' do
@@ -40,6 +43,7 @@ module Spina
             post admin_conferences_institutions_url, params: { institution: @institution.attributes }
           end
           assert_redirected_to admin_conferences_institutions_url
+          assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to create invalid institution' do
@@ -47,6 +51,7 @@ module Spina
             post admin_conferences_institutions_url, params: { institution: @invalid_institution.attributes }
           end
           assert_response :success
+          assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -66,12 +71,14 @@ module Spina
         test 'should update institution' do
           patch admin_conferences_institution_url(@institution), params: { institution: @institution.attributes }
           assert_redirected_to admin_conferences_institutions_url
+          assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution' do
           patch admin_conferences_institution_url(@institution),
                 params: { institution: @invalid_institution.attributes }
           assert_response :success
+          assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should destroy institution' do

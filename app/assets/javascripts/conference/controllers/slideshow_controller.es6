@@ -1,7 +1,7 @@
-import { Controller } from 'stimulus'
-
-export class SlideshowController extends Controller {
-  static targets = ['slide']
+export class SlideshowController extends Stimulus.Controller {
+  static get targets() {
+    return ['slide']
+  }
 
   get incrementer() {
     return Number.parseInt(this.data.get('incrementer'))
