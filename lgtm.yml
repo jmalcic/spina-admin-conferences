@@ -1,6 +1,0 @@
----
-path_classifiers:
-  generated:
-    - app/assets/javascripts/spina/admin/conferences/application.es6
-    - app/assets/javascripts/conference/application.es6
-    - app/assets/stylesheets/conference/application.css
