@@ -23,23 +23,15 @@
   },
   "homepage": "https://jmalcic.github.io/projects/spina-conferences",
   "dependencies": {
-    "@primer/css": "^12.4.1",
+    "@primer/css": "^13.2.0",
     "@primer/octicons": "^9.1.1",
     "@rails/actiontext": "^6.0.0-rc1",
-    "stimulus": "^1.1.1",
+    "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz",
     "trix": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/preset-env": "^7.5.4",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^6.5.1",
-    "karma": "^4.2.0",
-    "rollup": "^1.16.7",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-uglify": "^6.0.2"
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1"
   },
   "scripts": {
     "prebuild": "yarn lint",
