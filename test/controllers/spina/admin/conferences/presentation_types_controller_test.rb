@@ -21,8 +21,6 @@ module Spina
         test 'should get index' do
           get admin_conferences_presentation_types_url
           assert_response :success
-          get admin_conferences_conference_presentation_types_url(conference_id: @conference.id)
-          assert_response :success
         end
 
         test 'should get new' do

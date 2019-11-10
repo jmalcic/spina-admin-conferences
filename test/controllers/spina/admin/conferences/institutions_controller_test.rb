@@ -19,6 +19,9 @@ module Spina
         test 'should get index' do
           get admin_conferences_institutions_url
           assert_response :success
+          get admin_conferences_institutions_url, as: :json
+          assert_response :success
+          assert_equal 'application/json', @response.media_type
         end
 
         test 'should get new' do
