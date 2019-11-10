@@ -25,6 +25,7 @@ module Spina
         test 'creating a presentation' do
           visit admin_conferences_presentations_url
           click_on 'New presentation'
+          assert_selector '.horizontal-form[data-select-options-records-values]'
           select @presentation.conference.name, from: 'conference_id'
           select @presentation.presentation_type.name, from: 'presentation_type_id'
           select @presentation.room_use.room_name, from: 'presentation_room_use_id'
