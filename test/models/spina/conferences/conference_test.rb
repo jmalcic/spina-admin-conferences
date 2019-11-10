@@ -78,6 +78,16 @@ module Spina
         assert @conference.to_ics.class == Icalendar::Event
         assert Conference.new.to_ics.class == Icalendar::Event
       end
+
+      test 'returns an array of localized dates' do
+        assert_equal @conference.localized_dates.first[:date], @conference.dates.begin.iso8601
+        assert_equal @conference.localized_dates.first[:localization],
+                     I18n.localize(@conference.dates.begin, format: :long)
+        assert_equal @conference.localized_dates.size, @conference.dates.entries.size
+        I18n.locale = :en
+        assert_equal @conference.localized_dates.first[:localization],
+                     I18n.localize(@conference.dates.begin, format: :long)
+      end
     end
   end
 end
