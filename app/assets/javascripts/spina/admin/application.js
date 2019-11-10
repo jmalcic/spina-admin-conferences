@@ -48,3 +48,5 @@
 // Scaffolding
 
 //= require spina/admin/scaffold
+
+//= require spina/admin/conferences/routes

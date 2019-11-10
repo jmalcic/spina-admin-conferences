@@ -12,10 +12,11 @@ Spina::Engine.routes.draw do
       root to: 'conferences#index'
       resources :conferences, except: [:show] do
         post :import, on: :collection
-        resources :presentation_types, only: [:index]
+        resources :room_possessions, only: [:index]
       end
       resources :institutions, except: [:show] do
         post :import, on: :collection
+        resources :rooms, only: [:index]
       end
       resources :rooms, except: [:show] do
         post :import, on: :collection
@@ -28,7 +29,6 @@ Spina::Engine.routes.draw do
       end
       resources :presentation_types do
         post :import, on: :collection
-        resources :room_uses, only: [:index]
       end
       resources :dietary_requirements, except: [:show] do
         post :import, on: :collection

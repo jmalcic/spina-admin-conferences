@@ -13,6 +13,14 @@ module Spina
 
         def index
           @conferences = Conference.sorted
+          respond_to do |format|
+            format.html
+            format.json do
+              render json: @conferences, methods: %i[name localized_dates],
+                     include: { room_possessions: { methods: [:room_name] },
+                                presentation_types: { include: { room_uses: { methods: [:room_name] } } } }
+            end
+          end
         end
 
         def new

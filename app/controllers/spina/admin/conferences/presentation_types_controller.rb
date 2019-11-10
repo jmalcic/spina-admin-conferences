@@ -13,15 +13,7 @@ module Spina
         layout 'spina/admin/conferences/conferences'
 
         def index
-          @presentation_types = if params[:conference_id]
-                                  Conference.find(params[:conference_id]).presentation_types.sorted
-                                else
-                                  PresentationType.sorted
-                                end
-          respond_to do |format|
-            format.html
-            format.json { render json: @presentation_types }
-          end
+          @presentation_types = PresentationType.sorted
         end
 
         def new

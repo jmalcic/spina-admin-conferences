@@ -21,20 +21,7 @@
 
       %tbody
         - if @delegates.any?
-          - @delegates.each do |delegate|
-            %tr
-              %td= link_to delegate.full_name, spina.edit_admin_conferences_delegate_path(delegate)
-              %td
-                = delegate.email_address
-                - unless delegate.email_address.blank?
-                  = mail_to delegate.email_address, class: 'button button-small button-link' do
-                    = icon('mail')
-                    = t('spina.email')
-              %td= delegate.institution.name
-              %td.align-right
-                = link_to spina.edit_admin_conferences_delegate_path(delegate), class: 'button button-small button-link' do
-                  = icon('pencil-outline')
-                  = t('spina.edit')
+          = render partial: 'spina/admin/conferences/shared/delegate', collection: @delegates
 
         - else
           %tr

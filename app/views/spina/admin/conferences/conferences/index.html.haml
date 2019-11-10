@@ -5,21 +5,9 @@
     = form_with url: import_admin_conferences_conferences_path do |f|
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
-  %span{ data: { dropdown: true } }
-    = link_to spina.new_admin_conferences_conference_path(params: { institution: Spina::Conferences::Institution&.first || nil }), class: 'button button-primary', style: 'margin-right: 0', data: { trigger: ('dropdown' if Spina::Conferences::Institution.many?), target: '#create_conference_dropdown' } do
-      = icon('plus')
-      = t('spina.conferences.conferences.new')
-
-    .sliding-dropdown#create_conference_dropdown.align-right
-      .slide{ class: :active }
-        = form_for [:admin_conferences, Spina::Conferences::Conference.new], url: spina.new_admin_conferences_conference_path, method: :get do |f|
-          .form-group
-            .form-label
-              = Spina::Conferences::Conference.human_attribute_name :institution
-            .form-control
-              .select-dropdown
-                = f.collection_select :institution_id, Spina::Conferences::Institution.all, :id, :name, { required: true }
-          = f.submit t('spina.conferences.conferences.new'), class: 'button button-primary'
+  = link_to spina.new_admin_conferences_conference_path, class: 'button button-primary', style: 'margin-right: 0' do
+    = icon('plus')
+    = t('spina.conferences.conferences.new')
 
 .well
   .table-container
