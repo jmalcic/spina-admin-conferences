@@ -1,7 +1,7 @@
-import { Controller } from 'stimulus'
-
-export class ItemnavController extends Controller {
-  static targets = ['item', 'itemContent']
+export class ItemnavController extends Stimulus.Controller {
+  static get targets() {
+    return ['item', 'itemContent']
+  }
 
   get selectedTab() {
     return Number.parseInt(this.data.get('selected-item'))
