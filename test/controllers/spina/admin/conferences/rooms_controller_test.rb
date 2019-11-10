@@ -34,6 +34,7 @@ module Spina
             post admin_conferences_rooms_url, params: { room: @room.attributes }
           end
           assert_redirected_to admin_conferences_rooms_url
+          assert_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to create invalid room' do
@@ -41,6 +42,7 @@ module Spina
             post admin_conferences_rooms_url, params: { room: @invalid_room.attributes }
           end
           assert_response :success
+          assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -54,11 +56,13 @@ module Spina
         test 'should update room' do
           patch admin_conferences_room_url(@room), params: { room: @room.attributes }
           assert_redirected_to admin_conferences_rooms_url
+          assert_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room' do
           patch admin_conferences_room_url(@room), params: { room: @invalid_room.attributes }
           assert_response :success
+          assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should destroy room' do

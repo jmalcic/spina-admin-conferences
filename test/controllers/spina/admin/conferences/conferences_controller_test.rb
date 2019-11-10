@@ -51,6 +51,7 @@ module Spina
             post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference saved', flash[:success]
         end
 
         test 'should fail to create invalid conference' do
@@ -58,6 +59,7 @@ module Spina
             post admin_conferences_conferences_url, params: { conference: @invalid_conference.attributes }
           end
           assert_response :success
+          assert_not_equal 'Conference saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -80,12 +82,14 @@ module Spina
         test 'should update conference' do
           patch admin_conferences_conference_url(@conference), params: { conference: @conference.attributes }
           assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference saved', flash[:success]
         end
 
         test 'should fail to update invalid conference' do
           patch admin_conferences_conference_url(@conference),
                 params: { conference: @invalid_conference.attributes }
           assert_response :success
+          assert_not_equal 'Conference saved', flash[:success]
         end
 
         test 'should destroy conference' do

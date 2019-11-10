@@ -39,6 +39,7 @@ module Spina
             post admin_conferences_presentations_url, params: { presentation: attributes }
           end
           assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to create invalid presentation' do
@@ -46,6 +47,7 @@ module Spina
             post admin_conferences_presentations_url, params: { presentation: @invalid_presentation.attributes }
           end
           assert_response :success
+          assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should get edit' do
@@ -59,12 +61,14 @@ module Spina
         test 'should update presentation' do
           patch admin_conferences_presentation_url(@presentation), params: { presentation: @presentation.attributes }
           assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation' do
           patch admin_conferences_presentation_url(@presentation),
                 params: { presentation: @invalid_presentation.attributes }
           assert_response :success
+          assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should destroy presentation' do
