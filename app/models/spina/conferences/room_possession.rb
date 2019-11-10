@@ -11,7 +11,7 @@ module Spina
       has_one :institution, through: :conference
 
       validates :room, inclusion: { in: ->(room_possession) { room_possession.conference.institution.rooms },
-                                    message: 'does not belong to the associated institution' },
+                                    message: :does_not_belong_to_associated_institution },
                        unless: proc { |room_possession| room_possession.conference.blank? }
 
       delegate :name, to: :room, prefix: true

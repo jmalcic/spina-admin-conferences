@@ -12,7 +12,7 @@ module Spina
       has_one :institution, through: :conference
 
       validates :room_possession, inclusion: { in: ->(room_use) { room_use.conference.room_possessions },
-                                               message: 'does not belong to the associated conference',
+                                               message: :does_not_belong_to_associated_conference,
                                                unless: proc { |room_use| room_use.conference.blank? } }
       validates_associated :room_possession
 
