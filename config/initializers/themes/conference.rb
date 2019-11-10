@@ -61,10 +61,6 @@
     title: 'Submission text',
     partable_type: 'Spina::Line'
   }, {
-    name: 'committee_bios',
-    title: 'Committee bios',
-    partable_type: 'Spina::Structure'
-  }, {
     name: 'sponsors',
     title: 'Sponsors',
     partable_type: 'Spina::Structure'
@@ -147,33 +143,6 @@
       name: 'description',
       title: 'Description',
       partable_type: 'Spina::Text'
-    }]
-  }, {
-    name: 'committee_bios',
-    structure_parts: [{
-      name: 'name',
-      title: 'Name',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'role',
-      title: 'Role',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'bio',
-      title: 'Bio',
-      partable_type: 'Spina::Text'
-    }, {
-      name: 'profile_picture',
-      title: 'Profile picture',
-      partable_type: 'Spina::Image'
-    }, {
-      name: 'facebook_profile',
-      title: 'Facebook profile',
-      partable_type: 'Spina::Conferences::UrlPart'
-    }, {
-      name: 'twitter_profile',
-      title: 'Twitter profile',
-      partable_type: 'Spina::Conferences::UrlPart'
     }]
   }, {
     name: 'sponsors',
