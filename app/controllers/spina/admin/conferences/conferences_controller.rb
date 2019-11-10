@@ -24,7 +24,7 @@ module Spina
         end
 
         def new
-          @conference = params[:conference] ? Conference.new(conference_params) : Conference.new
+          @conference = Conference.new
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
           set_parts
           render layout: 'spina/admin/admin'

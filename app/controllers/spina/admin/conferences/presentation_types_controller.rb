@@ -17,11 +17,7 @@ module Spina
         end
 
         def new
-          @presentation_type = if params[:presentation_type]
-                                 PresentationType.new presentation_type_params
-                               else
-                                 PresentationType.new
-                               end
+          @presentation_type = PresentationType.new
           add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
           render layout: 'spina/admin/admin'
         end

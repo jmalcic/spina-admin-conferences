@@ -13,7 +13,7 @@ module Spina
         layout 'spina/admin/conferences/institutions'
 
         def index
-          @rooms = Room.all
+          @rooms = params[:institution_id] ? Room.where(institution: params[:institution_id]) : Room.all
         end
 
         def new
