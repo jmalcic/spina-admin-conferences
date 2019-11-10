@@ -1,4 +1,4 @@
-%tr
+%tr{ data: { dietary_requirement_id: dietary_requirement.id } }
   %td= link_to dietary_requirement.name, spina.edit_admin_conferences_dietary_requirement_path(dietary_requirement)
   %td.align-right
     = link_to spina.edit_admin_conferences_dietary_requirement_path(dietary_requirement), class: 'button button-small button-link' do

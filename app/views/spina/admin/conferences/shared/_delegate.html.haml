@@ -1,4 +1,4 @@
-%tr
+%tr{ data: { delegate_id: delegate.id } }
   %td= link_to delegate.full_name, spina.edit_admin_conferences_delegate_path(delegate)
   %td
     = delegate.email_address
