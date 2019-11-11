@@ -6,8 +6,6 @@ module Spina
   module Admin
     module Conferences
       class DelegatesTest < ApplicationSystemTestCase
-        include ::Spina::Engine.routes.url_helpers
-
         setup do
           @delegate = spina_conferences_delegates :joe_bloggs
           @user = spina_users :joe

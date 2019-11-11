@@ -6,8 +6,6 @@ module Spina
   module Admin
     module Conferences
       class PresentationsTest < ApplicationSystemTestCase
-        include ::Spina::Engine.routes.url_helpers
-
         setup do
           @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry
           @user = spina_users :joe
