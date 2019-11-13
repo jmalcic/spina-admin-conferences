@@ -24,10 +24,5 @@ install:
   - bundle install --jobs=3 --retry=3 --deployment
   - bundle exec bin/yarn
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > bin/cc-test-reporter
-  - chmod +x bin/cc-test-reporter
-  - bin/cc-test-reporter before-build
   - bundle exec bin/rails db:setup
-after_script:
-  - bin/cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 language: ruby
