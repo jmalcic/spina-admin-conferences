@@ -8,10 +8,11 @@ Bundler.require(*Rails.groups)
 require 'spina/conferences'
 require 'dotenv-rails'
 
+Dotenv::Railtie.load
+
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    Dotenv.load('../../.env')
     config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
