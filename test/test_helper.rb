@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV['XPC_SERVICE_NAME'].include? 'rubymine'
+if /.*rubymine.*/.match? ENV['XPC_SERVICE_NAME']
   require 'simplecov'
   require 'minitest/reporters'
 
