@@ -15,7 +15,7 @@ module Spina
     end
 
     def self.model_parts(klass)
-      current_theme = ::Spina::THEMES.find { |theme| theme.name == ::Spina::Account.first.theme }
+      current_theme = ::Spina::THEMES.find { |theme| theme.name == 'conference' }
       current_theme.page_parts.select { |part| part[:name].in? current_theme.models[klass.to_s.to_sym][:parts] }
     end
 
@@ -29,14 +29,12 @@ module Spina
                                 Room.new(building: 'Medical school', number: 'G.16')]
     Conference.create! institution: Institution.find_by(name: 'University of Atlantis'), start_date: '2017-04-07',
                        finish_date: '2017-04-09', parts: conference_parts,
-                       rooms: Room.includes(:institution).where(
-                         spina_conferences_institutions: { name: 'University of Atlantis' }
-                       )
+                       rooms: Room.includes(:institution)
+                                  .where(spina_conferences_institutions: { name: 'University of Atlantis' })
     Conference.create! institution: Institution.find_by(name: 'University of Shangri-La'), start_date: '2018-04-09',
                        finish_date: '2018-04-11', parts: conference_parts,
-                       rooms: Room.includes(:institution).where(
-                         spina_conferences_institutions: { name: 'University of Shangri-La' }
-                       )
+                       rooms: Room.includes(:institution)
+                                  .where(spina_conferences_institutions: { name: 'University of Shangri-La' })
     PresentationType.create! [{
       name: 'Plenary', minutes: 80, conference: Conference.includes(:institution).find_by(
         spina_conferences_institutions: { name: 'University of Atlantis' }
