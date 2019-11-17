@@ -1,5 +1,5 @@
 ---
-dist: xenial
+dist: bionic
 addons:
   apt:
     packages:
@@ -7,7 +7,7 @@ addons:
       - libvips
       - libvips-dev
   chrome: stable
-  postgresql: '9.6'
+  postgresql: '10'
 cache:
   - bundler
   - yarn
@@ -20,6 +20,7 @@ before_install:
   - gem install bundler
 install:
   - bundle install --jobs=3 --retry=3 --deployment
+  - bundle exec bin/yarn
 before_script:
   - bundle exec bin/rails db:setup
 language: ruby
