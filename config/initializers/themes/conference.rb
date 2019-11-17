@@ -61,6 +61,10 @@
     title: 'Submission text',
     partable_type: 'Spina::Line'
   }, {
+    name: 'committee_bios',
+    title: 'Committee bios',
+    partable_type: 'Spina::Structure'
+  }, {
     name: 'sponsors',
     title: 'Sponsors',
     partable_type: 'Spina::Structure'
@@ -145,6 +149,33 @@
       partable_type: 'Spina::Text'
     }]
   }, {
+    name: 'committee_bios',
+    structure_parts: [{
+      name: 'name',
+      title: 'Name',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'role',
+      title: 'Role',
+      partable_type: 'Spina::Line'
+    }, {
+      name: 'bio',
+      title: 'Bio',
+      partable_type: 'Spina::Text'
+    }, {
+      name: 'profile_picture',
+      title: 'Profile picture',
+      partable_type: 'Spina::Image'
+    }, {
+      name: 'facebook_profile',
+      title: 'Facebook profile',
+      partable_type: 'Spina::Conferences::UrlPart'
+    }, {
+      name: 'twitter_profile',
+      title: 'Twitter profile',
+      partable_type: 'Spina::Conferences::UrlPart'
+    }]
+  }, {
     name: 'sponsors',
     structure_parts: [{
       name: 'name',
@@ -171,15 +202,20 @@
     description: 'Contains general information',
     page_parts: %w[text]
   }, {
-    name: 'show',
-    title: 'Blank',
-    description: 'Blank template',
-    page_parts: []
+    name: 'committee',
+    title: 'Committee',
+    description: 'Contains committee bios',
+    page_parts: %w[text committee_bios],
   }, {
     name: 'about',
     title: 'About',
     description: 'Contains information about the society',
     page_parts: %w[text constitution minutes partner_societies contact]
+  }, {
+    name: 'show',
+    title: 'Blank',
+    description: 'Blank template',
+    page_parts: []
   }]
 
   theme.custom_pages = [{
