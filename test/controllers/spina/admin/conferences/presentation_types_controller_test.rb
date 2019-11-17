@@ -13,7 +13,6 @@ module Spina
         setup do
           @presentation_type = spina_conferences_presentation_types :oral_1
           @invalid_presentation_type = PresentationType.new
-          @conference = spina_conferences_conferences :university_of_atlantis_2017
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -26,17 +25,6 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_presentation_type_url
           assert_response :success
-        end
-
-        test 'should get new with params' do
-          get new_admin_conferences_presentation_type_url, params: { presentation_type: @presentation_type.attributes }
-          assert_response :success
-          assert_select '#presentations tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
-          end
-          assert_select '#rooms tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.rooms.no_rooms')
-          end
         end
 
         test 'should create presentation type' do

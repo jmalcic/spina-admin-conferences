@@ -6,8 +6,6 @@ module Spina
   module Admin
     module Conferences
       class InstitutionsTest < ApplicationSystemTestCase
-        include ::Spina::Engine.routes.url_helpers
-
         setup do
           @institution = spina_conferences_institutions :university_of_atlantis
           @user = spina_users :joe
@@ -59,6 +57,7 @@ module Spina
         def upload_and_select_image(fixture)
           attach_file 'image_files', fixture, make_visible: true
           first('.gallery .item:not(.item-uploader)').click
+          find('.gallery-select-sidebar').click_on 'Choose image'
         end
       end
     end

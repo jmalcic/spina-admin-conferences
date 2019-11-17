@@ -923,7 +923,7 @@ to-fast-properties@^2.0.0:
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
 
-trix@^1.0.0:
+trix@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/trix/-/trix-1.2.1.tgz#883abd5c996eeb35d50aefc3716c582b7870358f"
   integrity sha512-4TjqDk+v4OcJmSCMjQNiSbtZ5X8VQHTvIUhIzj1z+Wx63jM+g2yE+MT9qJS6uQZy3j60jpCqoxaCTZT8uEI2Xg==

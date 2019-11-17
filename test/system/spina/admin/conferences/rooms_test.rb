@@ -6,8 +6,6 @@ module Spina
   module Admin
     module Conferences
       class RoomsTest < ApplicationSystemTestCase
-        include ::Spina::Engine.routes.url_helpers
-
         setup do
           @room = spina_conferences_rooms :lecture_block_2
           @user = spina_users :joe

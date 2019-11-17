@@ -6,8 +6,6 @@ module Spina
   module Admin
     module Conferences
       class DietaryRequirementsTest < ApplicationSystemTestCase
-        include ::Spina::Engine.routes.url_helpers
-
         setup do
           @dietary_requirement = spina_conferences_dietary_requirements :vegan
           @user = spina_users :joe

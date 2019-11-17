@@ -213,4 +213,6 @@
       parts: %w[slides handout poster]
     }
   }
+
+  theme.resources = []
 end

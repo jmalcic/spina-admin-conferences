@@ -6,8 +6,6 @@ module Spina
   module Admin
     module Conferences
       class PresentationTypesTest < ApplicationSystemTestCase
-        include ::Spina::Engine.routes.url_helpers
-
         setup do
           @presentation_type = spina_conferences_presentation_types :plenary_1
           @user = spina_users :joe

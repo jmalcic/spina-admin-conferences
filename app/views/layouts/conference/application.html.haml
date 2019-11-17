@@ -18,7 +18,6 @@
     = render 'hooks/javascripts'
   %body.bg-light.height-full.d-flex.flex-column
     = render 'spina/shared/admin_bar'
-    = spina_link
     %header{ style: 'z-index: 1' }
       = render 'shared/navigation'
       = render 'shared/breadcrumbs' if ancestors&.present?

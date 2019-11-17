@@ -6,7 +6,7 @@ module Spina
       isolate_namespace Spina::Conferences
 
       config.before_initialize do
-        ::Spina::Theme.send(:include, Spina::Conferences::ThemeExtensions)
+        ::Spina::Theme.include Spina::Conferences::ThemeExtensions
         ::Spina::Plugin.register do |plugin|
           plugin.name = 'conferences'
           plugin.namespace = 'conferences'
@@ -20,11 +20,11 @@ module Spina
         # Add patches
         page_partables = [::Spina::Attachment, ::Spina::AttachmentCollection, ::Spina::Image, ::Spina::ImageCollection,
                           ::Spina::Line, ::Spina::Option, ::Spina::Structure, ::Spina::Text]
-        ::Spina::PagesController.send(:include, Spina::Conferences::Templatable)
-        page_partables.each { |partable| partable.send(:include, Spina::Conferences::PartableExtensions) }
-        ::Spina::Option.send(:include, Spina::Conferences::OptionExtensions)
-        ::Spina::Structure.send(:include, Spina::Conferences::StructureExtensions)
-        ::Spina::Admin::PagesHelper.send(:include, Spina::Admin::Conferences::PagesHelperExtensions)
+        ::Spina::PagesController.include Spina::Conferences::Templatable
+        page_partables.each { |partable| partable.include Spina::Conferences::PartableExtensions }
+        ::Spina::Option.include Spina::Conferences::OptionExtensions
+        ::Spina::Structure.include Spina::Conferences::StructureExtensions
+        ::Spina::Admin::PagesHelper.include Spina::Admin::Conferences::PagesHelperExtensions
       end
     end
   end
