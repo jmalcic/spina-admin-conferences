@@ -9,8 +9,9 @@ addons:
   chrome: stable
   postgresql: '10'
 cache:
-  - bundler
-  - yarn
+  bundler: true
+  directories:
+    - node_modules
 services:
   - redis-server
 before_install:
