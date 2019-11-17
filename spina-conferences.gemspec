@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'spina', '~> 1.1'
 
   spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'codecov'
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'mini_racer'
   spec.add_development_dependency 'minitest-rails'
