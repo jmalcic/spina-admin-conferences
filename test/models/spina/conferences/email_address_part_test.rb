@@ -3,16 +3,16 @@
 require 'test_helper'
 
 module Spina
-  class EmailAddressPartTypeTest < ActiveSupport::TestCase
-    setup { @address = spina_conferences_email_address_parts :joe_bloggs_address }
+  class EmailAddressPartTest < ActiveSupport::TestCase
+    setup { @email_address_part = spina_conferences_email_address_parts :joe_bloggs_address }
 
     test 'content must be email address' do
-      @address.content = 'joe@bloggs.com'
-      assert @address.valid?
-      assert_not @address.errors[:content].any?
-      @address.content = '@'
-      assert @address.invalid?
-      assert @address.errors[:content].any?
+      @email_address_part.content = 'joe@bloggs.com'
+      assert @email_address_part.valid?
+      assert_not @email_address_part.errors[:content].any?
+      @email_address_part.content = '@'
+      assert @email_address_part.invalid?
+      assert @email_address_part.errors[:content].any?
     end
   end
 end

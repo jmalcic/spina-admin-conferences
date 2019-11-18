@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Spina
   module Conferences
-    class DelegateTypeTest < ActiveSupport::TestCase
+    class DelegateTest < ActiveSupport::TestCase
       setup { @delegate = spina_conferences_delegates :joe_bloggs }
 
       test 'delegate attributes must not be empty' do
