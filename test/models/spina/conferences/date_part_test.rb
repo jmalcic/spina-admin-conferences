@@ -3,9 +3,9 @@
 require 'test_helper'
 
 module Spina
-  class DatePartTypeTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end
+  class DatePartTest < ActiveSupport::TestCase
   end
 end
