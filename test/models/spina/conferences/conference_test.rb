@@ -62,11 +62,13 @@ module Spina
       end
 
       test 'dates range is updated correctly' do
-        start_date = @conference.start_date + 5.years
+        start_date = @conference.start_date - 5.years
         finish_date = @conference.finish_date + 5.years
         @conference.update(start_date: start_date)
+        @conference.reload
         assert_equal @conference.start_date, start_date
         @conference.update(finish_date: finish_date)
+        @conference.reload
         assert_equal @conference.finish_date, finish_date
       end
 

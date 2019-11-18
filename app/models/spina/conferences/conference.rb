@@ -79,8 +79,8 @@ module Spina
       def set_from_dates
         return if dates.blank?
 
-        self.start_date ||= dates.begin
-        self.finish_date ||= dates.end
+        self.start_date ||= dates.min
+        self.finish_date ||= dates.max
         self.year ||= start_date.year
         clear_attribute_changes %i[start_date finish_date year]
       end
@@ -88,8 +88,8 @@ module Spina
       def update_from_dates
         return if dates.blank?
 
-        self.start_date = dates.begin
-        self.finish_date = dates.end
+        self.start_date = dates.min
+        self.finish_date = dates.max
         self.year = start_date.year
         clear_attribute_changes %i[start_date finish_date year]
       end
