@@ -3,5 +3,5 @@
 .horizontal-form-content
   = f.fields_for :partable, f.object.partable do |ff|
     .input-group
-      = ff.date_field :date, placeholder: "#{t 'spina.pages.page_part'} #{f.object.name.downcase}", class: 'conference-datepicker'
-      = ff.time_field :time, value: ff&.object&.time&.strftime('%R') , placeholder: "#{t 'spina.pages.page_part'} #{f.object.name.downcase}"
+      = ff.date_field :date, class: 'conference-datepicker'
+      = ff.time_field :time, value: ff.object&.time&.strftime('%R')
