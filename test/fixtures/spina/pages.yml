@@ -4,17 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-homepage_page:
+homepage:
   name: homepage
   view_template: homepage
 
-information_page:
+information:
   name: information
   view_template: information
 
-about_page:
+about:
   name: about
   view_template: about
 
-blank_page:
+blank:
   name: blank

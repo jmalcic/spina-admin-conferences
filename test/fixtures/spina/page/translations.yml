@@ -4,50 +4,50 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-homepage_translation:
+homepage:
   title: Homepage
   locale: en-GB
-  translated_model: homepage_page
+  translated_model: homepage
   materialized_path: /
 
-information_translation:
+information:
   title: Information
   locale: en-GB
-  translated_model: information_page
+  translated_model: information
   materialized_path: /information
 
-about_translation:
+about:
   title: About
   locale: en-GB
-  translated_model: about_page
+  translated_model: about
   materialized_path: /about
 
-blank_translation:
+blank:
   title: Blank
   locale: en-GB
-  translated_model: blank_page
+  translated_model: blank
   materialized_path: /blank
 
-homepage_translation_us:
+homepage_us:
   title: Homepage
   locale: en
-  translated_model: homepage_page
+  translated_model: homepage
   materialized_path: /en
 
-information_translation_us:
+information_us:
   title: Information
   locale: en
-  translated_model: information_page
+  translated_model: information
   materialized_path: /en/information
 
-about_translation_us:
+about_us:
   title: About
   locale: en
-  translated_model: about_page
+  translated_model: about
   materialized_path: /en/about
 
-blank_translation_us:
+blank_us:
   title: Blank
   locale: en
-  translated_model: blank_page
+  translated_model: blank
   materialized_path: /en/blank

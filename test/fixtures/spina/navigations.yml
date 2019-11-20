@@ -4,11 +4,11 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-main_navigation:
+main:
   name: main
   label: Main navigation
   auto_add_pages: true
 
-footer_navigation:
+footer:
   name: footer
   label: Footer

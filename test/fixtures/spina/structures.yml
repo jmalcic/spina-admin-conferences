@@ -4,14 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-meetings_structure: {}
+meetings: {}
 
-committee_bios_structure: {}
+committee_bios: {}
 
-sponsors_structure: {}
+sponsors: {}
 
-minutes_structure: {}
+minutes: {}
 
-socials_structure: {}
+socials: {}
 
-partner_societies_structure: {}
+partner_societies: {}

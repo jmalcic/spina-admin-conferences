@@ -4,7 +4,7 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-lipsum_line_translation:
+lipsum:
   content: Lorem ipsum dolor sit amet
   locale: en-GB
-  translated_model: lipsum_line
+  translated_model: lipsum
