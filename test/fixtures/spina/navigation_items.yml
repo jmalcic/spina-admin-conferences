@@ -4,17 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-homepage_navigation_item:
-  page: homepage_page
-  navigation: main_navigation
+homepage:
+  page: homepage
+  navigation: main
   position: 1
 
-information_navigation_item:
-  page: information_page
-  navigation: main_navigation
+information:
+  page: information
+  navigation: main
   position: 3
 
-about_navigation_item:
-  page: about_page
-  navigation: main_navigation
+about:
+  page: about
+  navigation: main
   position: 2

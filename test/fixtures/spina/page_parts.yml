@@ -4,56 +4,56 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-about_page_text_part:
+about_page_text:
   name: text
   title: Text
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: about_page
+  page_partable: lipsum (Spina::Text)
+  page: about
 
-homepage_text_part:
+homepage_text:
   name: text
   title: Text
-  page_partable: lipsum_paragraph (Spina::Text)
+  page_partable: lipsum (Spina::Text)
   page: homepage
 
-information_page_text_part:
+information_page_text:
   name: text
   title: Text
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: information_page
+  page_partable: lipsum (Spina::Text)
+  page: information
 
-homepage_gallery_part:
+homepage_gallery:
   name: gallery
   title: Gallery
-  page_partable: gallery_image_collection (Spina::ImageCollection)
-  page: homepage_page
+  page_partable: gallery (Spina::ImageCollection)
+  page: homepage
 
-constitution_part:
+constitution:
   name: constitution
   title: Constitution
-  page_partable: constitution_attachment (Spina::Attachment)
-  page: about_page
+  page_partable: constitution (Spina::Attachment)
+  page: about
 
-partner_societies_part:
+partner_societies:
   name: partner_societies
   title: Partner societies
-  page_partable: partner_societies_structure (Spina::Structure)
-  page: about_page
+  page_partable: partner_societies (Spina::Structure)
+  page: about
 
-minutes_part:
+minutes:
   name: minutes
   title: Minutes
-  page_partable: minutes_structure (Spina::Structure)
-  page: about_page
+  page_partable: minutes (Spina::Structure)
+  page: about
 
-contact_part:
+contact:
   name: contact
   title: Contact
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: about_page
+  page_partable: lipsum (Spina::Text)
+  page: about
 
-committee_bios_part:
+committee_bios:
   name: committee_bios
   title: Committee bios
-  page_partable: committee_bios_structure (Spina::Structure)
-  page: about_page
+  page_partable: committee_bios (Spina::Structure)
+  page: about

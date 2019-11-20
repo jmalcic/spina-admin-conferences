@@ -9,7 +9,7 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
-          @page = spina_pages :information_page
+          @page = spina_pages :information
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end

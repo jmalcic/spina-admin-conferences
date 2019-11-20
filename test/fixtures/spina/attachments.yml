@@ -4,10 +4,10 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-constitution_attachment: {}
+constitution: {}
 
-slides_attachment: {}
+slides: {}
 
-handout_attachment: {}
+handout: {}
 
-poster_attachment: {}
+poster: {}

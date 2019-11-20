@@ -8,25 +8,25 @@ module Spina
       include ::Spina::Engine.routes.url_helpers
 
       test 'can visit pages' do
-        get spina_pages(:homepage_page).materialized_path
+        get spina_pages(:homepage).materialized_path
         assert_response :success
-        get spina_pages(:information_page).materialized_path
+        get spina_pages(:information).materialized_path
         assert_response :success
-        get spina_pages(:about_page).materialized_path
+        get spina_pages(:about).materialized_path
         assert_response :success
-        get spina_pages(:blank_page).materialized_path
+        get spina_pages(:blank).materialized_path
         assert_response :success
       end
 
       test 'can visit pages in locale' do
         I18n.locale = :en
-        get spina_pages(:homepage_page).materialized_path
+        get spina_pages(:homepage).materialized_path
         assert_response :success
-        get spina_pages(:information_page).materialized_path
+        get spina_pages(:information).materialized_path
         assert_response :success
-        get spina_pages(:about_page).materialized_path
+        get spina_pages(:about).materialized_path
         assert_response :success
-        get spina_pages(:blank_page).materialized_path
+        get spina_pages(:blank).materialized_path
         assert_response :success
       end
     end
