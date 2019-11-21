@@ -22,6 +22,12 @@ about:
   translated_model: about
   materialized_path: /about
 
+committee:
+  title: Committee
+  locale: en-GB
+  translated_model: committee
+  materialized_path: /committee
+
 blank:
   title: Blank
   locale: en-GB
@@ -45,6 +51,12 @@ about_us:
   locale: en
   translated_model: about
   materialized_path: /en/about
+
+committee_us:
+  title: Committee
+  locale: en
+  translated_model: committee
+  materialized_path: /committee
 
 blank_us:
   title: Blank

@@ -56,4 +56,4 @@ committee_bios:
   name: committee_bios
   title: Committee bios
   page_partable: committee_bios (Spina::Structure)
-  page: about
+  page: committee

@@ -16,5 +16,28 @@ about:
   name: about
   view_template: about
 
+committee:
+  name: committee
+  view_template: committee
+
 blank:
+  name: blank
+
+empty_homepage:
+  name: homepage
+  view_template: homepage
+
+empty_information:
+  name: information
+  view_template: information
+
+empty_about:
+  name: about
+  view_template: about
+
+empty_committee:
+  name: committee
+  view_template: committee
+
+empty_blank:
   name: blank
