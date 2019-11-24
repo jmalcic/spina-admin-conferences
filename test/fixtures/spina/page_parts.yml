@@ -10,17 +10,23 @@ about_page_text:
   page_partable: lipsum (Spina::Text)
   page: about
 
-homepage_text:
-  name: text
-  title: Text
+about_page_contact:
+  name: contact
+  title: Contact
   page_partable: lipsum (Spina::Text)
-  page: homepage
+  page: about
 
 information_page_text:
   name: text
   title: Text
   page_partable: lipsum (Spina::Text)
   page: information
+
+committee_page_text:
+  name: text
+  title: Text
+  page_partable: lipsum (Spina::Text)
+  page: committee
 
 homepage_gallery:
   name: gallery

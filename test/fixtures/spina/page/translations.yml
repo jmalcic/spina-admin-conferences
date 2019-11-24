@@ -34,6 +34,36 @@ blank:
   translated_model: blank
   materialized_path: /blank
 
+empty_homepage:
+  title: Homepage
+  locale: en-GB
+  translated_model: empty_homepage
+  materialized_path: /empty-
+
+empty_information:
+  title: Information
+  locale: en-GB
+  translated_model: empty_information
+  materialized_path: /empty-information
+
+empty_about:
+  title: About
+  locale: en-GB
+  translated_model: empty_about
+  materialized_path: /empty-about
+
+empty_committee:
+  title: Committee
+  locale: en-GB
+  translated_model: empty_committee
+  materialized_path: /empty-committee
+
+empty_blank:
+  title: Blank
+  locale: en-GB
+  translated_model: empty_blank
+  materialized_path: /empty-blank
+
 homepage_us:
   title: Homepage
   locale: en
@@ -63,3 +93,33 @@ blank_us:
   locale: en
   translated_model: blank
   materialized_path: /en/blank
+
+empty_homepage_us:
+  title: Homepage
+  locale: en
+  translated_model: empty_homepage
+  materialized_path: /en/empty
+
+empty_information_us:
+  title: Information
+  locale: en
+  translated_model: empty_information
+  materialized_path: /en/empty-information
+
+empty_about_us:
+  title: About
+  locale: en
+  translated_model: empty_about
+  materialized_path: /en/empty-about
+
+empty_committee_us:
+  title: Committee
+  locale: en
+  translated_model: empty_committee
+  materialized_path: /en/empty-committee
+
+empty_blank_us:
+  title: Blank
+  locale: en
+  translated_model: blank
+  materialized_path: /en/empty-blank
