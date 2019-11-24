@@ -4,12 +4,26 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-constitution: {}
+agm:
+  structure: meetings
+  position: 1
 
-slides: {}
+joes_profile:
+  structure: committee_bios
+  position: 1
 
-handout: {}
+uup:
+  structure: sponsors
+  position: 1
 
-poster: {}
+agm_2019_minutes:
+  structure: minutes
+  position: 1
 
-agm_2019_minutes: {}
+pub_trip:
+  structure: socials
+  position: 1
+
+ling_soc_cam:
+  structure: partner_societies
+  position: 1
