@@ -4,6 +4,7 @@ module Spina
   module Conferences
     module AssetHelper #:nodoc:
       METHODS_TO_RESIZE = %i[resize_to_limit resize_to_fit resize_to_fill resize_and_pad].freeze
+      DEFAULT_FACTORS = [1, 2, 3, 4].freeze
 
       def responsive_image_tag(image, **options)
         return if image.blank?
@@ -18,7 +19,7 @@ module Spina
       def process_options(options)
         @options = options.symbolize_keys
         @variant_options = @options.delete(:variant)
-        @factors = @options.delete(:factors) || [1, 2, 3, 4]
+        @factors = @options.delete(:factors) || DEFAULT_FACTORS
         @options[:srcset] = variants
       end
 
