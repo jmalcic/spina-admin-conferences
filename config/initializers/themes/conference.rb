@@ -195,7 +195,7 @@
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: %w[text gallery]
+    page_parts: %w[gallery]
   }, {
     name: 'information',
     title: 'Information',
@@ -205,7 +205,7 @@
     name: 'committee',
     title: 'Committee',
     description: 'Contains committee bios',
-    page_parts: %w[text committee_bios],
+    page_parts: %w[text committee_bios]
   }, {
     name: 'about',
     title: 'About',
