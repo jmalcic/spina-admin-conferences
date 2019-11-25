@@ -191,10 +191,10 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
-    octicons (9.2.0)
+    octicons (9.3.0)
       nokogiri (>= 1.6.3.1)
-    octicons_helper (9.2.0)
-      octicons (= 9.2.0)
+    octicons_helper (9.3.0)
+      octicons (= 9.3.0)
       rails
     pg (1.1.4)
     public_suffix (4.0.1)
