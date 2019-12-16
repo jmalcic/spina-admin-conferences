@@ -25,7 +25,7 @@
   "dependencies": {
     "@primer/css": "^13.2.0",
     "@primer/octicons": "^9.3.1",
-    "@rails/actiontext": "^6.0.0-rc1",
+    "@rails/actiontext": "^6.0.2",
     "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz",
     "trix": "^1.2.1"
   },
