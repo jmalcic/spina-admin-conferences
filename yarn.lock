@@ -89,10 +89,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@primer/css@^13.2.0":
-  version "13.2.0"
-  resolved "https://registry.yarnpkg.com/@primer/css/-/css-13.2.0.tgz#11c2f425d1fa17397d3b0abc28de95419781a1ff"
-  integrity sha512-if/GnOCeMeFZAC3HWnoeQCy0leZhJriGbxDp8+uH7wG18JmNU1ZAAr24KLF+pZaTclCKxWe7Y1NoZwym/chmEg==
+"@primer/css@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@primer/css/-/css-14.1.0.tgz#ce54e14cdd6e4a480a37d6eb71813a68412eae87"
+  integrity sha512-mpoUmYNxBcSsZ8MMU6GeJ72s6k6WuFh6UxbAjdVsYIY9amavy6Zoj0d6TaQjp3srwhM6XAzcfHooEn/tMu1Ehw==
   dependencies:
     "@primer/octicons" "^9.1.1"
 
