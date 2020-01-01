@@ -6,32 +6,32 @@ module Spina
   module Conferences
     class HttpUrlValidatorTest < ActiveSupport::TestCase
       setup do
-        @validator = HttpUrlValidator.new(attributes: [:content])
-        @url = spina_conferences_url_parts :ruby_website
+        @validator = HttpUrlValidator.new(attributes: [:url])
+        @delegate = spina_conferences_delegates(:joe_bloggs)
       end
 
       test 'valid HTTP(S) URLs are valid' do
-        @url.content = 'https://www.bbc.co.uk'
-        assert_nil @validator.validate_each(@url, :content, @url.content)
-        @url.content = 'http://www.bbc.co.uk'
-        assert_nil @validator.validate_each(@url, :content, @url.content)
+        @delegate.url = 'https://www.bbc.co.uk'
+        assert_nil @validator.validate_each(@delegate, :url, @delegate.url)
+        @delegate.url = 'http://www.bbc.co.uk'
+        assert_nil @validator.validate_each(@delegate, :url, @delegate.url)
       end
 
       test 'invalid HTTP(S) URLs are invalid' do
-        @url.content = 'ftp://www.bbc.co.uk'
-        assert_includes @validator.validate_each(@url, :content, @url.content),
+        @delegate.url = 'ftp://www.bbc.co.uk'
+        assert_includes @validator.validate_each(@delegate, :url, @delegate.url),
                         'is not a valid HTTP or HTTPS URL'
       end
 
       test 'invalid URIs are invalid' do
-        @url.content = '\\'
-        assert_includes @validator.validate_each(@url, :content, @url.content),
+        @delegate.url = '\\'
+        assert_includes @validator.validate_each(@delegate, :url, @delegate.url),
                         'is not a valid HTTP or HTTPS URL'
       end
 
       test 'empty URIs are valid' do
-        @url.content = nil
-        assert_nil @validator.validate_each(@url, :content, @url.content)
+        @delegate.url = nil
+        assert_nil @validator.validate_each(@delegate, :url, @delegate.url)
       end
     end
   end
