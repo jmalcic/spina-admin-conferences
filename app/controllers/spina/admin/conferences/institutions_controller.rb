@@ -12,10 +12,6 @@ module Spina
 
         def index
           @institutions = Institution.all
-          respond_to do |format|
-            format.html
-            format.json { render json: @institutions, include: { rooms: { methods: [:name] } } }
-          end
         end
 
         def new
