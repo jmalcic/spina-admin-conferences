@@ -4,4 +4,12 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-gallery: {}
+dubrovnik:
+  image_collection: gallery
+  image: dubrovnik
+  position: 1
+
+rovinj:
+  image_collection: gallery
+  image: rovinj
+  position: 2

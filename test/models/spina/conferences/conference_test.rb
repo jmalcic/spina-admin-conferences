@@ -13,7 +13,6 @@ module Spina
         assert conference.errors[:start_date].any?
         assert conference.errors[:finish_date].any?
         assert conference.errors[:institution].any?
-        assert conference.errors[:parts].any?
       end
 
       test 'start and finish dates must be dates' do
@@ -38,17 +37,19 @@ module Spina
       end
 
       test 'start date is set correctly' do
-        assert_equal @conference.start_date, @conference.dates.begin, 'is set after initialisation'
-        @conference.update(dates: (@conference.dates.begin - 1.day)..@conference.dates.end)
-        assert_equal @conference.start_date, @conference.dates.begin, 'is updated after save'
+        assert_equal @conference.start_date, @conference.dates.min, 'is set after initialisation'
+        @conference.update(dates: (@conference.dates.min - 1.day)..@conference.dates.max)
+        @conference.reload
+        assert_equal @conference.start_date, @conference.dates.min, 'is updated after save'
         new_conference = Conference.new
         assert_nil new_conference.start_date, 'is nil for new records'
       end
 
       test 'finish date is set correctly' do
-        assert_equal @conference.finish_date, @conference.dates.end, 'is set after initialisation'
-        @conference.update(dates: @conference.dates.begin..(@conference.dates.end + 1.day))
-        assert_equal @conference.finish_date, @conference.dates.end, 'is updated after save'
+        assert_equal @conference.finish_date, @conference.dates.max, 'is set after initialisation'
+        @conference.update(dates: @conference.dates.min..(@conference.dates.max + 1.day))
+        @conference.reload
+        assert_equal @conference.finish_date, @conference.dates.max, 'is updated after save'
         new_conference = Conference.new
         assert_nil new_conference.finish_date, 'is nil for new records'
       end
@@ -56,17 +57,20 @@ module Spina
       test 'year is set correctly' do
         assert_equal @conference.year, @conference.dates.begin.year, 'is set after initialisation'
         @conference.update(dates: (@conference.dates.begin - 1.year)..@conference.dates.end)
+        @conference.reload
         assert_equal @conference.year, @conference.dates.begin.year, 'is updated after save'
         new_conference = Conference.new
         assert_nil new_conference.year, 'is nil for new records'
       end
 
       test 'dates range is updated correctly' do
-        start_date = @conference.start_date + 5.years
+        start_date = @conference.start_date - 5.years
         finish_date = @conference.finish_date + 5.years
         @conference.update(start_date: start_date)
+        @conference.reload
         assert_equal @conference.start_date, start_date
         @conference.update(finish_date: finish_date)
+        @conference.reload
         assert_equal @conference.finish_date, finish_date
       end
 

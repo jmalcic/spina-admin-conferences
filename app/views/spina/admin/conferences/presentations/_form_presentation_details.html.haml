@@ -1,6 +1,6 @@
 #presentation_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { route_value: admin_conferences_conferences_path, options_config_value: '{ "conference_id": { "value": "id", "text": "name" }, "presentation_type_id": { "trigger": "conference_id", "key": "presentation_types", "value": "id", "text": "name" }, "presentation_date": { "trigger": "conference_id", "key": "localized_dates", "value": "date", "text": "localization" }, "presentation_room_use_id": { "trigger": "presentation_type_id", "key": "room_uses", "value": "id", "text": "room_name" } }' } } }
+    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "conference_id": { "value": "id", "text": "name" }, "presentation_type_id": { "trigger": "conference_id", "key": "presentation_types", "value": "id", "text": "name" }, "presentation_date": { "trigger": "conference_id", "key": "localized_dates", "value": "date", "text": "localization" }, "presentation_room_use_id": { "trigger": "presentation_type_id", "key": "room_uses", "value": "id", "text": "room_name" } }', records_values: @conferences } } }
       .horizontal-form-group
         .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :conference
         .horizontal-form-content

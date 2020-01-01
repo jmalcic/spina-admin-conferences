@@ -75,16 +75,6 @@ ActiveRecord::Schema.define(version: 2019_10_21_211424) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "spina_conferences_conference_page_parts", force: :cascade do |t|
-    t.bigint "conference_page_id"
-    t.string "conference_page_partable_type"
-    t.bigint "conference_page_partable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["conference_page_id"], name: "index_spina_conferences_parts_on_page_id"
-    t.index ["conference_page_partable_type", "conference_page_partable_id"], name: "index_spina_conferences_parts_on_partable_type_and_partable_id"
-  end
-
   create_table "spina_conferences_conferences", force: :cascade do |t|
     t.daterange "dates", null: false
     t.bigint "institution_id", null: false
@@ -408,7 +398,6 @@ ActiveRecord::Schema.define(version: 2019_10_21_211424) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "spina_conferences_conference_page_parts", "spina_pages", column: "conference_page_id", on_delete: :cascade
   add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_institutions", "spina_images", column: "logo_id", on_delete: :cascade

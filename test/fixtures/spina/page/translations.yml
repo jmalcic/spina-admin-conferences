@@ -4,50 +4,122 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-homepage_translation:
+homepage:
   title: Homepage
   locale: en-GB
-  translated_model: homepage_page
+  translated_model: homepage
   materialized_path: /
 
-information_translation:
+information:
   title: Information
   locale: en-GB
-  translated_model: information_page
+  translated_model: information
   materialized_path: /information
 
-about_translation:
+about:
   title: About
   locale: en-GB
-  translated_model: about_page
+  translated_model: about
   materialized_path: /about
 
-blank_translation:
+committee:
+  title: Committee
+  locale: en-GB
+  translated_model: committee
+  materialized_path: /committee
+
+blank:
   title: Blank
   locale: en-GB
-  translated_model: blank_page
+  translated_model: blank
   materialized_path: /blank
 
-homepage_translation_us:
+empty_homepage:
+  title: Homepage
+  locale: en-GB
+  translated_model: empty_homepage
+  materialized_path: /empty-
+
+empty_information:
+  title: Information
+  locale: en-GB
+  translated_model: empty_information
+  materialized_path: /empty-information
+
+empty_about:
+  title: About
+  locale: en-GB
+  translated_model: empty_about
+  materialized_path: /empty-about
+
+empty_committee:
+  title: Committee
+  locale: en-GB
+  translated_model: empty_committee
+  materialized_path: /empty-committee
+
+empty_blank:
+  title: Blank
+  locale: en-GB
+  translated_model: empty_blank
+  materialized_path: /empty-blank
+
+homepage_us:
   title: Homepage
   locale: en
-  translated_model: homepage_page
+  translated_model: homepage
   materialized_path: /en
 
-information_translation_us:
+information_us:
   title: Information
   locale: en
-  translated_model: information_page
+  translated_model: information
   materialized_path: /en/information
 
-about_translation_us:
+about_us:
   title: About
   locale: en
-  translated_model: about_page
+  translated_model: about
   materialized_path: /en/about
 
-blank_translation_us:
+committee_us:
+  title: Committee
+  locale: en
+  translated_model: committee
+  materialized_path: /committee
+
+blank_us:
   title: Blank
   locale: en
-  translated_model: blank_page
+  translated_model: blank
   materialized_path: /en/blank
+
+empty_homepage_us:
+  title: Homepage
+  locale: en
+  translated_model: empty_homepage
+  materialized_path: /en/empty
+
+empty_information_us:
+  title: Information
+  locale: en
+  translated_model: empty_information
+  materialized_path: /en/empty-information
+
+empty_about_us:
+  title: About
+  locale: en
+  translated_model: empty_about
+  materialized_path: /en/empty-about
+
+empty_committee_us:
+  title: Committee
+  locale: en
+  translated_model: empty_committee
+  materialized_path: /en/empty-committee
+
+empty_blank_us:
+  title: Blank
+  locale: en
+  translated_model: blank
+  materialized_path: /en/empty-blank

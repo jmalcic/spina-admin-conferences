@@ -6,33 +6,33 @@ module Spina
   module Conferences
     class EmailAddressValidatorTest < ActiveSupport::TestCase
       setup do
-        @validator = EmailAddressValidator.new(attributes: [:content])
-        @address = spina_conferences_email_address_parts :joe_bloggs_address
+        @validator = EmailAddressValidator.new(attributes: [:email_address])
+        @delegate = spina_conferences_delegates(:joe_bloggs)
       end
 
       test 'valid email addresses are valid' do
-        @address.content = 'foo@bar.com'
-        assert_nil @validator.validate_each(@address, :content, @address.content)
+        @delegate.email_address = 'foo@bar.com'
+        assert_nil @validator.validate_each(@delegate, :email_address, @delegate.email_address)
       end
 
       test 'email addresses without domains and local parts are invalid' do
-        @address.content = 'foo@'
-        assert_includes @validator.validate_each(@address, :content, @address.content),
+        @delegate.email_address = 'foo@'
+        assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
                         'is not an email address'
-        @address.content = '@bar.com'
-        assert_includes @validator.validate_each(@address, :content, @address.content),
+        @delegate.email_address = '@bar.com'
+        assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
                         'is not an email address'
       end
 
       test 'invalid email addresses are invalid' do
-        @address.content = '#'
-        assert_includes @validator.validate_each(@address, :content, @address.content),
+        @delegate.email_address = '#'
+        assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
                         'is not an email address'
       end
 
       test 'empty email addresses are valid' do
-        @address.content = nil
-        assert_nil @validator.validate_each(@address, :content, @address.content)
+        @delegate.email_address = nil
+        assert_nil @validator.validate_each(@delegate, :email_address, @delegate.email_address)
       end
     end
   end

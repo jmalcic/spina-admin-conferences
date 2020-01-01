@@ -19,9 +19,6 @@ module Spina
         test 'should get index' do
           get admin_conferences_conferences_url
           assert_response :success
-          get admin_conferences_conferences_url, as: :json
-          assert_response :success
-          assert_equal 'application/json', @response.media_type
         end
 
         test 'should get new' do
@@ -45,9 +42,6 @@ module Spina
           assert_difference 'Conference.count' do
             attributes = @conference.attributes
             attributes[:room_ids] = @conference.rooms.collect(&:id)
-            attributes[:parts_attributes] = @conference.parts.collect do |part|
-              part.attributes.reject { |key, _value| %w[id pageable_id].include? key }
-            end
             post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_redirected_to admin_conferences_conferences_url

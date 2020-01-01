@@ -23,8 +23,9 @@ module Spina
       private
 
       def theme_parts
+        presentation_model_parts = model_parts(Presentation)
         presentation = Presentation.new
-        model_parts(Presentation).map { |part| presentation.part(part) }
+        presentation_model_parts.blank? ? [] : presentation_model_parts.map { |part| presentation.part(part) }
       end
     end
   end

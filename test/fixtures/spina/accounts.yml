@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 
-dummy_account:
+dummy:
   name: My Website
   preferences:
-    :theme: conference
+    :theme: default

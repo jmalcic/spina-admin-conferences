@@ -4,56 +4,62 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-about_page_text_part:
+about_page_text:
   name: text
   title: Text
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: about_page
+  page_partable: lipsum (Spina::Text)
+  page: about
 
-homepage_text_part:
-  name: text
-  title: Text
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: homepage
-
-information_page_text_part:
-  name: text
-  title: Text
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: information_page
-
-homepage_gallery_part:
-  name: gallery
-  title: Gallery
-  page_partable: gallery_image_collection (Spina::ImageCollection)
-  page: homepage_page
-
-constitution_part:
-  name: constitution
-  title: Constitution
-  page_partable: constitution_attachment (Spina::Attachment)
-  page: about_page
-
-partner_societies_part:
-  name: partner_societies
-  title: Partner societies
-  page_partable: partner_societies_structure (Spina::Structure)
-  page: about_page
-
-minutes_part:
-  name: minutes
-  title: Minutes
-  page_partable: minutes_structure (Spina::Structure)
-  page: about_page
-
-contact_part:
+about_page_contact:
   name: contact
   title: Contact
-  page_partable: lipsum_paragraph (Spina::Text)
-  page: about_page
+  page_partable: lipsum (Spina::Text)
+  page: about
 
-committee_bios_part:
+information_page_text:
+  name: text
+  title: Text
+  page_partable: lipsum (Spina::Text)
+  page: information
+
+committee_page_text:
+  name: text
+  title: Text
+  page_partable: lipsum (Spina::Text)
+  page: committee
+
+homepage_gallery:
+  name: gallery
+  title: Gallery
+  page_partable: gallery (Spina::ImageCollection)
+  page: homepage
+
+constitution:
+  name: constitution
+  title: Constitution
+  page_partable: constitution (Spina::Attachment)
+  page: about
+
+partner_societies:
+  name: partner_societies
+  title: Partner societies
+  page_partable: partner_societies (Spina::Structure)
+  page: about
+
+minutes:
+  name: minutes
+  title: Minutes
+  page_partable: minutes (Spina::Structure)
+  page: about
+
+contact:
+  name: contact
+  title: Contact
+  page_partable: lipsum (Spina::Text)
+  page: about
+
+committee_bios:
   name: committee_bios
   title: Committee bios
-  page_partable: committee_bios_structure (Spina::Structure)
-  page: about_page
+  page_partable: committee_bios (Spina::Structure)
+  page: committee

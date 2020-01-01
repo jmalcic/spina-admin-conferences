@@ -24,9 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'babel-transpiler', '~> 0.7'
   spec.add_dependency 'icalendar', '~> 2.5'
-  spec.add_dependency 'image_processing', '~> 1.9'
-  spec.add_dependency 'octicons_helper', '~> 9.1'
-  spec.add_dependency 'pg', '>= 0.18', '< 2.0'
   spec.add_dependency 'rails', '~> 6.0'
   spec.add_dependency 'rails-i18n', '~> 6.0'
   spec.add_dependency 'spina', '~> 1.1'
@@ -38,6 +35,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest-rails'
   spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'puma'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-rails_config'
   spec.add_development_dependency 'selenium-webdriver'
   spec.add_development_dependency 'sidekiq'
   spec.add_development_dependency 'simplecov'

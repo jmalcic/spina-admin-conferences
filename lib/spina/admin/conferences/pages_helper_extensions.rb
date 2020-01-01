@@ -17,7 +17,7 @@ module Spina
               render('spina/admin/structure_items/fields', f: builder)
             end
             link_to '#', class: 'add_structure_item_fields button button-link',
-                         data: { id: item.object_id, fields: fields.delete('\n') } do
+                         data: { id: item.object_id, fields: fields.delete("\n") } do
               icon('plus')
             end
           end

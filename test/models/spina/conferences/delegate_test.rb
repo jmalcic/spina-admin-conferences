@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Spina
   module Conferences
-    class DelegateTypeTest < ActiveSupport::TestCase
+    class DelegateTest < ActiveSupport::TestCase
       setup { @delegate = spina_conferences_delegates :joe_bloggs }
 
       test 'delegate attributes must not be empty' do
@@ -21,6 +21,17 @@ module Spina
         @delegate.email_address = 'foo'
         assert @delegate.invalid?
         assert @delegate.errors[:email_address].any?
+      end
+
+      test 'URL must be HTTP(S) URL' do
+        assert @delegate.valid?
+        assert_not @delegate.errors[:url].any?
+        @delegate.url = 'ftp://www.bbc.co.uk'
+        assert @delegate.invalid?
+        assert @delegate.errors[:url].any?
+        @delegate.url = '\\'
+        assert @delegate.invalid?
+        assert @delegate.errors[:url].any?
       end
 
       test 'returns names' do

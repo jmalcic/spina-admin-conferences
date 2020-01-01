@@ -26,7 +26,7 @@ module Spina
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
           click_on 'Choose image'
-          upload_and_select_image file_fixture('image.jpeg')
+          upload_and_select_image file_fixture('dubrovnik.jpeg')
           click_on 'Save institution'
           assert_text 'Institution saved'
         end
@@ -39,7 +39,7 @@ module Spina
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
           click_on 'Choose image'
-          upload_and_select_image file_fixture('image.jpeg')
+          upload_and_select_image file_fixture('dubrovnik.jpeg')
           click_on 'Save institution'
           assert_text 'Institution saved'
         end

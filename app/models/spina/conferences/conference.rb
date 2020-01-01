@@ -4,7 +4,6 @@ module Spina
   module Conferences
     # This class represents conferences.
     class Conference < ApplicationRecord
-      include ConferencePagePartable
       include ::Spina::Partable
 
       after_initialize :set_from_dates
@@ -31,7 +30,7 @@ module Spina
       validates_associated :room_possessions, unless: proc { |conference| conference.institution.blank? }
       validates_associated :presentation_types
 
-      validates :start_date, :finish_date, :rooms, :institution, :parts, presence: true
+      validates :start_date, :finish_date, :rooms, :institution, presence: true
       validates :finish_date, finish_date: true, unless: proc { |conference| conference.start_date.blank? }
 
       scope :sorted, -> { order dates: :desc }
@@ -79,8 +78,8 @@ module Spina
       def set_from_dates
         return if dates.blank?
 
-        self.start_date ||= dates.begin
-        self.finish_date ||= dates.end
+        self.start_date ||= dates.min
+        self.finish_date ||= dates.max
         self.year ||= start_date.year
         clear_attribute_changes %i[start_date finish_date year]
       end
@@ -88,8 +87,8 @@ module Spina
       def update_from_dates
         return if dates.blank?
 
-        self.start_date = dates.begin
-        self.finish_date = dates.end
+        self.start_date = dates.min
+        self.finish_date = dates.max
         self.year = start_date.year
         clear_attribute_changes %i[start_date finish_date year]
       end

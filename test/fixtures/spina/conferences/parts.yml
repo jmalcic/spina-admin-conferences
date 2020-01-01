@@ -49,7 +49,7 @@ poster:
 socials:
   name: socials
   title: Socials
-  partable: socials_structure (Spina::Structure)
+  partable: socials (Spina::Structure)
   pageable: university_of_atlantis_2017 (Spina::Conferences::Conference)
 
 empty_socials:
@@ -61,37 +61,13 @@ empty_socials:
 meetings:
   name: meetings
   title: Meetings
-  partable: minutes_structure (Spina::Structure)
+  partable: minutes (Spina::Structure)
   pageable: university_of_atlantis_2017 (Spina::Conferences::Conference)
 
 empty_meetings:
   name: meetings
   title: Meetings
   partable_type: Spina::Structure
-  pageable: university_of_shangri_la_2018 (Spina::Conferences::Conference)
-
-submission_url:
-  name: submission_url
-  title: Submission URL
-  partable: valid_url (Spina::Conferences::UrlPart)
-  pageable: university_of_atlantis_2017 (Spina::Conferences::Conference)
-
-empty_submission_url:
-  name: submission_url
-  title: Submission URL
-  partable_type: Spina::Conferences::UrlPart
-  pageable: university_of_shangri_la_2018 (Spina::Conferences::Conference)
-
-submission_date:
-  name: submission_date
-  title: Submission date
-  partable: valid_date (Spina::Conferences::DatePart)
-  pageable: university_of_atlantis_2017 (Spina::Conferences::Conference)
-
-empty_submission_date:
-  name: submission_date
-  title: Submission date
-  partable_type: Spina::Conferences::DatePart
   pageable: university_of_shangri_la_2018 (Spina::Conferences::Conference)
 
 submission_text:
