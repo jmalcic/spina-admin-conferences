@@ -1,6 +1,0 @@
-.flex-auto.d-flex.flex-column{ style: 'z-index: 0' }
-  - cache [latest_conference, @page] do
-    = render content(:gallery)&.images&.any? ? content(:gallery) : 'shared/jumbotron', advance: true do
-      = render 'homepage_jumbotron'
-  %footer.px-3.px-md-4
-    .container-md= render 'shared/footer'
