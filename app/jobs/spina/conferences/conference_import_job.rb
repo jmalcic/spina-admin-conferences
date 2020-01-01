@@ -24,7 +24,7 @@ module Spina
       def theme_parts
         conference_model_parts = model_parts(Conference)
         conference = Conference.new
-        conference_model_parts.blank? ? nil : conference_model_parts.map { |part| conference.part(part) }
+        conference_model_parts.blank? ? [] : conference_model_parts.map { |part| conference.part(part) }
       end
     end
   end
