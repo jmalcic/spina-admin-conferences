@@ -32,49 +32,15 @@
 en:
   spina:
     show: Show
-    pages:
-      homepage_jumbotron:
-        more_info: More info
-      committee_bios:
-        title: Committee bios
-        twitter: Twitter
-        facebook: Facebook
-        name_and_role: "%{name}, %{role}"
-        contact_buttons: Contact buttons
-      constitution:
-        title: Constitution
-        uploaded: Uploaded %{date}
-        download: Download
-      contact:
-        title: Contact
-      minutes:
-        title: Minutes
-      minutes_item:
-        minutes_html: Minutes for %{date}
-        download: Download
-      partner_societies:
-        title: Partner societies
-      partner_society:
-        website: Website
-        email: Email
-        contact_buttons: Contact buttons
-
+    languages:
+      en-GB: British English
     email: Email
-
-    image_collections:
-      image_collection:
-        previous: Previous
-        next: Next
-
     media_library:
       images: Images # This translation is apparently not provided by Spina for some reason
-
     images:
       delete: Delete # Ditto
-
     conferences:
       title: Conferences
-
       conferences:
         new: New conference
         save: Save conference
@@ -88,7 +54,6 @@ en:
         content: Content
         import: Import CSV
         saved: Conference saved
-
       delegates:
         new: New delegate
         save: Save delegate
@@ -99,7 +64,6 @@ en:
         presentations: Presentations
         import: Import CSV
         saved: Delegate saved
-
       presenters:
         new: New presenter
         save: Save presenter
@@ -108,7 +72,6 @@ en:
         presenter_details: Presenter details
         conferences: Conferences
         presentations: Presentations
-
       presentations:
         new: New presentation
         save: Save presentation
@@ -120,7 +83,6 @@ en:
         content: Content
         import: Import CSV
         saved: Presentation saved
-
       website:
         presentations: Presentations
         delegates: Delegates
@@ -129,7 +91,6 @@ en:
         institutions: Institutions
         rooms: Rooms
         dietary_requirements: Dietary requirements
-
       presentation_types:
         new: New presentation type
         save: Save presentation type
@@ -140,7 +101,6 @@ en:
         rooms: Rooms
         import: Import CSV
         saved: Presentation type saved
-
       dietary_requirements:
         new: New dietary requirement
         save: Save dietary requirement
@@ -150,7 +110,6 @@ en:
         delegates: Delegates
         import: Import CSV
         saved: Dietary requirement saved
-
       institutions:
         new: New institution
         save: Save institution
@@ -162,7 +121,6 @@ en:
         delegates: Delegates
         import: Import CSV
         saved: Institution saved
-
       rooms:
         new: New room
         save: Save room
@@ -172,10 +130,8 @@ en:
         presentations: Presentations
         import: Import CSV
         saved: Room saved
-
       room_uses:
         no_room_uses: There are no rooms in use
-
   activerecord:
     models:
       spina/page:
@@ -211,7 +167,6 @@ en:
       spina/conferences/room:
         one: Room
         other: Rooms
-
     attributes:
       spina/conferences/conference:
         institution: Institution
@@ -221,7 +176,6 @@ en:
         finish_date: Finish date
         rooms: Rooms
         rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-
       spina/conferences/delegate:
         first_name: First name
         last_name: Last name
@@ -233,7 +187,6 @@ en:
         conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
         dietary_requirements: Dietary requirements
         dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
-
       spina/conferences/presentation:
         title: Title
         date: Date
@@ -245,26 +198,21 @@ en:
         presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
         room_use: Room used
-
       spina/conferences/presentation_type:
         name: Name
         duration: Duration
         duration_description: Enter in minutes
         room_uses: Rooms used
         room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-
       spina/conferences/dietary_requirement:
         name: Name
-
       spina/conferences/institution:
         name: Name
         city: City
         logo: Logo
-
       spina/conferences/room:
         building: Building
         number: Number
-
   errors:
     messages:
       outside_conference: is not during the selected conference
@@ -280,86 +228,4 @@ en:
             does_not_belong_to_associated_conference: does not belong to the associated conference
           room_possession:
             does_not_belong_to_associated_institution: does not belong to the associated institution
-
-  languages:
-    en-GB: British English
-  shared:
-    empty_list:
-      no_items: No %{items} have been added
-    cookies:
-      title: About cookies
-      purpose: We use cookies for security, functionality, and analytics purposes.
-      no_advertizing: We do not use Google Analytics Advertising features.
-      used:
-        rails_html: We use the %{cookie} cookie to track sessions.
-        google_analytics_html: Google Analytics sets the %{cookies} cookies for analytics purposes.
-    footer:
-      copyright: © %{name} %{year}
-      find_on_github: Find us on GitHub
-    list_item:
-      name_and_role: "%{name}, %{role}"
-      twitter: Twitter
-      facebook: Facebook
-    subnav:
-      subnav:
-        subscribe: Subscribe
-
-  conference:
-    spina:
-      pages:
-        homepage_jumbotron:
-          more_info: More info
-        committee_bios:
-          title: Committee bios
-          contact_buttons: Contact buttons
-        constitution:
-          title: Constitution
-          uploaded: Uploaded %{date}
-          download: Download
-        contact:
-          title: Contact
-        minutes:
-          title: Minutes
-        minutes_item:
-          minutes_html: Minutes for %{date}
-          download: Download
-        partner_societies:
-          title: Partner societies
-        partner_society:
-          website: Website
-          email: Email
-          contact_buttons: Contact buttons
-
-      image_collections:
-        image_collection:
-          previous: Previous
-          next: Next
-
-      conferences:
-        conferences:
-          index:
-            subscribe: Subscribe
-
-          show:
-            dates_html: "%{start_date} to %{finish_date}"
-            submit_by_html: Submit abstracts by %{date}
-            submit_abstract: Submit an abstract
-            tabs:
-              information: Information
-              presentations: Presentations
-              events: Events
-            subscribe: Subscribe
-
-          sponsors:
-            title: Sponsors
-
-        presentations:
-          handout:
-            download: Download handout
-          poster:
-            download: Download poster
-          slides:
-            download: Download slides
-
-          show:
-            download_event: Download event
+  
