@@ -23,6 +23,17 @@ module Spina
         assert @delegate.errors[:email_address].any?
       end
 
+      test 'URL must be HTTP(S) URL' do
+        assert @delegate.valid?
+        assert_not @delegate.errors[:url].any?
+        @delegate.url = 'ftp://www.bbc.co.uk'
+        assert @delegate.invalid?
+        assert @delegate.errors[:url].any?
+        @delegate.url = '\\'
+        assert @delegate.invalid?
+        assert @delegate.errors[:url].any?
+      end
+
       test 'returns names' do
         assert @delegate.respond_to? :full_name
         assert @delegate.full_name.class == String

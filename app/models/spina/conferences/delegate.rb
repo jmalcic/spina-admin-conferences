@@ -14,6 +14,7 @@ module Spina
 
       validates :first_name, :last_name, :conferences, presence: true
       validates :email_address, email_address: true
+      validates :url, http_url: true
 
       scope :sorted, -> { order :last_name, :first_name }
 
