@@ -77,7 +77,8 @@ module Spina
         end
 
         def set_parts
-          @parts = model_parts(Conference).map { |part| @conference.part(part) }
+          conference_model_parts = model_parts(Conference)
+          @parts = conference_model_parts.blank? ? nil : conference_model_parts.map { |part| @conference.part(part) }
         end
 
         def set_tabs
