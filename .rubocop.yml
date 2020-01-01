@@ -1,9 +1,14 @@
 ---
-Metrics/LineLength:
-  Max: 120
-
-Rails:
-  Enabled: true
+inherit_gem:
+  rubocop-rails_config:
+    - config/rails.yml
 
 Style/CommandLiteral:
   EnforcedStyle: mixed
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Layout/LineLength:
+  Max: 120
+  AutoCorrect: true
