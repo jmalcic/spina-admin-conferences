@@ -1,6 +1,6 @@
 #presentation_type_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { route_value: admin_conferences_conferences_path, options_config_value: '{ "presentation_type_conference_id": { "value": "id", "text": "name" }, "presentation_type_room_possession_ids": { "trigger": "presentation_type_conference_id", "key": "room_possessions", "value": "id", "text": "room_name" } }' } } }
+    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "presentation_type_conference_id": { "value": "id", "text": "name" }, "presentation_type_room_possession_ids": { "trigger": "presentation_type_conference_id", "key": "room_possessions", "value": "id", "text": "room_name" } }', records_values: @conferences } } }
       .horizontal-form-group
         .horizontal-form-label= Spina::Conferences::PresentationType.human_attribute_name :conference
         .horizontal-form-content
@@ -10,7 +10,6 @@
         .horizontal-form-label= Spina::Conferences::PresentationType.human_attribute_name :name
         .horizontal-form-content= f.text_field :name, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:name), required: true
 
-      .horizontal-form-group
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Conferences::PresentationType.human_attribute_name :duration

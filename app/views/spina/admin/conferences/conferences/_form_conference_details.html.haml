@@ -1,6 +1,6 @@
 #conference_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { route_value: admin_conferences_institutions_path, options_config_value: '{ "conference_institution_id": { "value": "id", "text": "name" }, "conference_room_ids": { "trigger": "conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }' } } }
+    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "conference_institution_id": { "value": "id", "text": "name" }, "conference_room_ids": { "trigger": "conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }', records_values: @institutions } } }
       .horizontal-form-group
         .horizontal-form-label= Spina::Conferences::Conference.human_attribute_name :institution
         .horizontal-form-content

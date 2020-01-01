@@ -9,6 +9,7 @@ module Spina
 
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_conferences, only: %i[new edit]
 
         layout 'spina/admin/conferences/conferences'
 
@@ -61,6 +62,11 @@ module Spina
         end
 
         private
+        
+        def set_conferences
+          @conferences = Conference.sorted.to_json methods: %i[name localized_dates],
+                                                   include: { room_possessions: { methods: [:room_name] } }
+        end
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path

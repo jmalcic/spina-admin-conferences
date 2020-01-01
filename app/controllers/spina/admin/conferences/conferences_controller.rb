@@ -10,17 +10,10 @@ module Spina
 
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_institutions, only: %i[new edit]
 
         def index
           @conferences = Conference.sorted
-          respond_to do |format|
-            format.html
-            format.json do
-              render json: @conferences, methods: %i[name localized_dates],
-                     include: { room_possessions: { methods: [:room_name] },
-                                presentation_types: { include: { room_uses: { methods: [:room_name] } } } }
-            end
-          end
         end
 
         def new
@@ -70,6 +63,10 @@ module Spina
         end
 
         private
+
+        def set_institutions
+          @institutions = Institution.all.to_json include: { rooms: { methods: [:name] } }
+        end
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
