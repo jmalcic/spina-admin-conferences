@@ -77,7 +77,7 @@ module Spina
 
         def set_parts
           presentation_model_parts = model_parts(Presentation)
-          @parts = presentation_model_parts.blank? ? nil : presentation_model_parts.map { |part| @presentation.part(part) }
+          @parts = presentation_model_parts.blank? ? [] : presentation_model_parts.map { |part| @presentation.part(part) }
         end
 
         def set_tabs
