@@ -17,7 +17,7 @@ module Spina
         test 'should get new' do
           get new_admin_page_url
           assert_response :success
-          get new_admin_page_url(view_template: 'information')
+          get new_admin_page_url
           assert_response :success
         end
 
