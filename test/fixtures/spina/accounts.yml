@@ -8,4 +8,4 @@
 dummy:
   name: My Website
   preferences:
-    :theme: conference
+    :theme: default
