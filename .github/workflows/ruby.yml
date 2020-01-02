@@ -1,0 +1,33 @@
+name: Ruby
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Postgres
+      run: apt-get install postgresql
+    - name: Install Chromedriver
+      run: |
+        apt-get install chromium-chromedriver
+        ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
+    - name: Install Chrome
+      run: apt-get install chrome
+    - name: Set up Ruby 2.7
+      uses: actions/setup-ruby@v1
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1.1.0
+    - name: Install dependencies
+      run: |
+        bundle install --jobs 4 --retry 3
+        bundle exec yarn
+    - name: Prepare database
+      run: bundle exec rails db:setup
+    - name: Build and test with Rake
+      run: |
+        bundle exec rails db:setup
+        bundle exec rake
