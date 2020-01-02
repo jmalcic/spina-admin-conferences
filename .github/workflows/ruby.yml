@@ -10,13 +10,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install Postgres
-      run: apt-get install postgresql
+      run: sudo apt-get install postgresql
     - name: Install Chromedriver
       run: |
         apt-get install chromium-chromedriver
         ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
     - name: Install Chrome
-      run: apt-get install chrome
+      run: sudo apt-get install chrome
     - name: Set up Ruby 2.7
       uses: actions/setup-ruby@v1
     - name: Setup Node.js for use with actions
