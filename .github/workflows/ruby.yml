@@ -15,8 +15,6 @@ jobs:
       run: |
         sudo apt-get install chromium-chromedriver
         ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
-    - name: Install Chrome
-      run: sudo apt-get install chrome
     - name: Set up Ruby 2.7
       uses: actions/setup-ruby@v1
     - name: Setup Node.js for use with actions
