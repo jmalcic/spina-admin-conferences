@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install Postgres
-      run: sudo apt-get install postgresql
+      run: sudo apt-get install postgresql-server-dev-all
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
     - name: Setup Node.js
