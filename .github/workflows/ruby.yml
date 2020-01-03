@@ -13,13 +13,11 @@ jobs:
       run: sudo apt-get update
     - name: Install Postgres
       run: |
-        sudo apt-get install postgresql
-        sudo apt-get install postgresql-server-dev-all
+        sudo apt-get install postgresql libpq-dev
         sudo -u postgres createuser -d -s runner
     - name: Install Chromedriver
       run: |
         sudo apt-get install chromium-chromedriver
-        chromium-browser -v
         chromedriver -v
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
@@ -32,7 +30,5 @@ jobs:
         bundle exec yarn
     - name: Prepare database
       run: bundle exec rails db:setup
-    - name: Build and test with Rake
-      run: |
-        bundle exec rails db:setup
-        bundle exec rake
+    - name: Test with Rake
+      run: bundle exec rake
