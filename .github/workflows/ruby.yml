@@ -64,4 +64,4 @@ jobs:
     - name: Test with Rake
       run: |
         mkdir tmp
-        bundle exec rake
+        yarn run percy exec -- bundle exec rake
