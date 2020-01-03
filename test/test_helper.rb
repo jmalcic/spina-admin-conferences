@@ -8,12 +8,6 @@ if /.*rubymine.*/.match? ENV['XPC_SERVICE_NAME']
   Minitest::Reporters.use!
 end
 
-if ENV['PIG_CI_KEY']
-  require 'pig_ci'
-  
-  PigCI.start do |config|
-    config.api_key = ENV['PIG_CI_KEY']
-  end
 end
 
 # Configure Rails Environment
