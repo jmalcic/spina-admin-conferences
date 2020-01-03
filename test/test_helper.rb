@@ -8,6 +8,12 @@ if /.*rubymine.*/.match? ENV['XPC_SERVICE_NAME']
   Minitest::Reporters.use!
 end
 
+if ENV['CODECOV_TOKEN']
+  require 'simplecov'
+  require 'codecov'
+
+  SimpleCov.start 'rails'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
 require 'percy' if ENV['PERCY_TOKEN']
