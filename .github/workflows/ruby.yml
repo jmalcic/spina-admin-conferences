@@ -19,7 +19,7 @@ jobs:
     - name: Install Chromedriver
       run: |
         sudo apt-get install chromium-chromedriver
-        chromium -v
+        chromium-browser -v
         chromedriver -v
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
