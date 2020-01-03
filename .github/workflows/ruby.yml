@@ -17,7 +17,11 @@ jobs:
         sudo apt-get install postgresql-server-dev-all
         sudo -u postgres createuser -d -s runner
     - name: Install Chromedriver
-      run: sudo apt-get install chromium-chromedriver
+      run: |
+        sudo apt-get install chromium
+        sudo apt-get install chromium-chromedriver
+        chromium -v
+        chromedriver -v
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
     - name: Setup Node.js
