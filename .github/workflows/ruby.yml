@@ -20,7 +20,7 @@ jobs:
         sudo -u postgres createuser -d -s runner
     - name: Install Chromedriver
       run: |
-        sudo apt-get install --only-upgrade google-chrome
+        sudo apt-get install google-chrome-stable
         sudo apt-get install chromium-chromedriver
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
