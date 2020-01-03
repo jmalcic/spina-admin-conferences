@@ -10,6 +10,8 @@ end
 
 end
 
+require 'percy' if ENV['PERCY_TOKEN']
+
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
 
