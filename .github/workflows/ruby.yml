@@ -2,6 +2,13 @@ name: Ruby
 
 on: [push]
 
+env:
+  LANG: en_GB.UTF-8
+  RACK_ENV: test
+  RAILS_ENV: test
+  RAILS_SERVE_STATIC_FILES: enabled
+  PIG_CI_KEY: ${{ secrets.PIG_CI_KEY }}
+
 jobs:
   build:
 
