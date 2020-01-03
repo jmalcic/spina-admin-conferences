@@ -62,4 +62,6 @@ jobs:
     - name: Prepare database
       run: bundle exec rails db:setup
     - name: Test with Rake
-      run: bundle exec rake
+      run: |
+        mkdir tmp
+        bundle exec rake
