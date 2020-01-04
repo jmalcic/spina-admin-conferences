@@ -18,6 +18,7 @@ module Spina
         test 'visiting the index' do
           visit admin_conferences_institutions_url
           assert_selector '.breadcrumbs', text: 'Institutions'
+          Percy.snapshot page, name: 'Institutions index'
         end
 
         test 'creating an institution' do
@@ -27,8 +28,10 @@ module Spina
           fill_in 'institution_city', with: @institution.city
           click_on 'Choose image'
           upload_and_select_image file_fixture('dubrovnik.jpeg')
+          Percy.snapshot page, name: 'Institutions form on create'
           click_on 'Save institution'
           assert_text 'Institution saved'
+          Percy.snapshot page, name: 'Institutions index on create'
         end
 
         test 'updating an institution' do
@@ -36,12 +39,14 @@ module Spina
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
+          Percy.snapshot page, name: 'Institutions form on update'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
           click_on 'Choose image'
           upload_and_select_image file_fixture('dubrovnik.jpeg')
           click_on 'Save institution'
           assert_text 'Institution saved'
+          Percy.snapshot page, name: 'Institutions index on update'
         end
 
         test 'destroying an institution' do
@@ -50,8 +55,10 @@ module Spina
             click_on 'Edit'
           end
           click_on 'Permanently delete'
+          Percy.snapshot page, name: 'Institutions delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-institution-id=\"#{@institution.id}\"]"
+          Percy.snapshot page, name: 'Institutions index on delete'
         end
 
         def upload_and_select_image(fixture)
