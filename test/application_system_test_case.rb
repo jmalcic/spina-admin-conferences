@@ -14,8 +14,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   driven_by :selenium, using: :headless_chrome, screen_size: [1400, 800]
-  
-  def before_teardown
-    Percy.snapshot(page)
-  end
 end
