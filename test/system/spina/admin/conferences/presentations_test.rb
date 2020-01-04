@@ -18,6 +18,7 @@ module Spina
         test 'visiting the index' do
           visit admin_conferences_presentations_url
           assert_selector '.breadcrumbs', text: 'Presentations'
+          Percy.snapshot page, name: 'Presentations index'
         end
 
         test 'creating a presentation' do
@@ -36,8 +37,10 @@ module Spina
           @presentation.presenters.each do |presenter|
             select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
           end
+          Percy.snapshot page, name: 'Presentations form on create'
           click_on 'Save presentation'
           assert_text 'Presentation saved'
+          Percy.snapshot page, name: 'Presentations index on create'
         end
 
         test 'updating a presentation' do
@@ -45,6 +48,7 @@ module Spina
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on('Edit')
           end
+          Percy.snapshot page, name: 'Presentations form on update'
           select @presentation.conference.name, from: 'conference_id'
           select @presentation.presentation_type.name, from: 'presentation_type_id'
           select @presentation.room_use.room_name, from: 'presentation_room_use_id'
@@ -59,6 +63,7 @@ module Spina
           end
           click_on 'Save presentation'
           assert_text 'Presentation saved'
+          Percy.snapshot page, name: 'Presentations index on update'
         end
 
         test 'destroying a presentation' do
@@ -67,8 +72,10 @@ module Spina
             click_on('Edit')
           end
           click_on 'Permanently delete'
+          Percy.snapshot page, name: 'Presentations delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-presentation-id=\"#{@presentation.id}\"]"
+          Percy.snapshot page, name: 'Presentations index on delete'
         end
       end
     end
