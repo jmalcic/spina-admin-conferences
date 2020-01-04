@@ -18,6 +18,7 @@ module Spina
         test 'visiting the index' do
           visit admin_conferences_delegates_url
           assert_selector '.breadcrumbs', text: 'Delegates'
+          Percy.snapshot page, name: 'Delegates index'
         end
 
         test 'creating a delegate' do
@@ -29,8 +30,10 @@ module Spina
           fill_in 'delegate_email_address', with: @delegate.email_address
           fill_in 'delegate_url', with: @delegate.url
           @delegate.conferences.each { |conference| select conference.name, from: 'delegate_conference_ids' }
+          Percy.snapshot page, name: 'Delegates form on create'
           click_on 'Save delegate'
           assert_text 'Delegate saved'
+          Percy.snapshot page, name: 'Delegates index on create'
         end
 
         test 'updating a delegate' do
@@ -38,6 +41,7 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on('Edit')
           end
+          Percy.snapshot page, name: 'Delegates form on update'
           fill_in 'delegate_first_name', with: @delegate.first_name
           fill_in 'delegate_last_name', with: @delegate.last_name
           select @delegate.institution.name, from: 'delegate_institution_id'
@@ -46,6 +50,7 @@ module Spina
           @delegate.conferences.each { |conference| select conference.name, from: 'delegate_conference_ids' }
           click_on 'Save delegate'
           assert_text 'Delegate saved'
+          Percy.snapshot page, name: 'Delegates index on update'
         end
 
         test 'destroying a delegate' do
@@ -54,8 +59,10 @@ module Spina
             click_on('Edit')
           end
           click_on 'Permanently delete'
+          Percy.snapshot page, name: 'Delegates delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-delegate-id=\"#{@delegate.id}\"]"
+          Percy.snapshot page, name: 'Delegates index on delete'
         end
       end
     end
