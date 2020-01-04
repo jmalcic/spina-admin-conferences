@@ -18,6 +18,7 @@ module Spina
         test 'visiting the index' do
           visit admin_conferences_conferences_url
           assert_selector '.breadcrumbs', text: 'Conferences'
+          Percy.snapshot page, name: 'Conferences index'
         end
 
         test 'creating a conference' do
@@ -27,8 +28,10 @@ module Spina
           fill_in 'conference_start_date', with: @conference.start_date
           fill_in 'conference_finish_date', with: @conference.finish_date
           @conference.rooms.each { |room| select room.name, from: 'conference_room_ids' }
+          Percy.snapshot page, name: 'Conferences form on create'
           click_on 'Save conference'
           assert_text 'Conference saved'
+          Percy.snapshot page, name: 'Conferences index on create'
         end
 
         test 'updating a conference' do
@@ -40,8 +43,10 @@ module Spina
           fill_in 'conference_start_date', with: @conference.start_date
           fill_in 'conference_finish_date', with: @conference.finish_date
           @conference.rooms.each { |room| select room.name, from: 'conference_room_ids' }
+          Percy.snapshot page, name: 'Conferences form on update'
           click_on 'Save conference'
           assert_text 'Conference saved'
+          Percy.snapshot page, name: 'Conferences index on update'
         end
 
         test 'destroying a conference' do
@@ -50,8 +55,10 @@ module Spina
             click_on 'Edit'
           end
           click_on 'Permanently delete'
+          Percy.snapshot page, name: 'Conferences delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-conference-id=\"#{@conference.id}\"]"
+          Percy.snapshot page, name: 'Conferences index on delete'
         end
       end
     end
