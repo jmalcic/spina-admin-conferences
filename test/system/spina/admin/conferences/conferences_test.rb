@@ -39,11 +39,11 @@ module Spina
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end
+          Percy.snapshot page, name: 'Conferences form on update'
           select @conference.institution_name, from: 'conference_institution_id'
           fill_in 'conference_start_date', with: @conference.start_date
           fill_in 'conference_finish_date', with: @conference.finish_date
           @conference.rooms.each { |room| select room.name, from: 'conference_room_ids' }
-          Percy.snapshot page, name: 'Conferences form on update'
           click_on 'Save conference'
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on update'
