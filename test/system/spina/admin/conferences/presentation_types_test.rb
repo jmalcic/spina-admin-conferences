@@ -17,7 +17,7 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_presentation_types_url
-          assert_selector '.breadcrumbs', text: 'Presentation type'
+          assert_selector '.breadcrumbs', text: 'Presentation types'
           Percy.snapshot page, name: 'Presentation types index'
         end
 
