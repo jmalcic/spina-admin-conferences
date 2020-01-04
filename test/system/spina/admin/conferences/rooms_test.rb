@@ -18,6 +18,7 @@ module Spina
         test 'visiting the index' do
           visit admin_conferences_rooms_url
           assert_selector '.breadcrumbs', text: 'Rooms'
+          Percy.snapshot page, name: 'Rooms index'
         end
 
         test 'creating a room' do
@@ -26,8 +27,10 @@ module Spina
           select @room.institution.name, from: 'room_institution_id'
           fill_in 'room_building', with: @room.building
           fill_in 'room_number', with: @room.number
+          Percy.snapshot page, name: 'Rooms form on create'
           click_on 'Save room'
           assert_text 'Room saved'
+          Percy.snapshot page, name: 'Rooms index on create'
         end
 
         test 'updating a room' do
@@ -35,11 +38,13 @@ module Spina
           within "tr[data-room-id=\"#{@room.id}\"]" do
             click_on('Edit')
           end
+          Percy.snapshot page, name: 'Rooms form on update'
           select @room.institution.name, from: 'room_institution_id'
           fill_in 'room_building', with: @room.building
           fill_in 'room_number', with: @room.number
           click_on 'Save room'
           assert_text 'Room saved'
+          Percy.snapshot page, name: 'Rooms index on update'
         end
 
         test 'destroying a room' do
@@ -48,8 +53,10 @@ module Spina
             click_on('Edit')
           end
           click_on 'Permanently delete'
+          Percy.snapshot page, name: 'Rooms delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-room-id=\"#{@room.id}\"]"
+          Percy.snapshot page, name: 'Rooms index on delete'
         end
       end
     end
