@@ -76,8 +76,8 @@ module Spina
           assert_difference 'DietaryRequirement.count', -1 do
             delete admin_conferences_dietary_requirement_url(@dietary_requirement)
           end
-
           assert_redirected_to admin_conferences_dietary_requirements_url
+          assert_equal 'Dietary requirement deleted', flash[:success]
         end
 
         test 'should enqueue dietary requirement import' do

@@ -76,6 +76,7 @@ module Spina
             delete admin_conferences_presentation_url(@presentation)
           end
           assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation deleted', flash[:success]
         end
 
         test 'should enqueue presentation import' do

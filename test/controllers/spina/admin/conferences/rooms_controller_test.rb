@@ -70,6 +70,7 @@ module Spina
             delete admin_conferences_room_url(@room)
           end
           assert_redirected_to admin_conferences_rooms_url
+          assert_equal 'Room deleted', flash[:success]
         end
 
         test 'should enqueue room import' do

@@ -79,6 +79,7 @@ module Spina
             delete admin_conferences_delegate_url(@delegate)
           end
           assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate deleted', flash[:success]
         end
 
         test 'should enqueue delegate import' do

@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mini_racer'
   spec.add_development_dependency 'minitest-rails'
   spec.add_development_dependency 'minitest-reporters'
-  spec.add_development_dependency 'pig-ci-rails'
+  spec.add_development_dependency 'percy-capybara'
   spec.add_development_dependency 'puma'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rails_config'

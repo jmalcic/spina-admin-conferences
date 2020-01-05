@@ -8,13 +8,15 @@ if /.*rubymine.*/.match? ENV['XPC_SERVICE_NAME']
   Minitest::Reporters.use!
 end
 
-if ENV['PIG_CI_KEY']
-  require 'pig_ci'
-  
-  PigCI.start do |config|
-    config.api_key = ENV['PIG_CI_KEY']
-  end
+if ENV['CODECOV_TOKEN']
+  require 'simplecov'
+  require 'codecov'
+
+  SimpleCov.start 'rails'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
+
+require 'percy'
 
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'

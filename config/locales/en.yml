@@ -54,6 +54,7 @@ en:
         content: Content
         import: Import CSV
         saved: Conference saved
+        destroyed: Conference deleted
       delegates:
         new: New delegate
         save: Save delegate
@@ -64,6 +65,7 @@ en:
         presentations: Presentations
         import: Import CSV
         saved: Delegate saved
+        destroyed: Delegate deleted
       presenters:
         new: New presenter
         save: Save presenter
@@ -83,6 +85,7 @@ en:
         content: Content
         import: Import CSV
         saved: Presentation saved
+        destroyed: Presentation deleted
       website:
         presentations: Presentations
         delegates: Delegates
@@ -101,6 +104,7 @@ en:
         rooms: Rooms
         import: Import CSV
         saved: Presentation type saved
+        destroyed: Presentation type deleted
       dietary_requirements:
         new: New dietary requirement
         save: Save dietary requirement
@@ -110,6 +114,7 @@ en:
         delegates: Delegates
         import: Import CSV
         saved: Dietary requirement saved
+        destroyed: Dietary requirement deleted
       institutions:
         new: New institution
         save: Save institution
@@ -121,6 +126,7 @@ en:
         delegates: Delegates
         import: Import CSV
         saved: Institution saved
+        destroyed: Institution deleted
       rooms:
         new: New room
         save: Save room
@@ -130,6 +136,7 @@ en:
         presentations: Presentations
         import: Import CSV
         saved: Room saved
+        destroyed: Room deleted
       room_uses:
         no_room_uses: There are no rooms in use
   activerecord:

@@ -18,38 +18,51 @@ module Spina
         test 'visiting the index' do
           visit admin_conferences_rooms_url
           assert_selector '.breadcrumbs', text: 'Rooms'
+          Percy.snapshot page, name: 'Rooms index'
         end
 
         test 'creating a room' do
           visit admin_conferences_rooms_url
           click_on 'New room'
+          assert_selector '.breadcrumbs', text: 'New room'
           select @room.institution.name, from: 'room_institution_id'
           fill_in 'room_building', with: @room.building
           fill_in 'room_number', with: @room.number
+          Percy.snapshot page, name: 'Rooms form on create'
           click_on 'Save room'
           assert_text 'Room saved'
+          Percy.snapshot page, name: 'Rooms index on create'
         end
 
         test 'updating a room' do
           visit admin_conferences_rooms_url
           within "tr[data-room-id=\"#{@room.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
+          assert_selector '.breadcrumbs', text: @room.name
+          Percy.snapshot page, name: 'Rooms form on update'
           select @room.institution.name, from: 'room_institution_id'
           fill_in 'room_building', with: @room.building
           fill_in 'room_number', with: @room.number
           click_on 'Save room'
           assert_text 'Room saved'
+          Percy.snapshot page, name: 'Rooms index on update'
         end
 
         test 'destroying a room' do
           visit admin_conferences_rooms_url
           within "tr[data-room-id=\"#{@room.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
+          assert_selector '.breadcrumbs', text: @room.name
           click_on 'Permanently delete'
+          find '#overlay', visible: true, style: { display: 'block' }
+          assert_text "Are you sure you want to delete the room #{@room.name}?"
+          Percy.snapshot page, name: 'Rooms delete dialog'
           click_on 'Yes, I\'m sure'
+          assert_text 'Room deleted'
           assert_no_selector "tr[data-room-id=\"#{@room.id}\"]"
+          Percy.snapshot page, name: 'Rooms index on delete'
         end
       end
     end

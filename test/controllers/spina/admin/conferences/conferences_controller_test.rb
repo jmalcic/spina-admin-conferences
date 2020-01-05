@@ -91,6 +91,7 @@ module Spina
             delete admin_conferences_conference_url(@conference)
           end
           assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference deleted', flash[:success]
         end
 
         test 'should enqueue conference import' do

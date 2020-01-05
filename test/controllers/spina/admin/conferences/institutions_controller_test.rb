@@ -83,6 +83,7 @@ module Spina
             delete admin_conferences_institution_url(@institution)
           end
           assert_redirected_to admin_conferences_institutions_url
+          assert_equal 'Institution deleted', flash[:success]
         end
 
         test 'should enqueue institution import' do

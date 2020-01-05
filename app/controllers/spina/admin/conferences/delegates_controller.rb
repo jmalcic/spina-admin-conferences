@@ -22,7 +22,7 @@ module Spina
 
         def edit
           @delegate = Delegate.find params[:id]
-          add_breadcrumb "#{@delegate.first_name} #{@delegate.last_name}"
+          add_breadcrumb @delegate.full_name
           render layout: 'spina/admin/admin'
         end
 
@@ -38,7 +38,7 @@ module Spina
 
         def update
           @delegate = Delegate.find params[:id]
-          add_breadcrumb "#{@delegate.first_name} #{@delegate.last_name}"
+          add_breadcrumb @delegate.full_name
           if @delegate.update(delegate_params)
             redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
           else
@@ -49,7 +49,7 @@ module Spina
         def destroy
           @delegate = Delegate.find params[:id]
           @delegate.destroy
-          redirect_to admin_conferences_delegates_path
+          redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.destroyed') }
         end
 
         def import
