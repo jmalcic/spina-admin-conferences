@@ -52,7 +52,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @dietary_requirement.name
           click_on 'Permanently delete'
-          find '#overlay', style: { display: 'block' }
+          find '#overlay', visible: true, style: { display: 'block' }
           assert_text "Are you sure you want to delete the dietary requirement #{@dietary_requirement.name}?"
           Percy.snapshot page, name: 'Dietary requirements delete dialog'
           click_on 'Yes, I\'m sure'

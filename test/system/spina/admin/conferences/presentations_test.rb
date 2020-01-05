@@ -74,7 +74,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @presentation.name
           click_on 'Permanently delete'
-          find '#overlay', style: { display: 'block' }
+          find '#overlay', visible: true, style: { display: 'block' }
           assert_text "Are you sure you want to delete the presentation #{@presentation.name}?"
           Percy.snapshot page, name: 'Presentations delete dialog'
           click_on 'Yes, I\'m sure'
