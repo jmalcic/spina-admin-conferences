@@ -52,7 +52,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @dietary_requirement.name
           click_on 'Permanently delete'
-          assert_selector '#modal'
+          assert_text "Are you sure you want to delete the dietary requirement #{@dietary_requirement.name}?"
           Percy.snapshot page, name: 'Dietary requirements delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]"

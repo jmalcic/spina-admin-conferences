@@ -62,7 +62,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @delegate.full_name
           click_on 'Permanently delete'
-          assert_selector '#modal'
+          assert_text "Are you sure you want to delete the delegate #{@delegate.full_name}?"
           Percy.snapshot page, name: 'Delegates delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-delegate-id=\"#{@delegate.id}\"]"
