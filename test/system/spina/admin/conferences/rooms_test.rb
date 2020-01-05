@@ -24,6 +24,7 @@ module Spina
         test 'creating a room' do
           visit admin_conferences_rooms_url
           click_on 'New room'
+          assert_selector '.breadcrumbs', text: 'New room'
           select @room.institution.name, from: 'room_institution_id'
           fill_in 'room_building', with: @room.building
           fill_in 'room_number', with: @room.number
@@ -38,6 +39,7 @@ module Spina
           within "tr[data-room-id=\"#{@room.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @room.name
           Percy.snapshot page, name: 'Rooms form on update'
           select @room.institution.name, from: 'room_institution_id'
           fill_in 'room_building', with: @room.building
@@ -52,7 +54,9 @@ module Spina
           within "tr[data-room-id=\"#{@room.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @room.name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Rooms delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-room-id=\"#{@room.id}\"]"

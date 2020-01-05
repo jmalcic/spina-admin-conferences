@@ -24,6 +24,7 @@ module Spina
         test 'creating a delegate' do
           visit admin_conferences_delegates_url
           click_on 'New delegate'
+          assert_selector '.breadcrumbs', text: 'New delegate'
           fill_in 'delegate_first_name', with: @delegate.first_name
           fill_in 'delegate_last_name', with: @delegate.last_name
           select @delegate.institution.name, from: 'delegate_institution_id'
@@ -41,6 +42,7 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @delegate.full_name
           Percy.snapshot page, name: 'Delegates form on update'
           fill_in 'delegate_first_name', with: @delegate.first_name
           fill_in 'delegate_last_name', with: @delegate.last_name
@@ -58,7 +60,9 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @delegate.full_name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Delegates delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-delegate-id=\"#{@delegate.id}\"]"

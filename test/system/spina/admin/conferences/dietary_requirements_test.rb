@@ -24,6 +24,7 @@ module Spina
         test 'creating a dietary requirement' do
           visit admin_conferences_dietary_requirements_url
           click_on 'New dietary requirement'
+          assert_selector '.breadcrumbs', text: 'New dietary requirement'
           fill_in 'dietary_requirement_name', with: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on create'
           click_on 'Save dietary requirement'
@@ -36,6 +37,7 @@ module Spina
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on update'
           fill_in 'dietary_requirement_name', with: @dietary_requirement.name
           click_on 'Save dietary requirement'
@@ -48,7 +50,9 @@ module Spina
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @dietary_requirement.name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Dietary requirements delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]"

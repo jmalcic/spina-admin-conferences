@@ -24,6 +24,7 @@ module Spina
         test 'creating a conference' do
           visit admin_conferences_conferences_url
           click_on 'New conference'
+          assert_selector '.breadcrumbs', text: 'New conference'
           select @conference.institution_name, from: 'conference_institution_id'
           fill_in 'conference_start_date', with: @conference.start_date
           fill_in 'conference_finish_date', with: @conference.finish_date
@@ -39,6 +40,7 @@ module Spina
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end
+          assert_selector '.breadcrumbs', text: @conference.name
           Percy.snapshot page, name: 'Conferences form on update'
           select @conference.institution_name, from: 'conference_institution_id'
           fill_in 'conference_start_date', with: @conference.start_date
@@ -54,7 +56,9 @@ module Spina
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end
+          assert_selector '.breadcrumbs', text: @conference.name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Conferences delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-conference-id=\"#{@conference.id}\"]"

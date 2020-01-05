@@ -24,6 +24,7 @@ module Spina
         test 'creating an institution' do
           visit admin_conferences_institutions_url
           click_on 'New institution'
+          assert_selector '.breadcrumbs', text: 'New institution'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
           click_on 'Choose image'
@@ -39,6 +40,7 @@ module Spina
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
+          assert_selector '.breadcrumbs', text: @institution.name
           Percy.snapshot page, name: 'Institutions form on update'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
@@ -54,7 +56,9 @@ module Spina
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
+          assert_selector '.breadcrumbs', text: @institution.name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Institutions delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-institution-id=\"#{@institution.id}\"]"

@@ -24,6 +24,7 @@ module Spina
         test 'creating a presentation type' do
           visit admin_conferences_presentation_types_url
           click_on 'New presentation type'
+          assert_selector '.breadcrumbs', text: 'New presentation type'
           select @presentation_type.conference.name, from: 'presentation_type_conference_id'
           fill_in 'presentation_type_name', with: @presentation_type.name
           fill_in 'presentation_type_minutes', with: @presentation_type.minutes
@@ -41,6 +42,7 @@ module Spina
           within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @presentation_type.name
           Percy.snapshot page, name: 'Presentation types form on update'
           select @presentation_type.conference.name, from: 'presentation_type_conference_id'
           fill_in 'presentation_type_name', with: @presentation_type.name
@@ -58,7 +60,9 @@ module Spina
           within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @presentation_type.name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Presentation types delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]"

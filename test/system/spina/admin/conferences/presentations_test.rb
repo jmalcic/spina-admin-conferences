@@ -24,6 +24,7 @@ module Spina
         test 'creating a presentation' do
           visit admin_conferences_presentations_url
           click_on 'New presentation'
+          assert_selector '.breadcrumbs', text: 'New presentation'
           select @presentation.conference.name, from: 'conference_id'
           select @presentation.presentation_type.name, from: 'presentation_type_id'
           select @presentation.room_use.room_name, from: 'presentation_room_use_id'
@@ -47,6 +48,7 @@ module Spina
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @presentation.name
           Percy.snapshot page, name: 'Presentations form on update'
           select @presentation.conference.name, from: 'conference_id'
           select @presentation.presentation_type.name, from: 'presentation_type_id'
@@ -70,7 +72,9 @@ module Spina
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on('Edit')
           end
+          assert_selector '.breadcrumbs', text: @presentation.name
           click_on 'Permanently delete'
+          assert_selector '#modal'
           Percy.snapshot page, name: 'Presentations delete dialog'
           click_on 'Yes, I\'m sure'
           assert_no_selector "tr[data-presentation-id=\"#{@presentation.id}\"]"
