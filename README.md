@@ -1,14 +1,13 @@
 # Conferences
 
 [![Build Status](https://travis-ci.com/jmalcic/spina-conferences.svg?branch=master)](https://travis-ci.com/jmalcic/spina-conferences)
-[![Maintainability](https://api.codeclimate.com/v1/badges/2c1604dd7f5b412daf2c/maintainability)](https://codeclimate.com/github/jmalcic/spina-conferences/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/2c1604dd7f5b412daf2c/test_coverage)](https://codeclimate.com/github/jmalcic/spina-conferences/test_coverage)
+[![Test Coverage](https://codecov.io/gh/jmalcic/spina-conferences/branch/master/graph/badge.svg)](https://codecov.io/gh/jmalcic/spina-conferences)
+[![Visual testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/Ulab/spina-conferences)
+![Dependency updates](https://api.dependabot.com/badges/status?host=github&repo=jmalcic/spina-conferences)
 
 *Conferences* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
 See the wiki for details of the types of data supported.
-The plugin also includes four extra page parts for Spina pages: `Spina::Conferences::Date`, `Spina::Conferences::Url`, `Spina::Conferences::EmailAddress`, and `Spina::Conferences::Time`.
-`Spina::Conferences::Url` and `Spina::Conferences::EmailAddress` both have validators for the format of HTTP(S) URLs and email addresses respectively.
 
 ## Usage
 
@@ -31,9 +30,6 @@ After installing the plugin, you just need to start your server in the usual way
 ```bash
 $ rails s
 ```
-
-Make sure you choose 'conference' as the theme.
-You can choose the theme from the admin interface by going to **Preferences** &rarr; **Styling**.
 
 ## Installation
 
