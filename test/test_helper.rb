@@ -16,7 +16,7 @@ if ENV['CODECOV_TOKEN']
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
-require 'percy' if ENV['PERCY_TOKEN']
+require 'percy'
 
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
