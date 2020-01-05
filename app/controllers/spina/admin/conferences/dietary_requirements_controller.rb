@@ -53,7 +53,8 @@ module Spina
         def destroy
           @dietary_requirement = DietaryRequirement.find params[:id]
           @dietary_requirement.destroy
-          redirect_to admin_conferences_dietary_requirements_path
+          redirect_to admin_conferences_dietary_requirements_path,
+                      flash: { success: t('spina.conferences.dietary_requirements.destroyed') }
         end
 
         def import

@@ -57,7 +57,8 @@ module Spina
         def destroy
           @presentation = Presentation.find params[:id]
           @presentation.destroy
-          redirect_to admin_conferences_presentations_path
+          redirect_to admin_conferences_presentations_path,
+                      flash: { success: t('spina.conferences.presentations.destroyed') }
         end
 
         def import

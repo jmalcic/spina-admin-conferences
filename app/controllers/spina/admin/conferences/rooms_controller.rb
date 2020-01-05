@@ -51,7 +51,7 @@ module Spina
         def destroy
           @room = Room.find params[:id]
           @room.destroy
-          redirect_to admin_conferences_rooms_path
+          redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.destroyed') }
         end
 
         def import

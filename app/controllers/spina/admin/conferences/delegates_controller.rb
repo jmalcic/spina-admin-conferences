@@ -49,7 +49,7 @@ module Spina
         def destroy
           @delegate = Delegate.find params[:id]
           @delegate.destroy
-          redirect_to admin_conferences_delegates_path
+          redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.destroyed') }
         end
 
         def import
