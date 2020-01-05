@@ -70,6 +70,7 @@ module Spina
           attach_file 'image_files', fixture, make_visible: true
           first('.gallery .item:not(.item-uploader)').click
           find('.gallery-select-sidebar').click_on 'Choose image'
+          assert_no_selector '#overlay'
         end
       end
     end
