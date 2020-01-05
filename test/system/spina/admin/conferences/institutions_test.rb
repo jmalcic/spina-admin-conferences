@@ -61,6 +61,7 @@ module Spina
           assert_text "Are you sure you want to delete the institution #{@institution.name}?"
           Percy.snapshot page, name: 'Institutions delete dialog'
           click_on 'Yes, I\'m sure'
+          assert_text 'Institution deleted'
           assert_no_selector "tr[data-institution-id=\"#{@institution.id}\"]"
           Percy.snapshot page, name: 'Institutions index on delete'
         end

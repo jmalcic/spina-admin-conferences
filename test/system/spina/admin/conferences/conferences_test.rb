@@ -61,6 +61,7 @@ module Spina
           assert_text "Are you sure you want to delete the conference #{@conference.name}?"
           Percy.snapshot page, name: 'Conferences delete dialog'
           click_on 'Yes, I\'m sure'
+          assert_text 'Conference deleted'
           assert_no_selector "tr[data-conference-id=\"#{@conference.id}\"]"
           Percy.snapshot page, name: 'Conferences index on delete'
         end

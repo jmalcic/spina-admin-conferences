@@ -59,6 +59,7 @@ module Spina
           assert_text "Are you sure you want to delete the room #{@room.name}?"
           Percy.snapshot page, name: 'Rooms delete dialog'
           click_on 'Yes, I\'m sure'
+          assert_text 'Room deleted'
           assert_no_selector "tr[data-room-id=\"#{@room.id}\"]"
           Percy.snapshot page, name: 'Rooms index on delete'
         end

@@ -65,6 +65,7 @@ module Spina
           assert_text "Are you sure you want to delete the presentation type #{@presentation_type.name}?"
           Percy.snapshot page, name: 'Presentation types delete dialog'
           click_on 'Yes, I\'m sure'
+          assert_text 'Presentation type deleted'
           assert_no_selector "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]"
           Percy.snapshot page, name: 'Presentation types index on delete'
         end
