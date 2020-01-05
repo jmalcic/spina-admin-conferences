@@ -37,7 +37,7 @@ module Spina
         test 'updating a room' do
           visit admin_conferences_rooms_url
           within "tr[data-room-id=\"#{@room.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @room.name
           Percy.snapshot page, name: 'Rooms form on update'
@@ -52,7 +52,7 @@ module Spina
         test 'destroying a room' do
           visit admin_conferences_rooms_url
           within "tr[data-room-id=\"#{@room.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @room.name
           click_on 'Permanently delete'

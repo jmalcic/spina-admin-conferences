@@ -35,7 +35,7 @@ module Spina
         test 'updating a dietary requirement' do
           visit admin_conferences_dietary_requirements_url
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on update'
@@ -48,7 +48,7 @@ module Spina
         test 'destroying a dietary requirement' do
           visit admin_conferences_dietary_requirements_url
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @dietary_requirement.name
           click_on 'Permanently delete'

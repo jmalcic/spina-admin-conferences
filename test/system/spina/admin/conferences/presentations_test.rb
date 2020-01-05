@@ -46,7 +46,7 @@ module Spina
         test 'updating a presentation' do
           visit admin_conferences_presentations_url
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @presentation.name
           Percy.snapshot page, name: 'Presentations form on update'
@@ -70,7 +70,7 @@ module Spina
         test 'destroying a presentation' do
           visit admin_conferences_presentations_url
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @presentation.name
           click_on 'Permanently delete'

@@ -40,7 +40,7 @@ module Spina
         test 'updating a delegate' do
           visit admin_conferences_delegates_url
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @delegate.full_name
           Percy.snapshot page, name: 'Delegates form on update'
@@ -58,7 +58,7 @@ module Spina
         test 'destroying a delegate' do
           visit admin_conferences_delegates_url
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
-            click_on('Edit')
+            click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @delegate.full_name
           click_on 'Permanently delete'
