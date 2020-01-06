@@ -6,12 +6,12 @@ module Spina
     class EmailAddressValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
         return if value.blank?
-    
+
         record.errors.add(attribute, :invalid_email_address) unless parse(value)
       end
-    
+
       private
-    
+
       def parse(*values)
         values.each do |value|
           address = Mail::Address.new(value)

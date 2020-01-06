@@ -6,12 +6,12 @@ module Spina
     class HttpUrlValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
         return if value.blank?
-    
+
         record.errors.add(attribute, :invalid_http_https_url) unless parse(value)
       end
-    
+
       private
-    
+
       def parse(*values)
         values.each do |value|
           uri = URI.parse(value)

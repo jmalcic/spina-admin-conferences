@@ -7,7 +7,7 @@ module Spina
     class ConferenceDateValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
         return if value.blank? || (record&.conference&.dates&.cover? value.to_date)
-    
+
         record.errors.add(attribute, :outside_conference)
       end
     end
