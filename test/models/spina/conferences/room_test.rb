@@ -15,8 +15,8 @@ module Spina
       end
 
       test 'returns a name' do
-        assert @room.respond_to? :name
-        assert @room.name.class == String
+        assert_respond_to @room, :name
+        assert_equal @room.name.class, String
       end
     end
   end

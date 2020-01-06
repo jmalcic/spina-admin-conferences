@@ -26,12 +26,12 @@ module Spina
       end
 
       test 'returns a name' do
-        assert @presentation.name.class == String
+        assert_equal @presentation.name.class, String
       end
 
       test 'returns an iCal event' do
-        assert @presentation.to_ics.class == Icalendar::Event
-        assert Presentation.new.to_ics.class == Icalendar::Event
+        assert_equal @presentation.to_ics.class, Icalendar::Event
+        assert_equal Presentation.new.to_ics.class, Icalendar::Event
       end
     end
   end
