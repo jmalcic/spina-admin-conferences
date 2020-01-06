@@ -37,7 +37,3 @@ task default: :test
 require 'rubocop/rake_task'
 
 RuboCop::RakeTask.new
-
-require 'reek/rake/task'
-
-Reek::Rake::Task.new
