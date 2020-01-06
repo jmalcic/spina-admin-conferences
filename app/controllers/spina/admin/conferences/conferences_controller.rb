@@ -6,7 +6,6 @@ module Spina
       # This class manages conferences and sets breadcrumbs
       class ConferencesController < ::Spina::Admin::AdminController
         include ::Spina::Conferences
-        include Pageable
 
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
@@ -19,14 +18,12 @@ module Spina
         def new
           @conference = Conference.new
           add_breadcrumb I18n.t('spina.conferences.conferences.new')
-          set_parts
           render layout: 'spina/admin/admin'
         end
 
         def edit
           @conference = Conference.find params[:id]
           add_breadcrumb @conference.name
-          set_parts
           render layout: 'spina/admin/admin'
         end
 
@@ -36,7 +33,6 @@ module Spina
           if @conference.save
             redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
           else
-            set_parts
             render :new, layout: 'spina/admin/admin'
           end
         end
@@ -47,7 +43,6 @@ module Spina
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
           else
-            set_parts
             render :edit, layout: 'spina/admin/admin'
           end
         end
@@ -76,20 +71,12 @@ module Spina
           add_breadcrumb @conference.name if @conference
         end
 
-        def set_parts
-          conference_model_parts = model_parts(Conference)
-          @parts = conference_model_parts.blank? ? [] : conference_model_parts.map { |part| @conference.part(part) }
-        end
-
         def set_tabs
-          @tabs = %w[conference_details content delegates presentation_types rooms presentations]
+          @tabs = %w[conference_details delegates presentation_types rooms presentations]
         end
 
         def conference_params
-          params.require(:conference).permit(:start_date, :finish_date, :institution_id,
-                                             room_ids: [],
-                                             parts_attributes: [:id, :title, :name, :partable_type, :partable_id,
-                                                                partable_attributes: {}])
+          params.require(:conference).permit(:start_date, :finish_date, :institution_id, room_ids: [])
         end
       end
     end

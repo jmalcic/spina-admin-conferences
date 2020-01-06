@@ -33,9 +33,6 @@ module Spina
           assert_difference 'Presentation.count' do
             attributes = @presentation.attributes
             attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
-            attributes[:parts_attributes] = @presentation.parts.collect do |part|
-              part.attributes.reject { |key, _value| %w[id pageable_id].include? key }
-            end
             post admin_conferences_presentations_url, params: { presentation: attributes }
           end
           assert_redirected_to admin_conferences_presentations_url
