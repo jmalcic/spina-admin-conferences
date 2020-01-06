@@ -55,6 +55,7 @@ module Spina
             click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @room.name
+          page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
           assert_text "Are you sure you want to delete the room #{@room.name}?"
