@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameSpinaPageParts < ActiveRecord::Migration[5.2]
   def change
     rename_table 'spina_dates', 'spina_conferences_dates'

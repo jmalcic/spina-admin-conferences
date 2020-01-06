@@ -35,14 +35,14 @@ module Spina
       end
 
       test 'returns names' do
-        assert @delegate.respond_to? :full_name
-        assert @delegate.full_name.class == String
-        assert @delegate.respond_to? :full_name_and_institution
-        assert @delegate.full_name_and_institution.class == String
-        assert @delegate.respond_to? :reversed_name
-        assert @delegate.reversed_name.class == String
-        assert @delegate.respond_to? :reversed_name_and_institution
-        assert @delegate.reversed_name_and_institution.class == String
+        assert_respond_to @delegate, :full_name
+        assert_equal @delegate.full_name.class, String
+        assert_respond_to @delegate, :full_name_and_institution
+        assert_equal @delegate.full_name_and_institution.class, String
+        assert_respond_to @delegate, :reversed_name
+        assert_equal @delegate.reversed_name.class, String
+        assert_respond_to @delegate, :reversed_name_and_institution
+        assert_equal @delegate.reversed_name_and_institution.class, String
       end
     end
   end

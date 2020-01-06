@@ -75,12 +75,12 @@ module Spina
       end
 
       test 'returns a name' do
-        assert @conference.name.class == String
+        assert_equal @conference.name.class, String
       end
 
       test 'returns an iCal event' do
-        assert @conference.to_ics.class == Icalendar::Event
-        assert Conference.new.to_ics.class == Icalendar::Event
+        assert_equal @conference.to_ics.class, Icalendar::Event
+        assert_equal Conference.new.to_ics.class, Icalendar::Event
       end
 
       test 'returns an array of localized dates' do

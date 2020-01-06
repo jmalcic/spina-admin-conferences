@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSpinaConferencesParts < ActiveRecord::Migration[6.0]
   def change
     create_table :spina_conferences_parts do |t|
