@@ -27,6 +27,7 @@ module Spina
           assert_selector '.breadcrumbs', text: 'New institution'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
+          page.execute_script '$.fx.off = true;'
           click_on 'Choose image'
           upload_and_select_image file_fixture('dubrovnik.jpeg')
           Percy.snapshot page, name: 'Institutions form on create'
@@ -44,6 +45,7 @@ module Spina
           Percy.snapshot page, name: 'Institutions form on update'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
+          page.execute_script '$.fx.off = true;'
           click_on 'Choose image'
           upload_and_select_image file_fixture('dubrovnik.jpeg')
           click_on 'Save institution'
@@ -57,6 +59,7 @@ module Spina
             click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @institution.name
+          page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
           assert_text "Are you sure you want to delete the institution #{@institution.name}?"
