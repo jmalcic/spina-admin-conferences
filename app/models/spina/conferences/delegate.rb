@@ -13,8 +13,8 @@ module Spina
                                                      association_foreign_key: :spina_conferences_dietary_requirement_id
 
       validates :first_name, :last_name, :conferences, presence: true
-      validates :email_address, email_address: true
-      validates :url, http_url: true
+      validates :email_address, 'spina/conferences/email_address': true
+      validates :url, 'spina/conferences/http_url': true
 
       scope :sorted, -> { order :last_name, :first_name }
 

@@ -31,7 +31,7 @@ module Spina
       validates_associated :presentation_types
 
       validates :start_date, :finish_date, :rooms, :institution, presence: true
-      validates :finish_date, finish_date: true, unless: proc { |conference| conference.start_date.blank? }
+      validates :finish_date, 'spina/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
       scope :sorted, -> { order dates: :desc }
 

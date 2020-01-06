@@ -24,7 +24,7 @@ module Spina
       accepts_nested_attributes_for :parts, allow_destroy: true
 
       validates :title, :date, :start_time, :abstract, :presenters, presence: true
-      validates :date, conference_date: true
+      validates :date, 'spina/conferences/conference_date': true
       validates_associated :presenters
 
       scope :sorted, -> { order start_datetime: :desc }
