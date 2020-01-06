@@ -4,12 +4,9 @@ module Spina
   module Conferences
     # This class represents conferences.
     class Conference < ApplicationRecord
-      include ::Spina::Partable
-
       after_initialize :set_from_dates
       before_validation :update_dates
       after_save :update_from_dates
-      after_save -> { parts.each(&:save) }
 
       attribute :start_date, :date
       attribute :finish_date, :date
@@ -22,8 +19,6 @@ module Spina
       has_many :presentations, through: :presentation_types
       has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id,
                                           association_foreign_key: :spina_conferences_delegate_id
-      has_many :parts, inverse_of: :pageable, dependent: :destroy, as: :pageable
-      accepts_nested_attributes_for :parts, allow_destroy: true
 
       delegate :name, to: :institution, prefix: true, allow_nil: true
 
