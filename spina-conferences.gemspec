@@ -37,7 +37,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'percy-capybara'
   spec.add_development_dependency 'puma'
   spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-minitest'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rails'
   spec.add_development_dependency 'selenium-webdriver'
