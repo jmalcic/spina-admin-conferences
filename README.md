@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/jmalcic/spina-conferences.svg?branch=master)](https://travis-ci.com/jmalcic/spina-conferences)
 [![Test Coverage](https://codecov.io/gh/jmalcic/spina-conferences/branch/master/graph/badge.svg)](https://codecov.io/gh/jmalcic/spina-conferences)
+[![Code quality](https://www.codefactor.io/repository/github/jmalcic/spina-conferences/badge)](https://www.codefactor.io/repository/github/jmalcic/spina-conferences)
 [![Visual testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/Ulab/spina-conferences)
 ![Dependency updates](https://api.dependabot.com/badges/status?host=github&repo=jmalcic/spina-conferences)
 
