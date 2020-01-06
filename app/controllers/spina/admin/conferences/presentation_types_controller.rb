@@ -63,7 +63,7 @@ module Spina
         end
 
         private
-        
+
         def set_conferences
           @conferences = Conference.sorted.to_json methods: %i[name localized_dates],
                                                    include: { room_possessions: { methods: [:room_name] } }

@@ -8,6 +8,7 @@ module Spina
         extend ActiveSupport::Concern
 
         private
+
         def model_parts(klass)
           return nil unless current_theme.models.present?
 

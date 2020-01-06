@@ -6,6 +6,7 @@ class ChangeStartTimeInSpinaConferencesConferences < ActiveRecord::Migration[5.2
     remove_column :spina_conferences_presentations, :start_time
     add_column :spina_conferences_presentations, :start_time, :datetime
   end
+
   def down
     remove_column :spina_conferences_presentations, :start_time
     add_column :spina_conferences_presentations, :date, :date
