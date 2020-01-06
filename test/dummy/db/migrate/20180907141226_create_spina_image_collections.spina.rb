@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from spina (originally 10)
 class CreateSpinaImageCollections < ActiveRecord::Migration[5.2]
   def change

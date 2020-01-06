@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDependentOptionToForeignKeys < ActiveRecord::Migration[5.2]
   def change
     remove_foreign_key :spina_conferences_delegates,
