@@ -10,7 +10,7 @@ module Spina
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
-        layout 'spina/admin/conferences/delegates'
+        layout 'spina/admin/conferences/dietary_requirements'
 
         def index
           @dietary_requirements = DietaryRequirement.sorted
@@ -64,9 +64,7 @@ module Spina
         private
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.delegates'), admin_conferences_delegates_path
-          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'),
-                         admin_conferences_dietary_requirements_path
+          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'), admin_conferences_dietary_requirements_path
         end
 
         def set_tabs
