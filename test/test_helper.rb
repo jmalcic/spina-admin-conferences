@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 if /.*rubymine.*/.match? ENV['XPC_SERVICE_NAME']
-  require 'simplecov'
   require 'minitest/reporters'
 
-  SimpleCov.start 'rails'
   Minitest::Reporters.use!
 end
 
