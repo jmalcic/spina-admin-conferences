@@ -94,6 +94,7 @@ en:
         institutions: Institutions
         rooms: Rooms
         dietary_requirements: Dietary requirements
+        presentation_attachment_types: Presentation attachment types
       presentation_types:
         new: New presentation type
         save: Save presentation type
@@ -115,6 +116,13 @@ en:
         import: Import CSV
         saved: Dietary requirement saved
         destroyed: Dietary requirement deleted
+      presentation_attachment_types:
+        new: New presentation attachment type
+        save: Save presentation attachment type
+        delete_confirmation: "Are you sure you want to delete the presentation attachment type <strong>%{presentation_attachment_type}</strong>?"
+        no_presentation_attachment_types: There are no presentation attachment types
+        saved: Presentation attachment type saved
+        destroyed: Presentation attachment type deleted
       institutions:
         new: New institution
         save: Save institution
@@ -168,6 +176,9 @@ en:
       spina/conferences/dietary_requirement:
         one: Dietary requirement
         other: Dietary requirements
+      spina/conferences/presentation_attachment_type:
+        one: Presentation attachment type
+        other: Presentation attachment types
       spina/conferences/institution:
         one: Institution
         other: Institutions
@@ -213,6 +224,8 @@ en:
         room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
       spina/conferences/dietary_requirement:
         name: Name
+      spina/conferences/presentation_attachment_type:
+        name: Name
       spina/conferences/institution:
         name: Name
         city: City
@@ -235,4 +248,3 @@ en:
             does_not_belong_to_associated_conference: does not belong to the associated conference
           room_possession:
             does_not_belong_to_associated_institution: does not belong to the associated institution
-  

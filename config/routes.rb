@@ -27,6 +27,7 @@ Spina::Engine.routes.draw do
       resources :dietary_requirements, except: [:show] do
         post :import, on: :collection
       end
+      resources :presentation_attachment_types, except: [:show]
     end
   end
 end
