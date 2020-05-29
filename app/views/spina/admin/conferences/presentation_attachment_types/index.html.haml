@@ -8,12 +8,12 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::DietaryRequirement.human_attribute_name :name
+          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
           %th
 
       %tbody
         - if @presentation_attachment_types.any?
-          = render partial: 'spina/admin/conferences/shared/presentation_attachment_type', collection: @presentation_attachment_types
+          = render @presentation_attachment_types
 
         - else
           %tr

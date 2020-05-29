@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class PresentationAttachmentTypesTest < ApplicationSystemTestCase
         setup do
-          @presentation_attachment_type = spina_conferences_presentation_attachment_types :talk
+          @presentation_attachment_type = spina_admin_conferences_presentation_attachment_types :handout
           @user = spina_users :joe
           visit admin_login_url
           fill_in 'email', with: @user.email
@@ -25,7 +25,7 @@ module Spina
           visit admin_conferences_presentation_attachment_types_url
           click_on 'New presentation attachment type'
           assert_selector '.breadcrumbs', text: 'New presentation attachment type'
-          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
+          fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
           Percy.snapshot page, name: 'Presentation attachment types form on create'
           click_on 'Save presentation attachment type'
           assert_text 'Presentation attachment type saved'
@@ -39,7 +39,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @presentation_attachment_type.name
           Percy.snapshot page, name: 'Presentation attachment types form on update'
-          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
+          fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
           click_on 'Save presentation attachment type'
           assert_text 'Presentation attachment type saved'
           Percy.snapshot page, name: 'Presentation attachment types index on update'

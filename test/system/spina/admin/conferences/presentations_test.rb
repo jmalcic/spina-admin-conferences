@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class PresentationsTest < ApplicationSystemTestCase
         setup do
-          @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry
+          @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
           @user = spina_users :joe
           visit admin_login_url
           fill_in 'email', with: @user.email
@@ -25,17 +25,18 @@ module Spina
           visit admin_conferences_presentations_url
           click_on 'New presentation'
           assert_selector '.breadcrumbs', text: 'New presentation'
-          select @presentation.conference.name, from: 'conference_id'
-          select @presentation.presentation_type.name, from: 'presentation_type_id'
-          select @presentation.room_use.room_name, from: 'presentation_room_use_id'
-          select I18n.localize(@presentation.date, locale: :'en-GB', format: :short), from: 'presentation_date'
-          fill_in 'presentation_start_time', with: @presentation.start_time
-          fill_in 'presentation_title', with: @presentation.title
+          select @presentation.conference.name, from: 'admin_conferences_presentation_conference_id'
+          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_presentation_type_id'
+          select @presentation.room_use.room_name, from: 'admin_conferences_presentation_room_use_id'
+          select I18n.localize(@presentation.date, locale: :'en-GB', format: :short),
+                 from: 'admin_conferences_presentation_date'
+          fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
+          fill_in 'admin_conferences_presentation_title', with: @presentation.title
           find(class: 'horizontal-form-label', text: 'Abstract')
             .sibling(class: 'horizontal-form-content').find('trix-editor')
             .execute_script('this.editor.loadHTML(arguments[0])', @presentation.abstract)
           @presentation.presenters.each do |presenter|
-            select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
+            select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
           end
           Percy.snapshot page, name: 'Presentations form on create'
           click_on 'Save presentation'
@@ -50,17 +51,18 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @presentation.name
           Percy.snapshot page, name: 'Presentations form on update'
-          select @presentation.conference.name, from: 'conference_id'
-          select @presentation.presentation_type.name, from: 'presentation_type_id'
-          select @presentation.room_use.room_name, from: 'presentation_room_use_id'
-          select I18n.localize(@presentation.date, locale: :'en-GB', format: :short), from: 'presentation_date'
-          fill_in 'presentation_start_time', with: @presentation.start_time
-          fill_in 'presentation_title', with: @presentation.title
+          select @presentation.conference.name, from: 'admin_conferences_presentation_conference_id'
+          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_presentation_type_id'
+          select @presentation.room_use.room_name, from: 'admin_conferences_presentation_room_use_id'
+          select I18n.localize(@presentation.date, locale: :'en-GB', format: :short),
+                 from: 'admin_conferences_presentation_date'
+          fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
+          fill_in 'admin_conferences_presentation_title', with: @presentation.title
           find(class: 'horizontal-form-label', text: 'Abstract')
             .sibling(class: 'horizontal-form-content').find('trix-editor')
             .execute_script('this.editor.loadHTML(arguments[0])', @presentation.abstract)
           @presentation.presenters.each do |presenter|
-            select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
+            select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
           end
           click_on 'Save presentation'
           assert_text 'Presentation saved'

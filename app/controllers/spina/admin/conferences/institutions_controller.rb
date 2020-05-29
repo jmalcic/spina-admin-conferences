@@ -5,8 +5,6 @@ module Spina
     module Conferences
       # This class manages institutions and sets breadcrumbs
       class InstitutionsController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -70,7 +68,7 @@ module Spina
         end
 
         def conference_params
-          params.require(:institution).permit(:name, :city, :logo_id)
+          params.require(:admin_conferences_institution).permit(:name, :city, :logo_id)
         end
       end
     end

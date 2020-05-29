@@ -14,12 +14,12 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::DietaryRequirement.human_attribute_name :name
+          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
           %th
 
       %tbody
         - if @dietary_requirements.any?
-          = render partial: 'spina/admin/conferences/shared/dietary_requirement', collection: @dietary_requirements
+          = render @dietary_requirements
 
         - else
           %tr

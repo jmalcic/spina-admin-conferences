@@ -3,13 +3,13 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Delegate.human_attribute_name :name
-          %th= Spina::Conferences::Delegate.human_attribute_name :email_address
+          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :email_address
           %th
 
       %tbody
         - if @dietary_requirement.delegates.any?
-          = render partial: 'spina/admin/conferences/shared/delegate', collection: @dietary_requirement.delegates
+          = render @dietary_requirement.delegates
 
         - else
           %tr

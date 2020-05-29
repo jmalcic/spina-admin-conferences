@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class InstitutionsTest < ApplicationSystemTestCase
         setup do
-          @institution = spina_conferences_institutions :university_of_atlantis
+          @institution = spina_admin_conferences_institutions :university_of_atlantis
           @user = spina_users :joe
           visit admin_login_url
           fill_in 'email', with: @user.email
@@ -25,9 +25,9 @@ module Spina
           visit admin_conferences_institutions_url
           click_on 'New institution'
           assert_selector '.breadcrumbs', text: 'New institution'
-          fill_in 'institution_name', with: @institution.name
-          fill_in 'institution_city', with: @institution.city
           page.execute_script '$.fx.off = true;'
+          fill_in 'admin_conferences_institution_name', with: @institution.name
+          fill_in 'admin_conferences_institution_city', with: @institution.city
           click_on 'Choose image'
           upload_and_select_image file_fixture('dubrovnik.jpeg')
           Percy.snapshot page, name: 'Institutions form on create'
@@ -43,8 +43,8 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @institution.name
           Percy.snapshot page, name: 'Institutions form on update'
-          fill_in 'institution_name', with: @institution.name
-          fill_in 'institution_city', with: @institution.city
+          fill_in 'admin_conferences_institution_name', with: @institution.name
+          fill_in 'admin_conferences_institution_city', with: @institution.city
           page.execute_script '$.fx.off = true;'
           click_on 'Choose image'
           upload_and_select_image file_fixture('dubrovnik.jpeg')

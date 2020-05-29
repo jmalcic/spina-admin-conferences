@@ -14,14 +14,14 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Presentation.human_attribute_name :conference
-          %th= Spina::Conferences::Presentation.human_attribute_name :title
-          %th= Spina::Conferences::Presentation.human_attribute_name :presenters
+          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
+          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :title
+          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
           %th
 
       %tbody
         - if @presentations.any?
-          = render partial: 'spina/admin/conferences/shared/presentation', collection: @presentations
+          = render @presentations
 
         - else
           %tr

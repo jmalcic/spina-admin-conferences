@@ -14,13 +14,13 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Institution.human_attribute_name :name
-          %th= Spina::Conferences::Institution.human_attribute_name :city
+          %th= Spina::Admin::Conferences::Institution.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Institution.human_attribute_name :city
           %th
 
       %tbody
         - if @institutions.any?
-          = render partial: 'spina/admin/conferences/shared/institution', collection: @institutions
+          = render @institutions
 
         - else
           %tr

@@ -5,8 +5,6 @@ module Spina
     module Conferences
       # This class manages presentation types
       class PresentationTypesController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
         before_action :set_conferences, only: %i[new edit]
@@ -80,7 +78,7 @@ module Spina
         end
 
         def presentation_type_params
-          params.require(:presentation_type).permit(:name, :minutes, :conference_id, room_possession_ids: [])
+          params.require(:admin_conferences_presentation_type).permit(:name, :minutes, :conference_id, room_possession_ids: [])
         end
       end
     end

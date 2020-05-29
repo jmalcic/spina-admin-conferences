@@ -7,10 +7,9 @@ module Spina
     module Conferences
       class PresentationsControllerTest < ActionDispatch::IntegrationTest
         include ::Spina::Engine.routes.url_helpers
-        include ::Spina::Conferences
 
         setup do
-          @presentation = spina_conferences_presentations :asymmetry_and_antisymmetry
+          @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
           @invalid_presentation = Presentation.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -33,7 +32,7 @@ module Spina
           assert_difference 'Presentation.count' do
             attributes = @presentation.attributes
             attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
-            post admin_conferences_presentations_url, params: { presentation: attributes }
+            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
@@ -41,7 +40,7 @@ module Spina
 
         test 'should fail to create invalid presentation' do
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: @invalid_presentation.attributes }
+            post admin_conferences_presentations_url, params: { admin_conferences_presentation: @invalid_presentation.attributes }
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
@@ -56,14 +55,14 @@ module Spina
         end
 
         test 'should update presentation' do
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: @presentation.attributes }
+          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: @presentation.attributes }
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: @invalid_presentation.attributes }
+                params: { admin_conferences_presentation: @invalid_presentation.attributes }
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end

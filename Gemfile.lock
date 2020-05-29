@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spina-conferences (0.1.0)
+    spina-admin-conferences (0.1.0)
       babel-transpiler (~> 0.7)
       icalendar (~> 2.5)
       rails (~> 6.0)
@@ -368,7 +368,7 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq
   simplecov
-  spina-conferences!
+  spina-admin-conferences!
   web-console
   webdrivers
 

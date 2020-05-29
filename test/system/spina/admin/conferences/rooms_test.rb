@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class RoomsTest < ApplicationSystemTestCase
         setup do
-          @room = spina_conferences_rooms :lecture_block_2
+          @room = spina_admin_conferences_rooms :lecture_block_2
           @user = spina_users :joe
           visit admin_login_url
           fill_in 'email', with: @user.email
@@ -25,9 +25,9 @@ module Spina
           visit admin_conferences_rooms_url
           click_on 'New room'
           assert_selector '.breadcrumbs', text: 'New room'
-          select @room.institution.name, from: 'room_institution_id'
-          fill_in 'room_building', with: @room.building
-          fill_in 'room_number', with: @room.number
+          select @room.institution.name, from: 'admin_conferences_room_institution_id'
+          fill_in 'admin_conferences_room_building', with: @room.building
+          fill_in 'admin_conferences_room_number', with: @room.number
           Percy.snapshot page, name: 'Rooms form on create'
           click_on 'Save room'
           assert_text 'Room saved'
@@ -41,9 +41,9 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @room.name
           Percy.snapshot page, name: 'Rooms form on update'
-          select @room.institution.name, from: 'room_institution_id'
-          fill_in 'room_building', with: @room.building
-          fill_in 'room_number', with: @room.number
+          select @room.institution.name, from: 'admin_conferences_room_institution_id'
+          fill_in 'admin_conferences_room_building', with: @room.building
+          fill_in 'admin_conferences_room_number', with: @room.number
           click_on 'Save room'
           assert_text 'Room saved'
           Percy.snapshot page, name: 'Rooms index on update'

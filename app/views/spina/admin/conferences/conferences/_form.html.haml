@@ -12,7 +12,7 @@
       = link_to '#', data: { close_notification: true } do
         = icon('cross')
 
-= form_for [:admin_conferences, @conference], html: { autocomplete: "off" } do |f|
+= form_for @conference, html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 

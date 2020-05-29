@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class DietaryRequirementsTest < ApplicationSystemTestCase
         setup do
-          @dietary_requirement = spina_conferences_dietary_requirements :vegan
+          @dietary_requirement = spina_admin_conferences_dietary_requirements :vegan
           @user = spina_users :joe
           visit admin_login_url
           fill_in 'email', with: @user.email
@@ -25,7 +25,7 @@ module Spina
           visit admin_conferences_dietary_requirements_url
           click_on 'New dietary requirement'
           assert_selector '.breadcrumbs', text: 'New dietary requirement'
-          fill_in 'dietary_requirement_name', with: @dietary_requirement.name
+          fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on create'
           click_on 'Save dietary requirement'
           assert_text 'Dietary requirement saved'
@@ -39,7 +39,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on update'
-          fill_in 'dietary_requirement_name', with: @dietary_requirement.name
+          fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
           click_on 'Save dietary requirement'
           assert_text 'Dietary requirement saved'
           Percy.snapshot page, name: 'Dietary requirements index on update'

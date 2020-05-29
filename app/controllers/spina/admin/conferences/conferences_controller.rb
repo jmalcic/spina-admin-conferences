@@ -5,8 +5,6 @@ module Spina
     module Conferences
       # This class manages conferences and sets breadcrumbs
       class ConferencesController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
         before_action :set_institutions, only: %i[new edit]
@@ -76,7 +74,7 @@ module Spina
         end
 
         def conference_params
-          params.require(:conference).permit(:start_date, :finish_date, :institution_id, room_ids: [])
+          params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :institution_id, room_ids: [])
         end
       end
     end

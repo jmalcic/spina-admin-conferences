@@ -7,10 +7,9 @@ module Spina
     module Conferences
       class InstitutionsControllerTest < ActionDispatch::IntegrationTest
         include ::Spina::Engine.routes.url_helpers
-        include ::Spina::Conferences
 
         setup do
-          @institution = spina_conferences_institutions :university_of_atlantis
+          @institution = spina_admin_conferences_institutions :university_of_atlantis
           @invalid_institution = Institution.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -37,7 +36,7 @@ module Spina
 
         test 'should create institution' do
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: @institution.attributes }
+            post admin_conferences_institutions_url, params: { admin_conferences_institution: @institution.attributes }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
@@ -45,7 +44,7 @@ module Spina
 
         test 'should fail to create invalid institution' do
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: @invalid_institution.attributes }
+            post admin_conferences_institutions_url, params: { admin_conferences_institution: @invalid_institution.attributes }
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -66,14 +65,14 @@ module Spina
         end
 
         test 'should update institution' do
-          patch admin_conferences_institution_url(@institution), params: { institution: @institution.attributes }
+          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: @institution.attributes }
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution' do
           patch admin_conferences_institution_url(@institution),
-                params: { institution: @invalid_institution.attributes }
+                params: { admin_conferences_institution: @invalid_institution.attributes }
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end

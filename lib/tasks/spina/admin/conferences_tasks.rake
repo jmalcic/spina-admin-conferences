@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-namespace :spina_conferences do
+namespace :spina_admin_conferences do
 end

@@ -161,32 +161,32 @@ en:
       spina/attachment:
         one: Document
         other: Documents
-      spina/conferences/conference:
+      spina/admin/conferences/conference:
         one: Conference
         other: Conferences
-      spina/conferences/delegate:
+      spina/admin/conferences/delegate:
         one: Delegate
         other: Delegates
-      spina/conferences/presentation:
+      spina/admin/conferences/presentation:
         one: Presentation
         other: Presentations
-      spina/conferences/presentation_type:
+      spina/admin/conferences/presentation_type:
         one: Presentation type
         other: Presentation types
-      spina/conferences/dietary_requirement:
+      spina/admin/conferences/dietary_requirement:
         one: Dietary requirement
         other: Dietary requirements
-      spina/conferences/presentation_attachment_type:
+      spina/admin/conferences/presentation_attachment_type:
         one: Presentation attachment type
         other: Presentation attachment types
-      spina/conferences/institution:
+      spina/admin/conferences/institution:
         one: Institution
         other: Institutions
-      spina/conferences/room:
+      spina/admin/conferences/room:
         one: Room
         other: Rooms
     attributes:
-      spina/conferences/conference:
+      spina/admin/conferences/conference:
         institution: Institution
         institution_and_year: Institution and year
         city: City
@@ -194,7 +194,7 @@ en:
         finish_date: Finish date
         rooms: Rooms
         rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-      spina/conferences/delegate:
+      spina/admin/conferences/delegate:
         first_name: First name
         last_name: Last name
         name: Name
@@ -205,7 +205,7 @@ en:
         conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
         dietary_requirements: Dietary requirements
         dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
-      spina/conferences/presentation:
+      spina/admin/conferences/presentation:
         title: Title
         date: Date
         start_time: Start time
@@ -216,21 +216,21 @@ en:
         presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
         room_use: Room used
-      spina/conferences/presentation_type:
+      spina/admin/conferences/presentation_type:
         name: Name
         duration: Duration
         duration_description: Enter in minutes
         room_uses: Rooms used
         room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-      spina/conferences/dietary_requirement:
+      spina/admin/conferences/dietary_requirement:
         name: Name
-      spina/conferences/presentation_attachment_type:
+      spina/admin/conferences/presentation_attachment_type:
         name: Name
-      spina/conferences/institution:
+      spina/admin/conferences/institution:
         name: Name
         city: City
         logo: Logo
-      spina/conferences/room:
+      spina/admin/conferences/room:
         building: Building
         number: Number
   errors:

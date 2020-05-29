@@ -8,10 +8,9 @@ module Spina
       # noinspection RubyClassModuleNamingConvention
       class PresentationAttachmentTypesControllerTest < ActionDispatch::IntegrationTest
         include ::Spina::Engine.routes.url_helpers
-        include ::Spina::Conferences
 
         setup do
-          @presentation_attachment_type = spina_conferences_presentation_attachment_types :talk
+          @presentation_attachment_type = spina_admin_conferences_presentation_attachment_types :slides
           @invalid_presentation_attachment_type = PresentationAttachmentType.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -30,7 +29,7 @@ module Spina
         test 'should create presentation attachment type' do
           assert_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url, params: {
-              presentation_attachment_type: @presentation_attachment_type.attributes
+              admin_conferences_presentation_attachment_type: @presentation_attachment_type.attributes
             }
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
@@ -40,7 +39,7 @@ module Spina
         test 'should fail to create invalid presentation attachment type' do
           assert_no_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url,
-                 params: { presentation_attachment_type: @invalid_presentation_attachment_type.attributes }
+                 params: { admin_conferences_presentation_attachment_type: @invalid_presentation_attachment_type.attributes }
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
@@ -53,7 +52,7 @@ module Spina
 
         test 'should update presentation attachment type' do
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), params: {
-            presentation_attachment_type: @presentation_attachment_type.attributes
+            admin_conferences_presentation_attachment_type: @presentation_attachment_type.attributes
           }
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
@@ -61,7 +60,7 @@ module Spina
 
         test 'should fail to update invalid presentation attachment type' do
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: @invalid_presentation_attachment_type.attributes }
+                params: { admin_conferences_presentation_attachment_type: @invalid_presentation_attachment_type.attributes }
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
         end

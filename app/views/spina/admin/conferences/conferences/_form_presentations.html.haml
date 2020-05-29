@@ -3,13 +3,13 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Presentation.human_attribute_name :title
-          %th= Spina::Conferences::Presentation.human_attribute_name :presenters
+          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :title
+          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
           %th
 
       %tbody
         - if @conference.presentations.any?
-          = render partial: 'spina/admin/conferences/shared/presentation', collection: @conference.presentations
+          = render @conference.presentations
 
         - else
           %tr

@@ -14,15 +14,15 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Conference.human_attribute_name :year
-          %th= Spina::Conferences::Conference.human_attribute_name :institution
-          %th= Spina::Conferences::Conference.human_attribute_name :start_date
-          %th= Spina::Conferences::Conference.human_attribute_name :finish_date
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :institution
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :year
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :start_date
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :finish_date
           %th
 
       %tbody
         - if @conferences.any?
-          = render partial: 'spina/admin/conferences/shared/conference', collection: @conferences
+          = render @conferences
 
         - else
           %tr

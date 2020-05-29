@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class ConferencesTest < ApplicationSystemTestCase
         setup do
-          @conference = spina_conferences_conferences :university_of_atlantis_2017
+          @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
           @user = spina_users :joe
           visit admin_login_url
           fill_in 'email', with: @user.email
@@ -25,10 +25,10 @@ module Spina
           visit admin_conferences_conferences_url
           click_on 'New conference'
           assert_selector '.breadcrumbs', text: 'New conference'
-          select @conference.institution_name, from: 'conference_institution_id'
-          fill_in 'conference_start_date', with: @conference.start_date
-          fill_in 'conference_finish_date', with: @conference.finish_date
-          @conference.rooms.each { |room| select room.name, from: 'conference_room_ids' }
+          select @conference.institution_name, from: 'admin_conferences_conference_institution_id'
+          @conference.rooms.each { |room| select room.name, from: 'admin_conferences_conference_room_ids' }
+          fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
+          fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
           Percy.snapshot page, name: 'Conferences form on create'
           click_on 'Save conference'
           assert_text 'Conference saved'
@@ -42,10 +42,10 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @conference.name
           Percy.snapshot page, name: 'Conferences form on update'
-          select @conference.institution_name, from: 'conference_institution_id'
-          fill_in 'conference_start_date', with: @conference.start_date
-          fill_in 'conference_finish_date', with: @conference.finish_date
-          @conference.rooms.each { |room| select room.name, from: 'conference_room_ids' }
+          select @conference.institution_name, from: 'admin_conferences_conference_institution_id'
+          @conference.rooms.each { |room| select room.name, from: 'admin_conferences_conference_room_ids' }
+          fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
+          fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
           click_on 'Save conference'
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on update'

@@ -5,8 +5,6 @@ module Spina
     module Conferences
       # This class manages delegates and sets breadcrumbs
       class DelegatesController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -67,11 +65,11 @@ module Spina
         end
 
         def delegate_params
-          params.require(:delegate).permit(:first_name, :last_name,
-                                           :email_address, :url,
-                                           :institution_id,
-                                           conference_ids: [],
-                                           dietary_requirement_ids: [])
+          params.require(:admin_conferences_delegate).permit(:first_name, :last_name,
+                                                             :email_address, :url,
+                                                             :institution_id,
+                                                             conference_ids: [],
+                                                             dietary_requirement_ids: [])
         end
       end
     end

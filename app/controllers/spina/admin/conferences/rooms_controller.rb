@@ -5,8 +5,6 @@ module Spina
     module Conferences
       # This class manages rooms and sets breadcrumbs
       class RoomsController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -70,7 +68,7 @@ module Spina
         end
 
         def room_params
-          params.require(:room).permit(:building, :number, :institution_id)
+          params.require(:admin_conferences_room).permit(:building, :number, :institution_id)
         end
       end
     end

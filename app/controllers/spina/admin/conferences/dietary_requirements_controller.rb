@@ -5,8 +5,6 @@ module Spina
     module Conferences
       # This class manages dietary requirements
       class DietaryRequirementsController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
 
@@ -72,7 +70,7 @@ module Spina
         end
 
         def dietary_requirement_params
-          params.require(:dietary_requirement).permit(:name)
+          params.require(:admin_conferences_dietary_requirement).permit(:name)
         end
       end
     end

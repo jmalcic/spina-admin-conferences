@@ -3,13 +3,13 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Room.human_attribute_name :building
-          %th= Spina::Conferences::Room.human_attribute_name :number
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :building
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :number
           %th
 
       %tbody
         - if @conference.room_possessions.any?
-          = render partial: 'spina/admin/conferences/shared/room', collection: @conference.room_possessions.collect(&:room)
+          = render @conference.room_possessions.collect(&:room)
 
         - else
           %tr

@@ -1,14 +1,14 @@
 {
-  "name": "spina-conferences",
+  "name": "spina-admin-conferences",
   "version": "0.1.0",
   "description": "Conference management plugin for Spina.",
-  "main": "app/assets/javascripts/spina/conferences.js",
+  "main": "app/assets/javascripts/spina/admin/conferences/application.es6",
   "files": [
     "app/assets/javascripts/*.es6"
   ],
   "repository": {
     "type": "git",
-    "url": "jmalcic/spina-conferences"
+    "url": "jmalcic/spina-admin-conferences"
   },
   "keywords": [
     "conference-management",
@@ -18,9 +18,9 @@
   "author": "Justin Malčić <j.malcic@me.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jmalcic/spina-conferences/issues"
+    "url": "https://github.com/jmalcic/spina-admin-conferences/issues"
   },
-  "homepage": "https://jmalcic.github.io/projects/spina-conferences",
+  "homepage": "https://jmalcic.github.io/projects/spina-admin-conferences",
   "dependencies": {
     "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz"
   },

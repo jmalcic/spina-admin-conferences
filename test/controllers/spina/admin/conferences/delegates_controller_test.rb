@@ -7,10 +7,9 @@ module Spina
     module Conferences
       class DelegatesControllerTest < ActionDispatch::IntegrationTest
         include ::Spina::Engine.routes.url_helpers
-        include ::Spina::Conferences
 
         setup do
-          @delegate = spina_conferences_delegates :joe_bloggs
+          @delegate = spina_admin_conferences_delegates :joe_bloggs
           @invalid_delegate = Delegate.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -36,7 +35,7 @@ module Spina
           assert_difference 'Delegate.count' do
             attributes = @delegate.attributes
             attributes[:conference_ids] = @delegate.conferences.collect(&:id)
-            post admin_conferences_delegates_url, params: { delegate: attributes }
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
@@ -44,7 +43,7 @@ module Spina
 
         test 'should fail to create invalid delegate' do
           assert_no_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { delegate: @invalid_delegate.attributes }
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: @invalid_delegate.attributes }
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
@@ -62,14 +61,14 @@ module Spina
         end
 
         test 'should update delegate' do
-          patch admin_conferences_delegate_url(@delegate), params: { delegate: @delegate.attributes }
+          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: @delegate.attributes }
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: @invalid_delegate.attributes }
+                params: { admin_conferences_delegate: @invalid_delegate.attributes }
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
