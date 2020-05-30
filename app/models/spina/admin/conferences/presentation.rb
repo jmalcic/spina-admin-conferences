@@ -15,6 +15,7 @@ module Spina
         has_one :presentation_type, through: :room_use
         has_one :room_possession, through: :room_use
         has_one :conference, through: :presentation_type
+        has_many :presentation_attachments, dependent: :destroy
         has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate',
                                              foreign_key: :spina_conferences_presentation_id,
                                              association_foreign_key: :spina_conferences_delegate_id
