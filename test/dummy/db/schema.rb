@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_213718) do
+ActiveRecord::Schema.define(version: 2020_04_20_105458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(version: 2020_01_26_213718) do
     t.bigint "spina_conferences_presentation_id", null: false
   end
 
+  create_table "spina_conferences_dietary_requirement_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_dietary_requirement_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_e52faf9b7cbf3a3d55057c84094a3a10b5de6fdd"
+    t.index ["spina_conferences_dietary_requirement_id", "locale"], name: "index_70c4d45aefa2ef2619dd91b976391c1025d86e89", unique: true
+  end
+
   create_table "spina_conferences_dietary_requirements", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -125,6 +135,17 @@ ActiveRecord::Schema.define(version: 2020_01_26_213718) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "spina_conferences_institution_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_institution_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_9bff91c74e064cdc801502a3787ebe9a10fdecd1"
+    t.index ["spina_conferences_institution_id", "locale"], name: "index_28cf5cb308f9303c2ac50856f314ece46e11d90e", unique: true
   end
 
   create_table "spina_conferences_institutions", force: :cascade do |t|
@@ -145,6 +166,16 @@ ActiveRecord::Schema.define(version: 2020_01_26_213718) do
     t.bigint "pageable_id"
   end
 
+  create_table "spina_conferences_presentation_attachment_type_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_presentation_attachment_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_f3417b08c78b5a87825d3f14b49fb06e76b8bed4"
+    t.index ["spina_conferences_presentation_attachment_type_id", "locale"], name: "index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb", unique: true
+  end
+
   create_table "spina_conferences_presentation_attachment_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -158,6 +189,27 @@ ActiveRecord::Schema.define(version: 2020_01_26_213718) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["presentation_attachment_type_id"], name: "index_conferences_presentation_attachments_on_type_id"
     t.index ["presentation_id"], name: "index_conferences_presentation_attachments_on_presentation_id"
+  end
+
+  create_table "spina_conferences_presentation_translations", force: :cascade do |t|
+    t.string "title"
+    t.text "abstract"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_presentation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_0cda3821bc3be79968f9671e2a1d655e2307ad5b"
+    t.index ["spina_conferences_presentation_id", "locale"], name: "index_a9e38adc19b163962a915fe8d3d1f2415f0c83a0", unique: true
+  end
+
+  create_table "spina_conferences_presentation_type_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_presentation_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_22c39c0f300797c95ab75d46960dc27730d2065f"
+    t.index ["spina_conferences_presentation_type_id", "locale"], name: "index_fa3b8cb99b12895308e3fc943d6db212ce4408d0", unique: true
   end
 
   create_table "spina_conferences_presentation_types", force: :cascade do |t|
@@ -184,6 +236,17 @@ ActiveRecord::Schema.define(version: 2020_01_26_213718) do
     t.bigint "conference_id"
     t.index ["conference_id"], name: "index_spina_conferences_room_possessions_on_conference_id"
     t.index ["room_id"], name: "index_spina_conferences_room_possessions_on_room_id"
+  end
+
+  create_table "spina_conferences_room_translations", force: :cascade do |t|
+    t.string "building"
+    t.string "number"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_spina_conferences_room_translations_on_locale"
+    t.index ["spina_conferences_room_id", "locale"], name: "index_a83edb40b92a36d42b882b3a9adf6d2be543dee7", unique: true
   end
 
   create_table "spina_conferences_room_uses", force: :cascade do |t|
@@ -415,13 +478,19 @@ ActiveRecord::Schema.define(version: 2020_01_26_213718) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_dietary_requirement_translations", "spina_conferences_dietary_requirements", on_delete: :cascade
+  add_foreign_key "spina_conferences_institution_translations", "spina_conferences_institutions", on_delete: :cascade
   add_foreign_key "spina_conferences_institutions", "spina_images", column: "logo_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_presentation_attachment_type_translations", "spina_conferences_presentation_attachment_types", on_delete: :cascade
   add_foreign_key "spina_conferences_presentation_attachments", "spina_conferences_presentation_attachment_types", column: "presentation_attachment_type_id", on_delete: :cascade
   add_foreign_key "spina_conferences_presentation_attachments", "spina_conferences_presentations", column: "presentation_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_presentation_translations", "spina_conferences_presentations", on_delete: :cascade
+  add_foreign_key "spina_conferences_presentation_type_translations", "spina_conferences_presentation_types", on_delete: :cascade
   add_foreign_key "spina_conferences_presentation_types", "spina_conferences_conferences", column: "conference_id", on_delete: :cascade
   add_foreign_key "spina_conferences_presentations", "spina_conferences_room_uses", column: "room_use_id", on_delete: :cascade
   add_foreign_key "spina_conferences_room_possessions", "spina_conferences_conferences", column: "conference_id", on_delete: :cascade
   add_foreign_key "spina_conferences_room_possessions", "spina_conferences_rooms", column: "room_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_room_translations", "spina_conferences_rooms", on_delete: :cascade
   add_foreign_key "spina_conferences_room_uses", "spina_conferences_presentation_types", column: "presentation_type_id", on_delete: :cascade
   add_foreign_key "spina_conferences_room_uses", "spina_conferences_room_possessions", column: "room_possession_id", on_delete: :cascade
   add_foreign_key "spina_conferences_rooms", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
