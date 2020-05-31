@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_105458) do
+ActiveRecord::Schema.define(version: 2020_04_20_121443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_105458) do
   end
 
   create_table "spina_conferences_dietary_requirements", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -149,8 +148,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_105458) do
   end
 
   create_table "spina_conferences_institutions", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "city", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "logo_id"
@@ -177,7 +174,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_105458) do
   end
 
   create_table "spina_conferences_presentation_attachment_types", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -213,7 +209,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_105458) do
   end
 
   create_table "spina_conferences_presentation_types", force: :cascade do |t|
-    t.string "name", null: false
     t.interval "duration", null: false
     t.bigint "conference_id", null: false
     t.datetime "created_at", null: false
@@ -222,8 +217,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_105458) do
   end
 
   create_table "spina_conferences_presentations", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "abstract", null: false
     t.bigint "room_use_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -257,8 +250,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_105458) do
   end
 
   create_table "spina_conferences_rooms", force: :cascade do |t|
-    t.string "number", null: false
-    t.string "building", null: false
     t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
