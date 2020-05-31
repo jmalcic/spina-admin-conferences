@@ -5,6 +5,8 @@ module Spina
     module Conferences
       # This class represents presentation types (e.g. plenaries, poster presentations, etc.)
       class PresentationType < ApplicationRecord
+        translates :name, fallbacks: true
+
         after_initialize :set_from_duration
         before_validation :set_duration
 
@@ -21,7 +23,7 @@ module Spina
         validates :minutes, numericality: { greater_than_or_equal_to: 1 }
         validates_associated :room_uses
 
-        scope :sorted, -> { order :name }
+        scope :sorted, -> { i18n.order :name }
 
         def self.import(file)
           PresentationTypeImportJob.perform_later IO.read(file)

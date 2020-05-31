@@ -31,8 +31,10 @@ module Spina
 
         test 'should create dietary requirement' do
           assert_difference 'DietaryRequirement.count' do
+            attributes = @dietary_requirement.attributes
+            attributes[:name] = @dietary_requirement.name
             post admin_conferences_dietary_requirements_url, params: {
-              admin_conferences_dietary_requirement: @dietary_requirement.attributes
+              admin_conferences_dietary_requirement: attributes
             }
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
@@ -41,8 +43,10 @@ module Spina
 
         test 'should fail to create invalid dietary requirement' do
           assert_no_difference 'DietaryRequirement.count' do
+            attributes = @invalid_dietary_requirement.attributes
+            attributes[:name] = @invalid_dietary_requirement.name
             post admin_conferences_dietary_requirements_url,
-                 params: { admin_conferences_dietary_requirement: @invalid_dietary_requirement.attributes }
+                 params: { admin_conferences_dietary_requirement: attributes }
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
@@ -57,16 +61,20 @@ module Spina
         end
 
         test 'should update dietary requirement' do
+          attributes = @dietary_requirement.attributes
+          attributes[:name] = @dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: {
-            admin_conferences_dietary_requirement: @dietary_requirement.attributes
+            admin_conferences_dietary_requirement: attributes
           }
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to update invalid dietary requirement' do
+          attributes = @invalid_dietary_requirement.attributes
+          attributes[:name] = @invalid_dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: @invalid_dietary_requirement.attributes }
+                params: { admin_conferences_dietary_requirement: attributes }
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end

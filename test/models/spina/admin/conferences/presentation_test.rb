@@ -8,6 +8,26 @@ module Spina
       class PresentationTest < ActiveSupport::TestCase
         setup { @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry }
 
+        test 'translates title' do
+          @presentation.title = 'foo'
+          I18n.locale = :ja
+          assert_equal 'foo', @presentation.title
+          @presentation.title = 'bar'
+          assert_equal 'bar', @presentation.title
+          I18n.locale = I18n.default_locale
+          assert_equal 'foo', @presentation.title
+        end
+
+        test 'translates abstract' do
+          @presentation.title = 'foo'
+          I18n.locale = :ja
+          assert_equal 'foo', @presentation.title
+          @presentation.title = 'bar'
+          assert_equal 'bar', @presentation.title
+          I18n.locale = I18n.default_locale
+          assert_equal 'foo', @presentation.title
+        end
+
         test 'presentation attributes must not be empty' do
           presentation = Presentation.new
           assert presentation.invalid?

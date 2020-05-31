@@ -30,7 +30,10 @@ module Spina
 
         test 'should create room' do
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: @room.attributes }
+            attributes = @room.attributes
+            attributes[:building] = @room.building
+            attributes[:number] = @room.number
+            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
@@ -38,7 +41,10 @@ module Spina
 
         test 'should fail to create invalid room' do
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: @invalid_room.attributes }
+            attributes = @invalid_room.attributes
+            attributes[:building] = @invalid_room.building
+            attributes[:number] = @invalid_room.number
+            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
@@ -53,13 +59,19 @@ module Spina
         end
 
         test 'should update room' do
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: @room.attributes }
+          attributes = @room.attributes
+          attributes[:building] = @room.building
+          attributes[:number] = @room.number
+          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room' do
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: @invalid_room.attributes }
+          attributes = @invalid_room.attributes
+          attributes[:building] = @invalid_room.building
+          attributes[:number] = @invalid_room.number
+          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end

@@ -5,6 +5,8 @@ module Spina
     module Conferences
       # This class represents conference presentations.
       class Presentation < ApplicationRecord
+        translates :title, :abstract, fallbacks: true
+
         after_initialize :set_from_start_datetime
         before_validation :update_start_datetime
 

@@ -33,3 +33,10 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + '/files'
   ActiveSupport::TestCase.fixtures :all
 end
+
+module ActiveSupport
+  class TestCase
+    setup { I18n.locale = I18n.default_locale }
+    teardown { I18n.locale = I18n.default_locale }
+  end
+end

@@ -30,6 +30,7 @@ module Spina
           assert_difference 'PresentationType.count' do
             attributes = @presentation_type.attributes
             attributes[:room_possession_ids] = @presentation_type.room_possession_ids
+            attributes[:name] = @presentation_type.name
             post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }
           end
           assert_redirected_to admin_conferences_presentation_types_url
@@ -38,6 +39,9 @@ module Spina
 
         test 'should fail to create invalid presentation type' do
           assert_no_difference 'PresentationType.count' do
+            attributes = @invalid_presentation_type.attributes
+            attributes[:room_possession_ids] = @invalid_presentation_type.room_possession_ids
+            attributes[:name] = @invalid_presentation_type.name
             post admin_conferences_presentation_types_url,
                  params: { admin_conferences_presentation_type: @invalid_presentation_type.attributes }
           end
@@ -57,16 +61,22 @@ module Spina
         end
 
         test 'should update presentation type' do
+          attributes = @presentation_type.attributes
+          attributes[:room_possession_ids] = @presentation_type.room_possession_ids
+          attributes[:name] = @presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type), params: {
-            admin_conferences_presentation_type: @presentation_type.attributes
+            admin_conferences_presentation_type: attributes
           }
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation type' do
+          attributes = @invalid_presentation_type.attributes
+          attributes[:room_possession_ids] = @invalid_presentation_type.room_possession_ids
+          attributes[:name] = @invalid_presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { admin_conferences_presentation_type: @invalid_presentation_type.attributes }
+                params: { admin_conferences_presentation_type: attributes }
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
         end

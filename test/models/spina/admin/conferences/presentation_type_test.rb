@@ -6,7 +6,19 @@ module Spina
   module Admin
     module Conferences
       class PresentationTypeTest < ActiveSupport::TestCase
-        setup { @presentation_type = spina_admin_conferences_presentation_types :plenary_1 }
+        setup do
+          @presentation_type = spina_admin_conferences_presentation_types :plenary_1
+        end
+
+        test 'translates name' do
+          @presentation_type.name = 'foo'
+          I18n.locale = :ja
+          assert_equal 'foo', @presentation_type.name
+          @presentation_type.name = 'bar'
+          assert_equal 'bar', @presentation_type.name
+          I18n.locale = I18n.default_locale
+          assert_equal 'foo', @presentation_type.name
+        end
 
         test 'presentation type attributes must not be empty' do
           presentation_type = PresentationType.new

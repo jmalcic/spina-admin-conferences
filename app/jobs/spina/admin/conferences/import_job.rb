@@ -19,12 +19,12 @@ module Spina
         end
 
         def find_institution(params)
-          Institution.find_by! name: params[:name], city: params[:city]
+          Institution.i18n.find_by! name: params[:name], city: params[:city]
         end
 
         def find_room(params)
-          Room.find_by! building: params[:building], number: params[:number],
-                        institution: find_institution(params[:institution])
+          Room.i18n.find_by! building: params[:building], number: params[:number],
+                             institution: find_institution(params[:institution])
         end
 
         def find_rooms(params)
@@ -33,7 +33,7 @@ module Spina
 
         def find_dietary_requirements(params)
           params.collect do |dietary_requirement|
-            DietaryRequirement.find_by! name: dietary_requirement[:name]
+            DietaryRequirement.i18n.find_by! name: dietary_requirement[:name]
           end
         end
 
@@ -49,7 +49,7 @@ module Spina
         def find_room_possession(params)
           conference = find_conference(params[:conference])
           room_params = params[:room]
-          room_params[:institution] = conference.institution
+          room_params[:institution] = { name: conference.institution.name, city: conference.institution.city }
           RoomPossession.find_by! room: find_room(room_params), conference: conference
         end
 
@@ -58,7 +58,7 @@ module Spina
         end
 
         def find_presentation_type(params)
-          PresentationType.find_by! conference: find_conference(params[:conference]), name: params[:name]
+          PresentationType.i18n.find_by! conference: find_conference(params[:conference]), name: params[:name]
         end
 
         def find_delegates(params)

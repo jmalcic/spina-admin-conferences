@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+asymmetry_and_antisymmetry:
+  title: The Asymmetry and Antisymmetry of Syntax
+  abstract: Lorem ipsum
+  locale: en-GB
+  translated_model: asymmetry_and_antisymmetry
+
+no_island:
+  title: No Island is an Island
+  abstract: Dolor sit amen
+  locale: en-GB
+  translated_model: no_island

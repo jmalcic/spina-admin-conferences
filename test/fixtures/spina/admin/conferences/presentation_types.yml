@@ -6,7 +6,6 @@
 #
 plenary_1:
   conference: university_of_atlantis_2017
-  name: Plenary
   duration: !ruby/object:ActiveSupport::Duration
     value: 4800
     parts:
@@ -14,7 +13,6 @@ plenary_1:
 
 poster_1:
   conference: university_of_atlantis_2017
-  name: Poster
   duration: !ruby/object:ActiveSupport::Duration
     value: 1800
     parts:
@@ -22,7 +20,6 @@ poster_1:
 
 oral_1:
   conference: university_of_atlantis_2017
-  name: Oral
   duration:  !ruby/object:ActiveSupport::Duration
     value: 1200
     parts:
@@ -30,7 +27,6 @@ oral_1:
 
 plenary_2:
   conference: university_of_shangri_la_2018
-  name: Plenary
   duration:  !ruby/object:ActiveSupport::Duration
     value: 4800
     parts:
@@ -38,7 +34,6 @@ plenary_2:
 
 poster_2:
   conference: university_of_shangri_la_2018
-  name: Poster
   duration: !ruby/object:ActiveSupport::Duration
     value: 1800
     parts:
@@ -46,7 +41,6 @@ poster_2:
 
 oral_2:
   conference: university_of_shangri_la_2018
-  name: Oral
   duration: !ruby/object:ActiveSupport::Duration
     value: 1200
     parts:

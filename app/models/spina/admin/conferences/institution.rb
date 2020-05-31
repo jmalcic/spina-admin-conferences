@@ -5,6 +5,8 @@ module Spina
     module Conferences
       # This class represents institutions where a conference takes place.
       class Institution < ApplicationRecord
+        translates :name, :city, fallbacks: true
+
         belongs_to :logo, class_name: 'Spina::Image', optional: true
 
         has_many :conferences, inverse_of: :institution, autosave: true
