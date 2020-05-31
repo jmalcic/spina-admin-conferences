@@ -38,8 +38,7 @@ module Spina
         end
 
         def find_conference(params)
-          Conference.find_by! institution: find_institution(params[:institution]),
-                              dates: params[:start_date]..params[:finish_date]
+          Conference.i18n.find_by! name: params[:name], dates: params[:start_date]..params[:finish_date]
         end
 
         def find_conferences(params)
@@ -49,7 +48,6 @@ module Spina
         def find_room_possession(params)
           conference = find_conference(params[:conference])
           room_params = params[:room]
-          room_params[:institution] = { name: conference.institution.name, city: conference.institution.city }
           RoomPossession.find_by! room: find_room(room_params), conference: conference
         end
 

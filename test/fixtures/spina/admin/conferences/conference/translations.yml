@@ -5,7 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 university_of_atlantis_2017:
-  dates: !ruby/range 2017-04-07..2017-04-09
+  name: University of Atlantis 2017
+  locale: en-GB
+  translated_model: university_of_atlantis_2017
 
 university_of_shangri_la_2018:
-  dates: !ruby/range 2018-04-09..2018-04-11
+  name: University of Shangri-La 2018
+  locale: en-GB
+  translated_model: university_of_shangri_la_2018

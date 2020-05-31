@@ -9,9 +9,9 @@ module Spina
 
         belongs_to :logo, class_name: 'Spina::Image', optional: true
 
-        has_many :conferences, inverse_of: :institution, autosave: true
         has_many :rooms, inverse_of: :institution, dependent: :destroy
         has_many :room_possessions, through: :rooms
+        has_many :conferences, through: :room_possessions, autosave: true
         has_many :delegates, inverse_of: :institution, dependent: :destroy
 
         accepts_nested_attributes_for :rooms

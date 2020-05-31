@@ -2,9 +2,8 @@
   .well
     .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "admin_conferences_conference_institution_id": { "value": "id", "text": "name" }, "admin_conferences_conference_room_ids": { "trigger": "admin_conferences_conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }', records_values: @institutions } } }
       .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :institution
-        .horizontal-form-content
-          .select-dropdown= f.collection_select :institution_id, Spina::Admin::Conferences::Institution.all, :id, :name, {}, required: true, data: { action: 'select-options#updateFilteredData' }
+        .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :name
+        .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:name), required: true
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :start_date
@@ -15,10 +14,15 @@
         .horizontal-form-content= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), class: 'conference-datepicker', placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
       .horizontal-form-group
+        .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :institutions
+        .horizontal-form-content
+          .select-dropdown= f.collection_select :institution_ids, Spina::Admin::Conferences::Institution.all, :id, :name, {}, required: true, multiple: true, data: { action: 'select-options#updateFilteredData' }
+
+      .horizontal-form-group
         .horizontal-form-label
           = Spina::Admin::Conferences::Conference.human_attribute_name :rooms
           %small= (Spina::Admin::Conferences::Conference.human_attribute_name :rooms_description).try(:html_safe)
-        .horizontal-form-content.multiple.select-dropdown= f.collection_select :room_ids, Spina::Admin::Conferences::Room.sorted.where(institution: @conference.institution || Spina::Admin::Conferences::Institution.first), :id, :name, {}, disabled: @conference.institution.blank?, multiple: true, required: true, data: { select_options_target: 'select' }
+        .horizontal-form-content.multiple.select-dropdown= f.collection_select :room_ids, Spina::Admin::Conferences::Room.sorted.where(institution: @conference.institutions || Spina::Admin::Conferences::Institution.first), :id, :name, {}, disabled: @conference.institutions.blank?, multiple: true, required: true, data: { select_options_target: 'select' }
 
   - unless @conference.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('spina.conferences.conferences.delete_confirmation', conference: @conference.name) }, class: 'button button-link button-danger'

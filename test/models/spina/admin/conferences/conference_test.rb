@@ -8,12 +8,22 @@ module Spina
       class ConferenceTest < ActiveSupport::TestCase
         setup { @conference = spina_admin_conferences_conferences :university_of_atlantis_2017 }
 
+        test 'translates name' do
+          @conference.name = 'foo'
+          I18n.locale = :ja
+          assert_equal 'foo', @conference.name
+          @conference.name = 'bar'
+          assert_equal 'bar', @conference.name
+          I18n.locale = I18n.default_locale
+          assert_equal 'foo', @conference.name
+        end
+
         test 'conference attributes must not be empty' do
           conference = Conference.new
           assert conference.invalid?
           assert conference.errors[:start_date].any?
           assert conference.errors[:finish_date].any?
-          assert conference.errors[:institution].any?
+          assert conference.errors[:name].any?
         end
 
         test 'start and finish dates must be dates' do
@@ -75,8 +85,9 @@ module Spina
           assert_equal @conference.finish_date, finish_date
         end
 
-        test 'returns a name' do
-          assert_equal @conference.name.class, String
+        test 'returns a location' do
+          assert_equal @conference.location.class, String
+          assert_equal Conference.new.location.class, String
         end
 
         test 'returns an iCal event' do

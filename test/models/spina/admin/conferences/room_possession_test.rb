@@ -15,14 +15,6 @@ module Spina
           assert room_possession.errors[:conference].any?
         end
 
-        test 'room must belong to associated conference' do
-          assert @room_possession.valid?
-          assert_not @room_possession.errors[:room].any?
-          @room_possession.room = Room.where.not(institution: @room_possession.conference.institution).first
-          assert @room_possession.invalid?
-          assert @room_possession.errors[:room].any?
-        end
-
         test 'returns a room name' do
           assert_respond_to @room_possession, :room_name
           assert_equal @room_possession.room_name.class, String

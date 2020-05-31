@@ -1,6 +1,6 @@
 %tr{ data: { conference_id: conference.id } }
   %td= link_to conference.year, spina.edit_admin_conferences_conference_path(conference)
-  %td= conference.institution&.name
+  %td= conference.institutions.collect(&:name).to_sentence
   %td= time_tag conference.start_date, l(conference.start_date, format: :long)
   %td= time_tag conference.finish_date, l(conference.finish_date, format: :long)
   %td.align-right

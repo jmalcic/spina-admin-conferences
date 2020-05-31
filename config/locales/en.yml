@@ -187,7 +187,7 @@ en:
         other: Rooms
     attributes:
       spina/admin/conferences/conference:
-        institution: Institution
+        institutions: Institutions
         institution_and_year: Institution and year
         city: City
         start_date: Start date
@@ -246,5 +246,3 @@ en:
         attributes:
           room_use:
             does_not_belong_to_associated_conference: does not belong to the associated conference
-          room_possession:
-            does_not_belong_to_associated_institution: does not belong to the associated institution
