@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_121443) do
+ActiveRecord::Schema.define(version: 2020_05_02_183410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,12 +75,20 @@ ActiveRecord::Schema.define(version: 2020_04_20_121443) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "spina_conferences_conference_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "locale", null: false
+    t.bigint "spina_conferences_conference_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_b1ed8f417185e6e49c50c1f2119c86824e3e3a22"
+    t.index ["spina_conferences_conference_id", "locale"], name: "index_0022b227e0816c00e61de831f2d638f1b305868e", unique: true
+  end
+
   create_table "spina_conferences_conferences", force: :cascade do |t|
     t.daterange "dates", null: false
-    t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["institution_id"], name: "index_spina_conferences_conferences_on_institution_id"
   end
 
   create_table "spina_conferences_conferences_delegates", id: false, force: :cascade do |t|
@@ -467,7 +475,7 @@ ActiveRecord::Schema.define(version: 2020_04_20_121443) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_conference_translations", "spina_conferences_conferences"
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_dietary_requirement_translations", "spina_conferences_dietary_requirements", on_delete: :cascade
   add_foreign_key "spina_conferences_institution_translations", "spina_conferences_institutions", on_delete: :cascade
