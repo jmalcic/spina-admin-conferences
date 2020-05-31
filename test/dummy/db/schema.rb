@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_034441) do
+ActiveRecord::Schema.define(version: 2020_01_26_213718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,15 @@ ActiveRecord::Schema.define(version: 2020_01_26_034441) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "spina_conferences_presentation_attachments", force: :cascade do |t|
+    t.bigint "presentation_id", null: false
+    t.bigint "presentation_attachment_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["presentation_attachment_type_id"], name: "index_conferences_presentation_attachments_on_type_id"
+    t.index ["presentation_id"], name: "index_conferences_presentation_attachments_on_presentation_id"
   end
 
   create_table "spina_conferences_presentation_types", force: :cascade do |t|
@@ -407,6 +416,8 @@ ActiveRecord::Schema.define(version: 2020_01_26_034441) do
   add_foreign_key "spina_conferences_conferences", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_delegates", "spina_conferences_institutions", column: "institution_id", on_delete: :cascade
   add_foreign_key "spina_conferences_institutions", "spina_images", column: "logo_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_presentation_attachments", "spina_conferences_presentation_attachment_types", column: "presentation_attachment_type_id", on_delete: :cascade
+  add_foreign_key "spina_conferences_presentation_attachments", "spina_conferences_presentations", column: "presentation_id", on_delete: :cascade
   add_foreign_key "spina_conferences_presentation_types", "spina_conferences_conferences", column: "conference_id", on_delete: :cascade
   add_foreign_key "spina_conferences_presentations", "spina_conferences_room_uses", column: "room_use_id", on_delete: :cascade
   add_foreign_key "spina_conferences_room_possessions", "spina_conferences_conferences", column: "conference_id", on_delete: :cascade
