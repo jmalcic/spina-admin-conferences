@@ -22,7 +22,6 @@ module Spina
         def edit
           @presentation = Presentation.find params[:id]
           add_breadcrumb @presentation.title
-          render layout: 'spina/admin/admin'
         end
 
         def create
@@ -61,8 +60,10 @@ module Spina
         private
 
         def set_conferences
-          @conferences = Conference.sorted.to_json methods: %i[name localized_dates],
-                                                   include: { presentation_types: { include: { room_uses: { methods: [:room_name] } } } }
+          @conferences = Conference.all.to_json methods: %i[name localized_dates],
+                                                include:
+                                                  { presentation_types:
+                                                      { methods: [:name], include: { sessions: { methods: [:name] } } } }
         end
 
         def set_breadcrumbs
@@ -74,7 +75,7 @@ module Spina
         end
 
         def presentation_params
-          params.require(:admin_conferences_presentation).permit(:title, :date, :start_time, :abstract, :room_use_id, presenter_ids: [])
+          params.require(:admin_conferences_presentation).permit(:title, :date, :start_time, :abstract, :session_id, presenter_ids: [])
         end
       end
     end

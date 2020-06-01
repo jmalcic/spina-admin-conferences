@@ -1,0 +1,50 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+plenary_1_lecture_block_3_uoa_2017:
+  name: Plenaries in Lecture Block 3
+  locale: en-GB
+  translated_model: plenary_1_lecture_block_3_uoa_2017
+
+poster_1_lecture_block_entrance_uoa_2017:
+  name: Posters in Lecture Block entrance
+  locale: en-GB
+  translated_model: poster_1_lecture_block_entrance_uoa_2017
+
+oral_1_lecture_block_2_uoa_2017:
+  name: Orals in Lecture Block 2
+  locale: en-GB
+  translated_model: oral_1_lecture_block_2_uoa_2017
+
+oral_1_lecture_block_3_uoa_2017:
+  name: Orals in Lecture Block 3
+  locale: en-GB
+  translated_model: oral_1_lecture_block_3_uoa_2017
+
+plenary_2_medical_school_g_152_usl_2018:
+  name: Plenaries in Medical School G.152
+  locale: en-GB
+  translated_model: plenary_2_medical_school_g_152_usl_2018
+
+poster_2_medical_school_g_14_usl_2018:
+  name: Posters in Medical School G.14
+  locale: en-GB
+  translated_model: poster_2_medical_school_g_14_usl_2018
+
+oral_2_medical_school_g_152_usl_2018:
+  name: Orals in Medical School G.152
+  locale: en-GB
+  translated_model: oral_2_medical_school_g_152_usl_2018
+
+oral_2_medical_school_g_16_usl_2018:
+  name: Orals in Medical School G.16
+  locale: en-GB
+  translated_model: oral_2_medical_school_g_16_usl_2018
+
+empty_session:
+  name: Empty session
+  locale: en-GB
+  translated_model: empty_session

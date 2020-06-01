@@ -145,8 +145,29 @@ en:
         import: Import CSV
         saved: Room saved
         destroyed: Room deleted
-      room_uses:
-        no_room_uses: There are no rooms in use
+      sessions:
+        no_sessions: There are no sessions
+    admin:
+      conferences:
+        sessions:
+          index:
+            new: New session
+            no_sessions: There are no sessions
+          new:
+            new: New session
+          create:
+            new: New session
+            saved: Session saved
+          update:
+            saved: Session saved
+          destroy:
+            destroyed: Session deleted
+          form:
+            save: Save session
+            session_details: Session details
+            presentations: Presentations
+          form_session_details:
+            delete_confirmation: "Are you sure you want to delete the session <strong>%{session}</strong>?"
   activerecord:
     models:
       spina/page:
@@ -185,15 +206,15 @@ en:
       spina/admin/conferences/room:
         one: Room
         other: Rooms
+      spina/admin/conferences/session:
+        one: Session
+        other: Sessions
     attributes:
       spina/admin/conferences/conference:
         institutions: Institutions
-        institution_and_year: Institution and year
-        city: City
+        name: Name
         start_date: Start date
         finish_date: Finish date
-        rooms: Rooms
-        rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
       spina/admin/conferences/delegate:
         first_name: First name
         last_name: Last name
@@ -215,13 +236,11 @@ en:
         presenters: Presenters
         presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
-        room_use: Room used
+        session: Session
       spina/admin/conferences/presentation_type:
         name: Name
         duration: Duration
         duration_description: Enter in minutes
-        room_uses: Rooms used
-        room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
       spina/admin/conferences/dietary_requirement:
         name: Name
       spina/admin/conferences/presentation_attachment_type:
@@ -233,6 +252,10 @@ en:
       spina/admin/conferences/room:
         building: Building
         number: Number
+      spina/admin/conferences/session:
+        name: Name
+        presentation_type: Presentation type
+        room: Room
   errors:
     messages:
       outside_conference: is not during the selected conference
@@ -241,8 +264,3 @@ en:
       invalid_date: is not a date
       before_start_date: is before start date
       invalid_http_https_url: is not a valid HTTP or HTTPS URL
-    models:
-      spina/conferences/room_use:
-        attributes:
-          room_use:
-            does_not_belong_to_associated_conference: does not belong to the associated conference

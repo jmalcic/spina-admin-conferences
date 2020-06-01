@@ -8,16 +8,16 @@ asymmetry_and_antisymmetry:
   start_datetime: 2017-04-07 10:00
   presenters:
     - joe_bloggs
-  room_use: oral_1_lecture_block_2_uoa_2017
+  session: oral_1_lecture_block_2_uoa_2017
 
 no_island:
   start_datetime: 2017-04-07 10:20
   presenters:
     - brandon_krapp
-  room_use: oral_1_lecture_block_2_uoa_2017
+  session: oral_1_lecture_block_2_uoa_2017
 
 invalid_presentation:
   start_datetime: 2000-04-07 10:00
   presenters:
     - joe_bloggs
-  room_use: oral_1_lecture_block_2_uoa_2017
+  session: oral_1_lecture_block_2_uoa_2017

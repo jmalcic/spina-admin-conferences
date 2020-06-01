@@ -40,8 +40,9 @@ module Spina
         test 'should create conference' do
           assert_difference 'Conference.count' do
             attributes = @conference.attributes
+            attributes[:start_date] = @conference.start_date
+            attributes[:finish_date] = @conference.finish_date
             attributes[:name] = @conference.name
-            attributes[:room_ids] = @conference.rooms.collect(&:id)
             post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
           end
           assert_redirected_to admin_conferences_conferences_url
@@ -50,8 +51,9 @@ module Spina
 
         test 'should fail to create invalid conference' do
           attributes = @invalid_conference.attributes
+          attributes[:start_date] = @invalid_conference.start_date
+          attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          attributes[:room_ids] = @invalid_conference.rooms.collect(&:id)
           assert_no_difference 'Conference.count' do
             post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
           end
@@ -78,8 +80,9 @@ module Spina
 
         test 'should update conference' do
           attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
-          attributes[:room_ids] = @conference.rooms.collect(&:id)
           patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -87,8 +90,9 @@ module Spina
 
         test 'should fail to update invalid conference' do
           attributes = @invalid_conference.attributes
+          attributes[:start_date] = @invalid_conference.start_date
+          attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          attributes[:room_ids] = @invalid_conference.rooms.collect(&:id)
           patch admin_conferences_conference_url(@conference),
                 params: { admin_conferences_conference: attributes }
           assert_response :success

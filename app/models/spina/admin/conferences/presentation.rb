@@ -13,9 +13,9 @@ module Spina
         attribute :date, :date
         attribute :start_time, :time
 
-        belongs_to :room_use, touch: true
-        has_one :presentation_type, through: :room_use
-        has_one :room_possession, through: :room_use
+        belongs_to :session, inverse_of: :presentations
+        has_one :presentation_type, through: :session
+        has_one :room, through: :session
         has_one :conference, through: :presentation_type
         has_many :presentation_attachments, dependent: :destroy
         has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate',
@@ -50,7 +50,7 @@ module Spina
 
           event.dtstart = start_datetime
           event.dtend = start_datetime + presentation_type.duration
-          event.location = room_use.room_name
+          event.location = session.room_name
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = self.class.name.demodulize.upcase
           event.summary = title

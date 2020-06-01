@@ -64,7 +64,7 @@ module Spina
 
         def set_conferences
           @conferences = Conference.sorted.to_json methods: %i[name localized_dates],
-                                                   include: { room_possessions: { methods: [:room_name] } }
+                                                   include: { sessions: { methods: [:room_name] } }
         end
 
         def set_breadcrumbs
@@ -74,11 +74,11 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w[presentation_type_details presentations rooms]
+          @tabs = %w[presentation_type_details presentations sessions]
         end
 
         def presentation_type_params
-          params.require(:admin_conferences_presentation_type).permit(:name, :minutes, :conference_id, room_possession_ids: [])
+          params.require(:admin_conferences_presentation_type).permit(:name, :conference_id, :minutes)
         end
       end
     end

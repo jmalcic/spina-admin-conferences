@@ -12,9 +12,9 @@
           .select-dropdown= select_tag :admin_conferences_presentation_presentation_type_id, options_from_collection_for_select(Spina::Admin::Conferences::PresentationType.where(conference: @presentation.conference || Spina::Admin::Conferences::Conference.sorted.first), :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), { disabled: @presentation.presentation_type.blank?, required: true, include_blank: true, data: { action: 'select-options#updateFilteredData', select_options_target: 'select' } }
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :room_use
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :session
         .horizontal-form-content
-          .select-dropdown= f.collection_select :room_use_id, Spina::Admin::Conferences::RoomUse.where(presentation_type: @presentation.presentation_type || Spina::Admin::Conferences::Conference.sorted.first.presentation_types.first), :id, :room_name, {}, { disabled: @presentation.room_use.blank?, required: true, include_blank: true, data: { select_options_target: 'select' } }
+          .select-dropdown= f.collection_select :session_id, Spina::Admin::Conferences::Session.where(presentation_type: @presentation.presentation_type || Spina::Admin::Conferences::Conference.sorted.first.presentation_types.first), :id, :room_name, {}, { disabled: @presentation.session.blank?, required: true, include_blank: true, data: { select_options_target: 'select' } }
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :date

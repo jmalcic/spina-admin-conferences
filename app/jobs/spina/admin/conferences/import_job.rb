@@ -45,16 +45,6 @@ module Spina
           params.collect(&method(:find_conference))
         end
 
-        def find_room_possession(params)
-          conference = find_conference(params[:conference])
-          room_params = params[:room]
-          RoomPossession.find_by! room: find_room(room_params), conference: conference
-        end
-
-        def find_room_possessions(params)
-          params.collect(&method(:find_room_possession))
-        end
-
         def find_presentation_type(params)
           PresentationType.i18n.find_by! conference: find_conference(params[:conference]), name: params[:name]
         end
@@ -66,13 +56,12 @@ module Spina
           end
         end
 
-        def find_room_use(params)
+        def find_session(params)
           presentation_type_params = params[:presentation_type]
-          room_possession_params = params[:room_possession]
+          room_params = params[:room]
           copy_value :conference, from: params, to: presentation_type_params
-          copy_value :conference, from: params, to: room_possession_params
-          RoomUse.find_by! presentation_type: find_presentation_type(presentation_type_params),
-                           room_possession: find_room_possession(room_possession_params)
+          Session.find_by presentation_type: find_presentation_type(presentation_type_params),
+                          room: find_room(room_params)
         end
 
         def copy_value(value, from: nil, to: nil)

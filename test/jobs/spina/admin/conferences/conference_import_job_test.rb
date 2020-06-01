@@ -12,12 +12,6 @@ module Spina
           end
         end
 
-        test 'that number of room possessions changes' do
-          assert_difference 'RoomPossession.count', 6 do
-            ConferenceImportJob.perform_now File.open(file_fixture('conferences.csv'))
-          end
-        end
-
         test 'conference import scheduling' do
           assert_enqueued_with job: ConferenceImportJob do
             Conference.import File.open(file_fixture('conferences.csv'))

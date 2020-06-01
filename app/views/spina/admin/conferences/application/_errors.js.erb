@@ -1,0 +1,2 @@
+document.querySelector('aside#notifications')
+  .insertAdjacentHTML('beforeend', '<%= j(render partial: 'errors', formats: :html, locals: { errors: errors }) %>');

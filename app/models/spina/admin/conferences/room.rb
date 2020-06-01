@@ -8,9 +8,8 @@ module Spina
         translates :building, :number, fallbacks: true
 
         belongs_to :institution, inverse_of: :rooms, autosave: true
-        has_many :room_possessions, inverse_of: :room, dependent: :destroy
-        has_many :room_uses, through: :room_possessions
-        has_many :presentations, through: :room_uses
+        has_many :sessions, inverse_of: :room, dependent: :destroy
+        has_many :presentations, through: :sessions
 
         validates :number, :building, presence: true
 

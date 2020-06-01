@@ -15,17 +15,17 @@ module Spina
         attribute :finish_date, :date
         attribute :year, :integer
 
-        has_many :room_possessions, inverse_of: :conference, dependent: :destroy
-        has_many :rooms, through: :room_possessions
         has_many :presentation_types, inverse_of: :conference, dependent: :destroy
+        has_many :sessions, through: :presentation_types
         has_many :presentations, through: :presentation_types
+        has_many :rooms, through: :sessions
         has_many :institutions, through: :rooms
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id,
                                             association_foreign_key: :spina_conferences_delegate_id
 
         validates_associated :presentation_types
 
-        validates :start_date, :finish_date, :rooms, :name, presence: true
+        validates :start_date, :finish_date, :name, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
         scope :sorted, -> { order dates: :desc }

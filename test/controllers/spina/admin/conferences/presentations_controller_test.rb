@@ -32,6 +32,9 @@ module Spina
           assert_difference 'Presentation.count' do
             attributes = @presentation.attributes
             attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
+            attributes[:session_id] = @presentation.session_id
+            attributes[:start_time] = @presentation.start_time
+            attributes[:date] = @presentation.date
             attributes[:title] = @presentation.title
             attributes[:abstract] = @presentation.abstract
             post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
@@ -44,6 +47,9 @@ module Spina
           assert_no_difference 'Presentation.count' do
             attributes = @invalid_presentation.attributes
             attributes[:presenter_ids] = @invalid_presentation.presenters.collect(&:id)
+            attributes[:session_id] = @invalid_presentation.session_id
+            attributes[:start_time] = @invalid_presentation.start_time
+            attributes[:date] = @invalid_presentation.date
             attributes[:title] = @invalid_presentation.title
             attributes[:abstract] = @invalid_presentation.abstract
             post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
@@ -63,6 +69,9 @@ module Spina
         test 'should update presentation' do
           attributes = @presentation.attributes
           attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
+          attributes[:session_id] = @presentation.session_id
+          attributes[:start_time] = @presentation.start_time
+          attributes[:date] = @presentation.date
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
           patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }
@@ -73,6 +82,9 @@ module Spina
         test 'should fail to update invalid presentation' do
           attributes = @invalid_presentation.attributes
           attributes[:presenter_ids] = @invalid_presentation.presenters.collect(&:id)
+          attributes[:session_id] = @invalid_presentation.session_id
+          attributes[:start_time] = @invalid_presentation.start_time
+          attributes[:date] = @invalid_presentation.date
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
           patch admin_conferences_presentation_url(@presentation),

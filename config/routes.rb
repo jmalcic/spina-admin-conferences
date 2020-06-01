@@ -15,6 +15,7 @@ Spina::Engine.routes.draw do
       resources :rooms, except: [:show] do
         post :import, on: :collection
       end
+      resources :sessions, except: [:show]
       resources :delegates, except: [:show] do
         post :import, on: :collection
       end

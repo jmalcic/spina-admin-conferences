@@ -10,8 +10,7 @@ module Spina
         def perform(csv)
           Conference.transaction do
             import(csv) do |row|
-              rooms = row[:rooms]
-              Conference.create! name: row[:name], start_date: row[:start_date], finish_date: row[:finish_date], rooms: find_rooms(rooms)
+              Conference.create! name: row[:name], start_date: row[:start_date], finish_date: row[:finish_date]
             end
           end
         end

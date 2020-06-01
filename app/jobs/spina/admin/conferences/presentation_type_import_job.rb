@@ -10,11 +10,8 @@ module Spina
         def perform(csv)
           PresentationType.transaction do
             import(csv) do |row|
-              room_possessions = row[:room_possessions]
-              copy_value :conference, from: row, to: room_possessions
               PresentationType.create! name: row[:name], minutes: row[:minutes],
-                                       conference: find_conference(row[:conference]),
-                                       room_possessions: find_room_possessions(room_possessions)
+                                       conference: find_conference(row[:conference])
             end
           end
         end
