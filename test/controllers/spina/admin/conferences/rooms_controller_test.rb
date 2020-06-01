@@ -83,13 +83,6 @@ module Spina
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room deleted', flash[:success]
         end
-
-        test 'should enqueue room import' do
-          assert_enqueued_with job: RoomImportJob do
-            post import_admin_conferences_rooms_url,
-                 params: { file: fixture_file_upload(file_fixture('rooms.csv')) }
-          end
-        end
       end
     end
   end

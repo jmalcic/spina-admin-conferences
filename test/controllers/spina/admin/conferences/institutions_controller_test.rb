@@ -90,13 +90,6 @@ module Spina
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution deleted', flash[:success]
         end
-
-        test 'should enqueue institution import' do
-          assert_enqueued_with job: InstitutionImportJob do
-            post import_admin_conferences_institutions_url,
-                 params: { file: fixture_file_upload(file_fixture('institutions.csv')) }
-          end
-        end
       end
     end
   end

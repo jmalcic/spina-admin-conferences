@@ -86,13 +86,6 @@ module Spina
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement deleted', flash[:success]
         end
-
-        test 'should enqueue dietary requirement import' do
-          assert_enqueued_with job: DietaryRequirementImportJob do
-            post import_admin_conferences_dietary_requirements_url,
-                 params: { file: fixture_file_upload(file_fixture('dietary_requirements.csv')) }
-          end
-        end
       end
     end
   end

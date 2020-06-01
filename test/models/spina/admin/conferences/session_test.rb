@@ -46,13 +46,6 @@ module Spina
           assert_empty @new_session.presentations
         end
 
-        test 'does not destroy associated presentations' do
-          assert_no_difference 'Presentation.count' do
-            @session.destroy
-          end
-          assert_not_empty @session.errors[:base]
-        end
-
         test 'room must not be empty' do
           assert @session.valid?
           assert_empty @session.errors[:room]

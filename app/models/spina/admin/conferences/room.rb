@@ -15,10 +15,6 @@ module Spina
 
         scope :sorted, -> { i18n.order :building, :number }
 
-        def self.import(file)
-          RoomImportJob.perform_later IO.read(file)
-        end
-
         def name
           "#{building} #{number}"
         end

@@ -17,10 +17,6 @@ module Spina
         accepts_nested_attributes_for :rooms
 
         validates :name, :city, presence: true
-
-        def self.import(file)
-          InstitutionImportJob.perform_later IO.read(file)
-        end
       end
     end
   end

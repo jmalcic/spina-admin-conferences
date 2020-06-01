@@ -51,10 +51,6 @@ module Spina
           redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.destroyed') }
         end
 
-        def import
-          Conference.import params[:file]
-        end
-
         private
 
         def set_institutions

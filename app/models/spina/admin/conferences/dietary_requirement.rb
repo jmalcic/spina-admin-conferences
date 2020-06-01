@@ -14,10 +14,6 @@ module Spina
         validates :name, presence: true
 
         scope :sorted, -> { i18n.order :name }
-
-        def self.import(file)
-          DietaryRequirementImportJob.perform_later IO.read(file)
-        end
       end
     end
   end
