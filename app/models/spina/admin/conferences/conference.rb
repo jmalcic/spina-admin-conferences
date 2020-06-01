@@ -30,10 +30,6 @@ module Spina
 
         scope :sorted, -> { order dates: :desc }
 
-        def self.import(file)
-          ConferenceImportJob.perform_later IO.read(file)
-        end
-
         def self.description
           nil
         end

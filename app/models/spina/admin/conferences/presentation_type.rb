@@ -24,10 +24,6 @@ module Spina
 
         scope :sorted, -> { i18n.order :name }
 
-        def self.import(file)
-          PresentationTypeImportJob.perform_later IO.read(file)
-        end
-
         def set_from_duration
           self.minutes ||= duration / ActiveSupport::Duration::SECONDS_PER_MINUTE if duration.present?
         end
