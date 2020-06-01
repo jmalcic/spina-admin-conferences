@@ -14,14 +14,13 @@ module Spina
         attribute :minutes, :integer
 
         belongs_to :conference, inverse_of: :presentation_types
-        has_many :room_uses, inverse_of: :presentation_type, dependent: :destroy
-        has_many :room_possessions, through: :room_uses
-        has_many :rooms, through: :room_possessions
-        has_many :presentations, through: :room_uses
+        has_many :sessions, inverse_of: :presentation_type, dependent: :destroy
+        has_many :rooms, through: :sessions
+        has_many :presentations, through: :sessions
 
-        validates :name, :minutes, :room_uses, presence: true
+        validates :name, :minutes, :duration, presence: true
         validates :minutes, numericality: { greater_than_or_equal_to: 1 }
-        validates_associated :room_uses
+        validates_associated :sessions
 
         scope :sorted, -> { i18n.order :name }
 

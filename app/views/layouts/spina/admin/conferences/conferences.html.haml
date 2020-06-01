@@ -11,6 +11,8 @@
           = link_to t('spina.conferences.website.conferences'), admin_conferences_conferences_path
         %li{class: ('active' if controller_name == 'presentation_types')}
           = link_to t('spina.conferences.website.presentation_types'), admin_conferences_presentation_types_path
+        %li{class: ('active' if controller_name == 'sessions')}
+          = link_to t('spina.conferences.website.sessions'), admin_conferences_sessions_path
 
   = yield
 

@@ -8,8 +8,8 @@
           %th
 
       %tbody
-        - if @conference.room_possessions.any?
-          = render @conference.room_possessions.collect(&:room)
+        - if @conference.rooms.any?
+          = render @conference.rooms
 
         - else
           %tr

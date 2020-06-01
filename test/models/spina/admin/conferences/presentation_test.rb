@@ -36,6 +36,7 @@ module Spina
           assert presentation.errors[:start_time].any?
           assert presentation.errors[:abstract].any?
           assert presentation.errors[:presenters].any?
+          assert presentation.errors[:session].any?
         end
 
         test 'date must be during conference' do

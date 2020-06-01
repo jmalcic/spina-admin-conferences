@@ -25,7 +25,6 @@ module Spina
           assert presentation_type.invalid?
           assert presentation_type.errors[:name].any?
           assert presentation_type.errors[:minutes].any?
-          assert presentation_type.errors[:room_uses].any?
         end
 
         test 'minutes must be an integer' do

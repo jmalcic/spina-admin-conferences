@@ -1,0 +1,17 @@
+- content_for(:header_actions) do
+  = link_to new_admin_conferences_session_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
+    = t '.new'
+
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::Session.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Session.human_attribute_name :presentation_type
+          %th= Spina::Admin::Conferences::Session.human_attribute_name :room
+          %th
+
+      %tbody
+        = render @sessions.any? ? @sessions : 'empty_list', message: t('.no_sessions')

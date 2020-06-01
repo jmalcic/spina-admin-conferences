@@ -1,0 +1,11 @@
+.notification.notification-danger.animated.fadeInRight
+  = icon 'exclamation'
+  .notification-message
+    = t 'spina.notifications.alert'
+    %small
+    - errors.full_messages.each do |message|
+      = message
+      - unless errors.full_messages[-1] == message
+        %br
+  = link_to '#', data: { close_notification: true } do
+    = icon('cross')

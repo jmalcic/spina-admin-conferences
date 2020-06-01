@@ -7,7 +7,7 @@
     %ul
       %li{ class: ('active' if %w[institutions rooms].include? controller_name) }
         = link_to t("spina.#{plugin.name.downcase}.website.institutions"), spina.admin_conferences_institutions_path
-      %li{ class: ('active' if %w[conferences presentation_types].include? controller_name) }
+      %li{ class: ('active' if %w[conferences presentation_types sessions].include? controller_name) }
         = link_to t("spina.#{plugin.name.downcase}.website.conferences"), spina.admin_conferences_conferences_path
       %li{ class: ('active' if %w[delegates dietary_requirements].include? controller_name) }
         = link_to t("spina.#{plugin.name.downcase}.website.delegates"), spina.admin_conferences_delegates_path

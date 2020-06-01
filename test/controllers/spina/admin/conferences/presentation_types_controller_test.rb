@@ -29,7 +29,7 @@ module Spina
         test 'should create presentation type' do
           assert_difference 'PresentationType.count' do
             attributes = @presentation_type.attributes
-            attributes[:room_possession_ids] = @presentation_type.room_possession_ids
+            attributes[:minutes] = @presentation_type.minutes
             attributes[:name] = @presentation_type.name
             post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }
           end
@@ -40,7 +40,7 @@ module Spina
         test 'should fail to create invalid presentation type' do
           assert_no_difference 'PresentationType.count' do
             attributes = @invalid_presentation_type.attributes
-            attributes[:room_possession_ids] = @invalid_presentation_type.room_possession_ids
+            attributes[:minutes] = @invalid_presentation_type.minutes
             attributes[:name] = @invalid_presentation_type.name
             post admin_conferences_presentation_types_url,
                  params: { admin_conferences_presentation_type: @invalid_presentation_type.attributes }
@@ -55,14 +55,14 @@ module Spina
           assert_select '#presentations tbody > tr' do |table_rows|
             table_rows.each { |row| assert_select row, 'td', 4 }
           end
-          assert_select('#rooms tbody > tr') do |table_rows|
+          assert_select('#sessions tbody > tr') do |table_rows|
             table_rows.each { |row| assert_select row, 'td', 4 }
           end
         end
 
         test 'should update presentation type' do
           attributes = @presentation_type.attributes
-          attributes[:room_possession_ids] = @presentation_type.room_possession_ids
+          attributes[:minutes] = @presentation_type.minutes
           attributes[:name] = @presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type), params: {
             admin_conferences_presentation_type: attributes
@@ -73,7 +73,7 @@ module Spina
 
         test 'should fail to update invalid presentation type' do
           attributes = @invalid_presentation_type.attributes
-          attributes[:room_possession_ids] = @invalid_presentation_type.room_possession_ids
+          attributes[:minutes] = @invalid_presentation_type.minutes
           attributes[:name] = @invalid_presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type),
                 params: { admin_conferences_presentation_type: attributes }
