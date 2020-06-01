@@ -53,10 +53,6 @@ module Spina
                       flash: { success: t('spina.conferences.institutions.destroyed') }
         end
 
-        def import
-          Institution.import params[:file]
-        end
-
         private
 
         def set_breadcrumbs

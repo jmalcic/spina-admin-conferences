@@ -56,10 +56,6 @@ module Spina
                       flash: { success: t('spina.conferences.presentation_types.destroyed') }
         end
 
-        def import
-          PresentationType.import params[:file]
-        end
-
         private
 
         def set_conferences

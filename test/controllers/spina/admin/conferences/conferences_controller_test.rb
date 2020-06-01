@@ -106,13 +106,6 @@ module Spina
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference deleted', flash[:success]
         end
-
-        test 'should enqueue conference import' do
-          assert_enqueued_with job: ConferenceImportJob do
-            post import_admin_conferences_conferences_url,
-                 params: { file: fixture_file_upload(file_fixture('conferences.csv')) }
-          end
-        end
       end
     end
   end

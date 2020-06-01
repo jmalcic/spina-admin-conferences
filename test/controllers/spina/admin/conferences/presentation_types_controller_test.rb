@@ -88,13 +88,6 @@ module Spina
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type deleted', flash[:success]
         end
-
-        test 'should enqueue presentation type import' do
-          assert_enqueued_with job: PresentationTypeImportJob do
-            post import_admin_conferences_presentation_types_url,
-                 params: { file: fixture_file_upload(file_fixture('presentation_types.csv')) }
-          end
-        end
       end
     end
   end

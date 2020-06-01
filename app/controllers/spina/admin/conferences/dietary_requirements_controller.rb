@@ -55,10 +55,6 @@ module Spina
                       flash: { success: t('spina.conferences.dietary_requirements.destroyed') }
         end
 
-        def import
-          DietaryRequirement.import params[:file]
-        end
-
         private
 
         def set_breadcrumbs
