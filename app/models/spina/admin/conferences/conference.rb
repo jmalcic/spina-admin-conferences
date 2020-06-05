@@ -57,7 +57,9 @@ module Spina
         end
 
         def localized_dates
-          dates.entries.collect { |date| { date: date.iso8601, localization: I18n.localize(date, format: :long) } }
+          return if dates.blank?
+
+          dates.entries.collect { |date| { date: date.to_formatted_s(:iso8601), localization: I18n.l(date, format: :long) } }
         end
 
         def location
