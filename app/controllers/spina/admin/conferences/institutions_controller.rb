@@ -10,7 +10,7 @@ module Spina
         before_action :set_tabs
 
         def index
-          @institutions = Institution.all
+          @institutions = Institution.sorted
         end
 
         def new

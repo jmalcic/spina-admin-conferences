@@ -12,7 +12,7 @@ module Spina
         layout 'spina/admin/conferences/institutions'
 
         def index
-          @rooms = Room.all
+          @rooms = Room.sorted
         end
 
         def new
