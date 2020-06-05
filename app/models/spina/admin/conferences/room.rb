@@ -16,6 +16,8 @@ module Spina
         validates :number, :building, presence: true
 
         def name
+          return if building.blank? || number.blank?
+
           "#{building} #{number}"
         end
       end
