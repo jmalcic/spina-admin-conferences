@@ -30,25 +30,6 @@ module Spina
         validates :start_date, :finish_date, :name, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
-        def location
-          institutions.collect(&:name).to_sentence
-        end
-
-
-        def to_ics
-          event = Icalendar::Event.new
-          return event if invalid?
-
-          event.dtstart = start_date
-          event.dtstart.ical_param(:value, 'DATE')
-          event.dtend = finish_date
-          event.dtend.ical_param(:value, 'DATE')
-          event.location = location
-          event.categories = self.class.name.demodulize.upcase
-          event.summary = name
-          event
-        end
-
         # rubocop:enable Metrics/AbcSize
 
         def set_from_dates
@@ -77,6 +58,24 @@ module Spina
 
         def localized_dates
           dates.entries.collect { |date| { date: date.iso8601, localization: I18n.localize(date, format: :long) } }
+        end
+
+        def location
+          institutions.collect(&:name).to_sentence
+        end
+
+        def to_ics
+          event = Icalendar::Event.new
+          return event if invalid?
+
+          event.dtstart = start_date
+          event.dtstart.ical_param(:value, 'DATE')
+          event.dtend = finish_date
+          event.dtend.ical_param(:value, 'DATE')
+          event.location = location
+          event.categories = self.class.name.demodulize.upcase
+          event.summary = name
+          event
         end
       end
     end
