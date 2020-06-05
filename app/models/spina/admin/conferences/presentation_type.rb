@@ -9,11 +9,7 @@ module Spina
 
         scope :sorted, -> { order :name }
 
-        after_initialize :set_from_duration
-        before_validation :set_duration
-
         attribute :duration, :interval
-        attribute :minutes, :integer
 
         belongs_to :conference, inverse_of: :presentation_types
         has_many :sessions, inverse_of: :presentation_type, dependent: :destroy
@@ -24,12 +20,14 @@ module Spina
         validates :minutes, numericality: { greater_than_or_equal_to: 1 }
         validates_associated :sessions
 
-        def set_from_duration
-          self.minutes ||= duration / ActiveSupport::Duration::SECONDS_PER_MINUTE if duration.present?
+        def minutes
+          return if duration.blank?
+
+          duration.to_i / ActiveSupport::Duration::PARTS_IN_SECONDS[:minutes]
         end
 
-        def set_duration
-          self.duration = minutes.minutes if minutes.present?
+        def minutes=(minutes)
+          self.duration = minutes.to_i.minutes
         end
       end
     end
