@@ -5,10 +5,9 @@ module Spina
     module Conferences
       # This class manages dietary requirements
       class DietaryRequirementsController < ApplicationController
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
-
-        layout 'spina/admin/conferences/dietary_requirements'
+        before_action :set_dietary_requirement, only: %i[edit update destroy]
+        before_action :set_breadcrumb
+        before_action :set_tabs
 
         def index
           @dietary_requirements = DietaryRequirement.sorted
@@ -20,43 +19,46 @@ module Spina
         end
 
         def edit
-          @dietary_requirement = DietaryRequirement.find params[:id]
           add_breadcrumb @dietary_requirement.name
         end
 
         def create
           @dietary_requirement = DietaryRequirement.new dietary_requirement_params
-          add_breadcrumb I18n.t('spina.conferences.dietary_requirements.new')
+
           if @dietary_requirement.save
-            redirect_to admin_conferences_dietary_requirements_path,
-                        flash: { success: t('spina.conferences.dietary_requirements.saved') }
+            redirect_to admin_conferences_dietary_requirements_path, success: t('spina.conferences.dietary_requirements.saved')
           else
+            add_breadcrumb t('spina.conferences.dietary_requirements.new')
             render :new
           end
         end
 
         def update
-          @dietary_requirement = DietaryRequirement.find params[:id]
-          add_breadcrumb @dietary_requirement.name
           if @dietary_requirement.update(dietary_requirement_params)
-            redirect_to admin_conferences_dietary_requirements_path,
-                        flash: { success: t('spina.conferences.dietary_requirements.saved') }
+            redirect_to admin_conferences_dietary_requirements_path, success: t('spina.conferences.dietary_requirements.saved')
           else
+            add_breadcrumb @dietary_requirement.name
             render :edit
           end
         end
 
         def destroy
-          @dietary_requirement = DietaryRequirement.find params[:id]
-          @dietary_requirement.destroy
-          redirect_to admin_conferences_dietary_requirements_path,
-                      flash: { success: t('spina.conferences.dietary_requirements.destroyed') }
+          if @dietary_requirement.destroy
+            redirect_to admin_conferences_dietary_requirements_path, success: t('spina.conferences.dietary_requirements.destroyed')
+          else
+            add_breadcrumb @dietary_requirement.name
+            render :edit
+          end
         end
 
         private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'), admin_conferences_dietary_requirements_path
+        def set_dietary_requirement
+          @dietary_requirement = DietaryRequirement.find params[:id]
+        end
+
+        def set_breadcrumb
+          add_breadcrumb DietaryRequirement.model_name.human(count: 0), admin_conferences_dietary_requirements_path
         end
 
         def set_tabs

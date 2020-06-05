@@ -3,11 +3,10 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages dietary requirements
+      # This class manages presentation attachment types
       class PresentationAttachmentTypesController < ApplicationController
-        before_action :set_breadcrumbs
-
-        layout 'spina/admin/conferences/presentation_attachment_types'
+        before_action :set_presentation_attachment_type, only: %i[edit update destroy]
+        before_action :set_breadcrumb
 
         def index
           @presentation_attachment_types = PresentationAttachmentType.sorted
@@ -19,43 +18,46 @@ module Spina
         end
 
         def edit
-          @presentation_attachment_type = PresentationAttachmentType.find params[:id]
           add_breadcrumb @presentation_attachment_type.name
         end
 
         def create
           @presentation_attachment_type = PresentationAttachmentType.new presentation_attachment_type_params
-          add_breadcrumb I18n.t('spina.conferences.presentation_attachment_types.new')
+
           if @presentation_attachment_type.save
-            redirect_to admin_conferences_presentation_attachment_types_path,
-                        flash: { success: t('spina.conferences.presentation_attachment_types.saved') }
+            redirect_to admin_conferences_presentation_attachment_types_path, success: t('spina.conferences.presentation_attachment_types.saved')
           else
+            add_breadcrumb I18n.t('spina.conferences.presentation_attachment_types.new')
             render :new
           end
         end
 
         def update
-          @presentation_attachment_type = PresentationAttachmentType.find params[:id]
-          add_breadcrumb @presentation_attachment_type.name
           if @presentation_attachment_type.update(presentation_attachment_type_params)
-            redirect_to admin_conferences_presentation_attachment_types_path,
-                        flash: { success: t('spina.conferences.presentation_attachment_types.saved') }
+            redirect_to admin_conferences_presentation_attachment_types_path, success: t('spina.conferences.presentation_attachment_types.saved')
           else
+            add_breadcrumb @presentation_attachment_type.name
             render :edit
           end
         end
 
         def destroy
-          @presentation_attachment_type = PresentationAttachmentType.find params[:id]
-          @presentation_attachment_type.destroy
-          redirect_to admin_conferences_presentation_attachment_types_path,
-                      flash: { success: t('spina.conferences.presentation_attachment_types.destroyed') }
+          if @presentation_attachment_type.destroy
+            redirect_to admin_conferences_presentation_attachment_types_path, success: t('spina.conferences.presentation_attachment_types.destroyed')
+          else
+            add_breadcrumb @presentation_attachment_type.name
+            render :edit
+          end
         end
 
         private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.presentation_attachment_types'),
+        def set_presentation_attachment_type
+          @presentation_attachment_type = PresentationAttachmentType.find params[:id]
+        end
+
+        def set_breadcrumb
+          add_breadcrumb PresentationAttachmentType.model_name.human(count: 0),
                          admin_conferences_presentation_attachment_types_path
         end
 

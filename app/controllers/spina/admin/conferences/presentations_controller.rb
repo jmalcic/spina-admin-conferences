@@ -5,8 +5,9 @@ module Spina
     module Conferences
       # This class manages presentations and sets breadcrumbs
       class PresentationsController < ApplicationController
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_presentation, only: %i[edit update destroy]
+        before_action :set_breadcrumb
+        before_action :set_tabs
         before_action :set_conferences, only: %i[new edit]
 
         def index
@@ -19,37 +20,36 @@ module Spina
         end
 
         def edit
-          @presentation = Presentation.find params[:id]
           add_breadcrumb @presentation.title
         end
 
         def create
           @presentation = Presentation.new presentation_params
-          add_breadcrumb I18n.t('spina.conferences.presentations.new')
+
           if @presentation.save
-            redirect_to admin_conferences_presentations_path,
-                        flash: { success: t('spina.conferences.presentations.saved') }
+            redirect_to admin_conferences_presentations_path, success: t('spina.conferences.presentations.saved')
           else
+            add_breadcrumb I18n.t('spina.conferences.presentations.new')
             render :new
           end
         end
 
         def update
-          @presentation = Presentation.find params[:id]
-          add_breadcrumb @presentation.title
           if @presentation.update(presentation_params)
-            redirect_to admin_conferences_presentations_path,
-                        flash: { success: t('spina.conferences.presentations.saved') }
+            redirect_to admin_conferences_presentations_path, success: t('spina.conferences.presentations.saved')
           else
+            add_breadcrumb @presentation.title
             render :edit
           end
         end
 
         def destroy
-          @presentation = Presentation.find params[:id]
-          @presentation.destroy
-          redirect_to admin_conferences_presentations_path,
-                      flash: { success: t('spina.conferences.presentations.destroyed') }
+          if @presentation.destroy
+            redirect_to admin_conferences_presentations_path, success: t('spina.conferences.presentations.destroyed')
+          else
+            add_breadcrumb @presentation.title
+            render :edit
+          end
         end
 
         def import
@@ -58,6 +58,10 @@ module Spina
 
         private
 
+        def set_presentation
+          @presentation = Presentation.find params[:id]
+        end
+
         def set_conferences
           @conferences = Conference.all.to_json methods: %i[name localized_dates],
                                                 include:
@@ -65,7 +69,7 @@ module Spina
                                                       { methods: [:name], include: { sessions: { methods: [:name] } } } }
         end
 
-        def set_breadcrumbs
+        def set_breadcrumb
           add_breadcrumb I18n.t('spina.conferences.website.presentations'), admin_conferences_presentations_path
         end
 

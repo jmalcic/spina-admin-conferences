@@ -5,8 +5,9 @@ module Spina
     module Conferences
       # This class manages rooms and sets breadcrumbs
       class RoomsController < ApplicationController
+        before_action :set_room, only: %i[edit update destroy]
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_tabs
 
         layout 'spina/admin/conferences/institutions'
 
@@ -20,37 +21,43 @@ module Spina
         end
 
         def edit
-          @room = Room.find params[:id]
           add_breadcrumb @room.name
         end
 
         def create
           @room = Room.new(room_params)
-          add_breadcrumb I18n.t('spina.conferences.rooms.new')
+
           if @room.save
-            redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
+            redirect_to admin_conferences_rooms_path, success: t('spina.conferences.rooms.saved')
           else
+            add_breadcrumb I18n.t('spina.conferences.rooms.new')
             render :new
           end
         end
 
         def update
-          @room = Room.find params[:id]
-          add_breadcrumb @room.name
           if @room.update(room_params)
-            redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
+            redirect_to admin_conferences_rooms_path, success: t('spina.conferences.rooms.saved')
           else
+            add_breadcrumb @room.name
             render :edit
           end
         end
 
         def destroy
-          @room = Room.find params[:id]
-          @room.destroy
-          redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.destroyed') }
+          if @room.destroy
+            redirect_to admin_conferences_rooms_path, success: t('spina.conferences.rooms.destroyed')
+          else
+            add_breadcrumb @room.name
+            render :edit
+          end
         end
 
         private
+
+        def set_room
+          @room = Room.find params[:id]
+        end
 
         def set_breadcrumbs
           add_breadcrumb I18n.t('spina.conferences.website.institutions'), admin_conferences_institutions_path
