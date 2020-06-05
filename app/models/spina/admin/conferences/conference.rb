@@ -75,7 +75,7 @@ module Spina
           event.dtend = finish_date
           event.dtend.ical_param(:value, 'DATE')
           event.location = location
-          event.categories = self.class.name.demodulize.upcase
+          event.categories = Conference.model_name.human(count: 0)
           event.summary = name
           event
         end
