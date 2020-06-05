@@ -19,7 +19,7 @@
     #header_actions
       %button.button.button-primary{ type: 'submit' }
         = icon('check')
-        = t 'spina.conferences.presentation_types.save'
+        = t '.save'
 
       = link_to t('spina.cancel'), spina.admin_conferences_presentation_types_path, class: 'button', style: 'margin-right: 0'
 
@@ -27,7 +27,7 @@
       %ul
         - @tabs.each_with_index do |tab, i|
           %li{ class: (i==0 ? 'active' : '') }
-            = link_to t("spina.conferences.presentation_types.#{tab}"), "##{tab}"
+            = link_to t(".#{tab}"), "##{tab}"
 
   - @tabs.each do |tab|
     = render "spina/admin/conferences/presentation_types/form_#{tab}", f: f

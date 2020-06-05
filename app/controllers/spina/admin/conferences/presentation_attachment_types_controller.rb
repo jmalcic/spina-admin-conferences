@@ -14,7 +14,7 @@ module Spina
 
         def new
           @presentation_attachment_type = PresentationAttachmentType.new
-          add_breadcrumb I18n.t('spina.conferences.presentation_attachment_types.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -25,16 +25,16 @@ module Spina
           @presentation_attachment_type = PresentationAttachmentType.new presentation_attachment_type_params
 
           if @presentation_attachment_type.save
-            redirect_to admin_conferences_presentation_attachment_types_path, success: t('spina.conferences.presentation_attachment_types.saved')
+            redirect_to admin_conferences_presentation_attachment_types_path, success: t('.saved')
           else
-            add_breadcrumb I18n.t('spina.conferences.presentation_attachment_types.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @presentation_attachment_type.update(presentation_attachment_type_params)
-            redirect_to admin_conferences_presentation_attachment_types_path, success: t('spina.conferences.presentation_attachment_types.saved')
+            redirect_to admin_conferences_presentation_attachment_types_path, success: t('.saved')
           else
             add_breadcrumb @presentation_attachment_type.name
             render :edit
@@ -43,7 +43,7 @@ module Spina
 
         def destroy
           if @presentation_attachment_type.destroy
-            redirect_to admin_conferences_presentation_attachment_types_path, success: t('spina.conferences.presentation_attachment_types.destroyed')
+            redirect_to admin_conferences_presentation_attachment_types_path, success: t('.destroyed')
           else
             add_breadcrumb @presentation_attachment_type.name
             render :edit

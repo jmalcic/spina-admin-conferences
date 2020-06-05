@@ -17,7 +17,7 @@ module Spina
 
         def new
           @room = Room.new
-          add_breadcrumb I18n.t('spina.conferences.rooms.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -28,16 +28,16 @@ module Spina
           @room = Room.new(room_params)
 
           if @room.save
-            redirect_to admin_conferences_rooms_path, success: t('spina.conferences.rooms.saved')
+            redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
-            add_breadcrumb I18n.t('spina.conferences.rooms.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @room.update(room_params)
-            redirect_to admin_conferences_rooms_path, success: t('spina.conferences.rooms.saved')
+            redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
             add_breadcrumb @room.name
             render :edit
@@ -46,7 +46,7 @@ module Spina
 
         def destroy
           if @room.destroy
-            redirect_to admin_conferences_rooms_path, success: t('spina.conferences.rooms.destroyed')
+            redirect_to admin_conferences_rooms_path, success: t('.destroyed')
           else
             add_breadcrumb @room.name
             render :edit
@@ -60,8 +60,8 @@ module Spina
         end
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.institutions'), admin_conferences_institutions_path
-          add_breadcrumb I18n.t('spina.conferences.website.rooms'), admin_conferences_rooms_path
+          add_breadcrumb Institution.model_name.human(count: 0), admin_conferences_institutions_path
+          add_breadcrumb Room.model_name.human(count: 0), admin_conferences_rooms_path
         end
 
         def set_tabs

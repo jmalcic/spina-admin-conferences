@@ -1,18 +1,18 @@
 %li{ class: ('active' if %w[conferences delegates presentations dietary_requirements presentation_types institutions rooms].include? controller_name) }
-  = link_to spina.admin_conferences_presentations_path do
+  = link_to admin_conferences_presentations_path do
     = icon('comment')
-    = t("spina.#{plugin.name.downcase}.title")
+    = t("spina.admin.conferences.title")
     = icon('caret-right')
 
     %ul
       %li{ class: ('active' if %w[institutions rooms].include? controller_name) }
-        = link_to t("spina.#{plugin.name.downcase}.website.institutions"), spina.admin_conferences_institutions_path
+        = link_to Spina::Admin::Conferences::Institution.model_name.human(count: 0), spina.admin_conferences_institutions_path
       %li{ class: ('active' if %w[conferences presentation_types sessions].include? controller_name) }
-        = link_to t("spina.#{plugin.name.downcase}.website.conferences"), spina.admin_conferences_conferences_path
+        = link_to Spina::Admin::Conferences::Conference.model_name.human(count: 0), spina.admin_conferences_conferences_path
       %li{ class: ('active' if %w[delegates dietary_requirements].include? controller_name) }
-        = link_to t("spina.#{plugin.name.downcase}.website.delegates"), spina.admin_conferences_delegates_path
+        = link_to Spina::Admin::Conferences::Delegate.model_name.human(count: 0), spina.admin_conferences_delegates_path
       %li{ class: ('active' if %w[presentations].include? controller_name) }
-        = link_to t("spina.#{plugin.name.downcase}.website.presentations"), spina.admin_conferences_presentations_path
+        = link_to Spina::Admin::Conferences::Presentation.model_name.human(count: 0), spina.admin_conferences_presentations_path
 
       %li
         = link_to '#', class: 'back-to-main-menu' do

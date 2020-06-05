@@ -24,7 +24,7 @@ module Spina
           get new_admin_conferences_room_url
           assert_response :success
           assert_select '#presentations tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+            assert_select 'td', I18n.t('spina.admin.conferences.presentations.index.no_presentations')
           end
         end
 

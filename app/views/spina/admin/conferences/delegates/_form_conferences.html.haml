@@ -11,10 +11,4 @@
           %th
 
       %tbody
-        - if @delegate.conferences.any?
-          = render @delegate.conferences
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.conferences.no_conferences')
+        = render @delegate.conferences.any? ? @delegate.conferences : 'empty_list', message: t('spina.admin.conferences.conferences.index.no_conferences')

@@ -15,7 +15,7 @@ module Spina
 
         def new
           @delegate = Delegate.new
-          add_breadcrumb I18n.t('spina.conferences.delegates.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -26,16 +26,16 @@ module Spina
           @delegate = Delegate.new(delegate_params)
 
           if @delegate.save
-            redirect_to admin_conferences_delegates_path, success: t('spina.conferences.delegates.saved')
+            redirect_to admin_conferences_delegates_path, success: t('.saved')
           else
-            add_breadcrumb I18n.t('spina.conferences.delegates.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @delegate.update(delegate_params)
-            redirect_to admin_conferences_delegates_path, success: t('spina.conferences.delegates.saved')
+            redirect_to admin_conferences_delegates_path, success: t('.saved')
           else
             add_breadcrumb @delegate.full_name
             render :edit
@@ -44,7 +44,7 @@ module Spina
 
         def destroy
           if @delegate.destroy
-            redirect_to admin_conferences_delegates_path, success: t('spina.conferences.delegates.destroyed')
+            redirect_to admin_conferences_delegates_path, success: t('.destroyed')
           else
             add_breadcrumb @delegate.full_name
             render :edit

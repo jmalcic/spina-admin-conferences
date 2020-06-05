@@ -15,7 +15,7 @@ module Spina
 
         def new
           @institution = Institution.new
-          add_breadcrumb t('spina.conferences.institutions.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -26,16 +26,16 @@ module Spina
           @institution = Institution.new(conference_params)
 
           if @institution.save
-            redirect_to admin_conferences_institutions_path, success: t('spina.conferences.institutions.saved')
+            redirect_to admin_conferences_institutions_path, success: t('.saved')
           else
-            add_breadcrumb t('spina.conferences.institutions.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @institution.update(conference_params)
-            redirect_to admin_conferences_institutions_path, success: t('spina.conferences.institutions.saved')
+            redirect_to admin_conferences_institutions_path, success: t('.saved')
           else
             add_breadcrumb @institution.name
             render :edit
@@ -44,7 +44,7 @@ module Spina
 
         def destroy
           if @institution.destroy
-            redirect_to admin_conferences_institutions_path, success: t('spina.conferences.institutions.destroyed')
+            redirect_to admin_conferences_institutions_path, success: t('.destroyed')
           else
             add_breadcrumb @institution.name
             render :edit

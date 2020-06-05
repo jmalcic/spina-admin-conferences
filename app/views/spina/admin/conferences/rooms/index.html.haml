@@ -1,7 +1,7 @@
 - content_for(:header_actions) do
   = link_to spina.new_admin_conferences_room_path, class: 'button button-primary', style: 'margin-right: 0' do
     = icon('plus')
-    = t('spina.conferences.rooms.new')
+    = t '.new'
 
 .well
   .table-container
@@ -14,10 +14,4 @@
           %th
 
       %tbody
-        - if @rooms.any?
-          = render @rooms
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.rooms.no_rooms')
+        = render @rooms.any? ? @rooms : 'empty_list', message: t('.no_rooms')

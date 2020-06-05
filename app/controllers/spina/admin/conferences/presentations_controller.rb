@@ -16,7 +16,7 @@ module Spina
 
         def new
           @presentation = Presentation.new
-          add_breadcrumb I18n.t('spina.conferences.presentations.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -27,16 +27,16 @@ module Spina
           @presentation = Presentation.new presentation_params
 
           if @presentation.save
-            redirect_to admin_conferences_presentations_path, success: t('spina.conferences.presentations.saved')
+            redirect_to admin_conferences_presentations_path, success: t('.saved')
           else
-            add_breadcrumb I18n.t('spina.conferences.presentations.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @presentation.update(presentation_params)
-            redirect_to admin_conferences_presentations_path, success: t('spina.conferences.presentations.saved')
+            redirect_to admin_conferences_presentations_path, success: t('.saved')
           else
             add_breadcrumb @presentation.title
             render :edit
@@ -45,7 +45,7 @@ module Spina
 
         def destroy
           if @presentation.destroy
-            redirect_to admin_conferences_presentations_path, success: t('spina.conferences.presentations.destroyed')
+            redirect_to admin_conferences_presentations_path, success: t('.destroyed')
           else
             add_breadcrumb @presentation.title
             render :edit
@@ -70,7 +70,7 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb I18n.t('spina.conferences.website.presentations'), admin_conferences_presentations_path
+          add_breadcrumb Presentation.model_name.human(count: 0), admin_conferences_presentations_path
         end
 
         def set_tabs
