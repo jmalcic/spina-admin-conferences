@@ -17,13 +17,11 @@ module Spina
         def new
           @room = Room.new
           add_breadcrumb I18n.t('spina.conferences.rooms.new')
-          render layout: 'spina/admin/admin'
         end
 
         def edit
           @room = Room.find params[:id]
           add_breadcrumb @room.name
-          render layout: 'spina/admin/admin'
         end
 
         def create
@@ -32,7 +30,7 @@ module Spina
           if @room.save
             redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
           else
-            render :new, layout: 'spina/admin/admin'
+            render :new
           end
         end
 
@@ -42,7 +40,7 @@ module Spina
           if @room.update(room_params)
             redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
           else
-            render :edit, layout: 'spina/admin/admin'
+            render :edit
           end
         end
 

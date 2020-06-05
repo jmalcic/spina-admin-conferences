@@ -17,13 +17,11 @@ module Spina
         def new
           @dietary_requirement = DietaryRequirement.new
           add_breadcrumb I18n.t('spina.conferences.dietary_requirements.new')
-          render layout: 'spina/admin/admin'
         end
 
         def edit
           @dietary_requirement = DietaryRequirement.find params[:id]
           add_breadcrumb @dietary_requirement.name
-          render layout: 'spina/admin/admin'
         end
 
         def create
@@ -33,7 +31,7 @@ module Spina
             redirect_to admin_conferences_dietary_requirements_path,
                         flash: { success: t('spina.conferences.dietary_requirements.saved') }
           else
-            render :new, layout: 'spina/admin/admin'
+            render :new
           end
         end
 
@@ -44,7 +42,7 @@ module Spina
             redirect_to admin_conferences_dietary_requirements_path,
                         flash: { success: t('spina.conferences.dietary_requirements.saved') }
           else
-            render :edit, layout: 'spina/admin/admin'
+            render :edit
           end
         end
 

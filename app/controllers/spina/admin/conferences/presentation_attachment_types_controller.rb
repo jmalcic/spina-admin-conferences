@@ -16,13 +16,11 @@ module Spina
         def new
           @presentation_attachment_type = PresentationAttachmentType.new
           add_breadcrumb I18n.t('spina.conferences.presentation_attachment_types.new')
-          render layout: 'spina/admin/admin'
         end
 
         def edit
           @presentation_attachment_type = PresentationAttachmentType.find params[:id]
           add_breadcrumb @presentation_attachment_type.name
-          render layout: 'spina/admin/admin'
         end
 
         def create
@@ -32,7 +30,7 @@ module Spina
             redirect_to admin_conferences_presentation_attachment_types_path,
                         flash: { success: t('spina.conferences.presentation_attachment_types.saved') }
           else
-            render :new, layout: 'spina/admin/admin'
+            render :new
           end
         end
 
@@ -43,7 +41,7 @@ module Spina
             redirect_to admin_conferences_presentation_attachment_types_path,
                         flash: { success: t('spina.conferences.presentation_attachment_types.saved') }
           else
-            render :edit, layout: 'spina/admin/admin'
+            render :edit
           end
         end
 
