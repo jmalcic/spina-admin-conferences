@@ -5,8 +5,9 @@ module Spina
     module Conferences
       # This class manages institutions and sets breadcrumbs
       class InstitutionsController < ApplicationController
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_institution, only: %i[edit update destroy]
+        before_action :set_breadcrumb
+        before_action :set_tabs
 
         def index
           @institutions = Institution.all
@@ -14,47 +15,50 @@ module Spina
 
         def new
           @institution = Institution.new
-          add_breadcrumb I18n.t('spina.conferences.institutions.new')
+          add_breadcrumb t('spina.conferences.institutions.new')
         end
 
         def edit
-          @institution = Institution.find params[:id]
           add_breadcrumb @institution.name
         end
 
         def create
           @institution = Institution.new(conference_params)
-          add_breadcrumb I18n.t('spina.conferences.institutions.new')
+
           if @institution.save
-            redirect_to admin_conferences_institutions_path,
-                        flash: { success: t('spina.conferences.institutions.saved') }
+            redirect_to admin_conferences_institutions_path, success: t('spina.conferences.institutions.saved')
           else
+            add_breadcrumb t('spina.conferences.institutions.new')
             render :new
           end
         end
 
         def update
-          @institution = Institution.find params[:id]
-          add_breadcrumb @institution.name
           if @institution.update(conference_params)
-            redirect_to admin_conferences_institutions_path,
-                        flash: { success: t('spina.conferences.institutions.saved') }
+            redirect_to admin_conferences_institutions_path, success: t('spina.conferences.institutions.saved')
           else
+            add_breadcrumb @institution.name
             render :edit
           end
         end
 
         def destroy
-          @institution = Institution.find params[:id]
-          @institution.destroy
-          redirect_to admin_conferences_institutions_path,
-                      flash: { success: t('spina.conferences.institutions.destroyed') }
+          if @institution.destroy
+            redirect_to admin_conferences_institutions_path, success: t('spina.conferences.institutions.destroyed')
+          else
+            add_breadcrumb @institution.name
+            render :edit
+          end
         end
 
         private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.institutions'), admin_conferences_institutions_path
+        def set_institution
+          @institution = Institution.find params[:id]
+        end
+
+        def set_breadcrumb
+          add_breadcrumb Institution.model_name.human(count: 0), admin_conferences_institutions_path
         end
 
         def set_tabs

@@ -5,8 +5,9 @@ module Spina
     module Conferences
       # This class manages conferences and sets breadcrumbs
       class ConferencesController < ApplicationController
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_conference, only: %i[edit update destroy]
+        before_action :set_conferences_breadcrumb
+        before_action :set_tabs
         before_action :set_institutions, only: %i[new edit]
 
         def index
@@ -19,48 +20,51 @@ module Spina
         end
 
         def edit
-          @conference = Conference.find params[:id]
           add_breadcrumb @conference.name
         end
 
         def create
           @conference = Conference.new(conference_params)
-          add_breadcrumb I18n.t('spina.conferences.conferences.new')
+
           if @conference.save
-            redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
+            redirect_to admin_conferences_conferences_path, success: t('spina.conferences.conferences.saved')
           else
+            add_breadcrumb I18n.t('spina.conferences.conferences.new')
             render :new
           end
         end
 
         def update
-          @conference = Conference.find params[:id]
-          set_update_breadcrumb
           if @conference.update(conference_params)
-            redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.saved') }
+            redirect_to admin_conferences_conferences_path, success: t('spina.conferences.conferences.saved')
           else
+            add_breadcrumb @conference.name
             render :edit
           end
         end
 
         def destroy
-          @conference = Conference.find params[:id]
           @conference.destroy
-          redirect_to admin_conferences_conferences_path, flash: { success: t('spina.conferences.conferences.destroyed') }
+          if @conference.destroy
+            redirect_to admin_conferences_conferences_path, success: t('spina.conferences.conferences.destroyed')
+          else
+            add_breadcrumb @conference.name
+            render :edit
+          end
         end
 
         private
+
+        def set_conference
+          @conference = Conference.find params[:id]
+        end
 
         def set_institutions
           @institutions = Institution.all.to_json include: { rooms: { methods: [:name] } }
         end
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
-        end
-
-        def set_update_breadcrumb
-          add_breadcrumb @conference.name if @conference
+        def set_conferences_breadcrumb
+          add_breadcrumb Conference.model_name.human(count: 0), admin_conferences_conferences_path
         end
 
         def set_tabs
