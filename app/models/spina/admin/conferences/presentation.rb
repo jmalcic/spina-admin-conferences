@@ -34,13 +34,6 @@ module Spina
           PresentationImportJob.perform_later IO.read(file)
         end
 
-        def self.description
-          nil
-        end
-
-        def self.seo_title
-          'Presentations'
-        end
 
         # rubocop:disable Metrics/AbcSize
 
@@ -59,18 +52,6 @@ module Spina
         end
 
         # rubocop:enable Metrics/AbcSize
-
-        def description
-          content('abstract') || nil
-        end
-
-        alias seo_title name
-
-        def ancestors
-          [conference]
-        end
-
-        alias menu_title name
 
         private
 

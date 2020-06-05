@@ -30,24 +30,10 @@ module Spina
         validates :start_date, :finish_date, :name, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
-
-        def self.description
-          nil
-        end
-
-        def self.seo_title
-          'Conferences'
-        end
-
-        class << self
-          alias menu_title seo_title
-        end
-
         def location
           institutions.collect(&:name).to_sentence
         end
 
-        # rubocop:disable Metrics/AbcSize
 
         def to_ics
           event = Icalendar::Event.new
@@ -87,22 +73,6 @@ module Spina
           return unless changed_attributes.keys.inquiry.any?(:start_date, :finish_date)
 
           self.dates = start_date..finish_date
-        end
-
-        def description
-          content('text') || nil
-        end
-
-        alias seo_title name
-
-        def ancestors
-          nil
-        end
-
-        alias menu_title name
-
-        def materialized_path
-          ::Spina::Engine.routes.url_helpers.conferences_conference_path self
         end
 
         def localized_dates
