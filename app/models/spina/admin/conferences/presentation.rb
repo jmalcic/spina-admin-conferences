@@ -9,11 +9,6 @@ module Spina
 
         scope :sorted, -> { order start_datetime: :desc }
 
-        after_initialize :set_from_start_datetime
-        before_validation :update_start_datetime
-
-        attribute :date, :date
-        attribute :start_time, :time
         alias_attribute :name, :title
 
         belongs_to :session, inverse_of: :presentations
@@ -25,7 +20,7 @@ module Spina
                                              foreign_key: :spina_conferences_presentation_id,
                                              association_foreign_key: :spina_conferences_delegate_id
 
-        validates :title, :date, :start_time, :abstract, :presenters, presence: true
+        validates :title, :date, :start_time, :start_datetime, :abstract, :presenters, presence: true
         validates :date, 'spina/admin/conferences/conference_date': true
         validates_associated :presenters
 
@@ -33,6 +28,35 @@ module Spina
           PresentationImportJob.perform_later IO.read(file)
         end
 
+        def date
+          return if start_datetime.blank?
+
+          start_datetime.to_date
+        end
+
+        def date=(date)
+          if date.blank? || date.to_date.blank?
+            self.start_datetime = nil
+            return
+          end
+
+          self.start_datetime = date.to_date + (start_datetime.try(:seconds_since_midnight) || 0).seconds
+        end
+
+        def start_time
+          return if start_datetime.blank?
+
+          start_datetime
+        end
+
+        def start_time=(start_time)
+          if start_time.blank?
+            self.start_datetime = nil
+            return
+          end
+
+          self.start_datetime = Time.parse(start_time, date).to_datetime.in_time_zone
+        end
 
         # rubocop:disable Metrics/AbcSize
 
@@ -51,19 +75,6 @@ module Spina
         end
 
         # rubocop:enable Metrics/AbcSize
-
-        private
-
-        def set_from_start_datetime
-          return if start_datetime.blank?
-
-          self.date ||= start_datetime.to_date
-          self.start_time ||= start_datetime
-        end
-
-        def update_start_datetime
-          self.start_datetime = "#{date} #{start_time}".to_time.in_time_zone if date.present? && start_time.present?
-        end
       end
     end
   end
