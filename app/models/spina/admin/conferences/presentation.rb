@@ -14,6 +14,7 @@ module Spina
 
         attribute :date, :date
         attribute :start_time, :time
+        alias_attribute :name, :title
 
         belongs_to :session, inverse_of: :presentations
         has_one :presentation_type, through: :session
@@ -27,8 +28,6 @@ module Spina
         validates :title, :date, :start_time, :abstract, :presenters, presence: true
         validates :date, 'spina/admin/conferences/conference_date': true
         validates_associated :presenters
-
-        alias_attribute :name, :title
 
         def self.import(file)
           PresentationImportJob.perform_later IO.read(file)
