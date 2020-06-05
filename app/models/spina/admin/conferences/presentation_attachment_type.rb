@@ -7,11 +7,11 @@ module Spina
       class PresentationAttachmentType < ApplicationRecord
         translates :name, fallbacks: true
 
+        scope :sorted, -> { order :name }
+
         has_many :presentation_attachments, dependent: :destroy
 
         validates :name, presence: true
-
-        scope :sorted, -> { i18n.order :name }
       end
     end
   end

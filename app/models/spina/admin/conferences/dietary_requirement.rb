@@ -8,12 +8,12 @@ module Spina
       class DietaryRequirement < ApplicationRecord
         translates :name, fallbacks: true
 
+        scope :sorted, -> { order :name }
+
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_dietary_requirement_id,
                                             association_foreign_key: :spina_conferences_delegate_id
 
         validates :name, presence: true
-
-        scope :sorted, -> { i18n.order :name }
       end
     end
   end

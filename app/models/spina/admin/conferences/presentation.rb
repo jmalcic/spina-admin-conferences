@@ -7,6 +7,8 @@ module Spina
       class Presentation < ApplicationRecord
         translates :title, :abstract, fallbacks: true
 
+        scope :sorted, -> { order start_datetime: :desc }
+
         after_initialize :set_from_start_datetime
         before_validation :update_start_datetime
 
@@ -25,8 +27,6 @@ module Spina
         validates :title, :date, :start_time, :abstract, :presenters, presence: true
         validates :date, 'spina/admin/conferences/conference_date': true
         validates_associated :presenters
-
-        scope :sorted, -> { order start_datetime: :desc }
 
         alias_attribute :name, :title
 

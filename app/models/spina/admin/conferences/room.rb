@@ -7,13 +7,13 @@ module Spina
       class Room < ApplicationRecord
         translates :building, :number, fallbacks: true
 
+        scope :sorted, -> { order :building, :number }
+
         belongs_to :institution, inverse_of: :rooms, autosave: true
         has_many :sessions, inverse_of: :room, dependent: :destroy
         has_many :presentations, through: :sessions
 
         validates :number, :building, presence: true
-
-        scope :sorted, -> { i18n.order :building, :number }
 
         def name
           "#{building} #{number}"

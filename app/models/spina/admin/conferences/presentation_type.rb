@@ -7,6 +7,8 @@ module Spina
       class PresentationType < ApplicationRecord
         translates :name, fallbacks: true
 
+        scope :sorted, -> { order :name }
+
         after_initialize :set_from_duration
         before_validation :set_duration
 
@@ -21,8 +23,6 @@ module Spina
         validates :name, :minutes, :duration, presence: true
         validates :minutes, numericality: { greater_than_or_equal_to: 1 }
         validates_associated :sessions
-
-        scope :sorted, -> { i18n.order :name }
 
         def set_from_duration
           self.minutes ||= duration / ActiveSupport::Duration::SECONDS_PER_MINUTE if duration.present?

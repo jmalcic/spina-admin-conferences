@@ -7,6 +7,8 @@ module Spina
       class Conference < ApplicationRecord
         translates :name, fallbacks: true
 
+        scope :sorted, -> { order dates: :desc }
+
         after_initialize :set_from_dates
         before_validation :update_dates
         after_save :update_from_dates
@@ -28,7 +30,6 @@ module Spina
         validates :start_date, :finish_date, :name, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
-        scope :sorted, -> { order dates: :desc }
 
         def self.description
           nil
