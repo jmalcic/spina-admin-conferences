@@ -25,21 +25,29 @@ module Spina
 
         # Returns first name and last name, used to address delegates.
         def full_name
+          return if first_name.blank? || last_name.blank?
+
           "#{first_name} #{last_name}"
         end
 
         # Returns full name and institution, used to identify delegates.
         def full_name_and_institution
+          return if full_name.blank? || institution.blank?
+
           "#{full_name}, #{institution.name}"
         end
 
         # Returns last name and first name, used for sorting delegates.
         def reversed_name
+          return if first_name.blank? || last_name.blank?
+
           "#{last_name}, #{first_name}"
         end
 
         # Returns reversed name and institution, used for sorting delegates.
         def reversed_name_and_institution
+          return if full_name.blank? || institution.blank?
+
           "#{reversed_name}, #{institution.name}"
         end
       end
