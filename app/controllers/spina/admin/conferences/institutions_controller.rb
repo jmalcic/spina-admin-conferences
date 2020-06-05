@@ -15,13 +15,11 @@ module Spina
         def new
           @institution = Institution.new
           add_breadcrumb I18n.t('spina.conferences.institutions.new')
-          render layout: 'spina/admin/admin'
         end
 
         def edit
           @institution = Institution.find params[:id]
           add_breadcrumb @institution.name
-          render layout: 'spina/admin/admin'
         end
 
         def create
@@ -31,7 +29,7 @@ module Spina
             redirect_to admin_conferences_institutions_path,
                         flash: { success: t('spina.conferences.institutions.saved') }
           else
-            render :new, layout: 'spina/admin/admin'
+            render :new
           end
         end
 
@@ -42,7 +40,7 @@ module Spina
             redirect_to admin_conferences_institutions_path,
                         flash: { success: t('spina.conferences.institutions.saved') }
           else
-            render :edit, layout: 'spina/admin/admin'
+            render :edit
           end
         end
 

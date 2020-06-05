@@ -15,13 +15,11 @@ module Spina
         def new
           @delegate = Delegate.new
           add_breadcrumb I18n.t('spina.conferences.delegates.new')
-          render layout: 'spina/admin/admin'
         end
 
         def edit
           @delegate = Delegate.find params[:id]
           add_breadcrumb @delegate.full_name
-          render layout: 'spina/admin/admin'
         end
 
         def create
@@ -30,7 +28,7 @@ module Spina
           if @delegate.save
             redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
           else
-            render :new, layout: 'spina/admin/admin'
+            render :new
           end
         end
 
@@ -40,7 +38,7 @@ module Spina
           if @delegate.update(delegate_params)
             redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
           else
-            render :edit, layout: 'spina/admin/admin'
+            render :edit
           end
         end
 

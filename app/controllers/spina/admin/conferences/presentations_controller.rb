@@ -16,7 +16,6 @@ module Spina
         def new
           @presentation = Presentation.new
           add_breadcrumb I18n.t('spina.conferences.presentations.new')
-          render layout: 'spina/admin/admin'
         end
 
         def edit
@@ -31,7 +30,7 @@ module Spina
             redirect_to admin_conferences_presentations_path,
                         flash: { success: t('spina.conferences.presentations.saved') }
           else
-            render :new, layout: 'spina/admin/admin'
+            render :new
           end
         end
 
@@ -42,7 +41,7 @@ module Spina
             redirect_to admin_conferences_presentations_path,
                         flash: { success: t('spina.conferences.presentations.saved') }
           else
-            render :edit, layout: 'spina/admin/admin'
+            render :edit
           end
         end
 
