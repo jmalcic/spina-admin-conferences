@@ -6,7 +6,10 @@ module Spina
   module Admin
     module Conferences
       class DietaryRequirementTest < ActiveSupport::TestCase
-        setup { @dietary_requirement = spina_admin_conferences_dietary_requirements :pescetarian }
+        setup do
+          @dietary_requirement = spina_admin_conferences_dietary_requirements :pescetarian
+          @new_dietary_requirement = DietaryRequirement.new
+        end
 
         test 'translates name' do
           @dietary_requirement.name = 'foo'
@@ -18,10 +21,21 @@ module Spina
           assert_equal 'foo', @dietary_requirement.name
         end
 
-        test 'dietary requirement attributes must not be empty' do
-          dietary_requirement = DietaryRequirement.new
-          assert dietary_requirement.invalid?
-          assert dietary_requirement.errors[:name].any?
+        test 'dietary have sorted scope' do
+          assert_equal DietaryRequirement.i18n.order(:name), DietaryRequirement.sorted
+        end
+
+        test 'dietary requirement has associated delegates' do
+          assert_not_empty @dietary_requirement.delegates
+          assert_empty @new_dietary_requirement.delegates
+        end
+
+        test 'name must not be empty' do
+          assert @dietary_requirement.valid?
+          assert_empty @dietary_requirement.errors[:name]
+          @dietary_requirement.name = nil
+          assert @dietary_requirement.invalid?
+          assert_not_empty @dietary_requirement.errors[:name]
         end
       end
     end
