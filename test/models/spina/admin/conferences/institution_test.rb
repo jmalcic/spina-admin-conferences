@@ -6,7 +6,10 @@ module Spina
   module Admin
     module Conferences
       class InstitutionTest < ActiveSupport::TestCase
-        setup { @institution = spina_admin_conferences_institutions :university_of_atlantis }
+        setup do
+          @institution = spina_admin_conferences_institutions :university_of_atlantis
+          @new_institution = Institution.new
+        end
 
         test 'translates name' do
           @institution.name = 'foo'
@@ -28,11 +31,62 @@ module Spina
           assert_equal 'foo', @institution.city
         end
 
-        test 'institution attributes must not be empty' do
-          institution = Institution.new
-          assert institution.invalid?
-          assert institution.errors[:name].any?
-          assert institution.errors[:city].any?
+        test 'institutions have sorted scope' do
+          assert_equal Institution.i18n.order(:name), Institution.sorted
+        end
+
+        test 'institution has associated rooms' do
+          assert_not_empty @institution.rooms
+          assert_empty @new_institution.rooms
+        end
+
+        test 'institution has associated delegates' do
+          assert_not_empty @institution.delegates
+          assert_empty @new_institution.delegates
+        end
+
+        test 'accepts nested attributes for rooms' do
+          assert_changes '@institution.rooms.first.number' do
+            @institution.assign_attributes(rooms_attributes: { id: @institution.rooms.first.id, number: 99 })
+          end
+        end
+
+        test 'destroys associated rooms' do
+          assert_difference 'Room.count', -@institution.rooms.count do
+            @institution.destroy
+          end
+          assert_empty @institution.errors[:base]
+        end
+
+        test 'destroys associated delegates' do
+          assert_difference 'Delegate.count', -@institution.delegates.count do
+            @institution.destroy
+          end
+          assert_empty @institution.errors[:base]
+        end
+
+        test 'logo may be empty' do
+          assert @institution.valid?
+          assert_empty @institution.errors[:logo]
+          @institution.logo = nil
+          assert @institution.valid?
+          assert_empty @institution.errors[:logo]
+        end
+
+        test 'name must not be empty' do
+          assert @institution.valid?
+          assert_empty @institution.errors[:name]
+          @institution.name = nil
+          assert @institution.invalid?
+          assert_not_empty @institution.errors[:name]
+        end
+
+        test 'city must not be empty' do
+          assert @institution.valid?
+          assert_empty @institution.errors[:city]
+          @institution.city = nil
+          assert @institution.invalid?
+          assert_not_empty @institution.errors[:city]
         end
       end
     end
