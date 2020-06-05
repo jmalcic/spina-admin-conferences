@@ -9,14 +9,6 @@ module Spina
 
         scope :sorted, -> { order dates: :desc }
 
-        after_initialize :set_from_dates
-        before_validation :update_dates
-        after_save :update_from_dates
-
-        attribute :start_date, :date
-        attribute :finish_date, :date
-        attribute :year, :integer
-
         has_many :presentation_types, inverse_of: :conference, dependent: :destroy
         has_many :sessions, through: :presentation_types
         has_many :presentations, through: :presentation_types
@@ -27,33 +19,37 @@ module Spina
 
         validates_associated :presentation_types
 
-        validates :start_date, :finish_date, :name, presence: true
+        validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
-        # rubocop:enable Metrics/AbcSize
-
-        def set_from_dates
+        def start_date
           return if dates.blank?
 
-          self.start_date ||= dates.min
-          self.finish_date ||= dates.max
-          self.year ||= start_date.year
-          clear_attribute_changes %i[start_date finish_date year]
+          dates.begin
         end
 
-        def update_from_dates
+        def start_date=(date)
+          self.dates = date.try(:to_date)..finish_date
+        end
+
+        def finish_date
           return if dates.blank?
 
-          self.start_date = dates.min
-          self.finish_date = dates.max
-          self.year = start_date.year
-          clear_attribute_changes %i[start_date finish_date year]
+          if dates.exclude_end?
+            dates.end - 1.day if dates.end.is_a? Date
+          else
+            dates.end
+          end
         end
 
-        def update_dates
-          return unless changed_attributes.keys.inquiry.any?(:start_date, :finish_date)
+        def finish_date=(date)
+          self.dates = start_date..date.try(:to_date)
+        end
 
-          self.dates = start_date..finish_date
+        def year
+          return if start_date.blank?
+
+          start_date.try(:year)
         end
 
         def localized_dates
