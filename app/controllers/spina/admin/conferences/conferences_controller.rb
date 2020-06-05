@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages conferences and sets breadcrumbs
-      class ConferencesController < ::Spina::Admin::AdminController
+      class ConferencesController < ApplicationController
         before_action :set_breadcrumbs
         before_action :set_tabs, only: %i[new create edit update]
         before_action :set_institutions, only: %i[new edit]

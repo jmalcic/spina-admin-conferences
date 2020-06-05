@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # This class manages dietary requirements
-      class PresentationAttachmentTypesController < ::Spina::Admin::AdminController
+      class PresentationAttachmentTypesController < ApplicationController
         before_action :set_breadcrumbs
 
         layout 'spina/admin/conferences/presentation_attachment_types'
