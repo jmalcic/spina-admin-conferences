@@ -7,7 +7,7 @@ module Spina
       class PresentationType < ApplicationRecord
         translates :name, fallbacks: true
 
-        scope :sorted, -> { order :name }
+        scope :sorted, -> { i18n.order :name }
 
         attribute :duration, :interval
 
