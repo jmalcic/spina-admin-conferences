@@ -9,7 +9,10 @@ module Spina
 
         scope :sorted, -> { i18n.order :name }
 
-        has_many :presentation_attachments, dependent: :destroy
+        has_many :presentation_attachments, class_name: 'Spina::Admin::Conferences::PresentationAttachment',
+                                            foreign_key: 'attachment_type_id',
+                                            dependent: :destroy,
+                                            inverse_of: :attachment_type
 
         validates :name, presence: true
       end

@@ -42,5 +42,17 @@
         .horizontal-form-content
           .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
 
+      .horizontal-form-group{ class: dom_class(@presentation.attachments) }
+        .horizontal-form-content
+          .structure-form{ data: { controller: 'presentation-attachments-form', presentation_attachments_form: { active_class: 'active' } } }
+            .structure-form-menu
+              %label= Spina::Admin::Conferences::Presentation.human_attribute_name :attachments
+              %ul= render partial: 'attachment_row', collection: f.object.attachments, as: :attachment
+              = link_to icon('plus'), @presentation.new_record? ? attach_new_admin_conferences_presentation_path : attach_admin_conferences_presentation_path(@presentation, index: @presentation.attachments.size), remote: true, class: %w[button button-link icon], data: { presentation_attachments_form_target: 'addFormLink', disable_with: '&#xF12C;' }
+
+            .structure-form-content{ data: { action: 'presentationAttachmentFieldAdded->presentation-attachments-form#updateURL' } }
+              = f.fields_for :attachments do |attachment_fields|
+                = render 'attachment_fields', f: attachment_fields
+
   - unless @presentation.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', presentation: @presentation.title) }, class: %w[button button-link button-danger]

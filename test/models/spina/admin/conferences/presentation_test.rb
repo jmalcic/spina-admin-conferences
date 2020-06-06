@@ -57,9 +57,28 @@ module Spina
           assert_nil @new_presentation.conference
         end
 
+        test 'presentation has associated attachments' do
+          assert_not_empty @presentation.attachments
+          assert_empty @new_presentation.attachments
+        end
+
         test 'presentation has associated presenters' do
           assert_not_empty @presentation.presenters
           assert_empty @new_presentation.presenters
+        end
+
+        test 'destroys associated attachments' do
+          assert_difference 'PresentationAttachment.count', -@presentation.attachments.count do
+            @presentation.destroy
+          end
+        end
+
+        test 'accepts nested attributes for attachments' do
+          assert_changes '@presentation.attachments.first.attachment_type_id' do
+            @presentation.assign_attributes attachments_attributes: { id: @presentation.attachments.first.id,
+                                                                      attachment_type_id:
+                                                                        PresentationAttachmentType.first.id }
+          end
         end
 
         test 'session must not be empty' do
@@ -134,6 +153,13 @@ module Spina
           @presentation.presenters.build
           assert @presentation.invalid?
           assert_not_empty @presentation.presenters.last.errors
+        end
+
+        test 'validates associated attachments' do
+          assert @presentation.valid?
+          @presentation.attachments.build
+          assert @presentation.invalid?
+          assert_not_empty @presentation.attachments.last.errors
         end
 
         test 'performs import job' do

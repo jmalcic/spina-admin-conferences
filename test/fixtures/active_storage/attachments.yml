@@ -4,6 +4,23 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-handout: {}
 
-slides: {}
+dubrovnik:
+  name: file
+  record: dubrovnik (Spina::Image)
+  blob: $LABEL
+
+rovinj:
+  name: file
+  record: rovinj (Spina::Image)
+  blob: $LABEL
+
+handout:
+  name: file
+  record: handout (Spina::Attachment)
+  blob: $LABEL
+
+slides:
+  name: file
+  record: slides (Spina::Attachment)
+  blob: $LABEL

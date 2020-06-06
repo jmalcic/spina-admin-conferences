@@ -15,6 +15,8 @@ Spina::Engine.routes.draw do
       end
       resources :presentations, except: [:show] do
         post :import, on: :collection
+        get :attach, on: :new
+        get :attach, on: :member
       end
       resources :presentation_types, except: [:show]
       resources :dietary_requirements, except: [:show]

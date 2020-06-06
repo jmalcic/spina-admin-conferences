@@ -71,6 +71,13 @@ module Spina
           Presentation.import params[:file]
         end
 
+        def attach
+          @presentation = Presentation.find_by(id: params[:id]) || Presentation.new
+          @attachment = @presentation.attachments.build
+          respond_to :js
+          render locals: { index: params[:index].to_i, active: params[:active] == 'true' }
+        end
+
         private
 
         def set_presentation
@@ -93,7 +100,10 @@ module Spina
         end
 
         def presentation_params
-          params.require(:admin_conferences_presentation).permit(:title, :date, :start_time, :abstract, :session_id, presenter_ids: [])
+          params.require(:admin_conferences_presentation).permit(:title, :abstract, :session_id, :date, :start_time,
+                                                                 presenter_ids: [],
+                                                                 attachments_attributes:
+                                                                   %i[id attachment_id attachment_type_id _destroy])
         end
       end
     end

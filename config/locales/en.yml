@@ -262,6 +262,9 @@ en:
       spina/admin/conferences/presentation:
         one: Presentation
         other: Presentations
+      spina/admin/conferences/presentation_attachment:
+        one: Presentation attachment
+        other: Presentation attachments
       spina/admin/conferences/presentation_type:
         one: Presentation type
         other: Presentation types
@@ -306,6 +309,9 @@ en:
         presenters: Presenters
         conference: Conference
         session: Session
+        attachments: Attachments
+      spina/admin/conferences/presentation_attachment:
+        type: Type
       spina/admin/conferences/presentation_type:
         name: Name
         duration: Duration

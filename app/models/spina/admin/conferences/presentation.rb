@@ -15,14 +15,17 @@ module Spina
         has_one :presentation_type, through: :session
         has_one :room, through: :session
         has_one :conference, through: :presentation_type
-        has_many :presentation_attachments, dependent: :destroy
+        has_many :attachments, class_name: 'Spina::Admin::Conferences::PresentationAttachment', dependent: :destroy,
+                               inverse_of: :presentation
         has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate',
-                                             foreign_key: :spina_conferences_presentation_id,
-                                             association_foreign_key: :spina_conferences_delegate_id
+                                foreign_key: :spina_conferences_presentation_id,
+                                association_foreign_key: :spina_conferences_delegate_id
+        accepts_nested_attributes_for :attachments, allow_destroy: true
 
         validates :title, :date, :start_time, :start_datetime, :abstract, :presenters, presence: true
         validates :date, 'spina/admin/conferences/conference_date': true
         validates_associated :presenters
+        validates_associated :attachments
 
         def self.import(file)
           PresentationImportJob.perform_later IO.read(file)

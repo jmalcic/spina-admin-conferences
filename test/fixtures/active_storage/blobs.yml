@@ -1,0 +1,34 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+dubrovnik:
+  key: n6m15xdls54tz9cgnddibvn1va2d
+  filename: <%= file_fixture('dubrovnik.jpeg').basename %>
+  content_type: <%= Marcel::MimeType.for file_fixture('dubrovnik.jpeg') %>
+  byte_size: <%= file_fixture('dubrovnik.jpeg').size %>
+  checksum: <%= Digest::MD5.file(file_fixture('dubrovnik.jpeg')).base64digest %>
+
+rovinj:
+  key: d8ye0jvrow5wkbkjki1124ol6lhe
+  filename: <%= file_fixture('rovinj.jpeg').basename %>
+  content_type: <%= Marcel::MimeType.for file_fixture('rovinj.jpeg') %>
+  byte_size: <%= file_fixture('rovinj.jpeg').size %>
+  checksum: <%= Digest::MD5.file(file_fixture('rovinj.jpeg')).base64digest %>
+
+handout:
+  key: wmnpur6m6zf6gatrnywtaw72ykkv
+  filename: <%= file_fixture('handout.pdf').basename %>
+  content_type: <%= Marcel::MimeType.for file_fixture('handout.pdf') %>
+  byte_size: <%= file_fixture('handout.pdf').size %>
+  checksum: <%= Digest::MD5.file(file_fixture('handout.pdf')).base64digest %>
+
+slides:
+  key: 5z0iy1gdhy3wi46t1xq98o32pfca
+  filename: <%= file_fixture('slides.pdf').basename %>
+  content_type: <%= Marcel::MimeType.for file_fixture('slides.pdf') %>
+  byte_size: <%= file_fixture('slides.pdf').size %>
+  checksum: <%= Digest::MD5.file(file_fixture('slides.pdf')).base64digest %>
