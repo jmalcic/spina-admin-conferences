@@ -3,8 +3,12 @@
 module Spina
   module Admin
     module Conferences
-      # This class validates the format of the HTTP or HTTPS URL of an object.
+      # Validator for HTTP(S) URLs.
       class HttpUrlValidator < ActiveModel::EachValidator
+        # Performs validation on the supplied record.
+        # @param record [ActiveRecord::Base] the associated record
+        # @param attribute [Symbol] the attribute key
+        # @param value [String] the attribute value
         def validate_each(record, attribute, value)
           return if value.blank?
 

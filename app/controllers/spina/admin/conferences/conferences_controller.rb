@@ -3,26 +3,39 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages conferences and sets breadcrumbs
+      # Controller for {Conference} objects.
+      # @see Conference
       class ConferencesController < ApplicationController
+        # @!group Callbacks
         before_action :set_conference, only: %i[edit update destroy]
         before_action :set_conferences_breadcrumb
         before_action :set_tabs
         before_action :set_institutions, only: %i[new edit]
+        # @!endgroup
 
+        # @!group Actions
+
+        # Renders a list of conferences.
+        # @return [void]
         def index
           @conferences = Conference.sorted
         end
 
+        # Renders a form for a new conference.
+        # @return [void]
         def new
           @conference = Conference.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing conference.
+        # @return [void]
         def edit
           add_breadcrumb @conference.name
         end
 
+        # Creates a conference.
+        # @return [void]
         def create
           @conference = Conference.new(conference_params)
 
@@ -39,6 +52,8 @@ module Spina
           end
         end
 
+        # Updates a conference.
+        # @return [void]
         def update
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path, success: t('.saved')
@@ -53,6 +68,8 @@ module Spina
           end
         end
 
+        # Destroys a conference.
+        # @return [void]
         def destroy
           if @conference.destroy
             redirect_to admin_conferences_conferences_path, success: t('.destroyed')
@@ -66,6 +83,8 @@ module Spina
             end
           end
         end
+
+        # @!endgroup
 
         private
 

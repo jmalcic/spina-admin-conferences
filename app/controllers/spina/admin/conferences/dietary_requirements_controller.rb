@@ -3,25 +3,38 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages dietary requirements
+      # Controller for {DietaryRequirement} objects.
+      # @see DietaryRequirement
       class DietaryRequirementsController < ApplicationController
+        # @!group Callbacks
         before_action :set_dietary_requirement, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
+        # @!endgroup
 
+        # @!group Actions
+
+        # Renders a list of dietary requirements.
+        # @return [void]
         def index
           @dietary_requirements = DietaryRequirement.sorted
         end
 
+        # Renders a form for a new dietary requirement.
+        # @return [void]
         def new
           @dietary_requirement = DietaryRequirement.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing dietary requirement.
+        # @return [void]
         def edit
           add_breadcrumb @dietary_requirement.name
         end
 
+        # Creates a dietary requirement.
+        # @return [void]
         def create
           @dietary_requirement = DietaryRequirement.new dietary_requirement_params
 
@@ -38,6 +51,8 @@ module Spina
           end
         end
 
+        # Updates a dietary requirement.
+        # @return [void]
         def update
           if @dietary_requirement.update(dietary_requirement_params)
             redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
@@ -52,6 +67,8 @@ module Spina
           end
         end
 
+        # Destroys a dietary requirement.
+        # @return [void]
         def destroy
           if @dietary_requirement.destroy
             redirect_to admin_conferences_dietary_requirements_path, success: t('.destroyed')
@@ -65,6 +82,8 @@ module Spina
             end
           end
         end
+
+        # @!endgroup
 
         private
 

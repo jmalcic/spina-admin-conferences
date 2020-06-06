@@ -3,10 +3,13 @@
 module Spina
   module Admin
     module Conferences
-      # This job imports presentations from CSV files
+      # Job for importing {Presentation} objects
+      # @see Presentation
       class PresentationImportJob < ImportJob
         queue_as :default
 
+        # Performs the job.
+        # @param csv [String] the UTF-8-encoded string to parse as a CSV
         def perform(csv)
           Presentation.transaction do
             import(csv) do |row|

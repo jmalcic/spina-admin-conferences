@@ -3,25 +3,38 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages delegates and sets breadcrumbs
+      # Controller for {Delegate} objects.
+      # @see Delegate
       class DelegatesController < ApplicationController
+        # @!group Callbacks
         before_action :set_delegate, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
+        # @!endgroup
 
+        # @!group Actions
+
+        # Renders a list of delegates.
+        # @return [void]
         def index
           @delegates = Delegate.sorted
         end
 
+        # Renders a form for a new delegate.
+        # @return [void]
         def new
           @delegate = Delegate.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing delegate.
+        # @return [void]
         def edit
           add_breadcrumb @delegate.full_name
         end
 
+        # Creates a delegate.
+        # @return [void]
         def create
           @delegate = Delegate.new(delegate_params)
 
@@ -38,6 +51,8 @@ module Spina
           end
         end
 
+        # Updates a delegate.
+        # @return [void]
         def update
           if @delegate.update(delegate_params)
             redirect_to admin_conferences_delegates_path, success: t('.saved')
@@ -52,6 +67,8 @@ module Spina
           end
         end
 
+        # Destroys a delegate.
+        # @return [void]
         def destroy
           if @delegate.destroy
             redirect_to admin_conferences_delegates_path, success: t('.destroyed')
@@ -66,9 +83,14 @@ module Spina
           end
         end
 
+        # Imports a delegate.
+        # @return [void]
+        # @see Delegate#import
         def import
           Delegate.import params[:file]
         end
+
+        # @!endgroup
 
         private
 

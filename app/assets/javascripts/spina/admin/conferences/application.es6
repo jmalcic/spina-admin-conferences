@@ -1,6 +1,10 @@
 //= require stimulus
 //= require_directory ./controllers
 
+/**
+ * @external Stimulus
+ */
+/* global Stimulus, SelectOptionsController, PresentationAttachmentsFormController */
 const application = Stimulus.Application.start()
 application.register('select-options', SelectOptionsController)
 application.register('presentation-attachments-form', PresentationAttachmentsFormController)

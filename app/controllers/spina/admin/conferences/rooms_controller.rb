@@ -3,27 +3,40 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages rooms and sets breadcrumbs
+      # Controller for {Room} objects.
+      # @see Room
       class RoomsController < ApplicationController
+        # @!group Callbacks
         before_action :set_room, only: %i[edit update destroy]
         before_action :set_breadcrumbs
         before_action :set_tabs
+        # @!endgroup
 
         layout 'spina/admin/conferences/institutions'
 
+        # @!group Actions
+
+        # Renders a list of rooms.
+        # @return [void]
         def index
           @rooms = Room.sorted
         end
 
+        # Renders a form for a new room.
+        # @return [void]
         def new
           @room = Room.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing room.
+        # @return [void]
         def edit
           add_breadcrumb @room.name
         end
 
+        # Creates a room.
+        # @return [void]
         def create
           @room = Room.new(room_params)
 
@@ -40,6 +53,8 @@ module Spina
           end
         end
 
+        # Updates a room.
+        # @return [void]
         def update
           if @room.update(room_params)
             redirect_to admin_conferences_rooms_path, success: t('.saved')
@@ -54,6 +69,8 @@ module Spina
           end
         end
 
+        # Destroys a room.
+        # @return [void]
         def destroy
           if @room.destroy
             redirect_to admin_conferences_rooms_path, success: t('.destroyed')
@@ -67,6 +84,8 @@ module Spina
             end
           end
         end
+
+        # @!endgroup
 
         private
 

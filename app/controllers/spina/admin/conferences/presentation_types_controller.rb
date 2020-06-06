@@ -3,27 +3,40 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages presentation types
+      # Controller for {PresentationType} objects.
+      # @see PresentationType
       class PresentationTypesController < ApplicationController
+        # @!group Callbacks
         before_action :set_presentation_type, only: %i[edit update destroy]
         before_action :set_breadcrumbs
         before_action :set_tabs
+        # @!endgroup
 
         layout 'spina/admin/conferences/conferences'
 
+        # @!group Actions
+
+        # Renders a list of presentation types.
+        # @return [void]
         def index
           @presentation_types = PresentationType.sorted
         end
 
+        # Renders a form for a new presentation type.
+        # @return [void]
         def new
           @presentation_type = PresentationType.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing presentation type.
+        # @return [void]
         def edit
           add_breadcrumb @presentation_type.name
         end
 
+        # Creates a presentation type.
+        # @return [void]
         def create
           @presentation_type = PresentationType.new presentation_type_params
 
@@ -40,6 +53,8 @@ module Spina
           end
         end
 
+        # Updates a presentation type.
+        # @return [void]
         def update
           if @presentation_type.update(presentation_type_params)
             redirect_to admin_conferences_presentation_types_path, success: t('.saved')
@@ -54,6 +69,8 @@ module Spina
           end
         end
 
+        # Destroys a presentation type.
+        # @return [void]
         def destroy
           if @presentation_type.destroy
             redirect_to admin_conferences_presentation_types_path, success: t('.destroyed')
@@ -67,6 +84,8 @@ module Spina
             end
           end
         end
+
+        # @!endgroup
 
         private
 

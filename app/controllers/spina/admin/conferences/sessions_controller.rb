@@ -3,28 +3,41 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages session and sets breadcrumbs
+      # Controller for {Session} objects.
+      # @see Session
       class SessionsController < ApplicationController
+        # @!group Callbacks
         before_action :set_session, only: %i[edit update destroy]
         before_action :set_breadcrumbs
         before_action :set_tabs
         before_action :set_conferences, :set_institutions, only: %i[new edit]
+        # @!endgroup
 
         layout 'spina/admin/conferences/conferences'
 
+        # @!group Actions
+
+        # Renders a list of sessions.
+        # @return [void]
         def index
           @sessions = Session.all
         end
 
+        # Renders a form for a new session.
+        # @return [void]
         def new
           @session = Session.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing session.
+        # @return [void]
         def edit
           add_breadcrumb @session.name
         end
 
+        # Creates a session.
+        # @return [void]
         def create
           @session = Session.new(session_params)
 
@@ -41,6 +54,8 @@ module Spina
           end
         end
 
+        # Updates a session.
+        # @return [void]
         def update
           if @session.update(session_params)
             redirect_to admin_conferences_sessions_path, success: t('.saved')
@@ -55,6 +70,8 @@ module Spina
           end
         end
 
+        # Destroys a session.
+        # @return [void]
         def destroy
           if @session.destroy
             redirect_to admin_conferences_sessions_path, success: t('.destroyed')
@@ -68,6 +85,8 @@ module Spina
             end
           end
         end
+
+        # @!endgroup
 
         private
 

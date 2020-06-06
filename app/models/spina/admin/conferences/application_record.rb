@@ -3,7 +3,8 @@
 module Spina
   module Admin
     module Conferences
-      class ApplicationRecord < ActiveRecord::Base #:nodoc:
+      # @abstract Subclass to implement a custom record.
+      class ApplicationRecord < ActiveRecord::Base
         extend Mobility
 
         self.abstract_class = true

@@ -3,24 +3,37 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages presentation attachment types
+      # Controller for {PresentationAttachmentType} objects.
+      # @see PresentationAttachmentType
       class PresentationAttachmentTypesController < ApplicationController
+        # @!group Callbacks
         before_action :set_presentation_attachment_type, only: %i[edit update destroy]
         before_action :set_breadcrumb
+        # @!endgroup
 
+        # @!group Actions
+
+        # Renders a list of presentation attachment types.
+        # @return [void]
         def index
           @presentation_attachment_types = PresentationAttachmentType.sorted
         end
 
+        # Renders a form for a new presentation attachment type.
+        # @return [void]
         def new
           @presentation_attachment_type = PresentationAttachmentType.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing presentation attachment type.
+        # @return [void]
         def edit
           add_breadcrumb @presentation_attachment_type.name
         end
 
+        # Creates a presentation attachment type.
+        # @return [void]
         def create
           @presentation_attachment_type = PresentationAttachmentType.new presentation_attachment_type_params
 
@@ -37,6 +50,8 @@ module Spina
           end
         end
 
+        # Updates a presentation attachment type.
+        # @return [void]
         def update
           if @presentation_attachment_type.update(presentation_attachment_type_params)
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.saved')
@@ -51,6 +66,8 @@ module Spina
           end
         end
 
+        # Destroys a presentation attachment type.
+        # @return [void]
         def destroy
           if @presentation_attachment_type.destroy
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.destroyed')
@@ -64,6 +81,8 @@ module Spina
             end
           end
         end
+
+        # @!endgroup
 
         private
 

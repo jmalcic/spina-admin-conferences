@@ -3,26 +3,39 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages presentations and sets breadcrumbs
+      # Controller for {Presentation} objects.
+      # @see Presentation
       class PresentationsController < ApplicationController
+        # @!group Callbacks
         before_action :set_presentation, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
         before_action :set_conferences, only: %i[new edit]
+        # @!endgroup
 
+        # @!group Actions
+
+        # Renders a list of presentations.
+        # @return [void]
         def index
           @presentations = Presentation.sorted
         end
 
+        # Renders a form for a new presentation.
+        # @return [void]
         def new
           @presentation = Presentation.new
           add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing presentation.
+        # @return [void]
         def edit
           add_breadcrumb @presentation.title
         end
 
+        # Creates a presentation.
+        # @return [void]
         def create
           @presentation = Presentation.new presentation_params
 
@@ -39,6 +52,8 @@ module Spina
           end
         end
 
+        # Updates a presentation.
+        # @return [void]
         def update
           if @presentation.update(presentation_params)
             redirect_to admin_conferences_presentations_path, success: t('.saved')
@@ -53,6 +68,8 @@ module Spina
           end
         end
 
+        # Destroys a presentation.
+        # @return [void]
         def destroy
           if @presentation.destroy
             redirect_to admin_conferences_presentations_path, success: t('.destroyed')
@@ -67,16 +84,23 @@ module Spina
           end
         end
 
+        # Imports a presentation.
+        # @return [void]
+        # @see Presentation#import
         def import
           Presentation.import params[:file]
         end
 
+        # Renders a form for a {PresentationAttachment}.
+        # @return [void]
         def attach
           @presentation = Presentation.find_by(id: params[:id]) || Presentation.new
           @attachment = @presentation.attachments.build
           respond_to :js
           render locals: { index: params[:index].to_i, active: params[:active] == 'true' }
         end
+
+        # @!endgroup
 
         private
 

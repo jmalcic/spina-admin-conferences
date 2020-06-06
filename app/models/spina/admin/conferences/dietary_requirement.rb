@@ -3,13 +3,24 @@
 module Spina
   module Admin
     module Conferences
-      # This class represents dietary requirements.
-      # A `DietaryRequirement` belongs to many `:delegates`, and a `Delegate` may have many `:dietary_requirements`.
+      # Dietary requirement records.
+      #
+      # = Validators
+      # Presence:: {#name}.
+      #
+      # = Translations
+      # - {#name}
       class DietaryRequirement < ApplicationRecord
+        # @!attribute [rw] name
+        #   @return [String, nil] the name of the dietary requirement
         translates :name, fallbacks: true
 
+        # @return [ActiveRecord::Relation] all dietary requirements, ordered by name
         scope :sorted, -> { i18n.order :name }
 
+        # @!attribute [rw] delegates
+        #   @return [ActiveRecord::Relation] directly associated delegates
+        #   @see Delegate
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_dietary_requirement_id,
                                             association_foreign_key: :spina_conferences_delegate_id
 

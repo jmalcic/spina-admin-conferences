@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Conferences
-      # Base mailer from which other mailers inherit
+      # @abstract Abstract mailer from which all others inherit.
       class ApplicationMailer < ActionMailer::Base
         default from: 'from@example.com'
         layout 'mailer'
