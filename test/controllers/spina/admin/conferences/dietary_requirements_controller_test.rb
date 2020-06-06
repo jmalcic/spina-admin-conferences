@@ -73,7 +73,7 @@ module Spina
           get edit_admin_conferences_dietary_requirement_url(@dietary_requirement)
           assert_response :success
           assert_select('#delegates tbody > tr') do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 3 }
+            table_rows.each { |row| assert_select row, 'td', 4 }
           end
         end
 

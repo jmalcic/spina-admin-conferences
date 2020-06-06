@@ -11,7 +11,7 @@
         = icon('check')
         = t '.save'
 
-      = link_to t('spina.cancel'), spina.admin_conferences_conferences_path, class: 'button', style: 'margin-right: 0'
+      = link_to t('spina.cancel'), admin_conferences_conferences_path, class: 'button', style: 'margin-right: 0'
 
     %nav#secondary.tabs
       %ul
@@ -20,4 +20,4 @@
             = link_to t(".#{tab}"), "##{tab}"
 
   - @tabs.each do |tab|
-    = render "spina/admin/conferences/conferences/form_#{tab}", f: f
+    = render "form_#{tab}", f: f

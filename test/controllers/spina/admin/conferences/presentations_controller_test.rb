@@ -89,7 +89,7 @@ module Spina
           get edit_admin_conferences_presentation_url(@presentation)
           assert_response :success
           assert_select('#presenters tbody > tr') do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 3 }
+            table_rows.each { |row| assert_select row, 'td', 4 }
           end
         end
 

@@ -5,8 +5,8 @@
     = form_with url: import_admin_conferences_presentations_path do |f|
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
-  = link_to spina.new_admin_conferences_presentation_path, class: 'button button-primary', style: 'margin-right: 0' do
-    = icon('plus')
+  = link_to new_admin_conferences_presentation_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
     = t '.new'
 
 .well

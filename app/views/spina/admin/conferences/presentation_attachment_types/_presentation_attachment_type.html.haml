@@ -1,6 +1,6 @@
 %tr{ data: { presentation_attachment_type_id: presentation_attachment_type.id } }
-  %td= link_to presentation_attachment_type.name, spina.edit_admin_conferences_presentation_attachment_type_path(presentation_attachment_type)
+  %td= link_to presentation_attachment_type.name, edit_admin_conferences_presentation_attachment_type_path(presentation_attachment_type)
   %td.align-right
-    = link_to spina.edit_admin_conferences_presentation_attachment_type_path(presentation_attachment_type), class: 'button button-small button-link' do
-      = icon('pencil-outline')
-      = t('spina.edit')
+    = link_to edit_admin_conferences_presentation_attachment_type_path(presentation_attachment_type), class: %w[button button-small button-link] do
+      = icon 'pencil-outline'
+      = t 'spina.edit'

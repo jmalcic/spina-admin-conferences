@@ -3,7 +3,8 @@
     .horizontal-form
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Room.human_attribute_name :institution
-        .horizontal-form-content.select-dropdown= f.collection_select :institution_id, Spina::Admin::Conferences::Institution.all, :id, :name, { required: true }
+        .horizontal-form-content
+          .select-dropdown= f.collection_select :institution_id, Spina::Admin::Conferences::Institution.all, :id, :name, {}, required: true
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Room.human_attribute_name :building

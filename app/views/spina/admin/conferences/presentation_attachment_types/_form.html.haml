@@ -8,10 +8,10 @@
 
     #header_actions
       %button.button.button-primary{ type: 'submit' }
-        = icon('check')
+        = icon 'check'
         = t '.save'
 
-      = link_to t('spina.cancel'), spina.admin_conferences_presentation_attachment_types_path, class: 'button', style: 'margin-right: 0'
+      = link_to t('spina.cancel'), admin_conferences_presentation_attachment_types_path, class: 'button', style: 'margin-right: 0'
 
   .well
     .horizontal-form
