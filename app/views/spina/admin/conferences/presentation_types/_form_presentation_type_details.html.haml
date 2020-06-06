@@ -13,8 +13,8 @@
       .horizontal-form-group
         .horizontal-form-label
           = Spina::Admin::Conferences::PresentationType.human_attribute_name :duration
-          %small= Spina::Admin::Conferences::PresentationType.human_attribute_name :duration_description
+          %small= t '.duration_instructions'
         .horizontal-form-content= f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
 
   - unless @presentation_type.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_type_path(@presentation_type), method: :delete, data: { confirm: t('spina.conferences.presentation_types.delete_confirmation', presentation_type: @presentation_type.name) }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_type_path(@presentation_type), method: :delete, data: { confirm: t('.delete_confirmation', presentation_type: @presentation_type.name) }, class: %w[button button-link button-danger]

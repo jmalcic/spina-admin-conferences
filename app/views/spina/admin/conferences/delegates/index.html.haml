@@ -1,13 +1,13 @@
 - content_for(:header_actions) do
   %label.button{ for: 'file' }
     = icon('cog')
-    = t('spina.conferences.delegates.import')
+    = t '.import'
     = form_with url: import_admin_conferences_delegates_path do |f|
       = f.submit style: 'display: none'
       = f.file_field :file, multiple: false, style: 'display: none'
   = link_to spina.new_admin_conferences_delegate_path, class: 'button button-primary', style: 'margin-right: 0' do
     = icon('plus')
-    = t('spina.conferences.delegates.new')
+    = t '.new'
 
 .well
   .table-container
@@ -20,10 +20,4 @@
           %th
 
       %tbody
-        - if @delegates.any?
-          = render @delegates
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.delegates.no_delegates')
+        = render @delegates.any? ? @delegates : 'empty_list', message: t('.no_delegates')

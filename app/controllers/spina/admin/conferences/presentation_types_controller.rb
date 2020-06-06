@@ -17,7 +17,7 @@ module Spina
 
         def new
           @presentation_type = PresentationType.new
-          add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -28,16 +28,16 @@ module Spina
           @presentation_type = PresentationType.new presentation_type_params
 
           if @presentation_type.save
-            redirect_to admin_conferences_presentation_types_path, success: t('spina.conferences.presentation_types.saved')
+            redirect_to admin_conferences_presentation_types_path, success: t('.saved')
           else
-            add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @presentation_type.update(presentation_type_params)
-            redirect_to admin_conferences_presentation_types_path, success: t('spina.conferences.presentation_types.saved')
+            redirect_to admin_conferences_presentation_types_path, success: t('.saved')
           else
             add_breadcrumb @presentation_type.name
             render :edit
@@ -46,7 +46,7 @@ module Spina
 
         def destroy
           if @presentation_type.destroy
-            redirect_to admin_conferences_presentation_types_path, success: t('spina.conferences.presentation_types.destroyed')
+            redirect_to admin_conferences_presentation_types_path, success: t('.destroyed')
           else
             add_breadcrumb @presentation_type.name
             render :edit

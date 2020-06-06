@@ -18,7 +18,7 @@ module Spina
         def name
           return if building.blank? || number.blank?
 
-          "#{building} #{number}"
+          Room.human_attribute_name :name, building: building, number: number
         end
       end
     end

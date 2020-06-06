@@ -24,16 +24,16 @@ module Spina
           get new_admin_conferences_conference_url
           assert_response :success
           assert_select '#delegates tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.delegates.no_delegates')
+            assert_select 'td', I18n.t('spina.admin.conferences.delegates.index.no_delegates')
           end
           assert_select '#presentation_types tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.presentation_types.no_presentation_types')
+            assert_select 'td', I18n.t('spina.admin.conferences.presentation_types.index.no_presentation_types')
           end
           assert_select '#presentations tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+            assert_select 'td', I18n.t('spina.admin.conferences.presentations.index.no_presentations')
           end
           assert_select '#rooms tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.rooms.no_rooms')
+            assert_select 'td', I18n.t('spina.admin.conferences.rooms.index.no_rooms')
           end
         end
 

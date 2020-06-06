@@ -25,7 +25,7 @@ module Spina
           get new_admin_conferences_dietary_requirement_url
           assert_response :success
           assert_select '#delegates tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.delegates.no_delegates')
+            assert_select 'td', I18n.t('spina.admin.conferences.delegates.index.no_delegates')
           end
         end
 

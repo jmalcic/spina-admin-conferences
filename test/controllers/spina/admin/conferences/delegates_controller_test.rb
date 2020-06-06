@@ -24,10 +24,10 @@ module Spina
           get new_admin_conferences_delegate_url
           assert_response :success
           assert_select '#conferences tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.conferences.no_conferences')
+            assert_select 'td', I18n.t('spina.admin.conferences.conferences.index.no_conferences')
           end
           assert_select '#presentations tbody > tr' do
-            assert_select 'td', I18n.t('spina.conferences.presentations.no_presentations')
+            assert_select 'td', I18n.t('spina.admin.conferences.presentations.index.no_presentations')
           end
         end
 

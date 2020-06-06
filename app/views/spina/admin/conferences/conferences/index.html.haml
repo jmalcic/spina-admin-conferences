@@ -1,7 +1,7 @@
 - content_for(:header_actions) do
   = link_to spina.new_admin_conferences_conference_path, class: 'button button-primary', style: 'margin-right: 0' do
     = icon('plus')
-    = t('spina.conferences.conferences.new')
+    = t('.new')
 
 .well
   .table-container
@@ -15,10 +15,4 @@
           %th
 
       %tbody
-        - if @conferences.any?
-          = render @conferences
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.conferences.no_conferences')
+        = render @conferences.any? ? @conferences : 'empty_list', message: t('.no_conferences')

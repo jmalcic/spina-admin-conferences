@@ -15,7 +15,7 @@ module Spina
 
         def new
           @dietary_requirement = DietaryRequirement.new
-          add_breadcrumb I18n.t('spina.conferences.dietary_requirements.new')
+          add_breadcrumb t('.new')
         end
 
         def edit
@@ -26,16 +26,16 @@ module Spina
           @dietary_requirement = DietaryRequirement.new dietary_requirement_params
 
           if @dietary_requirement.save
-            redirect_to admin_conferences_dietary_requirements_path, success: t('spina.conferences.dietary_requirements.saved')
+            redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
           else
-            add_breadcrumb t('spina.conferences.dietary_requirements.new')
+            add_breadcrumb t('.new')
             render :new
           end
         end
 
         def update
           if @dietary_requirement.update(dietary_requirement_params)
-            redirect_to admin_conferences_dietary_requirements_path, success: t('spina.conferences.dietary_requirements.saved')
+            redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
           else
             add_breadcrumb @dietary_requirement.name
             render :edit
@@ -44,7 +44,7 @@ module Spina
 
         def destroy
           if @dietary_requirement.destroy
-            redirect_to admin_conferences_dietary_requirements_path, success: t('spina.conferences.dietary_requirements.destroyed')
+            redirect_to admin_conferences_dietary_requirements_path, success: t('.destroyed')
           else
             add_breadcrumb @dietary_requirement.name
             render :edit
