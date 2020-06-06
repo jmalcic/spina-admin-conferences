@@ -17,8 +17,6 @@ module Spina
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id,
                                             association_foreign_key: :spina_conferences_delegate_id
 
-        validates_associated :presentation_types
-
         validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 

@@ -15,7 +15,7 @@ module Spina
         has_and_belongs_to_many :dietary_requirements, foreign_key: :spina_conferences_delegate_id,
                                                        association_foreign_key: :spina_conferences_dietary_requirement_id
 
-        validates :first_name, :last_name, :conferences, presence: true
+        validates :first_name, :last_name, presence: true
         validates :email_address, 'spina/admin/conferences/email_address': true
         validates :url, 'spina/admin/conferences/http_url': true
 

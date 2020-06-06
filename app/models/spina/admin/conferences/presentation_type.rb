@@ -13,12 +13,10 @@ module Spina
 
         belongs_to :conference, inverse_of: :presentation_types
         has_many :sessions, inverse_of: :presentation_type, dependent: :restrict_with_error
-        has_many :rooms, through: :sessions
         has_many :presentations, through: :sessions
 
         validates :name, :minutes, :duration, presence: true
         validates :minutes, numericality: { greater_than_or_equal_to: 1 }
-        validates_associated :sessions
 
         def minutes
           return if duration.blank?
