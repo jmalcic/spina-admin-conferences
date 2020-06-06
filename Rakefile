@@ -30,6 +30,7 @@ Rake::TestTask.new(:test) do |t|
   t.pattern = 'test/**/*_test.rb'
   t.verbose = false
   t.warning = false
+  t.ruby_opts = %w[-W:no-deprecated]
 end
 
 task default: :test
