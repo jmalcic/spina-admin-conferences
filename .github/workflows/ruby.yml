@@ -9,6 +9,8 @@ env:
   RAILS_SERVE_STATIC_FILES: enabled
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  CONTINUOUS_INTEGRATION: true
+  CI: true
 
 jobs:
   build:
