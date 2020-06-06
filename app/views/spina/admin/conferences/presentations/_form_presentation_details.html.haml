@@ -23,8 +23,8 @@
 
       .horizontal-form-group
         .horizontal-form-label
-          %small= t '.start_time_instructions'
           = Spina::Admin::Conferences::Presentation.human_attribute_name :start_time
+          %small= t '.start_time_instructions'
         .horizontal-form-content= f.time_field :start_time, value: (@presentation.start_time.to_formatted_s(:time) unless @presentation.start_time.blank?), placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:start_time), required: true
 
       .horizontal-form-group
@@ -37,8 +37,8 @@
 
       .horizontal-form-group
         .horizontal-form-label
-          %small= t '.multiple_presenters_selection_instructions_html'
           = Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
+          %small= t '.multiple_presenters_selection_instructions_html'
         .horizontal-form-content
           .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
 
