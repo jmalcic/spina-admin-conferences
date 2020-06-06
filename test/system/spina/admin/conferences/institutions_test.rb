@@ -8,6 +8,7 @@ module Spina
       class InstitutionsTest < ApplicationSystemTestCase
         setup do
           @institution = spina_admin_conferences_institutions :university_of_atlantis
+          @empty_institution = spina_admin_conferences_institutions :empty_institution
           @user = spina_users :joe
           visit admin_login_path
           within '.login-fields' do
@@ -65,18 +66,18 @@ module Spina
 
         test 'destroying an institution' do
           visit admin_conferences_institutions_path
-          within "tr[data-institution-id=\"#{@institution.id}\"]" do
+          within "tr[data-institution-id=\"#{@empty_institution.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @institution.name
+          assert_selector '.breadcrumbs', text: @empty_institution.name
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the institution #{@institution.name}?"
+          assert_text "Are you sure you want to delete the institution #{@empty_institution.name}?"
           Percy.snapshot page, name: 'Institutions delete dialog'
           click_on 'Yes, I\'m sure'
           assert_text 'Institution deleted'
-          assert_no_selector "tr[data-institution-id=\"#{@institution.id}\"]"
+          assert_no_selector "tr[data-institution-id=\"#{@empty_institution.id}\"]"
           Percy.snapshot page, name: 'Institutions index on delete'
         end
       end

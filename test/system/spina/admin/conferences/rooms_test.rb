@@ -8,6 +8,7 @@ module Spina
       class RoomsTest < ApplicationSystemTestCase
         setup do
           @room = spina_admin_conferences_rooms :lecture_block_2
+          @empty_room = spina_admin_conferences_rooms :empty_room
           @user = spina_users :joe
           visit admin_login_path
           within '.login-fields' do
@@ -53,18 +54,18 @@ module Spina
 
         test 'destroying a room' do
           visit admin_conferences_rooms_path
-          within "tr[data-room-id=\"#{@room.id}\"]" do
+          within "tr[data-room-id=\"#{@empty_room.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @room.name
+          assert_selector '.breadcrumbs', text: @empty_room.name
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the room #{@room.name}?"
+          assert_text "Are you sure you want to delete the room #{@empty_room.name}?"
           Percy.snapshot page, name: 'Rooms delete dialog'
           click_on 'Yes, I\'m sure'
           assert_text 'Room deleted'
-          assert_no_selector "tr[data-room-id=\"#{@room.id}\"]"
+          assert_no_selector "tr[data-room-id=\"#{@empty_room.id}\"]"
           Percy.snapshot page, name: 'Rooms index on delete'
         end
       end

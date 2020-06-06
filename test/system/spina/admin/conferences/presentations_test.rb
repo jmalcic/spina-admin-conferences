@@ -27,9 +27,9 @@ module Spina
           visit admin_conferences_presentations_path
           click_on 'New presentation'
           assert_selector '.breadcrumbs', text: 'New presentation'
-          select @presentation.conference.name, from: 'admin_conferences_presentation_conference_id'
-          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_presentation_type_id'
-          select @presentation.room_use.room_name, from: 'admin_conferences_presentation_room_use_id'
+          select @presentation.conference.name, from: 'admin_conferences_conference_id'
+          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
+          select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
           select I18n.localize(@presentation.date, locale: :'en-GB', format: :short),
                  from: 'admin_conferences_presentation_date'
           fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
@@ -40,6 +40,19 @@ module Spina
           @presentation.presenters.each do |presenter|
             select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
           end
+          within '.admin_conferences_presentation_attachment' do
+            click_link class: %w[button button-link icon]
+            within '#structure_form_pane_0' do
+              select @presentation.attachments.first.name,
+                     from: 'admin_conferences_presentation_attachments_attributes_0_attachment_type_id'
+              click_on 'Choose from library'
+            end
+          end
+          within '#overlay', visible: true, style: { display: 'block' } do
+            first('li').choose allow_label_click: true
+            click_on 'Insert document'
+          end
+          assert_no_selector '#overlay'
           Percy.snapshot page, name: 'Presentations form on create'
           click_on 'Save presentation'
           assert_text 'Presentation saved'
@@ -53,9 +66,9 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @presentation.name
           Percy.snapshot page, name: 'Presentations form on update'
-          select @presentation.conference.name, from: 'admin_conferences_presentation_conference_id'
-          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_presentation_type_id'
-          select @presentation.room_use.room_name, from: 'admin_conferences_presentation_room_use_id'
+          select @presentation.conference.name, from: 'admin_conferences_conference_id'
+          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
+          select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
           select I18n.localize(@presentation.date, locale: :'en-GB', format: :short),
                  from: 'admin_conferences_presentation_date'
           fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
@@ -66,6 +79,20 @@ module Spina
           @presentation.presenters.each do |presenter|
             select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
           end
+          within '.admin_conferences_presentation_attachment' do
+            click_link class: %w[button button-link icon]
+            find_link(href: '#structure_form_pane_2').click
+            within '#structure_form_pane_2' do
+              select @presentation.attachments.second.name,
+                     from: 'admin_conferences_presentation_attachments_attributes_2_attachment_type_id'
+              click_on 'Choose from library'
+            end
+          end
+          within '#overlay', visible: true, style: { display: 'block' } do
+            first('li').choose allow_label_click: true
+            click_on 'Insert document'
+          end
+          assert_no_selector '#overlay'
           click_on 'Save presentation'
           assert_text 'Presentation saved'
           Percy.snapshot page, name: 'Presentations index on update'

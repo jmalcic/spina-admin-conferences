@@ -8,6 +8,7 @@ module Spina
       class ConferencesTest < ApplicationSystemTestCase
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
+          @empty_conference = spina_admin_conferences_conferences :empty_conference
           @user = spina_users :joe
           visit admin_login_path
           within '.login-fields' do
@@ -27,8 +28,7 @@ module Spina
           visit admin_conferences_conferences_path
           click_on 'New conference'
           assert_selector '.breadcrumbs', text: 'New conference'
-          select @conference.institution_name, from: 'admin_conferences_conference_institution_id'
-          @conference.rooms.each { |room| select room.name, from: 'admin_conferences_conference_room_ids' }
+          fill_in 'admin_conferences_conference_name', with: @conference.name
           fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
           fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
           Percy.snapshot page, name: 'Conferences form on create'
@@ -44,8 +44,7 @@ module Spina
           end
           assert_selector '.breadcrumbs', text: @conference.name
           Percy.snapshot page, name: 'Conferences form on update'
-          select @conference.institution_name, from: 'admin_conferences_conference_institution_id'
-          @conference.rooms.each { |room| select room.name, from: 'admin_conferences_conference_room_ids' }
+          fill_in 'admin_conferences_conference_name', with: @conference.name
           fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
           fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
           click_on 'Save conference'
@@ -55,18 +54,18 @@ module Spina
 
         test 'destroying a conference' do
           visit admin_conferences_conferences_path
-          within "tr[data-conference-id=\"#{@conference.id}\"]" do
+          within "tr[data-conference-id=\"#{@empty_conference.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @conference.name
+          assert_selector '.breadcrumbs', text: @empty_conference.name
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the conference #{@conference.name}?"
+          assert_text "Are you sure you want to delete the conference #{@empty_conference.name}?"
           Percy.snapshot page, name: 'Conferences delete dialog'
           click_on 'Yes, I\'m sure'
           assert_text 'Conference deleted'
-          assert_no_selector "tr[data-conference-id=\"#{@conference.id}\"]"
+          assert_no_selector "tr[data-conference-id=\"#{@empty_conference.id}\"]"
           Percy.snapshot page, name: 'Conferences index on delete'
         end
       end
