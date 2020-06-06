@@ -6,21 +6,21 @@ module Spina
   module Admin
     module Conferences
       class PresentationImportJobTest < ActiveJob::TestCase
-        test 'that number of presentations changes' do
+        test 'job changes number of presentations' do
           assert_difference 'Presentation.count', 2 do
-            PresentationImportJob.perform_now File.open(file_fixture('presentations.csv'))
+            PresentationImportJob.perform_now file_fixture('presentations.csv').open
           end
         end
 
         test 'presentation import scheduling' do
           assert_enqueued_with job: PresentationImportJob do
-            Presentation.import File.open(file_fixture('presentations.csv'))
+            Presentation.import file_fixture('presentations.csv').open
           end
         end
 
         test 'presentation import performing' do
           assert_performed_with job: PresentationImportJob do
-            Presentation.import File.open(file_fixture('presentations.csv'))
+            Presentation.import file_fixture('presentations.csv').open
           end
         end
       end
