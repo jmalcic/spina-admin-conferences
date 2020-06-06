@@ -1,6 +1,6 @@
 #presentation_type_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "admin_conferences_presentation_type_conference_id": { "value": "id", "text": "name" }, "admin_conferences_presentation_type_room_possession_ids": { "trigger": "admin_conferences_presentation_type_conference_id", "key": "room_possessions", "value": "id", "text": "room_name" } }', records_values: @conferences } } }
+    .horizontal-form
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :conference
         .horizontal-form-content

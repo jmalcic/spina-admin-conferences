@@ -1,67 +1,100 @@
-export class SelectOptionsController extends Stimulus.Controller {
+class SelectOptionsController extends Stimulus.Controller {
   static get targets() {
     return ['select']
   }
   static get values() {
     return {
-      records: Array,
-      filteredData: Object,
-      config: Object
+      record: Array,
     }
   }
 
-  filteredDataValueChanged() {
-    if (!this.hasFilteredDataValue) return
+  connect() {
+    this.selectTargets.forEach(target => target.dispatchEvent(new Event('change')))
+  }
 
-    this.selectTargets.forEach(target => {
-      const config = this.configValue[target.id]
-      if (config.trigger !== undefined) {
-        if (this.filteredDataValue[config.trigger] === undefined) target.disabled = true
-        else this.updateOptions(target, this.filteredDataValue[config.trigger][config.key], config)
+  recordValuesChanged() {
+    this.selectTargets.forEach(target => this.updateOptions(target))
+  }
+
+  setVisibility(event) {
+    const target = event.target
+    const recordFilter = new RecordFilter(this.recordValues, target)
+    this.recordValues = recordFilter.setVisibility()
+  }
+
+  // Private methods
+
+  updateOptions(target) {
+    let newRecords = this.recordValues
+    if ('keyPath' in target.dataset) {
+      const keyPath = new KeyPath(target.dataset.keyPath)
+      newRecords = keyPath.visibleObjectsAtKeyPath(newRecords)
+    }
+    const textKey = target.dataset.textKey
+    if (!('valueKey' in target.dataset)) target.dataset.valueKey = 'id'
+    const valueKey = target.dataset.valueKey
+    const newOptions = newRecords.map(record => new Option(record[textKey], record[valueKey] ))
+    const oldOptions = Array.from(target.options).filter(option => option.value !== '')
+    oldOptions.filter(option => !newOptions.some(newOption => newOption.value === option.value))
+      .forEach(option => target.remove(option.index))
+    newOptions.filter(newOption => !oldOptions.some(option => option.value === newOption.value)).forEach(option => target.add(option))
+  }
+}
+
+class KeyPath {
+  constructor(string) {
+    if (typeof string !== 'string') throw TypeError(`${string} is not a string`)
+    this.segments = string.split(':')
+  }
+
+  forEach(callbackFn) {
+    this.segments.forEach(callbackFn)
+  }
+
+  traverseObject(object, filter = false) {
+    let objectSubpart = object
+    this.segments.forEach(key => {
+      switch (objectSubpart.constructor) {
+      case Array:
+        if (filter) objectSubpart = objectSubpart.filter(object => object.visible === true)
+        objectSubpart = objectSubpart.flatMap(object => object[key])
+        break
+      case String:
+      case Number:
+      case Boolean:
+        break
+      case Object:
+        objectSubpart = objectSubpart[key]
+        break
       }
     })
+    return objectSubpart ? objectSubpart : []
   }
 
-  updateOptions(target, newData, config) {
-    target.disabled = false
-    if (this.hasStaleOptions(target, newData)) {
-      this.removeOptions(target)
-      this.buildOptions(target, newData, config)
-    }
+  visibleObjectsAtKeyPath(object) {
+    return this.traverseObject(object, true)
   }
 
-  hasStaleOptions(target, newData) {
-    const targetOptions = this.getNonEmptyOptions(target).map(option => (new Option(option.text, option.value)))
-    const newOptions = newData.map(record => this.generateOption(record, this.configValue[target.id]))
-    return !targetOptions.some((option, index) => option.isEqualNode(newOptions[index]))
+  objectsAtKeyPath(object) {
+    return this.traverseObject(object)
+  }
+}
+
+class RecordFilter {
+  get records() {
+    return this.keyPath ? this.keyPath.objectsAtKeyPath(this.rawRecords) : this.rawRecords
   }
 
-  getNonEmptyOptions(target) {
-    return Array.from(target.options).filter(element => element.value !== '')
+  constructor(rawRecords, target) {
+    this.rawRecords = Array.from(rawRecords)
+    if ('keyPath' in target.dataset) this.keyPath = new KeyPath(target.dataset.keyPath)
+    if (!('valueKey' in target.dataset)) target.dataset.valueKey = 'id'
+    this.valueKey = target.dataset.valueKey
+    this.targetValue = target.value
   }
 
-  generateOption(record, config) {
-    return new Option(record[config.text], record[config.value])
-  }
-
-  removeOptions(target) {
-    this.getNonEmptyOptions(target).forEach(element => element.remove())
-  }
-
-  buildOptions(target, records, config) {
-    records.forEach(record => target.options.add(this.generateOption(record, config)))
-  }
-
-  updateFilteredData(event) {
-    let filteredData = this.filteredDataValue
-    const config = this.configValue[event.target.id]
-    let data = config.trigger !== undefined ? filteredData : this.recordsValues
-    filteredData[event.target.id] = this.filterItemsByValue(data, event.target.value, config)
-    this.filteredDataValue = filteredData
-  }
-
-  filterItemsByValue(items, value, config) {
-    if (config.trigger !== undefined) items = items[config.trigger][config.key]
-    return items.find(item => item[config.value].toString() === value)
+  setVisibility() {
+    this.records.forEach(record => record.visible = record[this.valueKey].toString() === this.targetValue)
+    return this.rawRecords
   }
 }

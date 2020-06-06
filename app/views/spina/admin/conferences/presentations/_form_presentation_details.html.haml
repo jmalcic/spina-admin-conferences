@@ -1,25 +1,22 @@
 #presentation_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "admin_conferences_presentation_conference_id": { "value": "id", "text": "name" }, "admin_conferences_presentation_presentation_type_id": { "trigger": "admin_conferences_presentation_conference_id", "key": "presentation_types", "value": "id", "text": "name" }, "admin_conferences_presentation_date": { "trigger": "admin_conferences_presentation_conference_id", "key": "localized_dates", "value": "date", "text": "localization" }, "admin_conferences_presentation_room_use_id": { "trigger": "admin_conferences_presentation_presentation_type_id", "key": "room_uses", "value": "id", "text": "room_name" } }', records_values: @conferences } } }
+    .horizontal-form{ data: { controller: 'select-options', select_options: { record_values: @conferences } } }
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
         .horizontal-form-content
-          .select-dropdown= select_tag :admin_conferences_presentation_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.sorted, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), required: true, include_blank: true, data: { action: 'select-options#updateFilteredData' }
-
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :presentation_type
-        .horizontal-form-content
-          .select-dropdown= select_tag :admin_conferences_presentation_presentation_type_id, options_from_collection_for_select(Spina::Admin::Conferences::PresentationType.where(conference: @presentation.conference || Spina::Admin::Conferences::Conference.sorted.first), :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), { disabled: @presentation.presentation_type.blank?, required: true, include_blank: true, data: { action: 'select-options#updateFilteredData', select_options_target: 'select' } }
+          .select-dropdown= select_tag :admin_conferences_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), include_blank: true, required: true, data: { action: 'select-options#setVisibility', select_options_target: 'select', text_key: 'name' }
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :session
         .horizontal-form-content
-          .select-dropdown= f.collection_select :session_id, Spina::Admin::Conferences::Session.where(presentation_type: @presentation.presentation_type || Spina::Admin::Conferences::Conference.sorted.first.presentation_types.first), :id, :room_name, {}, { disabled: @presentation.session.blank?, required: true, include_blank: true, data: { select_options_target: 'select' } }
+          .input-group
+            .select-dropdown= select_tag :admin_conferences_presentation_type_id, options_from_collection_for_select((@presentation.conference || Spina::Admin::Conferences::Conference.first).presentation_types, :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), include_blank: true, required: true, data: { action: 'select-options#setVisibility', select_options_target: 'select', key_path: 'presentation_types', text_key: 'name' }
+            .select-dropdown= f.collection_select :session_id, (@presentation.presentation_type || Spina::Admin::Conferences::Conference.first).sessions, :id, :name, { include_blank: true }, required: true, data: { select_options_target: 'select', key_path: 'presentation_types:sessions', text_key: 'name' }
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :date
         .horizontal-form-content
-          .select-dropdown= f.select :date, (@presentation.conference || Spina::Admin::Conferences::Conference.sorted.first).dates.collect { |date| [l(date, format: :short), date.strftime("%Y-%m-%d")] }, {}, { disabled: @presentation.date.blank?, required: true, data: { select_options_target: 'select' } }
+          .select-dropdown= f.select :date, (@presentation.conference || Spina::Admin::Conferences::Conference.first).dates.collect { |date| [l(date, format: :short), date.to_formatted_s(:iso8601)] }, { include_blank: true }, required: true, data: { select_options_target: 'select', key_path: 'localized_dates', text_key: 'localization', value_key: 'date' }
 
       .horizontal-form-group
         .horizontal-form-label
