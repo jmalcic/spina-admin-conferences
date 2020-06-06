@@ -11,6 +11,7 @@ module Spina
         setup do
           @institution = spina_admin_conferences_institutions :university_of_atlantis
           @invalid_institution = Institution.new
+          @empty_institution = spina_admin_conferences_institutions :empty_institution
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -124,7 +125,7 @@ module Spina
 
         test 'should destroy institution' do
           assert_difference 'Institution.count', -1 do
-            delete admin_conferences_institution_url(@institution)
+            delete admin_conferences_institution_url(@empty_institution)
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution deleted', flash[:success]
@@ -132,10 +133,26 @@ module Spina
 
         test 'should destroy institution with remote form' do
           assert_difference 'Institution.count', -1 do
-            delete admin_conferences_institution_url(@institution), xhr: true
+            delete admin_conferences_institution_url(@empty_institution), xhr: true
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution deleted', flash[:success]
+        end
+
+        test 'should fail to destroy institution with dependent records' do
+          assert_no_difference 'Institution.count' do
+            delete admin_conferences_institution_url(@institution)
+          end
+          assert_response :success
+          assert_not_equal 'Institution deleted', flash[:success]
+        end
+
+        test 'should fail to destroy institution with dependent records with remote form' do
+          assert_no_difference 'Institution.count' do
+            delete admin_conferences_institution_url(@institution), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Institution deleted', flash[:success]
         end
       end
     end

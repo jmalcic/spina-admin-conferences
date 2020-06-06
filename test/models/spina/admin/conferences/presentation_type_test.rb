@@ -38,11 +38,11 @@ module Spina
           assert_empty @new_presentation_type.presentations
         end
 
-        test 'destroys associated sessions' do
-          assert_difference 'Session.count', -@presentation_type.sessions.count do
+        test 'does not destroy associated session' do
+          assert_no_difference 'Session.count' do
             @presentation_type.destroy
           end
-          assert_empty @presentation_type.errors[:base]
+          assert_not_empty @presentation_type.errors[:base]
         end
 
         test 'conference must not be empty' do

@@ -124,6 +124,22 @@ module Spina
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session deleted', flash[:success]
         end
+
+        test 'should fail to destroy session with dependent records' do
+          assert_no_difference 'Session.count' do
+            delete admin_conferences_session_url(@session)
+          end
+          assert_response :success
+          assert_not_equal 'Session deleted', flash[:success]
+        end
+
+        test 'should fail to destroy session with dependent records with remote form' do
+          assert_no_difference 'Session.count' do
+            delete admin_conferences_session_url(@session), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Session deleted', flash[:success]
+        end
       end
     end
   end

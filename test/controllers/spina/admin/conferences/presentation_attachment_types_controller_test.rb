@@ -124,6 +124,26 @@ module Spina
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type deleted', flash[:success]
         end
+
+        test 'should fail to destroy presentation attachment type if impossible' do
+          PresentationAttachmentType.before_destroy { throw :abort }
+          assert_no_difference 'PresentationAttachmentType.count' do
+            delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type)
+          end
+          assert_response :success
+          assert_not_equal 'Presentation attachment type deleted', flash[:success]
+          Rails.autoloaders.main.reload
+        end
+
+        test 'should fail to destroy presentation attachment type if impossible with remote form' do
+          PresentationAttachmentType.before_destroy { throw :abort }
+          assert_no_difference 'PresentationAttachmentType.count' do
+            delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Presentation attachment type deleted', flash[:success]
+          Rails.autoloaders.main.reload
+        end
       end
     end
   end

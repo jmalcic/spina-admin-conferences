@@ -13,3 +13,8 @@ university_of_shangri_la_2018:
   name: University of Shangri-La 2018
   locale: en-GB
   translated_model: university_of_shangri_la_2018
+
+empty_conference:
+  name: Empty conference
+  locale: en-GB
+  translated_model: empty_conference

@@ -33,3 +33,8 @@ oral_2:
   name: Oral
   locale: en-GB
   translated_model: oral_2
+
+empty_presentation_type:
+  name: Empty presentation type
+  locale: en-GB
+  translated_model: empty_presentation_type

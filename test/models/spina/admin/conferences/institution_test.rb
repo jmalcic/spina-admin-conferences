@@ -51,18 +51,18 @@ module Spina
           end
         end
 
-        test 'destroys associated rooms' do
-          assert_difference 'Room.count', -@institution.rooms.count do
+        test 'does not destroy associated rooms' do
+          assert_no_difference 'Room.count' do
             @institution.destroy
           end
-          assert_empty @institution.errors[:base]
+          assert_not_empty @institution.errors[:base]
         end
 
-        test 'destroys associated delegates' do
-          assert_difference 'Delegate.count', -@institution.delegates.count do
+        test 'does not destroy associated delegates' do
+          assert_no_difference 'Delegate.count' do
             @institution.destroy
           end
-          assert_empty @institution.errors[:base]
+          assert_not_empty @institution.errors[:base]
         end
 
         test 'logo may be empty' do

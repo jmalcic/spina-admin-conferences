@@ -12,7 +12,7 @@ module Spina
         attribute :duration, :interval
 
         belongs_to :conference, inverse_of: :presentation_types
-        has_many :sessions, inverse_of: :presentation_type, dependent: :destroy
+        has_many :sessions, inverse_of: :presentation_type, dependent: :restrict_with_error
         has_many :rooms, through: :sessions
         has_many :presentations, through: :sessions
 

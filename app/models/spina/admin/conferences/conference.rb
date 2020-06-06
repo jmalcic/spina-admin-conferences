@@ -9,7 +9,7 @@ module Spina
 
         scope :sorted, -> { order dates: :desc }
 
-        has_many :presentation_types, inverse_of: :conference, dependent: :destroy
+        has_many :presentation_types, inverse_of: :conference, dependent: :restrict_with_error
         has_many :sessions, through: :presentation_types
         has_many :presentations, through: :presentation_types
         has_many :rooms, through: :sessions

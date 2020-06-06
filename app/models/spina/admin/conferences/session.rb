@@ -11,7 +11,7 @@ module Spina
         belongs_to :presentation_type, inverse_of: :sessions
         has_one :conference, through: :presentation_type
         has_one :institution, through: :room
-        has_many :presentations, inverse_of: :session, dependent: :destroy
+        has_many :presentations, inverse_of: :session, dependent: :restrict_with_error
 
         validates :name, presence: true
 

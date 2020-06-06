@@ -45,3 +45,10 @@ oral_2:
     value: 1200
     parts:
       :minutes: 20
+
+empty_presentation_type:
+  conference: university_of_shangri_la_2018
+  duration: !ruby/object:ActiveSupport::Duration
+    value: 1200
+    parts:
+      :minutes: 20

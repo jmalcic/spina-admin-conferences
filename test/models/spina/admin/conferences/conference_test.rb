@@ -55,11 +55,11 @@ module Spina
           assert_empty @new_conference.delegates
         end
 
-        test 'destroys associated presentation types' do
-          assert_difference 'PresentationType.count', -@conference.presentation_types.count do
+        test 'does not destroy associated presentation types' do
+          assert_no_difference 'PresentationType.count' do
             @conference.destroy
           end
-          assert_empty @conference.errors[:base]
+          assert_not_empty @conference.errors[:base]
         end
 
         test 'name must not be empty' do

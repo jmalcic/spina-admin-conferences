@@ -11,6 +11,7 @@ module Spina
         setup do
           @room = spina_admin_conferences_rooms :lecture_block_2
           @invalid_room = Room.new
+          @empty_room = spina_admin_conferences_rooms :empty_room
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -118,7 +119,7 @@ module Spina
 
         test 'should destroy room' do
           assert_difference 'Room.count', -1 do
-            delete admin_conferences_room_url(@room)
+            delete admin_conferences_room_url(@empty_room)
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room deleted', flash[:success]
@@ -126,10 +127,26 @@ module Spina
 
         test 'should destroy room with remote form' do
           assert_difference 'Room.count', -1 do
-            delete admin_conferences_room_url(@room), xhr: true
+            delete admin_conferences_room_url(@empty_room), xhr: true
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room deleted', flash[:success]
+        end
+
+        test 'should fail to destroy room with dependent records' do
+          assert_no_difference 'Room.count' do
+            delete admin_conferences_room_url(@room)
+          end
+          assert_response :success
+          assert_not_equal 'Room deleted', flash[:success]
+        end
+
+        test 'should fail to destroy room with dependent records with remote form' do
+          assert_no_difference 'Room.count' do
+            delete admin_conferences_room_url(@room), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Room deleted', flash[:success]
         end
       end
     end

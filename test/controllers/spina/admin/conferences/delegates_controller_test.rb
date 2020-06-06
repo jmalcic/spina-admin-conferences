@@ -131,6 +131,26 @@ module Spina
           assert_equal 'Delegate deleted', flash[:success]
         end
 
+        test 'should fail to destroy delegate if impossible' do
+          Delegate.before_destroy { throw :abort }
+          assert_no_difference 'Delegate.count' do
+            delete admin_conferences_delegate_url(@delegate)
+          end
+          assert_response :success
+          assert_not_equal 'Delegate deleted', flash[:success]
+          Rails.autoloaders.main.reload
+        end
+
+        test 'should fail to destroy delegate if impossible with remote form' do
+          Delegate.before_destroy { throw :abort }
+          assert_no_difference 'Delegate.count' do
+            delete admin_conferences_delegate_url(@delegate), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Delegate deleted', flash[:success]
+          Rails.autoloaders.main.reload
+        end
+
         test 'should enqueue delegate import' do
           assert_enqueued_with job: DelegateImportJob do
             post import_admin_conferences_delegates_url,

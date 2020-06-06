@@ -9,3 +9,6 @@ university_of_atlantis_2017:
 
 university_of_shangri_la_2018:
   dates: !ruby/range 2018-04-09...2018-04-12
+
+empty_conference:
+  dates: !ruby/range 2018-04-09...2018-04-12

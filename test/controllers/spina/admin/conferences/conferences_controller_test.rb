@@ -11,6 +11,7 @@ module Spina
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
           @invalid_conference = Conference.new
+          @empty_conference = spina_admin_conferences_conferences :empty_conference
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -144,7 +145,7 @@ module Spina
 
         test 'should destroy conference' do
           assert_difference 'Conference.count', -1 do
-            delete admin_conferences_conference_url(@conference)
+            delete admin_conferences_conference_url(@empty_conference)
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference deleted', flash[:success]
@@ -152,10 +153,26 @@ module Spina
 
         test 'should destroy conference with remote form' do
           assert_difference 'Conference.count', -1 do
-            delete admin_conferences_conference_url(@conference), xhr: true
+            delete admin_conferences_conference_url(@empty_conference), xhr: true
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference deleted', flash[:success]
+        end
+
+        test 'should fail to destroy conference with dependent records' do
+          assert_no_difference 'Conference.count' do
+            delete admin_conferences_conference_url(@conference)
+          end
+          assert_response :success
+          assert_not_equal 'Conference deleted', flash[:success]
+        end
+
+        test 'should fail to destroy conference with dependent records with remote form' do
+          assert_no_difference 'Conference.count' do
+            delete admin_conferences_conference_url(@conference), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Conference deleted', flash[:success]
         end
       end
     end

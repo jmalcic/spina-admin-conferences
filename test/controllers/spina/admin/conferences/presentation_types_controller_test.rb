@@ -12,6 +12,7 @@ module Spina
         setup do
           @presentation_type = spina_admin_conferences_presentation_types :oral_1
           @invalid_presentation_type = PresentationType.new
+          @empty_presentation_type = spina_admin_conferences_presentation_types :empty_presentation_type
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -121,7 +122,7 @@ module Spina
 
         test 'should destroy presentation type' do
           assert_difference 'PresentationType.count', -1 do
-            delete admin_conferences_presentation_type_url(@presentation_type)
+            delete admin_conferences_presentation_type_url(@empty_presentation_type)
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type deleted', flash[:success]
@@ -129,10 +130,26 @@ module Spina
 
         test 'should destroy presentation type with remote form' do
           assert_difference 'PresentationType.count', -1 do
-            delete admin_conferences_presentation_type_url(@presentation_type), xhr: true
+            delete admin_conferences_presentation_type_url(@empty_presentation_type), xhr: true
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type deleted', flash[:success]
+        end
+
+        test 'should fail to destroy presentation type with dependent records' do
+          assert_no_difference 'PresentationType.count' do
+            delete admin_conferences_presentation_type_url(@presentation_type)
+          end
+          assert_response :success
+          assert_not_equal 'Presentation type deleted', flash[:success]
+        end
+
+        test 'should fail to destroy presentation type with dependent records with remote form' do
+          assert_no_difference 'PresentationType.count' do
+            delete admin_conferences_presentation_type_url(@presentation_type), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Presentation type deleted', flash[:success]
         end
       end
     end

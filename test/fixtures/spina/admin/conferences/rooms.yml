@@ -21,3 +21,6 @@ medical_school_g_152:
 
 medical_school_g_16:
   institution: university_of_shangri_la
+
+empty_room:
+  institution: university_of_shangri_la

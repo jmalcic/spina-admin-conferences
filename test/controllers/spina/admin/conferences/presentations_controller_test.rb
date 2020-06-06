@@ -156,6 +156,27 @@ module Spina
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation deleted', flash[:success]
         end
+
+        test 'should fail to destroy presentation if impossible' do
+          Presentation.before_destroy { throw :abort }
+          assert_no_difference 'Presentation.count' do
+            delete admin_conferences_presentation_url(@presentation)
+          end
+          assert_response :success
+          assert_not_equal 'Presentation deleted', flash[:success]
+          Rails.autoloaders.main.reload
+        end
+
+        test 'should fail to destroy presentation if impossible with remote form' do
+          Presentation.before_destroy { throw :abort }
+          assert_no_difference 'Presentation.count' do
+            delete admin_conferences_presentation_url(@presentation), xhr: true
+          end
+          assert_response :success
+          assert_not_equal 'Presentation deleted', flash[:success]
+          Rails.autoloaders.main.reload
+        end
+
         test 'should enqueue presentation import' do
           assert_enqueued_with job: PresentationImportJob do
             post import_admin_conferences_presentations_url,
