@@ -5,79 +5,35 @@ module Spina
   User.first_or_create name: 'Joe', email: 'someone@someaddress.com', password: 'password', admin: true
   module Admin
     module Conferences
-      Institution.create! name: 'University of Atlantis', city: 'Atlantis',
-                          rooms: [Room.new(building: 'Lecture block', number: '2'),
-                                  Room.new(building: 'Lecture block', number: '3'),
-                                  Room.new(building: 'Lecture block', number: 'entrance')]
-      Institution.create! name: 'University of Shangri-La', city: 'Shangri-La',
-                          rooms: [Room.new(building: 'Medical school', number: 'G.14'),
-                                  Room.new(building: 'Medical school', number: 'G.152'),
-                                  Room.new(building: 'Medical school', number: 'G.16')]
-      Conference.create! name: 'University of Atlantis 2017', start_date: '2017-04-07',
-                         finish_date: '2017-04-09',
-                         rooms: Room.where(institution: Institution.i18n.find_by(name: 'University of Atlantis'))
-      Conference.create! name: 'University of Shangri-La 2018', start_date: '2018-04-09',
-                         finish_date: '2018-04-11',
-                         rooms: Room.where(institution: Institution.i18n.find_by(name: 'University of Shangri-La'))
-      PresentationType.create! [{
-        name: 'Plenary', minutes: 80, conference: Conference.i18n.find_by(name: 'University of Atlantis 2017'),
-        room_possessions: RoomPossession.where(
-          room: Room.i18n.find_by(building: 'Lecture block', number: '3',
-                                  institution: Institution.i18n.find_by(name: 'University of Atlantis')),
-          conference: Conference.i18n.find_by(name: 'University of Atlantis 2017')
-        )
-      }, {
-        name: 'Poster', minutes: 30, conference: Conference.i18n.find_by(name: 'University of Atlantis 2017'),
-        room_possessions: RoomPossession.where(
-          room: Room.i18n.find_by(building: 'Lecture block', number: 'entrance',
-                                  institution: Institution.i18n.find_by(name: 'University of Atlantis')),
-          conference: Conference.i18n.find_by(name: 'University of Atlantis 2017')
-        )
-      }, {
-        name: 'Talk', minutes: 20, conference: Conference.i18n.find_by(name: 'University of Atlantis 2017'),
-        room_possessions: RoomPossession.where(
-          room: Room.i18n.find_by(building: 'Lecture block', number: %w[2 3],
-                                  institution: Institution.i18n.find_by(name: 'University of Atlantis')),
-          conference: Conference.i18n.find_by(name: 'University of Atlantis 2017')
-        )
-      }, {
-        name: 'Plenary', minutes: 80, conference: Conference.i18n.find_by(name: 'University of Shangri-La 2018'),
-        room_possessions: RoomPossession.where(
-          room: Room.i18n.find_by(building: 'Medical school', number: 'G.152',
-                                  institution: Institution.i18n.find_by(name: 'University of Shangri-La')),
-          conference: Conference.i18n.find_by(name: 'University of Shangri-La 2018')
-        )
-      }, {
-        name: 'Poster', minutes: 30, conference: Conference.i18n.find_by(name: 'University of Shangri-La 2018'),
-        room_possessions: RoomPossession.where(
-          room: Room.i18n.find_by(building: 'Medical school', number: 'G.14',
-                                  institution: Institution.i18n.find_by(name: 'University of Shangri-La')),
-          conference: Conference.i18n.find_by(name: 'University of Shangri-La 2018')
-        )
-      }, {
-        name: 'Talk', minutes: 20, conference: Conference.i18n.find_by(name: 'University of Shangri-La 2018'),
-        room_possessions: RoomPossession.where(
-          room: Room.i18n.find_by(building: 'Medical school', number: %w[G.152 G.16],
-                                  institution: Institution.i18n.find_by(name: 'University of Shangri-La')),
-          conference: Conference.i18n.find_by(name: 'University of Shangri-La 2018')
-        )
-      }]
-      Delegate.create! first_name: 'Joe', last_name: 'Bloggs', email_address: 'someone@someaddress.com',
-                       institution: Institution.i18n.find_by(name: 'University of Atlantis'),
-                       dietary_requirements: [DietaryRequirement.new(name: 'Pescetarian')],
-                       conferences: Conference.i18n.where(name: ['University of Atlantis 2017', 'University of Shangri-La 2018'])
+      university_of_atlantis, university_of_shangri_la =
+        Institution.create! [{ name: 'University of Atlantis', city: 'Atlantis' },
+                             { name: 'University of Shangri-La', city: 'Shangri-La' }]
+      lecture_block2, _lecture_block3, _lecture_block_entrance =
+        Room.create! [{ building: 'Lecture block', number: '2', institution: university_of_atlantis },
+                      { building: 'Lecture block', number: '3', institution: university_of_atlantis },
+                      { building: 'Lecture block', number: 'entrance', institution: university_of_atlantis }]
+      _medical_school_g14, _medical_school_g152, _medical_school_g16 =
+        Room.create! [{ building: 'Medical school', number: 'G.14', institution: university_of_shangri_la },
+                      { building: 'Medical school', number: 'G.152', institution: university_of_shangri_la },
+                      { building: 'Medical school', number: 'G.16', institution: university_of_shangri_la }]
+      uoa_conference, uos_conference =
+        Conference.create! [{ start_date: '2017-04-07', finish_date: '2017-04-09', name: 'University of Atlantis 2017' },
+                            { start_date: '2018-04-09', finish_date: '2018-04-11', name: 'University of Shangri-La 2018' }]
+      _plenary1, _poster1, talk1, _plenary2, _poster2, _talk2 =
+        PresentationType.create! [{ name: 'Plenary', minutes: 80, conference: uoa_conference },
+                                  { name: 'Poster', minutes: 30, conference: uoa_conference },
+                                  { name: 'Talk', minutes: 20, conference: uoa_conference },
+                                  { name: 'Plenary', minutes: 80, conference: uos_conference },
+                                  { name: 'Poster', minutes: 30, conference: uos_conference },
+                                  { name: 'Talk', minutes: 20, conference: uos_conference }]
+      session = Session.create! presentation_type: talk1, room: lecture_block2, name: 'Session'
+      joe_bloggs = Delegate.create! first_name: 'Joe', last_name: 'Bloggs', email_address: 'someone@someaddress.com',
+                                    institution: university_of_atlantis,
+                                    dietary_requirements: [DietaryRequirement.new(name: 'Pescetarian')],
+                                    conferences: [uoa_conference, uos_conference]
       Presentation.create! title: 'The Asymmetry and Antisymmetry of Syntax', date: '2017-04-07', start_time: '10:00',
-                           abstract: 'Lorem ipsum', presenters: Delegate.where(first_name: 'Joe', last_name: 'Bloggs'),
-                           room_use: RoomUse.find_by(
-                             room_possession:
-                               RoomPossession.where(room: Room.i18n.where(building: 'Lecture block', number: '2',
-                                                                          institution:
-                                                                            Institution.i18n.find_by(name: 'University of Atlantis')),
-                                                    conference: Conference.i18n.find_by(name: 'University of Atlantis 2017')),
-                             presentation_type:
-                               PresentationType.i18n.where(name: 'Talk', conference:
-                                Conference.i18n.find_by(name: 'University of Atlantis 2017'))
-                           )
+                           abstract: 'Lorem ipsum', presenters: [joe_bloggs],
+                           session: session
     end
   end
 end
