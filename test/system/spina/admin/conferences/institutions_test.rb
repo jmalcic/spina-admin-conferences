@@ -9,20 +9,20 @@ module Spina
         setup do
           @institution = spina_admin_conferences_institutions :university_of_atlantis
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_institutions_url
+          visit admin_conferences_institutions_path
           assert_selector '.breadcrumbs', text: 'Institutions'
           Percy.snapshot page, name: 'Institutions index'
         end
 
         test 'creating an institution' do
-          visit admin_conferences_institutions_url
+          visit admin_conferences_institutions_path
           click_on 'New institution'
           assert_selector '.breadcrumbs', text: 'New institution'
           page.execute_script '$.fx.off = true;'
@@ -37,7 +37,7 @@ module Spina
         end
 
         test 'updating an institution' do
-          visit admin_conferences_institutions_url
+          visit admin_conferences_institutions_path
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
@@ -54,7 +54,7 @@ module Spina
         end
 
         test 'destroying an institution' do
-          visit admin_conferences_institutions_url
+          visit admin_conferences_institutions_path
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end

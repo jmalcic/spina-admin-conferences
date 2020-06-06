@@ -9,20 +9,20 @@ module Spina
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_conferences_url
+          visit admin_conferences_conferences_path
           assert_selector '.breadcrumbs', text: 'Conferences'
           Percy.snapshot page, name: 'Conferences index'
         end
 
         test 'creating a conference' do
-          visit admin_conferences_conferences_url
+          visit admin_conferences_conferences_path
           click_on 'New conference'
           assert_selector '.breadcrumbs', text: 'New conference'
           select @conference.institution_name, from: 'admin_conferences_conference_institution_id'
@@ -36,7 +36,7 @@ module Spina
         end
 
         test 'updating a conference' do
-          visit admin_conferences_conferences_url
+          visit admin_conferences_conferences_path
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end
@@ -52,7 +52,7 @@ module Spina
         end
 
         test 'destroying a conference' do
-          visit admin_conferences_conferences_url
+          visit admin_conferences_conferences_path
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end

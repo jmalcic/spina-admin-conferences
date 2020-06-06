@@ -9,20 +9,20 @@ module Spina
         setup do
           @dietary_requirement = spina_admin_conferences_dietary_requirements :vegan
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_dietary_requirements_url
+          visit admin_conferences_dietary_requirements_path
           assert_selector '.breadcrumbs', text: 'Dietary requirements'
           Percy.snapshot page, name: 'Dietary requirements index'
         end
 
         test 'creating a dietary requirement' do
-          visit admin_conferences_dietary_requirements_url
+          visit admin_conferences_dietary_requirements_path
           click_on 'New dietary requirement'
           assert_selector '.breadcrumbs', text: 'New dietary requirement'
           fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
@@ -33,7 +33,7 @@ module Spina
         end
 
         test 'updating a dietary requirement' do
-          visit admin_conferences_dietary_requirements_url
+          visit admin_conferences_dietary_requirements_path
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
             click_on 'Edit'
           end
@@ -46,7 +46,7 @@ module Spina
         end
 
         test 'destroying a dietary requirement' do
-          visit admin_conferences_dietary_requirements_url
+          visit admin_conferences_dietary_requirements_path
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
             click_on 'Edit'
           end

@@ -9,20 +9,20 @@ module Spina
         setup do
           @room = spina_admin_conferences_rooms :lecture_block_2
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_rooms_url
+          visit admin_conferences_rooms_path
           assert_selector '.breadcrumbs', text: 'Rooms'
           Percy.snapshot page, name: 'Rooms index'
         end
 
         test 'creating a room' do
-          visit admin_conferences_rooms_url
+          visit admin_conferences_rooms_path
           click_on 'New room'
           assert_selector '.breadcrumbs', text: 'New room'
           select @room.institution.name, from: 'admin_conferences_room_institution_id'
@@ -35,7 +35,7 @@ module Spina
         end
 
         test 'updating a room' do
-          visit admin_conferences_rooms_url
+          visit admin_conferences_rooms_path
           within "tr[data-room-id=\"#{@room.id}\"]" do
             click_on 'Edit'
           end
@@ -50,7 +50,7 @@ module Spina
         end
 
         test 'destroying a room' do
-          visit admin_conferences_rooms_url
+          visit admin_conferences_rooms_path
           within "tr[data-room-id=\"#{@room.id}\"]" do
             click_on 'Edit'
           end

@@ -9,20 +9,20 @@ module Spina
         setup do
           @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_presentations_url
+          visit admin_conferences_presentations_path
           assert_selector '.breadcrumbs', text: 'Presentations'
           Percy.snapshot page, name: 'Presentations index'
         end
 
         test 'creating a presentation' do
-          visit admin_conferences_presentations_url
+          visit admin_conferences_presentations_path
           click_on 'New presentation'
           assert_selector '.breadcrumbs', text: 'New presentation'
           select @presentation.conference.name, from: 'admin_conferences_presentation_conference_id'
@@ -45,7 +45,7 @@ module Spina
         end
 
         test 'updating a presentation' do
-          visit admin_conferences_presentations_url
+          visit admin_conferences_presentations_path
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on 'Edit'
           end
@@ -70,7 +70,7 @@ module Spina
         end
 
         test 'destroying a presentation' do
-          visit admin_conferences_presentations_url
+          visit admin_conferences_presentations_path
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on 'Edit'
           end

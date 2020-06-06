@@ -9,20 +9,20 @@ module Spina
         setup do
           @presentation_type = spina_admin_conferences_presentation_types :plenary_1
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           assert_selector '.breadcrumbs', text: 'Presentation types'
           Percy.snapshot page, name: 'Presentation types index'
         end
 
         test 'creating a presentation type' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           click_on 'New presentation type'
           assert_selector '.breadcrumbs', text: 'New presentation type'
           select @presentation_type.conference.name, from: 'admin_conferences_presentation_type_conference_id'
@@ -38,7 +38,7 @@ module Spina
         end
 
         test 'updating a presentation type' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
             click_on 'Edit'
           end
@@ -56,7 +56,7 @@ module Spina
         end
 
         test 'destroying a presentation type' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
             click_on 'Edit'
           end

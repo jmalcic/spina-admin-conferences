@@ -9,20 +9,20 @@ module Spina
         setup do
           @delegate = spina_admin_conferences_delegates :joe_bloggs
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_delegates_url
+          visit admin_conferences_delegates_path
           assert_selector '.breadcrumbs', text: 'Delegates'
           Percy.snapshot page, name: 'Delegates index'
         end
 
         test 'creating a delegate' do
-          visit admin_conferences_delegates_url
+          visit admin_conferences_delegates_path
           click_on 'New delegate'
           assert_selector '.breadcrumbs', text: 'New delegate'
           fill_in 'admin_conferences_delegate_first_name', with: @delegate.first_name
@@ -39,7 +39,7 @@ module Spina
         end
 
         test 'updating a delegate' do
-          visit admin_conferences_delegates_url
+          visit admin_conferences_delegates_path
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end
@@ -58,7 +58,7 @@ module Spina
         end
 
         test 'destroying a delegate' do
-          visit admin_conferences_delegates_url
+          visit admin_conferences_delegates_path
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end

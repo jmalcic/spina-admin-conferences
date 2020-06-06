@@ -9,20 +9,20 @@ module Spina
         setup do
           @presentation_attachment_type = spina_admin_conferences_presentation_attachment_types :handout
           @user = spina_users :joe
-          visit admin_login_url
+          visit admin_login_path
           fill_in 'email', with: @user.email
           fill_in 'password', with: 'password'
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_presentation_attachment_types_url
+          visit admin_conferences_presentation_attachment_types_path
           assert_selector '.breadcrumbs', text: 'Presentation attachment types'
           Percy.snapshot page, name: 'Presentation attachment types index'
         end
 
         test 'creating a presentation attachment type' do
-          visit admin_conferences_presentation_attachment_types_url
+          visit admin_conferences_presentation_attachment_types_path
           click_on 'New presentation attachment type'
           assert_selector '.breadcrumbs', text: 'New presentation attachment type'
           fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
@@ -33,7 +33,7 @@ module Spina
         end
 
         test 'updating a presentation attachment type' do
-          visit admin_conferences_presentation_attachment_types_url
+          visit admin_conferences_presentation_attachment_types_path
           within "tr[data-presentation-attachment-type-id=\"#{@presentation_attachment_type.id}\"]" do
             click_on 'Edit'
           end
@@ -46,7 +46,7 @@ module Spina
         end
 
         test 'destroying a presentation attachment type' do
-          visit admin_conferences_presentation_attachment_types_url
+          visit admin_conferences_presentation_attachment_types_path
           within "tr[data-presentation-attachment-type-id=\"#{@presentation_attachment_type.id}\"]" do
             click_on 'Edit'
           end
