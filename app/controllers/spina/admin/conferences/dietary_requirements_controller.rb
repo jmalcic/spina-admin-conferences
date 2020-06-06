@@ -28,8 +28,13 @@ module Spina
           if @dietary_requirement.save
             redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
           else
-            add_breadcrumb t('.new')
-            render :new
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+            end
           end
         end
 
@@ -37,8 +42,13 @@ module Spina
           if @dietary_requirement.update(dietary_requirement_params)
             redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
           else
-            add_breadcrumb @dietary_requirement.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @dietary_requirement.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+            end
           end
         end
 
@@ -46,8 +56,13 @@ module Spina
           if @dietary_requirement.destroy
             redirect_to admin_conferences_dietary_requirements_path, success: t('.destroyed')
           else
-            add_breadcrumb @dietary_requirement.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @dietary_requirement.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+            end
           end
         end
 

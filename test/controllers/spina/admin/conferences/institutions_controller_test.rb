@@ -32,22 +32,44 @@ module Spina
         end
 
         test 'should create institution' do
+          attributes = @institution.attributes
+          attributes[:name] = @institution.name
+          attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            attributes = @institution.attributes
-            attributes[:name] = @institution.name
-            attributes[:city] = @institution.city
             post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
+        test 'should create institution with remote form' do
+          attributes = @institution.attributes
+          attributes[:name] = @institution.name
+          attributes[:city] = @institution.city
+          assert_difference 'Institution.count' do
+            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, xhr: true
+          end
+          assert_redirected_to admin_conferences_institutions_url
+          assert_equal 'Institution saved', flash[:success]
+        end
+
         test 'should fail to create invalid institution' do
+          attributes = @invalid_institution.attributes
+          attributes[:name] = @invalid_institution.name
+          attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            attributes = @invalid_institution.attributes
-            attributes[:name] = @invalid_institution.name
-            attributes[:city] = @invalid_institution.city
             post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Institution saved', flash[:success]
+        end
+
+        test 'should fail to create invalid institution with remote form' do
+          attributes = @invalid_institution.attributes
+          attributes[:name] = @invalid_institution.name
+          attributes[:city] = @invalid_institution.city
+          assert_no_difference 'Institution.count' do
+            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, xhr: true
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -73,12 +95,29 @@ module Spina
           assert_equal 'Institution saved', flash[:success]
         end
 
+        test 'should update institution with remote form' do
+          attributes = @institution.attributes
+          attributes[:name] = @institution.name
+          attributes[:city] = @institution.city
+          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, xhr: true
+          assert_redirected_to admin_conferences_institutions_url
+          assert_equal 'Institution saved', flash[:success]
+        end
+
         test 'should fail to update invalid institution' do
           attributes = @invalid_institution.attributes
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution),
-                params: { admin_conferences_institution: attributes }
+          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }
+          assert_response :success
+          assert_not_equal 'Institution saved', flash[:success]
+        end
+
+        test 'should fail to update invalid institution with remote form' do
+          attributes = @invalid_institution.attributes
+          attributes[:name] = @invalid_institution.name
+          attributes[:city] = @invalid_institution.city
+          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, xhr: true
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
@@ -86,6 +125,14 @@ module Spina
         test 'should destroy institution' do
           assert_difference 'Institution.count', -1 do
             delete admin_conferences_institution_url(@institution)
+          end
+          assert_redirected_to admin_conferences_institutions_url
+          assert_equal 'Institution deleted', flash[:success]
+        end
+
+        test 'should destroy institution with remote form' do
+          assert_difference 'Institution.count', -1 do
+            delete admin_conferences_institution_url(@institution), xhr: true
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution deleted', flash[:success]

@@ -30,8 +30,13 @@ module Spina
           if @presentation_type.save
             redirect_to admin_conferences_presentation_types_path, success: t('.saved')
           else
-            add_breadcrumb t('.new')
-            render :new
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_type.errors } }
+            end
           end
         end
 
@@ -39,8 +44,13 @@ module Spina
           if @presentation_type.update(presentation_type_params)
             redirect_to admin_conferences_presentation_types_path, success: t('.saved')
           else
-            add_breadcrumb @presentation_type.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @presentation_type.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_type.errors } }
+            end
           end
         end
 
@@ -48,8 +58,13 @@ module Spina
           if @presentation_type.destroy
             redirect_to admin_conferences_presentation_types_path, success: t('.destroyed')
           else
-            add_breadcrumb @presentation_type.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @presentation_type.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_type.errors } }
+            end
           end
         end
 

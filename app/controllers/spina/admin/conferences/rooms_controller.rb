@@ -30,8 +30,13 @@ module Spina
           if @room.save
             redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
-            add_breadcrumb t('.new')
-            render :new
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @room.errors } }
+            end
           end
         end
 
@@ -39,8 +44,13 @@ module Spina
           if @room.update(room_params)
             redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
-            add_breadcrumb @room.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @room.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @room.errors } }
+            end
           end
         end
 
@@ -48,8 +58,13 @@ module Spina
           if @room.destroy
             redirect_to admin_conferences_rooms_path, success: t('.destroyed')
           else
-            add_breadcrumb @room.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @room.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @room.errors } }
+            end
           end
         end
 

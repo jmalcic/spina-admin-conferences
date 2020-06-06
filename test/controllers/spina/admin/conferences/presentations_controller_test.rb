@@ -29,30 +29,57 @@ module Spina
         end
 
         test 'should create presentation' do
+          attributes = @presentation.attributes
+          attributes[:session_id] = @presentation.session_id
+          attributes[:presenter_ids] = @presentation.presenter_ids
+          attributes[:start_time] = @presentation.start_time
+          attributes[:date] = @presentation.date
+          attributes[:title] = @presentation.title
+          attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            attributes = @presentation.attributes
-            attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
-            attributes[:session_id] = @presentation.session_id
-            attributes[:start_time] = @presentation.start_time
-            attributes[:date] = @presentation.date
-            attributes[:title] = @presentation.title
-            attributes[:abstract] = @presentation.abstract
             post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
+        test 'should create presentation with remote form' do
+          attributes = @presentation.attributes
+          attributes[:presenter_ids] = @presentation.presenter_ids
+          attributes[:start_time] = @presentation.start_time
+          attributes[:date] = @presentation.date
+          attributes[:title] = @presentation.title
+          attributes[:abstract] = @presentation.abstract
+          assert_difference 'Presentation.count' do
+            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, xhr: true
+          end
+          assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation saved', flash[:success]
+        end
+
         test 'should fail to create invalid presentation' do
+          attributes = @invalid_presentation.attributes
+          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
+          attributes[:start_time] = @invalid_presentation.start_time
+          attributes[:date] = @invalid_presentation.date
+          attributes[:title] = @invalid_presentation.title
+          attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            attributes = @invalid_presentation.attributes
-            attributes[:presenter_ids] = @invalid_presentation.presenters.collect(&:id)
-            attributes[:session_id] = @invalid_presentation.session_id
-            attributes[:start_time] = @invalid_presentation.start_time
-            attributes[:date] = @invalid_presentation.date
-            attributes[:title] = @invalid_presentation.title
-            attributes[:abstract] = @invalid_presentation.abstract
             post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Presentation saved', flash[:success]
+        end
+
+        test 'should fail to create invalid presentation with remote form' do
+          attributes = @invalid_presentation.attributes
+          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
+          attributes[:start_time] = @invalid_presentation.start_time
+          attributes[:date] = @invalid_presentation.date
+          attributes[:title] = @invalid_presentation.title
+          attributes[:abstract] = @invalid_presentation.abstract
+          assert_no_difference 'Presentation.count' do
+            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, xhr: true
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
@@ -68,8 +95,7 @@ module Spina
 
         test 'should update presentation' do
           attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenters.collect(&:id)
-          attributes[:session_id] = @presentation.session_id
+          attributes[:presenter_ids] = @presentation.presenter_ids
           attributes[:start_time] = @presentation.start_time
           attributes[:date] = @presentation.date
           attributes[:title] = @presentation.title
@@ -79,16 +105,38 @@ module Spina
           assert_equal 'Presentation saved', flash[:success]
         end
 
+        test 'should update presentation with remote form' do
+          attributes = @presentation.attributes
+          attributes[:presenter_ids] = @presentation.presenter_ids
+          attributes[:start_time] = @presentation.start_time
+          attributes[:date] = @presentation.date
+          attributes[:title] = @presentation.title
+          attributes[:abstract] = @presentation.abstract
+          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, xhr: true
+          assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation saved', flash[:success]
+        end
+
         test 'should fail to update invalid presentation' do
           attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenters.collect(&:id)
-          attributes[:session_id] = @invalid_presentation.session_id
+          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
           attributes[:start_time] = @invalid_presentation.start_time
           attributes[:date] = @invalid_presentation.date
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation),
-                params: { admin_conferences_presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }
+          assert_response :success
+          assert_not_equal 'Presentation saved', flash[:success]
+        end
+
+        test 'should fail to update invalid presentation with remote form' do
+          attributes = @invalid_presentation.attributes
+          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
+          attributes[:start_time] = @invalid_presentation.start_time
+          attributes[:date] = @invalid_presentation.date
+          attributes[:title] = @invalid_presentation.title
+          attributes[:abstract] = @invalid_presentation.abstract
+          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, xhr: true
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
@@ -101,6 +149,13 @@ module Spina
           assert_equal 'Presentation deleted', flash[:success]
         end
 
+        test 'should destroy presentation with remote form' do
+          assert_difference 'Presentation.count', -1 do
+            delete admin_conferences_presentation_url(@presentation), xhr: true
+          end
+          assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation deleted', flash[:success]
+        end
         test 'should enqueue presentation import' do
           assert_enqueued_with job: PresentationImportJob do
             post import_admin_conferences_presentations_url,

@@ -27,8 +27,13 @@ module Spina
           if @presentation_attachment_type.save
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.saved')
           else
-            add_breadcrumb t('.new')
-            render :new
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
+            end
           end
         end
 
@@ -36,8 +41,13 @@ module Spina
           if @presentation_attachment_type.update(presentation_attachment_type_params)
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.saved')
           else
-            add_breadcrumb @presentation_attachment_type.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @presentation_attachment_type.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
+            end
           end
         end
 
@@ -45,8 +55,13 @@ module Spina
           if @presentation_attachment_type.destroy
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.destroyed')
           else
-            add_breadcrumb @presentation_attachment_type.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @presentation_attachment_type.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
+            end
           end
         end
 

@@ -38,9 +38,9 @@ module Spina
         end
 
         test 'should create session' do
+          attributes = @session.attributes
+          attributes[:name] = @session.name
           assert_difference 'Session.count' do
-            attributes = @session.attributes
-            attributes[:name] = @session.name
             post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }
           end
           assert_redirected_to admin_conferences_sessions_url
@@ -48,9 +48,9 @@ module Spina
         end
 
         test 'should create session with remote form' do
+          attributes = @session.attributes
+          attributes[:name] = @session.name
           assert_difference 'Session.count' do
-            attributes = @session.attributes
-            attributes[:name] = @session.name
             post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }, xhr: true
           end
           assert_redirected_to admin_conferences_sessions_url
@@ -58,9 +58,9 @@ module Spina
         end
 
         test 'should fail to create invalid session' do
+          attributes = @invalid_session.attributes
+          attributes[:name] = @invalid_session.name
           assert_no_difference 'Session.count' do
-            attributes = @invalid_session.attributes
-            attributes[:name] = @invalid_session.name
             post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }
           end
           assert_response :success
@@ -68,9 +68,9 @@ module Spina
         end
 
         test 'should fail to create invalid session with remote form' do
+          attributes = @invalid_session.attributes
+          attributes[:name] = @invalid_session.name
           assert_no_difference 'Session.count' do
-            attributes = @invalid_session.attributes
-            attributes[:name] = @invalid_session.name
             post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }, xhr: true
           end
           assert_response :success

@@ -1,18 +1,8 @@
 - if @presentation_attachment_type.errors.any?
   - content_for :notifications do
-    .notification.notification-danger.animated.fadeInRight
-      = icon('exclamation')
-      .notification-message
-        = t 'spina.notifications.alert'
-        %small
-          - @presentation_attachment_type.errors.full_messages.each do |message|
-            = message
-            - unless @presentation_attachment_type.errors.full_messages[-1] == message
-              %br
-      = link_to '#', data: { close_notification: true } do
-        = icon('cross')
+    = render 'errors', errors: @presentation_attachment_type.errors
 
-= form_for @presentation_attachment_type, html: { autocomplete: 'off' } do |f|
+= form_for @presentation_attachment_type, remote: true, html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 
@@ -30,4 +20,4 @@
         .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::DietaryRequirement.human_attribute_name(:name), required: true
 
   - unless @presentation_attachment_type.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_attachment_type_path(@presentation_attachment_type), method: :delete, data: { confirm: t('.delete_confirmation', presentation_attachment_type: @presentation_attachment_type.name) }, class: %w[button button-link button-danger]
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_attachment_type_path(@presentation_attachment_type), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', presentation_attachment_type: @presentation_attachment_type.name) }, class: %w[button button-link button-danger]

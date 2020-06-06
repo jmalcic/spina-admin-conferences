@@ -14,4 +14,4 @@
         .horizontal-form-content= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), class: 'conference-datepicker', placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
   - unless @conference.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('.delete_confirmation', name: @conference.name) }, class: %w[button button-link button-danger]
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', name: @conference.name) }, class: %w[button button-link button-danger]

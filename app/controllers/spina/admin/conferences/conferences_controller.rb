@@ -29,8 +29,13 @@ module Spina
           if @conference.save
             redirect_to admin_conferences_conferences_path, success: t('.saved')
           else
-            add_breadcrumb t('.new')
-            render :new
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @conference.errors } }
+            end
           end
         end
 
@@ -38,8 +43,13 @@ module Spina
           if @conference.update(conference_params)
             redirect_to admin_conferences_conferences_path, success: t('.saved')
           else
-            add_breadcrumb @conference.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @conference.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @conference.errors } }
+            end
           end
         end
 
@@ -47,8 +57,13 @@ module Spina
           if @conference.destroy
             redirect_to admin_conferences_conferences_path, success: t('.destroyed')
           else
-            add_breadcrumb @conference.name
-            render :edit
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @conference.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @conference.errors } }
+            end
           end
         end
 

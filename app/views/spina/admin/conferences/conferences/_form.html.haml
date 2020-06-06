@@ -1,18 +1,8 @@
 - if @conference.errors.any?
   - content_for :notifications do
-    .notification.notification-danger.animated.fadeInRight
-      = icon('exclamation')
-      .notification-message
-        = t 'spina.notifications.alert'
-        %small
-          - @conference.errors.full_messages.each do |message|
-            = message
-            - unless @conference.errors.full_messages[-1] == message
-              %br
-      = link_to '#', data: { close_notification: true } do
-        = icon('cross')
+    = render 'errors', errors: @conference.errors
 
-= form_for @conference, html: { autocomplete: 'off' } do |f|
+= form_for @conference, remote: true, html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 

@@ -27,23 +27,44 @@ module Spina
         end
 
         test 'should create presentation type' do
+          attributes = @presentation_type.attributes
+          attributes[:minutes] = @presentation_type.minutes
+          attributes[:name] = @presentation_type.name
           assert_difference 'PresentationType.count' do
-            attributes = @presentation_type.attributes
-            attributes[:minutes] = @presentation_type.minutes
-            attributes[:name] = @presentation_type.name
             post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
         end
 
+        test 'should create presentation type with remote form' do
+          attributes = @presentation_type.attributes
+          attributes[:minutes] = @presentation_type.minutes
+          attributes[:name] = @presentation_type.name
+          assert_difference 'PresentationType.count' do
+            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }, xhr: true
+          end
+          assert_redirected_to admin_conferences_presentation_types_url
+          assert_equal 'Presentation type saved', flash[:success]
+        end
+
         test 'should fail to create invalid presentation type' do
+          attributes = @invalid_presentation_type.attributes
+          attributes[:minutes] = @invalid_presentation_type.minutes
+          attributes[:name] = @invalid_presentation_type.name
           assert_no_difference 'PresentationType.count' do
-            attributes = @invalid_presentation_type.attributes
-            attributes[:minutes] = @invalid_presentation_type.minutes
-            attributes[:name] = @invalid_presentation_type.name
-            post admin_conferences_presentation_types_url,
-                 params: { admin_conferences_presentation_type: @invalid_presentation_type.attributes }
+            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Presentation type saved', flash[:success]
+        end
+
+        test 'should fail to create invalid presentation type with remote form' do
+          attributes = @invalid_presentation_type.attributes
+          attributes[:minutes] = @invalid_presentation_type.minutes
+          attributes[:name] = @invalid_presentation_type.name
+          assert_no_difference 'PresentationType.count' do
+            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }, xhr: true
           end
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
@@ -64,9 +85,17 @@ module Spina
           attributes = @presentation_type.attributes
           attributes[:minutes] = @presentation_type.minutes
           attributes[:name] = @presentation_type.name
-          patch admin_conferences_presentation_type_url(@presentation_type), params: {
-            admin_conferences_presentation_type: attributes
-          }
+          patch admin_conferences_presentation_type_url(@presentation_type), params: { admin_conferences_presentation_type: attributes }
+          assert_redirected_to admin_conferences_presentation_types_url
+          assert_equal 'Presentation type saved', flash[:success]
+        end
+
+        test 'should update presentation type with remote form' do
+          attributes = @presentation_type.attributes
+          attributes[:minutes] = @presentation_type.minutes
+          attributes[:name] = @presentation_type.name
+          patch admin_conferences_presentation_type_url(@presentation_type),
+                params: { admin_conferences_presentation_type: attributes }, xhr: true
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
         end
@@ -75,8 +104,17 @@ module Spina
           attributes = @invalid_presentation_type.attributes
           attributes[:minutes] = @invalid_presentation_type.minutes
           attributes[:name] = @invalid_presentation_type.name
+          patch admin_conferences_presentation_type_url(@presentation_type), params: { admin_conferences_presentation_type: attributes }
+          assert_response :success
+          assert_not_equal 'Presentation type saved', flash[:success]
+        end
+
+        test 'should fail to update invalid presentation type with remote form' do
+          attributes = @invalid_presentation_type.attributes
+          attributes[:minutes] = @invalid_presentation_type.minutes
+          attributes[:name] = @invalid_presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { admin_conferences_presentation_type: attributes }
+                params: { admin_conferences_presentation_type: attributes }, xhr: true
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
         end
@@ -84,6 +122,14 @@ module Spina
         test 'should destroy presentation type' do
           assert_difference 'PresentationType.count', -1 do
             delete admin_conferences_presentation_type_url(@presentation_type)
+          end
+          assert_redirected_to admin_conferences_presentation_types_url
+          assert_equal 'Presentation type deleted', flash[:success]
+        end
+
+        test 'should destroy presentation type with remote form' do
+          assert_difference 'PresentationType.count', -1 do
+            delete admin_conferences_presentation_type_url(@presentation_type), xhr: true
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type deleted', flash[:success]

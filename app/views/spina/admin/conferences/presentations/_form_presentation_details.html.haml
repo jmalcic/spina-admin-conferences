@@ -43,4 +43,4 @@
           .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
 
   - unless @presentation.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, data: { confirm: t('.delete_confirmation', presentation: @presentation.title) }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', presentation: @presentation.title) }, class: 'button button-link button-danger'

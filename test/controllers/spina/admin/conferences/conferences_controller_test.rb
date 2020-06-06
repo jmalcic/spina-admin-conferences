@@ -38,12 +38,24 @@ module Spina
         end
 
         test 'should create conference' do
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
           assert_difference 'Conference.count' do
-            attributes = @conference.attributes
-            attributes[:start_date] = @conference.start_date
-            attributes[:finish_date] = @conference.finish_date
-            attributes[:name] = @conference.name
             post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
+          end
+          assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference saved', flash[:success]
+        end
+
+        test 'should create conference with remote form' do
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
+          assert_difference 'Conference.count' do
+            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }, xhr: true
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -56,6 +68,18 @@ module Spina
           attributes[:name] = @invalid_conference.name
           assert_no_difference 'Conference.count' do
             post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Conference saved', flash[:success]
+        end
+
+        test 'should fail to create invalid conference with remote form' do
+          attributes = @invalid_conference.attributes
+          attributes[:start_date] = @invalid_conference.start_date
+          attributes[:finish_date] = @invalid_conference.finish_date
+          attributes[:name] = @invalid_conference.name
+          assert_no_difference 'Conference.count' do
+            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes}, xhr: true
           end
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
@@ -88,13 +112,32 @@ module Spina
           assert_equal 'Conference saved', flash[:success]
         end
 
+        test 'should update conference with remote form' do
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
+          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
+          assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference saved', flash[:success]
+        end
+
         test 'should fail to update invalid conference' do
           attributes = @invalid_conference.attributes
           attributes[:start_date] = @invalid_conference.start_date
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          patch admin_conferences_conference_url(@conference),
-                params: { admin_conferences_conference: attributes }
+          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }
+          assert_response :success
+          assert_not_equal 'Conference saved', flash[:success]
+        end
+
+        test 'should fail to update invalid conference with remote form' do
+          attributes = @invalid_conference.attributes
+          attributes[:start_date] = @invalid_conference.start_date
+          attributes[:finish_date] = @invalid_conference.finish_date
+          attributes[:name] = @invalid_conference.name
+          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
         end
@@ -102,6 +145,14 @@ module Spina
         test 'should destroy conference' do
           assert_difference 'Conference.count', -1 do
             delete admin_conferences_conference_url(@conference)
+          end
+          assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference deleted', flash[:success]
+        end
+
+        test 'should destroy conference with remote form' do
+          assert_difference 'Conference.count', -1 do
+            delete admin_conferences_conference_url(@conference), xhr: true
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference deleted', flash[:success]

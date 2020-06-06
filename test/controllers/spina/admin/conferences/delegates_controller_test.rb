@@ -32,18 +32,40 @@ module Spina
         end
 
         test 'should create delegate' do
+          attributes = @delegate.attributes
+          attributes[:conference_ids] = @delegate.conference_ids
           assert_difference 'Delegate.count' do
-            attributes = @delegate.attributes
-            attributes[:conference_ids] = @delegate.conferences.collect(&:id)
             post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
+        test 'should create delegate with remote form' do
+          attributes = @delegate.attributes
+          attributes[:conference_ids] = @delegate.conference_ids
+          assert_difference 'Delegate.count' do
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }, xhr: true
+          end
+          assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate saved', flash[:success]
+        end
+
         test 'should fail to create invalid delegate' do
+          attributes = @invalid_delegate.attributes
+          attributes[:conference_ids] = @invalid_delegate.conference_ids
           assert_no_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { admin_conferences_delegate: @invalid_delegate.attributes }
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Delegate saved', flash[:success]
+        end
+
+        test 'should fail to create invalid delegate with remote form' do
+          attributes = @invalid_delegate.attributes
+          attributes[:conference_ids] = @invalid_delegate.conference_ids
+          assert_no_difference 'Delegate.count' do
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }, xhr: true
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
@@ -61,14 +83,34 @@ module Spina
         end
 
         test 'should update delegate' do
-          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: @delegate.attributes }
+          attributes = @delegate.attributes
+          attributes[:conference_ids] = @delegate.conference_ids
+          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes }
+          assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate saved', flash[:success]
+        end
+
+        test 'should update delegate with remote form' do
+          attributes = @delegate.attributes
+          attributes[:conference_ids] = @delegate.conference_ids
+          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes },
+                                                           xhr: true
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate' do
-          patch admin_conferences_delegate_url(@delegate),
-                params: { admin_conferences_delegate: @invalid_delegate.attributes }
+          attributes = @invalid_delegate.attributes
+          attributes[:conference_ids] = @invalid_delegate.conference_ids
+          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes }
+          assert_response :success
+          assert_not_equal 'Delegate saved', flash[:success]
+        end
+
+        test 'should fail to update invalid delegate with remote form' do
+          attributes = @invalid_delegate.attributes
+          attributes[:conference_ids] = @invalid_delegate.conference_ids
+          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes }, xhr: true
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
@@ -76,6 +118,14 @@ module Spina
         test 'should destroy delegate' do
           assert_difference 'Delegate.count', -1 do
             delete admin_conferences_delegate_url(@delegate)
+          end
+          assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate deleted', flash[:success]
+        end
+
+        test 'should destroy delegate with remote form' do
+          assert_difference 'Delegate.count', -1 do
+            delete admin_conferences_delegate_url(@delegate), xhr: true
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate deleted', flash[:success]
