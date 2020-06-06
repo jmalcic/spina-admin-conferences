@@ -10,8 +10,10 @@ module Spina
           @presentation_attachment_type = spina_admin_conferences_presentation_attachment_types :handout
           @user = spina_users :joe
           visit admin_login_path
-          fill_in 'email', with: @user.email
-          fill_in 'password', with: 'password'
+          within '.login-fields' do
+            fill_in 'email', with: @user.email
+            fill_in 'password', with: 'password'
+          end
           click_on 'Login'
         end
 
