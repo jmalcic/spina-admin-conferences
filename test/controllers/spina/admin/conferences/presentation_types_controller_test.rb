@@ -27,6 +27,17 @@ module Spina
           assert_response :success
         end
 
+        test 'should get edit' do
+          get edit_admin_conferences_presentation_type_url(@presentation_type)
+          assert_response :success
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select('#sessions tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create presentation type' do
           attributes = @presentation_type.attributes
           attributes[:minutes] = @presentation_type.minutes
@@ -69,17 +80,6 @@ module Spina
           end
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
-        end
-
-        test 'should get edit' do
-          get edit_admin_conferences_presentation_type_url(@presentation_type)
-          assert_response :success
-          assert_select '#presentations tbody > tr' do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 4 }
-          end
-          assert_select('#sessions tbody > tr') do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 4 }
-          end
         end
 
         test 'should update presentation type' do

@@ -28,6 +28,14 @@ module Spina
           end
         end
 
+        test 'should get edit' do
+          get edit_admin_conferences_presentation_url(@presentation)
+          assert_response :success
+          assert_select('#presenters tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create presentation' do
           attributes = @presentation.attributes
           attributes[:session_id] = @presentation.session_id
@@ -83,14 +91,6 @@ module Spina
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
-        end
-
-        test 'should get edit' do
-          get edit_admin_conferences_presentation_url(@presentation)
-          assert_response :success
-          assert_select('#presenters tbody > tr') do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 4 }
-          end
         end
 
         test 'should update presentation' do

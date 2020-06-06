@@ -26,6 +26,11 @@ module Spina
           assert_response :success
         end
 
+        test 'should get edit' do
+          get edit_admin_conferences_presentation_attachment_type_url(@presentation_attachment_type)
+          assert_response :success
+        end
+
         test 'should create presentation attachment type' do
           attributes = @presentation_attachment_type.attributes
           attributes[:name] = @presentation_attachment_type.name
@@ -66,11 +71,6 @@ module Spina
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
-        end
-
-        test 'should get edit' do
-          get edit_admin_conferences_presentation_attachment_type_url(@presentation_attachment_type)
-          assert_response :success
         end
 
         test 'should update presentation attachment type' do

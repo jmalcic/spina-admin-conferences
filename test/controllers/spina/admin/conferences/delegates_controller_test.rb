@@ -31,6 +31,17 @@ module Spina
           end
         end
 
+        test 'should get edit' do
+          get edit_admin_conferences_delegate_url(@delegate)
+          assert_response :success
+          assert_select '#conferences tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 5 }
+          end
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create delegate' do
           attributes = @delegate.attributes
           attributes[:conference_ids] = @delegate.conference_ids
@@ -69,17 +80,6 @@ module Spina
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
-        end
-
-        test 'should get edit' do
-          get edit_admin_conferences_delegate_url(@delegate)
-          assert_response :success
-          assert_select '#conferences tbody > tr' do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 5 }
-          end
-          assert_select '#presentations tbody > tr' do |table_rows|
-            table_rows.each { |row| assert_select row, 'td', 4 }
-          end
         end
 
         test 'should update delegate' do
