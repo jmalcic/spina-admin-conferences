@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSpinaConferencesParts < ActiveRecord::Migration[6.0]
+class CreateSpinaConferencesParts < ActiveRecord::Migration[6.0] #:nodoc:
   def change
     create_table :spina_conferences_parts do |t|
       t.string :title

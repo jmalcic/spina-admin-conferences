@@ -7,8 +7,7 @@ class CreateSpinaConferencesPresentations < ActiveRecord::Migration[5.2]
       t.date :date
       t.time :start_time
       t.text :abstract
-      t.belongs_to :room_use,
-                   foreign_key: { to_table: :spina_conferences_room_uses }
+      t.references :room_use, foreign_key: { to_table: :spina_conferences_room_uses }
 
       t.timestamps null: false
     end
