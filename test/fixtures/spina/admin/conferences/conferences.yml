@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 university_of_atlantis_2017:
-  dates: !ruby/range 2017-04-07..2017-04-09
+  dates: !ruby/range 2017-04-07...2017-04-10
 
 university_of_shangri_la_2018:
-  dates: !ruby/range 2018-04-09..2018-04-11
+  dates: !ruby/range 2018-04-09...2018-04-12

@@ -11,20 +11,19 @@ module Spina
             value
           when ::String
             ::ActiveSupport::Duration.parse(value)
+          when ::Integer
+            ::ActiveSupport::Duration.build(value)
           else
-            super
+            nil
           end
         rescue ActiveSupport::Duration::ISO8601Parser::ParsingError
           nil
         end
 
         def serialize(value)
-          case value
-          when ::ActiveSupport::Duration
-            value.iso8601
-          else
-            super
-          end
+          return unless value.class == ::ActiveSupport::Duration
+
+          value.iso8601
         end
       end
     end

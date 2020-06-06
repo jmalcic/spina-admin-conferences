@@ -9,20 +9,24 @@ module Spina
         setup { @interval_type = IntervalType.new }
 
         test 'casts strings' do
-          assert_equal @interval_type.cast('P1Y'), ::ActiveSupport::Duration.parse('P1Y')
+          assert_equal ::ActiveSupport::Duration.parse('P1Y'), @interval_type.cast('P1Y')
           assert_nil @interval_type.cast('O')
           assert_nil @interval_type.cast('')
         end
 
-        test 'casts durations' do
-          duration = ::ActiveSupport::Duration.parse('P1Y')
-          assert_equal @interval_type.cast(duration), duration
+        test 'casts integers' do
+          assert_equal ::ActiveSupport::Duration.build(1), @interval_type.cast(1)
+          assert_nil @interval_type.cast(0.5)
         end
 
-        test 'casts other types' do
-          assert_equal @interval_type.cast(1), 1
-          assert_equal @interval_type.cast([]), []
-          assert_equal @interval_type.cast({}), {}
+        test 'casts durations' do
+          duration = ::ActiveSupport::Duration.parse('P1Y')
+          assert_equal duration, @interval_type.cast(duration)
+        end
+
+        test 'casts other types to nil' do
+          assert_nil @interval_type.cast([])
+          assert_nil @interval_type.cast({})
           assert_nil @interval_type.cast(nil)
         end
 
@@ -31,10 +35,10 @@ module Spina
           assert_equal @interval_type.serialize(duration), duration.iso8601
         end
 
-        test 'serializes other types' do
-          assert_equal @interval_type.serialize(1), 1
-          assert_equal @interval_type.serialize([]), []
-          assert_equal @interval_type.serialize({}), {}
+        test 'does not serialize other types' do
+          assert_nil @interval_type.serialize(1)
+          assert_nil @interval_type.serialize([])
+          assert_nil @interval_type.serialize({})
           assert_nil @interval_type.serialize(nil)
         end
       end
