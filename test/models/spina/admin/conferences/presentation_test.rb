@@ -69,7 +69,7 @@ module Spina
 
         test 'destroys associated attachments' do
           assert_difference 'PresentationAttachment.count', -@presentation.attachments.count do
-            @presentation.destroy
+            assert @presentation.destroy
           end
         end
 
