@@ -12,15 +12,15 @@ module Spina
         end
 
         test 'dates during conference are valid' do
-          @presentation.date = @presentation.conference.dates.min
+          @presentation.date = @presentation.conference.dates.begin.iso8601
           assert_nil @validator.validate_each(@presentation, :date, @presentation.date)
         end
 
         test 'dates outside of conference are invalid' do
-          @presentation.date = @presentation.conference.dates.min - 1.day
+          @presentation.date = (@presentation.conference.dates.begin - 1.day).iso8601
           assert_includes @validator.validate_each(@presentation, :date, @presentation.date),
                           'is not during the selected conference'
-          @presentation.date = @presentation.conference.dates.max + 1.day
+          @presentation.date = (@presentation.conference.dates.end + 1.day).iso8601
           assert_includes @validator.validate_each(@presentation, :date, @presentation.date),
                           'is not during the selected conference'
         end
