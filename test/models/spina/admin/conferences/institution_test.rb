@@ -35,6 +35,11 @@ module Spina
           assert_equal Institution.i18n.order(:name), Institution.sorted
         end
 
+        test 'institution has associated logo' do
+          assert_not_nil @institution.logo
+          assert_nil @new_institution.logo
+        end
+
         test 'institution has associated rooms' do
           assert_not_empty @institution.rooms
           assert_empty @new_institution.rooms

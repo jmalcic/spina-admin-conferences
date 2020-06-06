@@ -4,8 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-university_of_atlantis: {}
+university_of_atlantis:
+  logo: dubrovnik
 
-university_of_shangri_la: {}
+university_of_shangri_la:
+  logo: rovinj
 
-empty_institution: {}
+empty_institution:
+  logo: rovinj
