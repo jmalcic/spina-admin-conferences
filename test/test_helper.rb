@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 require 'minitest/mock'
+require 'minitest/reporters'
 
-unless ENV['CI'] == true
-  require 'minitest/reporters'
-
-  Minitest::Reporters.use!
-end
+Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 
 if ENV['CODECOV_TOKEN']
   require 'simplecov'
