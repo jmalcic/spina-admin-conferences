@@ -12,14 +12,14 @@ module Spina
         end
 
         test 'dates greater than or equal to the start date are valid' do
-          @conference.finish_date = @conference.start_date + 1.day
+          @conference.finish_date = (@conference.start_date + 1.day).iso8601
           assert_nil @validator.validate_each(@conference, :finish_date, @conference.finish_date)
-          @conference.finish_date = @conference.start_date
+          @conference.finish_date = @conference.start_date.iso8601
           assert_nil @validator.validate_each(@conference, :finish_date, @conference.finish_date)
         end
 
         test 'dates before the start date are invalid' do
-          @conference.finish_date = @conference.start_date - 1.day
+          @conference.finish_date = (@conference.start_date - 1.day).iso8601
           assert_includes @validator.validate_each(@conference, :finish_date, @conference.finish_date),
                           'is before start date'
         end
