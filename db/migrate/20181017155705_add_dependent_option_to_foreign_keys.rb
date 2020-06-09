@@ -27,7 +27,7 @@ class AddDependentOptionToForeignKeys < ActiveRecord::Migration[5.2]
     add_foreign_key :spina_conferences_rooms, :spina_conferences_institutions,
                     column: :institution_id, on_delete: :cascade
     add_foreign_key :spina_conferences_institutions, :spina_images, column: :logo_id,
-                    on_delete: :cascade
+                                                                    on_delete: :cascade
     add_foreign_key :spina_conferences_presentation_types, :spina_conferences_conferences,
                     column: :conference_id, on_delete: :cascade
     add_foreign_key :spina_conferences_conferences, :spina_conferences_institutions,

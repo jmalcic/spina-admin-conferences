@@ -59,8 +59,8 @@ module Spina
         #   @return [ActiveRecord::Relation] directly associated delegates
         #   @see Delegate
         has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate',
-                                foreign_key: :spina_conferences_presentation_id,
-                                association_foreign_key: :spina_conferences_delegate_id
+                                             foreign_key: :spina_conferences_presentation_id,
+                                             association_foreign_key: :spina_conferences_delegate_id
         accepts_nested_attributes_for :attachments, allow_destroy: true
 
         validates :title, :date, :start_time, :start_datetime, :abstract, :presenters, presence: true

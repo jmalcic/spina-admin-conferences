@@ -43,9 +43,7 @@ module ActiveSupport
     setup do
       I18n.locale = I18n.default_locale
       ActiveStorage::Blob.all.each do |blob|
-        unless ActiveStorage::Blob.service.exist? blob.key
-          blob.upload Pathname.new(file_fixture(blob.filename.to_s)).open
-        end
+        blob.upload Pathname.new(file_fixture(blob.filename.to_s)).open unless ActiveStorage::Blob.service.exist? blob.key
       end
     end
 

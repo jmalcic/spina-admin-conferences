@@ -11,7 +11,7 @@ class CreateSpinaConferencesPresentationAttachments < ActiveRecord::Migration[6.
                    foreign_key: { to_table: :spina_conferences_presentation_attachment_types, on_delete: :cascade },
                    index: { name: 'index_conferences_presentation_attachments_on_type_id' }
       t.references :attachment, foreign_key: { to_table: :spina_attachments, on_delete: :nullify },
-                   index: { name: 'index_conferences_presentation_attachments_on_attachment_id' }
+                                index: { name: 'index_conferences_presentation_attachments_on_attachment_id' }
 
       t.timestamps null: false
     end

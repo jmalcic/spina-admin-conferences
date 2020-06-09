@@ -85,28 +85,28 @@ module Spina
 
         test 'returns localized full name' do
           assert_equal Delegate.human_attribute_name(:full_name, first_name: @delegate.first_name,
-                                                     last_name: @delegate.last_name),
+                                                                 last_name: @delegate.last_name),
                        @delegate.full_name
           assert_nil @new_delegate.full_name
         end
 
         test 'returns localized full name and institution' do
           assert_equal Delegate.human_attribute_name(:name_and_institution, name: @delegate.full_name,
-                                                     institution: @delegate.institution.name),
+                                                                            institution: @delegate.institution.name),
                        @delegate.full_name_and_institution
           assert_nil @new_delegate.full_name_and_institution
         end
 
         test 'returns localized reversed name' do
           assert_equal Delegate.human_attribute_name(:reversed_name, first_name: @delegate.first_name,
-                                                     last_name: @delegate.last_name),
+                                                                     last_name: @delegate.last_name),
                        @delegate.reversed_name
           assert_nil @new_delegate.reversed_name
         end
 
         test 'returns localized reversed name and institution' do
           assert_equal Delegate.human_attribute_name(:name_and_institution, name: @delegate.reversed_name,
-                                                     institution: @delegate.institution.name),
+                                                                            institution: @delegate.institution.name),
                        @delegate.reversed_name_and_institution
           assert_nil @new_delegate.reversed_name_and_institution
         end
