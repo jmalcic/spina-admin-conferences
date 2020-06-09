@@ -27,7 +27,8 @@
   "devDependencies": {
     "@percy/agent": "^0.20.6",
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "jsdoc": "^3.6.4"
   },
   "scripts": {
     "lint": "eslint app/assets/javascripts"
