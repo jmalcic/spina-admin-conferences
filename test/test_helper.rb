@@ -38,7 +38,7 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: 2 if ENV['CI']
+    parallelize workers: 2
 
     setup do
       I18n.locale = I18n.default_locale
