@@ -40,11 +40,12 @@ module ActiveSupport
   class TestCase
     parallelize workers: 2
 
+    ActiveStorage::Blob.all.each do |blob|
+      blob.upload Pathname.new(file_fixture(blob.filename.to_s)).open unless ActiveStorage::Blob.service.exist? blob.key
+    end
+
     setup do
       I18n.locale = I18n.default_locale
-      ActiveStorage::Blob.all.each do |blob|
-        blob.upload Pathname.new(file_fixture(blob.filename.to_s)).open unless ActiveStorage::Blob.service.exist? blob.key
-      end
     end
 
     teardown { I18n.locale = I18n.default_locale }
