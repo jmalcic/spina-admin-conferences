@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class AddConstraintsToColumns < ActiveRecord::Migration[6.0] #:nodoc:
-  def change
+class AddConstraintsToColumns < ActiveRecord::Migration[6.0] # :nodoc:
+  def change # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     change_column_null :spina_conferences_conferences, :dates, false
     change_column_null :spina_conferences_conferences, :institution_id, false
     change_column_null :spina_conferences_delegates, :first_name, false

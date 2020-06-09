@@ -2,7 +2,7 @@
 
 # This migration comes from spina (originally 3)
 class CreateSpinaNavigations < ActiveRecord::Migration[4.2]
-  def change
+  def change # rubocop:disable Metrics/MethodLength
     create_table 'spina_navigations', force: :cascade do |t|
       t.string 'name', null: false
       t.string 'label', null: false

@@ -179,7 +179,8 @@ ActiveRecord::Schema.define(version: 20_200_510_125_131) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['locale'], name: 'index_f3417b08c78b5a87825d3f14b49fb06e76b8bed4'
-    t.index %w[spina_conferences_presentation_attachment_type_id locale], name: 'index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb', unique: true
+    t.index %w[spina_conferences_presentation_attachment_type_id locale], name: 'index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb',
+                                                                          unique: true
   end
 
   create_table 'spina_conferences_presentation_attachment_types', force: :cascade do |t|
@@ -488,10 +489,13 @@ ActiveRecord::Schema.define(version: 20_200_510_125_131) do
   add_foreign_key 'spina_conferences_dietary_requirement_translations', 'spina_conferences_dietary_requirements', on_delete: :cascade
   add_foreign_key 'spina_conferences_institution_translations', 'spina_conferences_institutions', on_delete: :cascade
   add_foreign_key 'spina_conferences_institutions', 'spina_images', column: 'logo_id', on_delete: :cascade
-  add_foreign_key 'spina_conferences_presentation_attachment_type_translations', 'spina_conferences_presentation_attachment_types', on_delete: :cascade
+  add_foreign_key 'spina_conferences_presentation_attachment_type_translations', 'spina_conferences_presentation_attachment_types',
+                  on_delete: :cascade
   add_foreign_key 'spina_conferences_presentation_attachments', 'spina_attachments', column: 'attachment_id', on_delete: :nullify
-  add_foreign_key 'spina_conferences_presentation_attachments', 'spina_conferences_presentation_attachment_types', column: 'attachment_type_id', on_delete: :cascade
-  add_foreign_key 'spina_conferences_presentation_attachments', 'spina_conferences_presentations', column: 'presentation_id', on_delete: :cascade
+  add_foreign_key 'spina_conferences_presentation_attachments', 'spina_conferences_presentation_attachment_types',
+                  column: 'attachment_type_id', on_delete: :cascade
+  add_foreign_key 'spina_conferences_presentation_attachments', 'spina_conferences_presentations', column: 'presentation_id',
+                                                                                                   on_delete: :cascade
   add_foreign_key 'spina_conferences_presentation_translations', 'spina_conferences_presentations', on_delete: :cascade
   add_foreign_key 'spina_conferences_presentation_type_translations', 'spina_conferences_presentation_types', on_delete: :cascade
   add_foreign_key 'spina_conferences_presentation_types', 'spina_conferences_conferences', column: 'conference_id', on_delete: :cascade

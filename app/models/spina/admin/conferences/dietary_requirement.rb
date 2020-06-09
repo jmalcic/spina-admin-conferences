@@ -21,7 +21,7 @@ module Spina
         # @!attribute [rw] delegates
         #   @return [ActiveRecord::Relation] directly associated delegates
         #   @see Delegate
-        has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_dietary_requirement_id,
+        has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_dietary_requirement_id, # rubocop:disable Rails/HasAndBelongsToMany
                                             association_foreign_key: :spina_conferences_delegate_id
 
         validates :name, presence: true

@@ -6,7 +6,7 @@ module Spina
   module Admin
     module Conferences
       # noinspection RubyClassModuleNamingConvention
-      class DietaryRequirementsControllerTest < ActionDispatch::IntegrationTest
+      class DietaryRequirementsControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
         include ::Spina::Engine.routes.url_helpers
 
         setup do

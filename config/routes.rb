@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
-
 Spina::Engine.routes.draw do
   namespace :admin, path: Spina.config.backend_path do
     namespace :conferences do
@@ -24,5 +22,3 @@ Spina::Engine.routes.draw do
     end
   end
 end
-
-# rubocop:enable Metrics/BlockLength

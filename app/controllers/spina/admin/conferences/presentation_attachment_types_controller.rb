@@ -32,7 +32,7 @@ module Spina
 
         # Creates a presentation attachment type.
         # @return [void]
-        def create
+        def create # rubocop:disable Metrics/MethodLength
           @presentation_attachment_type = PresentationAttachmentType.new presentation_attachment_type_params
 
           if @presentation_attachment_type.save
@@ -50,7 +50,7 @@ module Spina
 
         # Updates a presentation attachment type.
         # @return [void]
-        def update
+        def update # rubocop:disable Metrics/MethodLength
           if @presentation_attachment_type.update(presentation_attachment_type_params)
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.saved')
           else
@@ -66,7 +66,7 @@ module Spina
 
         # Destroys a presentation attachment type.
         # @return [void]
-        def destroy
+        def destroy # rubocop:disable Metrics/MethodLength
           if @presentation_attachment_type.destroy
             redirect_to admin_conferences_presentation_attachment_types_path, success: t('.destroyed')
           else
@@ -84,6 +84,7 @@ module Spina
 
         private
 
+        # noinspection RubyInstanceMethodNamingConvention
         def set_presentation_attachment_type
           @presentation_attachment_type = PresentationAttachmentType.find params[:id]
         end
@@ -93,6 +94,7 @@ module Spina
                          admin_conferences_presentation_attachment_types_path
         end
 
+        # noinspection RubyInstanceMethodNamingConvention
         def presentation_attachment_type_params
           params.require(:admin_conferences_presentation_attachment_type).permit(:name)
         end

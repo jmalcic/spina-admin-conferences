@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class CreateSpinaConferencesPresentationAttachments < ActiveRecord::Migration[6.0] #:nodoc:
-  def change
+class CreateSpinaConferencesPresentationAttachments < ActiveRecord::Migration[6.0] # :nodoc:
+  def change # rubocop:disable Metrics/MethodLength
     create_table :spina_conferences_presentation_attachments do |t|
       t.references :presentation,
                    null: false, foreign_key: { to_table: :spina_conferences_presentations, on_delete: :cascade },

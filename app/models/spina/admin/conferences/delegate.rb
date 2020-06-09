@@ -31,17 +31,17 @@ module Spina
         # @!attribute [rw] conferences
         #   @return [ActiveRecord::Relation] directly associated conferences
         #   @see Conference
-        has_and_belongs_to_many :conferences, foreign_key: :spina_conferences_delegate_id,
+        has_and_belongs_to_many :conferences, foreign_key: :spina_conferences_delegate_id, # rubocop:disable Rails/HasAndBelongsToMany
                                               association_foreign_key: :spina_conferences_conference_id
         # @!attribute [rw] presentations
         #   @return [ActiveRecord::Relation] directly associated presentations
         #   @see Presentation
-        has_and_belongs_to_many :presentations, foreign_key: :spina_conferences_delegate_id,
+        has_and_belongs_to_many :presentations, foreign_key: :spina_conferences_delegate_id, # rubocop:disable Rails/HasAndBelongsToMany
                                                 association_foreign_key: :spina_conferences_presentation_id
         # @!attribute [rw] dietary_requirements
         #   @return [ActiveRecord::Relation] directly associated dietary requirements
         #   @see DietaryRequirement
-        has_and_belongs_to_many :dietary_requirements, foreign_key: :spina_conferences_delegate_id,
+        has_and_belongs_to_many :dietary_requirements, foreign_key: :spina_conferences_delegate_id, # rubocop:disable Rails/HasAndBelongsToMany
                                                        association_foreign_key: :spina_conferences_dietary_requirement_id
 
         validates :first_name, :last_name, presence: true

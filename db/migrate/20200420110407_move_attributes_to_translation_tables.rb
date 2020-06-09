@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] #:nodoc:
+class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
   def up
     insert_translations('spina_conferences_dietary_requirements', 'name')
     insert_translations('spina_conferences_institutions', 'name', 'city')

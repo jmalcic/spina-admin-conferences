@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Conferences
-      class ConferenceTest < ActiveSupport::TestCase
+      class ConferenceTest < ActiveSupport::TestCase # rubocop:disable Metrics/ClassLength
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
           @new_conference = Conference.new
@@ -122,7 +122,7 @@ module Spina
             @conference.start_date = nil
           end
           assert_changes '@new_conference.dates' do
-            @new_conference.start_date = Date.today.iso8601
+            @new_conference.start_date = Date.today.iso8601 # rubocop:disable Rails/Date
           end
           assert_changes '@new_conference.dates' do
             @new_conference.start_date = nil

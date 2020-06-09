@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SetNameForSpinaConferencesConferences < ActiveRecord::Migration[6.0] #:nodoc:
+class SetNameForSpinaConferencesConferences < ActiveRecord::Migration[6.0] # :nodoc:
   def up
     insert <<-SQL.squish
       INSERT INTO "spina_conferences_conference_translations" (

@@ -5,7 +5,7 @@ require 'application_system_test_case'
 module Spina
   module Admin
     module Conferences
-      class PresentationsTest < ApplicationSystemTestCase
+      class PresentationsTest < ApplicationSystemTestCase # rubocop:disable Metrics/ClassLength
         setup do
           @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
           @user = spina_users :joe
@@ -23,7 +23,7 @@ module Spina
           Percy.snapshot page, name: 'Presentations index'
         end
 
-        test 'creating a presentation' do
+        test 'creating a presentation' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_presentations_path
           click_on 'New presentation'
           assert_selector '.breadcrumbs', text: 'New presentation'
@@ -59,7 +59,7 @@ module Spina
           Percy.snapshot page, name: 'Presentations index on create'
         end
 
-        test 'updating a presentation' do
+        test 'updating a presentation' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_presentations_path
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on 'Edit'

@@ -33,7 +33,7 @@ module Spina
 
         # Creates a delegate.
         # @return [void]
-        def create
+        def create # rubocop:disable Metrics/MethodLength
           @delegate = Delegate.new(delegate_params)
 
           if @delegate.save
@@ -51,7 +51,7 @@ module Spina
 
         # Updates a delegate.
         # @return [void]
-        def update
+        def update # rubocop:disable Metrics/MethodLength
           if @delegate.update(delegate_params)
             redirect_to admin_conferences_delegates_path, success: t('.saved')
           else
@@ -67,7 +67,7 @@ module Spina
 
         # Destroys a delegate.
         # @return [void]
-        def destroy
+        def destroy # rubocop:disable Metrics/MethodLength
           if @delegate.destroy
             redirect_to admin_conferences_delegates_path, success: t('.destroyed')
           else

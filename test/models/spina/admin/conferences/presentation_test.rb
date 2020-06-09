@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Conferences
-      class PresentationTest < ActiveSupport::TestCase
+      class PresentationTest < ActiveSupport::TestCase # rubocop:disable Metrics/ClassLength
         include ActiveJob::TestHelper
 
         setup do
@@ -188,7 +188,7 @@ module Spina
           end
           assert_nil @presentation.start_datetime
           assert_changes '@new_presentation.start_datetime' do
-            @new_presentation.date = Date.today.iso8601
+            @new_presentation.date = Date.today.iso8601 # rubocop:disable Rails/Date
           end
           assert_changes '@new_presentation.start_datetime' do
             @new_presentation.date = nil

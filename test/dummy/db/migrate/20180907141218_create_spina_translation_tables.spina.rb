@@ -2,7 +2,7 @@
 
 # This migration comes from spina (originally 2)
 class CreateSpinaTranslationTables < ActiveRecord::Migration[4.2]
-  def up
+  def up # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     create_table 'spina_page_translations', force: :cascade do |t|
       t.integer 'spina_page_id', null: false
       t.string 'locale', null: false

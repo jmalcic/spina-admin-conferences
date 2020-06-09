@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChangeStartTimeInSpinaConferencesConferences < ActiveRecord::Migration[5.2]
+class ChangeStartTimeInSpinaConferencesConferences < ActiveRecord::Migration[5.2] # :nodoc:
   def up
     remove_column :spina_conferences_presentations, :date
     remove_column :spina_conferences_presentations, :start_time

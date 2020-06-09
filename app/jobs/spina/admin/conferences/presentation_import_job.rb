@@ -71,21 +71,26 @@ module Spina
         #
         # @return [void]
         def perform(csv)
-          Presentation.transaction do
-            import(csv) do |row|
-              row[:room][:institution] = Institution.i18n.find_by(row[:room][:institution])
-              row[:room] = Room.i18n.find_by(row[:room])
-              row[:presentation_type][:conference] = Conference.i18n.find_by(row[:presentation_type][:conference])
-              row[:presentation_type] = PresentationType.i18n.find_by(row[:presentation_type])
-              row[:presenters] = row[:presenters].collect do |params|
-                params[:institution] = Institution.i18n.find_by(params[:institution])
-                Delegate.includes(:institution).find_by(params)
-              end
-              Presentation.create! title: row[:title], date: row[:date], start_time: row[:start_time], abstract: row[:abstract],
-                                   session: Session.find_by(room: row[:room], presentation_type: row[:presentation_type]),
-                                   presenters: row[:presenters]
-            end
+          import(csv) do |row|
+            row = transform_row(row)
+            Presentation.create! title: row[:title], date: row[:date], start_time: row[:start_time], abstract: row[:abstract],
+                                 session: Session.find_by(room: row[:room], presentation_type: row[:presentation_type]),
+                                 presenters: row[:presenters]
           end
+        end
+
+        private
+
+        def transform_row(row) # rubocop:disable Metrics/AbcSize
+          row[:room][:institution] = Institution.i18n.find_by(row[:room][:institution])
+          row[:room] = Room.i18n.find_by(row[:room])
+          row[:presentation_type][:conference] = Conference.i18n.find_by(row[:presentation_type][:conference])
+          row[:presentation_type] = PresentationType.i18n.find_by(row[:presentation_type])
+          row[:presenters] = row[:presenters].collect do |params|
+            params[:institution] = Institution.i18n.find_by(params[:institution])
+            Delegate.includes(:institution).find_by(params)
+          end
+          row
         end
       end
     end

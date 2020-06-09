@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] #:nodoc:
+class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] # :nodoc:
   def up
     add_reference :spina_conferences_room_uses, :room, foreign_key: { to_table: :spina_conferences_rooms }
     update_room_uses_with_room_id
@@ -21,12 +21,10 @@ class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] #:nod
   private
 
   def create_room_possessions_table
-    # rubocop:disable Rails/CreateTableWithTimestamps
-    create_table 'spina_conferences_room_possessions' do |t|
+    create_table 'spina_conferences_room_possessions' do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.references :room, foreign_key: { to_table: :spina_conferences_rooms }
       t.references :conference, foreign_key: { to_table: :spina_conferences_conferences }
     end
-    # rubocop:enable Rails/CreateTableWithTimestamps
   end
 
   def update_room_uses_with_room_id

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSpinaConferencesPresentations < ActiveRecord::Migration[5.2]
+class CreateSpinaConferencesPresentations < ActiveRecord::Migration[5.2] # :nodoc:
   def change
     create_table :spina_conferences_presentations do |t|
       t.string :title

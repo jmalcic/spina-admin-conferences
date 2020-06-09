@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class AddDependentOptionToForeignKeys < ActiveRecord::Migration[5.2]
-  def change
+class AddDependentOptionToForeignKeys < ActiveRecord::Migration[5.2] # :nodoc:
+  def change # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     remove_foreign_key :spina_conferences_delegates, :spina_conferences_institutions, column: :institution_id
     remove_foreign_key :spina_conferences_presentations, :spina_conferences_room_uses, column: :room_use_id
     remove_foreign_key :spina_conferences_room_uses, :spina_conferences_room_possessions, column: :room_possession_id

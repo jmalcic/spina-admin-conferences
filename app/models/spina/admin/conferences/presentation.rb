@@ -58,7 +58,7 @@ module Spina
         # @!attribute [rw] presenters
         #   @return [ActiveRecord::Relation] directly associated delegates
         #   @see Delegate
-        has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate',
+        has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate', # rubocop:disable Rails/HasAndBelongsToMany
                                              foreign_key: :spina_conferences_presentation_id,
                                              association_foreign_key: :spina_conferences_delegate_id
         accepts_nested_attributes_for :attachments, allow_destroy: true
@@ -114,10 +114,8 @@ module Spina
           self.start_datetime = Time.parse(start_time, date).to_datetime.in_time_zone
         end
 
-        # rubocop:disable Metrics/AbcSize
-
         # @return [Icalendar::Event] the presentation as an iCal event
-        def to_ics
+        def to_ics # rubocop:disable Metrics/AbcSize
           event = Icalendar::Event.new
           return event if invalid?
 
@@ -130,8 +128,6 @@ module Spina
           event.description = abstract.try(:html_safe)
           event
         end
-
-        # rubocop:enable Metrics/AbcSize
       end
     end
   end

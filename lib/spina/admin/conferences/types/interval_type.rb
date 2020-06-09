@@ -13,8 +13,6 @@ module Spina
             ::ActiveSupport::Duration.parse(value)
           when ::Integer
             ::ActiveSupport::Duration.build(value)
-          else
-            nil
           end
         rescue ActiveSupport::Duration::ISO8601Parser::ParsingError
           nil

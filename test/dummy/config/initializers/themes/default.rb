@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-::Spina::Theme.register do |theme|
+::Spina::Theme.register do |theme| # rubocop:disable Metrics/BlockLength
   theme.name = 'default'
   theme.title = 'Default'
 

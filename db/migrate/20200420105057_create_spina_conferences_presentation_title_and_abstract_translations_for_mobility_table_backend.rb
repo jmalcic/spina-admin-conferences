@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSpinaConferencesPresentationTitleAndAbstractTranslationsForMobilityTableBackend < ActiveRecord::Migration[6.0] #:nodoc:
+class CreateSpinaConferencesPresentationTitleAndAbstractTranslationsForMobilityTableBackend < ActiveRecord::Migration[6.0] # :nodoc:
   def change
     create_table :spina_conferences_presentation_translations do |t|
       # Translated attribute(s)

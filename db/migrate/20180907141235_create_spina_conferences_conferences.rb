@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSpinaConferencesConferences < ActiveRecord::Migration[5.2] #:nodoc:
+class CreateSpinaConferencesConferences < ActiveRecord::Migration[5.2] # :nodoc:
   def change
     create_table :spina_conferences_conferences do |t|
       t.daterange :dates

@@ -35,7 +35,7 @@ module Spina
 
         # Creates a room.
         # @return [void]
-        def create
+        def create # rubocop:disable Metrics/MethodLength
           @room = Room.new(room_params)
 
           if @room.save
@@ -53,7 +53,7 @@ module Spina
 
         # Updates a room.
         # @return [void]
-        def update
+        def update # rubocop:disable Metrics/MethodLength
           if @room.update(room_params)
             redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
@@ -69,7 +69,7 @@ module Spina
 
         # Destroys a room.
         # @return [void]
-        def destroy
+        def destroy # rubocop:disable Metrics/MethodLength
           if @room.destroy
             redirect_to admin_conferences_rooms_path, success: t('.destroyed')
           else
