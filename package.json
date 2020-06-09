@@ -1,6 +1,6 @@
 {
   "name": "spina-admin-conferences",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Conference management plugin for Spina.",
   "main": "app/assets/javascripts/spina/admin/conferences/application.es6",
   "files": [
