@@ -6,10 +6,8 @@ module Spina
       # Controller for {PresentationAttachmentType} objects.
       # @see PresentationAttachmentType
       class PresentationAttachmentTypesController < ApplicationController
-        # @!group Callbacks
         before_action :set_presentation_attachment_type, only: %i[edit update destroy]
         before_action :set_breadcrumb
-        # @!endgroup
 
         # @!group Actions
 

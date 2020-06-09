@@ -6,12 +6,10 @@ module Spina
       # Controller for {Session} objects.
       # @see Session
       class SessionsController < ApplicationController
-        # @!group Callbacks
         before_action :set_session, only: %i[edit update destroy]
         before_action :set_breadcrumbs
         before_action :set_tabs
         before_action :set_conferences, :set_institutions, only: %i[new edit]
-        # @!endgroup
 
         layout 'spina/admin/conferences/conferences'
 

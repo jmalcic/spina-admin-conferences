@@ -6,11 +6,9 @@ module Spina
       # Controller for {PresentationType} objects.
       # @see PresentationType
       class PresentationTypesController < ApplicationController
-        # @!group Callbacks
         before_action :set_presentation_type, only: %i[edit update destroy]
         before_action :set_breadcrumbs
         before_action :set_tabs
-        # @!endgroup
 
         layout 'spina/admin/conferences/conferences'
 

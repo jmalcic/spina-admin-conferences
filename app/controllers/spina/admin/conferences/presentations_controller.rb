@@ -6,12 +6,10 @@ module Spina
       # Controller for {Presentation} objects.
       # @see Presentation
       class PresentationsController < ApplicationController
-        # @!group Callbacks
         before_action :set_presentation, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
         before_action :set_conferences, only: %i[new edit]
-        # @!endgroup
 
         # @!group Actions
 

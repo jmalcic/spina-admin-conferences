@@ -6,11 +6,9 @@ module Spina
       # Controller for {Delegate} objects.
       # @see Delegate
       class DelegatesController < ApplicationController
-        # @!group Callbacks
         before_action :set_delegate, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
-        # @!endgroup
 
         # @!group Actions
 

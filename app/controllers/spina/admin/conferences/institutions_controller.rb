@@ -6,11 +6,9 @@ module Spina
       # Controller for {Institution} objects.
       # @see Institution
       class InstitutionsController < ApplicationController
-        # @!group Callbacks
         before_action :set_institution, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
-        # @!endgroup
 
         # @!group Actions
 

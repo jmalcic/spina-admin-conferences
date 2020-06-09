@@ -6,11 +6,9 @@ module Spina
       # Controller for {DietaryRequirement} objects.
       # @see DietaryRequirement
       class DietaryRequirementsController < ApplicationController
-        # @!group Callbacks
         before_action :set_dietary_requirement, only: %i[edit update destroy]
         before_action :set_breadcrumb
         before_action :set_tabs
-        # @!endgroup
 
         # @!group Actions
 

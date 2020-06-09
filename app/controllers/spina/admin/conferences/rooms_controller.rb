@@ -6,11 +6,9 @@ module Spina
       # Controller for {Room} objects.
       # @see Room
       class RoomsController < ApplicationController
-        # @!group Callbacks
         before_action :set_room, only: %i[edit update destroy]
         before_action :set_breadcrumbs
         before_action :set_tabs
-        # @!endgroup
 
         layout 'spina/admin/conferences/institutions'
 
