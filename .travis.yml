@@ -27,3 +27,5 @@ install:
 before_script:
   - bundle exec bin/rails db:setup
 language: ruby
+notifications:
+  webhooks: https://coveralls.io/webhook
