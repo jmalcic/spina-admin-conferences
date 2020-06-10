@@ -33,18 +33,6 @@ module Spina
           execute_script '$.fx.off = true;'
           click_on 'Choose image'
           within '#overlay', visible: true, style: { display: 'block' } do
-            attach_file(file_fixture('dubrovnik.jpeg')) do
-              input = find 'input[type="file"][data-customfileinput]', visible: false
-              execute_script(<<~JS, input)
-                arguments[0].dispatchEvent(
-                  new MouseEvent('click', {
-                    view: window,
-                    bubbles: true,
-                    cancelable: true
-                  })
-                );
-              JS
-            end
             first('.gallery .item:not(.item-uploader)').click
             find('.gallery-select-sidebar').click_on 'Choose image'
           end
@@ -67,18 +55,6 @@ module Spina
           page.execute_script '$.fx.off = true;'
           click_on 'Choose image'
           within '#overlay', visible: true, style: { display: 'block' } do
-            attach_file(file_fixture('dubrovnik.jpeg')) do
-              input = find 'input[type="file"][data-customfileinput]', visible: false
-              execute_script(<<~JS, input)
-                arguments[0].dispatchEvent(
-                  new MouseEvent('click', {
-                    view: window,
-                    bubbles: true,
-                    cancelable: true
-                  })
-                );
-              JS
-            end
             first('.gallery .item:not(.item-uploader)').click
             find('.gallery-select-sidebar').click_on 'Choose image'
           end
