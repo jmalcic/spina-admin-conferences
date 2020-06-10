@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start 'rails'
+
+Coveralls.wear!('rails')
+
 require 'minitest/mock'
 require 'minitest/reporters'
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
-
-if ENV['CODECOV_TOKEN']
-  require 'simplecov'
-  require 'codecov'
-
-  SimpleCov.start 'rails'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
 
 require 'percy'
 
