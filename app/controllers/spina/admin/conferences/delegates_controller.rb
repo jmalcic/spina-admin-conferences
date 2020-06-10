@@ -3,63 +3,101 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages delegates and sets breadcrumbs
-      class DelegatesController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
+      # Controller for {Delegate} objects.
+      # @see Delegate
+      class DelegatesController < ApplicationController
+        before_action :set_delegate, only: %i[edit update destroy]
+        before_action :set_breadcrumb
+        before_action :set_tabs
 
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        # @!group Actions
 
+        # Renders a list of delegates.
+        # @return [void]
         def index
           @delegates = Delegate.sorted
         end
 
+        # Renders a form for a new delegate.
+        # @return [void]
         def new
           @delegate = Delegate.new
-          add_breadcrumb I18n.t('spina.conferences.delegates.new')
-          render layout: 'spina/admin/admin'
+          add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing delegate.
+        # @return [void]
         def edit
-          @delegate = Delegate.find params[:id]
           add_breadcrumb @delegate.full_name
-          render layout: 'spina/admin/admin'
         end
 
-        def create
-          @delegate = Delegate.new delegate_params
-          add_breadcrumb I18n.t('spina.conferences.delegates.new')
+        # Creates a delegate.
+        # @return [void]
+        def create # rubocop:disable Metrics/MethodLength
+          @delegate = Delegate.new(delegate_params)
+
           if @delegate.save
-            redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
+            redirect_to admin_conferences_delegates_path, success: t('.saved')
           else
-            render :new, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @delegate.errors } }
+            end
           end
         end
 
-        def update
-          @delegate = Delegate.find params[:id]
-          add_breadcrumb @delegate.full_name
+        # Updates a delegate.
+        # @return [void]
+        def update # rubocop:disable Metrics/MethodLength
           if @delegate.update(delegate_params)
-            redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.saved') }
+            redirect_to admin_conferences_delegates_path, success: t('.saved')
           else
-            render :edit, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @delegate.full_name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @delegate.errors } }
+            end
           end
         end
 
-        def destroy
-          @delegate = Delegate.find params[:id]
-          @delegate.destroy
-          redirect_to admin_conferences_delegates_path, flash: { success: t('spina.conferences.delegates.destroyed') }
+        # Destroys a delegate.
+        # @return [void]
+        def destroy # rubocop:disable Metrics/MethodLength
+          if @delegate.destroy
+            redirect_to admin_conferences_delegates_path, success: t('.destroyed')
+          else
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @delegate.full_name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @delegate.errors } }
+            end
+          end
         end
 
+        # Imports a delegate.
+        # @return [void]
+        # @see Delegate#import
         def import
           Delegate.import params[:file]
         end
 
+        # @!endgroup
+
         private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.delegates'), admin_conferences_delegates_path
+        def set_delegate
+          @delegate = Delegate.find params[:id]
+        end
+
+        def set_breadcrumb
+          add_breadcrumb Delegate.model_name.human(count: 0), admin_conferences_delegates_path
         end
 
         def set_tabs
@@ -67,11 +105,10 @@ module Spina
         end
 
         def delegate_params
-          params.require(:delegate).permit(:first_name, :last_name,
-                                           :email_address, :url,
-                                           :institution_id,
-                                           conference_ids: [],
-                                           dietary_requirement_ids: [])
+          params.require(:admin_conferences_delegate).permit(:first_name, :last_name, :email_address, :url,
+                                                             :institution_id,
+                                                             conference_ids: [],
+                                                             dietary_requirement_ids: [])
         end
       end
     end

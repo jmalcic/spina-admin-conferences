@@ -1,0 +1,11 @@
+%tr{ data: { presentation_id: presentation.id } }
+  %td= presentation.conference.name
+  %td= link_to presentation.title, edit_admin_conferences_presentation_path(presentation)
+  %td
+    %ul
+      - presentation.presenters.each do |presenter|
+        %li= link_to presenter.full_name, edit_admin_conferences_delegate_path(presenter)
+  %td.align-right
+    = link_to edit_admin_conferences_presentation_path(presentation), class: %w[button button-small button-link] do
+      = icon 'pencil-outline'
+      = t 'spina.edit'

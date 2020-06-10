@@ -3,15 +3,10 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Room.human_attribute_name :building
-          %th= Spina::Conferences::Room.human_attribute_name :number
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :institution
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :building
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :number
           %th
 
       %tbody
-        - if @conference.room_possessions.any?
-          = render partial: 'spina/admin/conferences/shared/room', collection: @conference.room_possessions.collect(&:room)
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.rooms.no_rooms')
+        = render @conference.rooms.any? ? @conference.rooms : 'empty_list', message: t('spina.admin.conferences.rooms.index.no_rooms')

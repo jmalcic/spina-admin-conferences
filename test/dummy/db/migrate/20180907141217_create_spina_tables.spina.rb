@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # This migration comes from spina (originally 1)
-class CreateSpinaTables < ActiveRecord::Migration[4.2]
-  def change
+class CreateSpinaTables < ActiveRecord::Migration[4.2] # rubocop:disable Metrics/ClassLength
+  def change # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     create_table 'spina_accounts', force: :cascade do |t|
       t.string   'name'
       t.string   'address'
@@ -100,7 +100,8 @@ class CreateSpinaTables < ActiveRecord::Migration[4.2]
     end
 
     add_index 'spina_structure_parts', ['structure_item_id'], name: 'index_spina_structure_parts_on_structure_item_id', using: :btree
-    add_index 'spina_structure_parts', ['structure_partable_id'], name: 'index_spina_structure_parts_on_structure_partable_id', using: :btree
+    add_index 'spina_structure_parts', ['structure_partable_id'], name: 'index_spina_structure_parts_on_structure_partable_id',
+                                                                  using: :btree
 
     create_table 'spina_structures', force: :cascade do |t|
       t.datetime 'created_at'

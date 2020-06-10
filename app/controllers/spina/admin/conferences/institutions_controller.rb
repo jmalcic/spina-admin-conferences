@@ -3,74 +3,102 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages institutions and sets breadcrumbs
-      class InstitutionsController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
+      # Controller for {Institution} objects.
+      # @see Institution
+      class InstitutionsController < ApplicationController
+        before_action :set_institution, only: %i[edit update destroy]
+        before_action :set_breadcrumb
+        before_action :set_tabs
 
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        # @!group Actions
 
+        # Renders a list of institutions.
+        # @return [void]
         def index
-          @institutions = Institution.all
+          @institutions = Institution.sorted
         end
 
+        # Renders a form for a new institution.
+        # @return [void]
         def new
           @institution = Institution.new
-          add_breadcrumb I18n.t('spina.conferences.institutions.new')
-          render layout: 'spina/admin/admin'
+          add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing institution.
+        # @return [void]
         def edit
-          @institution = Institution.find params[:id]
           add_breadcrumb @institution.name
-          render layout: 'spina/admin/admin'
         end
 
-        def create
+        # Creates an institution.
+        # @return [void]
+        def create # rubocop:disable Metrics/MethodLength
           @institution = Institution.new(conference_params)
-          add_breadcrumb I18n.t('spina.conferences.institutions.new')
+
           if @institution.save
-            redirect_to admin_conferences_institutions_path,
-                        flash: { success: t('spina.conferences.institutions.saved') }
+            redirect_to admin_conferences_institutions_path, success: t('.saved')
           else
-            render :new, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @institution.errors } }
+            end
           end
         end
 
-        def update
-          @institution = Institution.find params[:id]
-          add_breadcrumb @institution.name
+        # Updates an institution.
+        # @return [void]
+        def update # rubocop:disable Metrics/MethodLength
           if @institution.update(conference_params)
-            redirect_to admin_conferences_institutions_path,
-                        flash: { success: t('spina.conferences.institutions.saved') }
+            redirect_to admin_conferences_institutions_path, success: t('.saved')
           else
-            render :edit, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @institution.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @institution.errors } }
+            end
           end
         end
 
-        def destroy
-          @institution = Institution.find params[:id]
-          @institution.destroy
-          redirect_to admin_conferences_institutions_path,
-                      flash: { success: t('spina.conferences.institutions.destroyed') }
+        # Destroys an institution.
+        # @return [void]
+        def destroy # rubocop:disable Metrics/MethodLength
+          if @institution.destroy
+            redirect_to admin_conferences_institutions_path, success: t('.destroyed')
+          else
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @institution.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @institution.errors } }
+            end
+          end
         end
 
-        def import
-          Institution.import params[:file]
-        end
+        # @!endgroup
 
         private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.institutions'), admin_conferences_institutions_path
+        def set_institution
+          @institution = Institution.find params[:id]
+        end
+
+        def set_breadcrumb
+          add_breadcrumb Institution.model_name.human(count: 0), admin_conferences_institutions_path
         end
 
         def set_tabs
-          @tabs = %w[institution_details rooms conferences delegates]
+          @tabs = %w[institution_details rooms delegates]
         end
 
         def conference_params
-          params.require(:institution).permit(:name, :city, :logo_id)
+          params.require(:admin_conferences_institution).permit(:name, :city, :logo_id)
         end
       end
     end

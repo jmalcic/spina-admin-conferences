@@ -2,36 +2,37 @@
   .well
     .horizontal-form
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Delegate.human_attribute_name :first_name
-        .horizontal-form-content= f.text_field :first_name, placeholder: Spina::Conferences::Delegate.human_attribute_name(:first_name), required: true
+        .horizontal-form-label= Spina::Admin::Conferences::Delegate.human_attribute_name :first_name
+        .horizontal-form-content= f.text_field :first_name, placeholder: Spina::Admin::Conferences::Delegate.human_attribute_name(:first_name), required: true
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Delegate.human_attribute_name :last_name
-        .horizontal-form-content= f.text_field :last_name, placeholder: Spina::Conferences::Delegate.human_attribute_name(:last_name), required: true
+        .horizontal-form-label= Spina::Admin::Conferences::Delegate.human_attribute_name :last_name
+        .horizontal-form-content= f.text_field :last_name, placeholder: Spina::Admin::Conferences::Delegate.human_attribute_name(:last_name), required: true
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Delegate.human_attribute_name :institution
-        .horizontal-form-content.select-dropdown= f.collection_select :institution_id, Spina::Conferences::Institution.all, :id, :name, required: true
+        .horizontal-form-label= Spina::Admin::Conferences::Delegate.human_attribute_name :institution
+        .horizontal-form-content
+          .select-dropdown= f.collection_select :institution_id, Spina::Admin::Conferences::Institution.all, :id, :name, {}, required: true
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Delegate.human_attribute_name :email_address
-        .horizontal-form-content= f.email_field :email_address, placeholder: Spina::Conferences::Delegate.human_attribute_name(:email_address), required: true
+        .horizontal-form-label= Spina::Admin::Conferences::Delegate.human_attribute_name :email_address
+        .horizontal-form-content= f.email_field :email_address, placeholder: Spina::Admin::Conferences::Delegate.human_attribute_name(:email_address), required: true
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Delegate.human_attribute_name :url
-        .horizontal-form-content= f.url_field :url, placeholder: Spina::Conferences::Delegate.human_attribute_name(:url)
-
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Conferences::Delegate.human_attribute_name :conferences
-          %small= (Spina::Conferences::Delegate.human_attribute_name :conferences_description).try(:html_safe)
-        .horizontal-form-content.multiple.select-dropdown= f.collection_select :conference_ids, Spina::Conferences::Conference.order(:dates), :id, :name, {}, { multiple: true, required: true }
+        .horizontal-form-label= Spina::Admin::Conferences::Delegate.human_attribute_name :url
+        .horizontal-form-content= f.url_field :url, placeholder: Spina::Admin::Conferences::Delegate.human_attribute_name(:url)
 
       .horizontal-form-group
         .horizontal-form-label
-          = Spina::Conferences::Delegate.human_attribute_name :dietary_requirements
-          %small= (Spina::Conferences::Delegate.human_attribute_name :dietary_requirements_description).try(:html_safe)
-        .horizontal-form-content.multiple.select-dropdown= f.collection_select :dietary_requirement_ids, Spina::Conferences::DietaryRequirement.order(:name), :id, :name, {}, { multiple: true, required: false }
+          = Spina::Admin::Conferences::Delegate.human_attribute_name :conferences
+          %small= t '.multiple_conferences_selection_instructions_html'
+        .horizontal-form-content.multiple.select-dropdown= f.collection_select :conference_ids, Spina::Admin::Conferences::Conference.all, :id, :name, {}, { multiple: true, required: true }
+
+      .horizontal-form-group
+        .horizontal-form-label
+          = Spina::Admin::Conferences::Delegate.human_attribute_name :dietary_requirements
+          %small= t '.multiple_dietary_requirements_selection_instructions_html'
+        .horizontal-form-content.multiple.select-dropdown= f.collection_select :dietary_requirement_ids, Spina::Admin::Conferences::DietaryRequirement.all, :id, :name, {}, { multiple: true, required: false }
 
   - unless @delegate.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_delegate_path(@delegate), method: :delete, data: { confirm: t('spina.conferences.delegates.delete_confirmation', delegate: @delegate.full_name) }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_delegate_path(@delegate), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', delegate: @delegate.full_name) }, class: %w[button button-link button-danger]

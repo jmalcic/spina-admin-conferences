@@ -1,7 +1,0 @@
-%tr{ data: { institution_id: institution.id } }
-  %td= link_to institution.name, spina.edit_admin_conferences_institution_path(institution)
-  %td= institution.city
-  %td.align-right
-    = link_to spina.edit_admin_conferences_institution_path(institution), class: 'button button-small button-link' do
-      = icon('pencil-outline')
-      = t('spina.edit')

@@ -1,29 +1,17 @@
 - content_for(:header_actions) do
-  %label.button{ for: 'file' }
-    = icon('cog')
-    = t('spina.conferences.rooms.import')
-    = form_with url: import_admin_conferences_rooms_path do |f|
-      = f.submit style: 'display: none'
-      = f.file_field :file, multiple: false, style: 'display: none'
-  = link_to spina.new_admin_conferences_room_path, class: 'button button-primary', style: 'margin-right: 0' do
-    = icon('plus')
-    = t('spina.conferences.rooms.new')
+  = link_to new_admin_conferences_room_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
+    = t '.new'
 
 .well
   .table-container
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Room.human_attribute_name :institution
-          %th= Spina::Conferences::Room.human_attribute_name :building
-          %th= Spina::Conferences::Room.human_attribute_name :number
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :institution
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :building
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :number
           %th
 
       %tbody
-        - if @rooms.any?
-          = render partial: 'spina/admin/conferences/shared/room', collection: @rooms
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.rooms.no_rooms')
+        = render @rooms.any? ? @rooms : 'empty_list', message: t('.no_rooms')

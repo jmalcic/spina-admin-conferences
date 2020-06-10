@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+asymmetry_and_antisymmetry:
+  start_datetime: 2017-04-07 10:00
+  presenters:
+    - joe_bloggs
+  session: oral_1_lecture_block_2_uoa_2017
+
+no_island:
+  start_datetime: 2017-04-07 10:20
+  presenters:
+    - brandon_krapp
+  session: oral_1_lecture_block_2_uoa_2017
+
+invalid_presentation:
+  start_datetime: 2000-04-07 10:00
+  presenters:
+    - joe_bloggs
+  session: oral_1_lecture_block_2_uoa_2017

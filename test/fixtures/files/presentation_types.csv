@@ -1,8 +1,0 @@
-conference,name,minutes,room_possessions
-"{""start_date"": ""2017-04-07"", ""finish_date"": ""2017-04-09"", ""institution"": {""name"": ""University of Atlantis"", ""city"": ""Atlantis""}}",Plenary,80,"[{""room"": {""building"": ""Lecture block"", ""number"": ""3""}}]"
-"{""start_date"": ""2017-04-07"", ""finish_date"": ""2017-04-09"", ""institution"": {""name"": ""University of Atlantis"", ""city"": ""Atlantis""}}",Poster,30,"[{""room"": {""building"": ""Lecture block"", ""number"": ""entrance""}}]"
-"{""start_date"": ""2017-04-07"", ""finish_date"": ""2017-04-09"", ""institution"": {""name"": ""University of Atlantis"", ""city"": ""Atlantis""}}",Oral,20,"[{""room"": {""building"": ""Lecture block"", ""number"": ""2""}},
-{""room"": {""building"": ""Lecture block"", ""number"": ""3""}}]"
-"{""start_date"": ""2018-04-09"", ""finish_date"": ""2018-04-11"", ""institution"": {""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}}",Plenary,80,"[{""room"": {""building"": ""Medical school"", ""number"": ""G.152""}}]"
-"{""start_date"": ""2018-04-09"", ""finish_date"": ""2018-04-11"", ""institution"": {""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}}",Poster,30,"[{""room"": {""building"": ""Medical school"", ""number"": ""G.14""}}]"
-"{""start_date"": ""2018-04-09"", ""finish_date"": ""2018-04-11"", ""institution"": {""name"": ""University of Shangri-La"", ""city"": ""Shangri-La""}}",Oral,20,"[{""room"": {""building"": ""Medical school"", ""number"": ""G.152""}}, {""room"": {""building"": ""Medical school"", ""number"": ""G.16""}}]"

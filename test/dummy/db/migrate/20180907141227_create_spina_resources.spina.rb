@@ -2,7 +2,7 @@
 
 # This migration comes from spina (originally 11)
 class CreateSpinaResources < ActiveRecord::Migration[5.1]
-  def change
+  def change # rubocop:disable Metrics/MethodLength
     create_table :spina_resources do |t|
       t.string :name, null: false, unique: true
       t.string :label

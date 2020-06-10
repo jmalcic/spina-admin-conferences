@@ -1,0 +1,8 @@
+%tr{ data: { presentation_type_id: presentation_type.id } }
+  %td= presentation_type.conference.name
+  %td= link_to presentation_type.name, edit_admin_conferences_presentation_type_path(presentation_type)
+  %td= time_tag presentation_type.duration, t('datetime.distance_in_words.x_minutes', count: presentation_type.minutes)
+  %td.align-right
+    = link_to edit_admin_conferences_presentation_type_path(presentation_type), class: %w[button button-small button-link] do
+      = icon 'pencil-outline'
+      = t 'spina.edit'

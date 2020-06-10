@@ -3,84 +3,105 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages presentation types
-      class PresentationTypesController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
+      # Controller for {PresentationType} objects.
+      # @see PresentationType
+      class PresentationTypesController < ApplicationController
+        before_action :set_presentation_type, only: %i[edit update destroy]
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
-        before_action :set_conferences, only: %i[new edit]
+        before_action :set_tabs
 
         layout 'spina/admin/conferences/conferences'
 
+        # @!group Actions
+
+        # Renders a list of presentation types.
+        # @return [void]
         def index
           @presentation_types = PresentationType.sorted
         end
 
+        # Renders a form for a new presentation type.
+        # @return [void]
         def new
           @presentation_type = PresentationType.new
-          add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
-          render layout: 'spina/admin/admin'
+          add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing presentation type.
+        # @return [void]
         def edit
-          @presentation_type = PresentationType.find params[:id]
           add_breadcrumb @presentation_type.name
-          render layout: 'spina/admin/admin'
         end
 
-        def create
+        # Creates a presentation type.
+        # @return [void]
+        def create # rubocop:disable Metrics/MethodLength
           @presentation_type = PresentationType.new presentation_type_params
-          add_breadcrumb I18n.t('spina.conferences.presentation_types.new')
+
           if @presentation_type.save
-            redirect_to admin_conferences_presentation_types_path,
-                        flash: { success: t('spina.conferences.presentation_types.saved') }
+            redirect_to admin_conferences_presentation_types_path, success: t('.saved')
           else
-            render :new, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_type.errors } }
+            end
           end
         end
 
-        def update
-          @presentation_type = PresentationType.find params[:id]
-          add_breadcrumb @presentation_type.name
+        # Updates a presentation type.
+        # @return [void]
+        def update # rubocop:disable Metrics/MethodLength
           if @presentation_type.update(presentation_type_params)
-            redirect_to admin_conferences_presentation_types_path,
-                        flash: { success: t('spina.conferences.presentation_types.saved') }
+            redirect_to admin_conferences_presentation_types_path, success: t('.saved')
           else
-            render :edit, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @presentation_type.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_type.errors } }
+            end
           end
         end
 
-        def destroy
-          @presentation_type = PresentationType.find params[:id]
-          @presentation_type.destroy
-          redirect_to admin_conferences_presentation_types_path,
-                      flash: { success: t('spina.conferences.presentation_types.destroyed') }
+        # Destroys a presentation type.
+        # @return [void]
+        def destroy # rubocop:disable Metrics/MethodLength
+          if @presentation_type.destroy
+            redirect_to admin_conferences_presentation_types_path, success: t('.destroyed')
+          else
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @presentation_type.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @presentation_type.errors } }
+            end
+          end
         end
 
-        def import
-          PresentationType.import params[:file]
-        end
+        # @!endgroup
 
         private
 
-        def set_conferences
-          @conferences = Conference.sorted.to_json methods: %i[name localized_dates],
-                                                   include: { room_possessions: { methods: [:room_name] } }
+        def set_presentation_type
+          @presentation_type = PresentationType.find params[:id]
         end
 
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.conferences'), admin_conferences_conferences_path
-          add_breadcrumb I18n.t('spina.conferences.website.presentation_types'),
-                         admin_conferences_presentation_types_path
+          add_breadcrumb Conference.model_name.human(count: 0), admin_conferences_conferences_path
+          add_breadcrumb PresentationType.model_name.human(count: 0), admin_conferences_presentation_types_path
         end
 
         def set_tabs
-          @tabs = %w[presentation_type_details presentations rooms]
+          @tabs = %w[presentation_type_details presentations sessions]
         end
 
         def presentation_type_params
-          params.require(:presentation_type).permit(:name, :minutes, :conference_id, room_possession_ids: [])
+          params.require(:admin_conferences_presentation_type).permit(:name, :conference_id, :minutes)
         end
       end
     end

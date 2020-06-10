@@ -39,187 +39,299 @@ en:
       images: Images # This translation is apparently not provided by Spina for some reason
     images:
       delete: Delete # Ditto
-    conferences:
-      title: Conferences
+    admin:
       conferences:
-        new: New conference
-        save: Save conference
-        delete_confirmation: "Are you sure you want to delete the conference <strong>%{conference}</strong>?"
-        no_conferences: There are no conferences
-        conference_details: Conference details
-        delegates: Delegates
-        presentations: Presentations
-        presentation_types: Presentation types
-        rooms: Rooms
-        content: Content
-        import: Import CSV
-        saved: Conference saved
-        destroyed: Conference deleted
-      delegates:
-        new: New delegate
-        save: Save delegate
-        delete_confirmation: "Are you sure you want to delete the delegate <strong>%{delegate}</strong>?"
-        no_delegates: There are no delegates
-        delegate_details: Delegate details
-        conferences: Conferences
-        presentations: Presentations
-        import: Import CSV
-        saved: Delegate saved
-        destroyed: Delegate deleted
-      presenters:
-        new: New presenter
-        save: Save presenter
-        delete_confirmation: "Are you sure you want to delete the presenter <strong>%{presenter}</strong>?"
-        no_presenters: There are no presenters
-        presenter_details: Presenter details
-        conferences: Conferences
-        presentations: Presentations
-      presentations:
-        new: New presentation
-        save: Save presentation
-        delete_confirmation: "Are you sure you want to delete the presentation <strong>%{presentation}</strong>?"
-        no_presentations: There are no presentations
-        all_presentations: All presentations
-        presentation_details: Presentation details
-        presenters: Presenters
-        content: Content
-        import: Import CSV
-        saved: Presentation saved
-        destroyed: Presentation deleted
-      website:
-        presentations: Presentations
-        delegates: Delegates
-        conferences: Conferences
-        presentation_types: Presentation types
-        institutions: Institutions
-        rooms: Rooms
-        dietary_requirements: Dietary requirements
-      presentation_types:
-        new: New presentation type
-        save: Save presentation type
-        delete_confirmation: "Are you sure you want to delete the presentation type <strong>%{presentation_type}</strong>?"
-        no_presentation_types: There are no presentation types
-        presentation_type_details: Presentation type details
-        presentations: Presentations
-        rooms: Rooms
-        import: Import CSV
-        saved: Presentation type saved
-        destroyed: Presentation type deleted
-      dietary_requirements:
-        new: New dietary requirement
-        save: Save dietary requirement
-        delete_confirmation: "Are you sure you want to delete the dietary requirement <strong>%{dietary_requirement}</strong>?"
-        no_dietary_requirements: There are no dietary requirements
-        dietary_requirement_details: Dietary requirement details
-        delegates: Delegates
-        import: Import CSV
-        saved: Dietary requirement saved
-        destroyed: Dietary requirement deleted
-      institutions:
-        new: New institution
-        save: Save institution
-        delete_confirmation: "Are you sure you want to delete the institution <strong>%{institution}</strong>?"
-        no_institutions: There are no institutions
-        institution_details: Institution details
-        rooms: Rooms
-        conferences: Conferences
-        delegates: Delegates
-        import: Import CSV
-        saved: Institution saved
-        destroyed: Institution deleted
-      rooms:
-        new: New room
-        save: Save room
-        delete_confirmation: "Are you sure you want to delete the room <strong>%{room}</strong>?"
-        no_rooms: There are no rooms
-        room_details: Room details
-        presentations: Presentations
-        import: Import CSV
-        saved: Room saved
-        destroyed: Room deleted
-      room_uses:
-        no_room_uses: There are no rooms in use
+        title: Conferences
+        conferences:
+          index:
+            new: New conference
+            no_conferences: There are no conferences
+            import: Import CSV
+          new:
+            new: New conference
+          create:
+            new: New conference
+            saved: Conference saved
+          update:
+            saved: Conference saved
+          destroy:
+            destroyed: Conference deleted
+          form:
+            save: Save conference
+            conference_details: Conference details
+            delegates: Delegates
+            presentations: Presentations
+            presentation_types: Presentation types
+            rooms: Rooms
+          form_conference_details:
+            delete_confirmation:
+              "Are you sure you want to delete the conference <strong>%{name}</strong>?"
+            multiple_rooms_selection_instructions_html:
+              "Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
+              selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
+        delegates:
+          index:
+            new: New delegate
+            no_delegates: There are no delegates
+            import: Import CSV
+          new:
+            new: New delegate
+          create:
+            new: New delegate
+            saved: Delegate saved
+          update:
+            saved: Delegate saved
+          destroy:
+            destroyed: Delegate deleted
+          form:
+            save: Save delegate
+            delegate_details: Delegate details
+            conferences: Conferences
+            presentations: Presentations
+          form_delegate_details:
+            delete_confirmation: "Are you sure you want to delete the delegate <strong>%{delegate}</strong>?"
+            multiple_dietary_requirements_selection_instructions_html:
+              "Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and
+              <kbd>⇧</kbd> on Windows and Linux"
+            multiple_conferences_selection_instructions_html:
+              "Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd>
+              on Windows and Linux"
+        presenters:
+          new: New presenter
+          save: Save presenter
+          delete_confirmation: "Are you sure you want to delete the presenter <strong>%{presenter}</strong>?"
+          no_presenters: There are no presenters
+          presenter_details: Presenter details
+          conferences: Conferences
+          presentations: Presentations
+        presentations:
+          index:
+            new: New presentation
+            no_presentations: There are no presentations
+            import: Import CSV
+          new:
+            new: New presentation
+          create:
+            new: New presentation
+            saved: Presentation saved
+          update:
+            saved: Presentation saved
+          destroy:
+            destroyed: Presentation deleted
+          form:
+            save: Save presentation
+            presentation_details: Presentation details
+            presenters: Presenters
+          form_presentation_details:
+            delete_confirmation: "Are you sure you want to delete the presentation <strong>%{presentation}</strong>?"
+            start_time_instructions: Enter in 24-hour format using a colon as the divider
+            multiple_presenters_selection_instructions_html:
+              "Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
+              selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
+        presentation_types:
+          index:
+            new: New presentation type
+            no_presentation_types: There are no presentation types
+            import: Import CSV
+          new:
+            new: New presentation type
+          create:
+            new: New presentation type
+            saved: Presentation type saved
+          update:
+            saved: Presentation type saved
+          destroy:
+            destroyed: Presentation type deleted
+          form:
+            save: Save presentation type
+            presentation_type_details: Presentation type details
+            presentations: Presentations
+            sessions: Sessions
+          form_presentation_type_details:
+            delete_confirmation:
+              "Are you sure you want to delete the presentation type <strong>%{presentation_type}</strong>?"
+            duration_instructions: Enter in minutes
+        dietary_requirements:
+          index:
+            new: New dietary requirement
+            no_dietary_requirements: There are no dietary requirements
+            import: Import CSV
+          new:
+            new: New dietary requirement
+          create:
+            new: New dietary requirement
+            saved: Dietary requirement saved
+          update:
+            saved: Dietary requirement saved
+          destroy:
+            destroyed: Dietary requirement deleted
+          form:
+            save: Save dietary requirement
+            dietary_requirement_details: Dietary requirement details
+            delegates: Delegates
+          form_dietary_requirement_details:
+            delete_confirmation:
+              "Are you sure you want to delete the dietary requirement <strong>%{dietary_requirement}</strong>?"
+        presentation_attachment_types:
+          index:
+            new: New presentation attachment type
+            no_presentation_attachment_types: There are no presentation attachment types
+          new:
+            new: New presentation attachment type
+          create:
+            new: New presentation attachment type
+            saved: Presentation attachment type saved
+          update:
+            saved: Presentation attachment type saved
+          destroy:
+            destroyed: Presentation attachment type deleted
+          form:
+            save: Save presentation attachment type
+            delete_confirmation:
+              "Are you sure you want to delete the presentation attachment type
+              <strong>%{presentation_attachment_type}</strong>?"
+        institutions:
+          index:
+            new: New institution
+            no_institutions: There are no institutions
+            import: Import CSV
+          new:
+            new: New institution
+          create:
+            new: New institution
+            saved: Institution saved
+          update:
+            saved: Institution saved
+          destroy:
+            destroyed: Institution deleted
+          form:
+            save: Save institution
+            institution_details: Institution details
+            rooms: Rooms
+            conferences: Conferences
+            delegates: Delegates
+          form_institution_details:
+            delete_confirmation: "Are you sure you want to delete the institution <strong>%{institution}</strong>?"
+        rooms:
+          index:
+            new: New room
+            no_rooms: There are no rooms
+            import: Import CSV
+          new:
+            new: New room
+          create:
+            new: New room
+            saved: Room saved
+          update:
+            saved: Room saved
+          destroy:
+            destroyed: Room deleted
+          form:
+            save: Save room
+            room_details: Room details
+            presentations: Presentations
+          form_room_details:
+            delete_confirmation: "Are you sure you want to delete the room <strong>%{room}</strong>?"
+        sessions:
+          index:
+            new: New session
+            no_sessions: There are no sessions
+          new:
+            new: New session
+          create:
+            new: New session
+            saved: Session saved
+          update:
+            saved: Session saved
+          destroy:
+            destroyed: Session deleted
+          form:
+            save: Save session
+            session_details: Session details
+            presentations: Presentations
+          form_session_details:
+            delete_confirmation: "Are you sure you want to delete the session <strong>%{session}</strong>?"
   activerecord:
     models:
-      spina/page:
-        one: Page
-        other: Pages
-      spina/user:
-        one: User
-        other: Users
-      spina/photo:
-        one: Image
-        other: Images
-      spina/attachment:
-        one: Document
-        other: Documents
-      spina/conferences/conference:
+      spina/admin/conferences/conference:
         one: Conference
         other: Conferences
-      spina/conferences/delegate:
+      spina/admin/conferences/delegate:
         one: Delegate
         other: Delegates
-      spina/conferences/presentation:
+      spina/admin/conferences/presentation:
         one: Presentation
         other: Presentations
-      spina/conferences/presentation_type:
+      spina/admin/conferences/presentation_attachment:
+        one: Presentation attachment
+        other: Presentation attachments
+      spina/admin/conferences/presentation_type:
         one: Presentation type
         other: Presentation types
-      spina/conferences/dietary_requirement:
+      spina/admin/conferences/dietary_requirement:
         one: Dietary requirement
         other: Dietary requirements
-      spina/conferences/institution:
+      spina/admin/conferences/presentation_attachment_type:
+        one: Presentation attachment type
+        other: Presentation attachment types
+      spina/admin/conferences/institution:
         one: Institution
         other: Institutions
-      spina/conferences/room:
+      spina/admin/conferences/room:
         one: Room
         other: Rooms
+      spina/admin/conferences/session:
+        one: Session
+        other: Sessions
     attributes:
-      spina/conferences/conference:
-        institution: Institution
-        institution_and_year: Institution and year
-        city: City
+      spina/admin/conferences/conference:
+        name: Name
         start_date: Start date
         finish_date: Finish date
-        rooms: Rooms
-        rooms_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-      spina/conferences/delegate:
+      spina/admin/conferences/delegate:
         first_name: First name
         last_name: Last name
+        full_name: "%{first_name} %{last_name}"
+        reversed_name: "%{last_name}, %{first_name}"
+        name_and_institution: "%{name}, %{institution}"
         name: Name
         institution: Institution
         email_address: Email address
         url: Website
         conferences: Conferences
-        conferences_description: Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
         dietary_requirements: Dietary requirements
-        dietary_requirements_description: Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd> on Windows and Linux
-      spina/conferences/presentation:
+      spina/admin/conferences/presentation:
         title: Title
         date: Date
         start_time: Start time
-        start_time_description: Enter in 24-hour format using a colon as the divider
         abstract: Abstract
         room_type: Type
         presenters: Presenters
-        presenters_description: Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
         conference: Conference
-        room_use: Room used
-      spina/conferences/presentation_type:
+        session: Session
+        attachments: Attachments
+      spina/admin/conferences/presentation_attachment:
+        type: Type
+      spina/admin/conferences/presentation_type:
         name: Name
         duration: Duration
-        duration_description: Enter in minutes
-        room_uses: Rooms used
-        room_uses_description: Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux
-      spina/conferences/dietary_requirement:
+      spina/admin/conferences/dietary_requirement:
         name: Name
-      spina/conferences/institution:
+      spina/admin/conferences/presentation_attachment_type:
+        name: Name
+      spina/admin/conferences/institution:
         name: Name
         city: City
         logo: Logo
-      spina/conferences/room:
+      spina/admin/conferences/room:
         building: Building
         number: Number
+        institution: Institution
+        name: "%{building} %{number}"
+      spina/admin/conferences/session:
+        name: Name
+        presentation_type: Presentation type
+        room: Room
   errors:
     messages:
       outside_conference: is not during the selected conference
@@ -228,11 +340,3 @@ en:
       invalid_date: is not a date
       before_start_date: is before start date
       invalid_http_https_url: is not a valid HTTP or HTTPS URL
-    models:
-      spina/conferences/room_use:
-        attributes:
-          room_use:
-            does_not_belong_to_associated_conference: does not belong to the associated conference
-          room_possession:
-            does_not_belong_to_associated_institution: does not belong to the associated institution
-  

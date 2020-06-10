@@ -1,0 +1,13 @@
+%tr{ data: { delegate_id: delegate.id } }
+  %td= link_to delegate.full_name, edit_admin_conferences_delegate_path(delegate)
+  %td
+    = delegate.email_address
+    - unless delegate.email_address.blank?
+      = mail_to delegate.email_address, class: %w[button button-small button-link] do
+        = icon 'mail'
+        = t 'spina.email'
+  %td= delegate.institution.name
+  %td.align-right
+    = link_to edit_admin_conferences_delegate_path(delegate), class: %w[button button-small button-link] do
+      = icon 'pencil-outline'
+      = t 'spina.edit'

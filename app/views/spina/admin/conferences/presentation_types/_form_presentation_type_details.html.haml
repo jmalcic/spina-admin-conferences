@@ -1,27 +1,20 @@
 #presentation_type_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "presentation_type_conference_id": { "value": "id", "text": "name" }, "presentation_type_room_possession_ids": { "trigger": "presentation_type_conference_id", "key": "room_possessions", "value": "id", "text": "room_name" } }', records_values: @conferences } } }
+    .horizontal-form
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::PresentationType.human_attribute_name :conference
+        .horizontal-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :conference
         .horizontal-form-content
-          .select-dropdown= f.collection_select :conference_id, Spina::Conferences::Conference.order(:dates).reverse_order, :id, :name, {}, required: true, data: { action: 'select-options#updateFilteredData' }
+          .select-dropdown= f.collection_select :conference_id, Spina::Admin::Conferences::Conference.order(:dates).reverse_order, :id, :name, {}, required: true, data: { action: 'select-options#updateFilteredData' }
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::PresentationType.human_attribute_name :name
-        .horizontal-form-content= f.text_field :name, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:name), required: true
+        .horizontal-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :name
+        .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:name), required: true
 
       .horizontal-form-group
         .horizontal-form-label
-          = Spina::Conferences::PresentationType.human_attribute_name :duration
-          %small= Spina::Conferences::PresentationType.human_attribute_name :duration_description
-        .horizontal-form-content= f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
-
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Conferences::PresentationType.human_attribute_name :room_uses
-          %small= (Spina::Conferences::PresentationType.human_attribute_name :room_uses_description).try(:html_safe)
-        .horizontal-form-content
-          .multiple.select-dropdown= f.collection_select :room_possession_ids, Spina::Conferences::RoomPossession.where(conference: @presentation_type.conference || Spina::Conferences::Conference.first), :id, :room_name, {}, disabled: @presentation_type.conference.blank?, multiple: true, required: true, data: { select_options_target: 'select' }
+          = Spina::Admin::Conferences::PresentationType.human_attribute_name :duration
+          %small= t '.duration_instructions'
+        .horizontal-form-content= f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
 
   - unless @presentation_type.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_type_path(@presentation_type), method: :delete, data: { confirm: t('spina.conferences.presentation_types.delete_confirmation', presentation_type: @presentation_type.name) }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_type_path(@presentation_type), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', presentation_type: @presentation_type.name) }, class: %w[button button-link button-danger]

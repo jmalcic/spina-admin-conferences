@@ -1,28 +1,16 @@
 - content_for(:header_actions) do
-  %label.button{ for: 'file' }
-    = icon('cog')
-    = t('spina.conferences.institutions.import')
-    = form_with url: import_admin_conferences_institutions_path do |f|
-      = f.submit style: 'display: none'
-      = f.file_field :file, multiple: false, style: 'display: none'
-  = link_to spina.new_admin_conferences_institution_path, class: 'button button-primary', style: 'margin-right: 0' do
-    = icon('plus')
-    = t('spina.conferences.institutions.new')
+  = link_to new_admin_conferences_institution_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
+    = t '.new'
 
 .well
   .table-container
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Institution.human_attribute_name :name
-          %th= Spina::Conferences::Institution.human_attribute_name :city
+          %th= Spina::Admin::Conferences::Institution.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Institution.human_attribute_name :city
           %th
 
       %tbody
-        - if @institutions.any?
-          = render partial: 'spina/admin/conferences/shared/institution', collection: @institutions
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.institutions.no_institutions')
+        = render @institutions.any? ? @institutions : 'empty_list', message: t('.no_institutions')

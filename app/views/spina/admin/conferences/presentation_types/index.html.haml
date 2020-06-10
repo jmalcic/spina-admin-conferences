@@ -1,29 +1,17 @@
 - content_for(:header_actions) do
-  %label.button{ for: 'file' }
-    = icon('cog')
-    = t('spina.conferences.presentation_types.import')
-    = form_with url: import_admin_conferences_presentation_types_path do |f|
-      = f.submit style: 'display: none'
-      = f.file_field :file, multiple: false, style: 'display: none'
-  = link_to spina.new_admin_conferences_presentation_type_path, class: 'button button-primary', style: 'margin-right: 0' do
-    = icon('plus')
-    = t('spina.conferences.presentation_types.new')
+  = link_to new_admin_conferences_presentation_type_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
+    = t '.new'
 
 .well
   .table-container
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::PresentationType.human_attribute_name :conference
-          %th= Spina::Conferences::PresentationType.human_attribute_name :name
-          %th= Spina::Conferences::PresentationType.human_attribute_name :duration
+          %th= Spina::Admin::Conferences::PresentationType.human_attribute_name :conference
+          %th= Spina::Admin::Conferences::PresentationType.human_attribute_name :name
+          %th= Spina::Admin::Conferences::PresentationType.human_attribute_name :duration
           %th
 
       %tbody
-        - if @presentation_types.any?
-          = render partial: 'spina/admin/conferences/shared/presentation_type', collection: @presentation_types
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.presentation_types.no_presentation_types')
+        = render @presentation_types.any? ? @presentation_types : 'empty_list', message: t('.no_presentation_types')

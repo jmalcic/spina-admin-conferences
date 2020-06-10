@@ -3,16 +3,10 @@
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::Delegate.human_attribute_name :name
-          %th= Spina::Conferences::Delegate.human_attribute_name :email_address
-          %th= Spina::Conferences::Delegate.human_attribute_name :institution
+          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :email_address
+          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :institution
           %th
 
       %tbody
-        - if @conference.delegates.any?
-          = render partial: 'spina/admin/conferences/shared/delegate', collection: @conference.delegates
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.delegates.no_delegates')
+        = render @conference.delegates.any? ? @conference.delegates : 'empty_list', message: t('spina.admin.conferences.delegates.index.no_delegates')

@@ -3,70 +3,94 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages dietary requirements
-      class DietaryRequirementsController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
+      # Controller for {DietaryRequirement} objects.
+      # @see DietaryRequirement
+      class DietaryRequirementsController < ApplicationController
+        before_action :set_dietary_requirement, only: %i[edit update destroy]
+        before_action :set_breadcrumb
+        before_action :set_tabs
 
-        before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        # @!group Actions
 
-        layout 'spina/admin/conferences/delegates'
-
+        # Renders a list of dietary requirements.
+        # @return [void]
         def index
           @dietary_requirements = DietaryRequirement.sorted
         end
 
+        # Renders a form for a new dietary requirement.
+        # @return [void]
         def new
           @dietary_requirement = DietaryRequirement.new
-          add_breadcrumb I18n.t('spina.conferences.dietary_requirements.new')
-          render layout: 'spina/admin/admin'
+          add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing dietary requirement.
+        # @return [void]
         def edit
-          @dietary_requirement = DietaryRequirement.find params[:id]
           add_breadcrumb @dietary_requirement.name
-          render layout: 'spina/admin/admin'
         end
 
-        def create
+        # Creates a dietary requirement.
+        # @return [void]
+        def create # rubocop:disable Metrics/MethodLength
           @dietary_requirement = DietaryRequirement.new dietary_requirement_params
-          add_breadcrumb I18n.t('spina.conferences.dietary_requirements.new')
+
           if @dietary_requirement.save
-            redirect_to admin_conferences_dietary_requirements_path,
-                        flash: { success: t('spina.conferences.dietary_requirements.saved') }
+            redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
           else
-            render :new, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+            end
           end
         end
 
-        def update
-          @dietary_requirement = DietaryRequirement.find params[:id]
-          add_breadcrumb @dietary_requirement.name
+        # Updates a dietary requirement.
+        # @return [void]
+        def update # rubocop:disable Metrics/MethodLength
           if @dietary_requirement.update(dietary_requirement_params)
-            redirect_to admin_conferences_dietary_requirements_path,
-                        flash: { success: t('spina.conferences.dietary_requirements.saved') }
+            redirect_to admin_conferences_dietary_requirements_path, success: t('.saved')
           else
-            render :edit, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @dietary_requirement.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+            end
           end
         end
 
-        def destroy
-          @dietary_requirement = DietaryRequirement.find params[:id]
-          @dietary_requirement.destroy
-          redirect_to admin_conferences_dietary_requirements_path,
-                      flash: { success: t('spina.conferences.dietary_requirements.destroyed') }
+        # Destroys a dietary requirement.
+        # @return [void]
+        def destroy # rubocop:disable Metrics/MethodLength
+          if @dietary_requirement.destroy
+            redirect_to admin_conferences_dietary_requirements_path, success: t('.destroyed')
+          else
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @dietary_requirement.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+            end
+          end
         end
 
-        def import
-          DietaryRequirement.import params[:file]
-        end
+        # @!endgroup
 
         private
 
-        def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.delegates'), admin_conferences_delegates_path
-          add_breadcrumb I18n.t('spina.conferences.website.dietary_requirements'),
-                         admin_conferences_dietary_requirements_path
+        def set_dietary_requirement
+          @dietary_requirement = DietaryRequirement.find params[:id]
+        end
+
+        def set_breadcrumb
+          add_breadcrumb DietaryRequirement.model_name.human(count: 0), admin_conferences_dietary_requirements_path
         end
 
         def set_tabs
@@ -74,7 +98,7 @@ module Spina
         end
 
         def dietary_requirement_params
-          params.require(:dietary_requirement).permit(:name)
+          params.require(:admin_conferences_dietary_requirement).permit(:name)
         end
       end
     end

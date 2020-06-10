@@ -1,27 +1,15 @@
 - content_for(:header_actions) do
-  %label.button{ for: 'file' }
-    = icon('cog')
-    = t('spina.conferences.dietary_requirements.import')
-    = form_with url: import_admin_conferences_dietary_requirements_path do |f|
-      = f.submit style: 'display: none'
-      = f.file_field :file, multiple: false, style: 'display: none'
-  = link_to spina.new_admin_conferences_dietary_requirement_path, class: 'button button-primary', style: 'margin-right: 0' do
-    = icon('plus')
-    = t('spina.conferences.dietary_requirements.new')
+  = link_to new_admin_conferences_dietary_requirement_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
+    = t '.new'
 
 .well
   .table-container
     %table.table
       %thead
         %tr
-          %th= Spina::Conferences::DietaryRequirement.human_attribute_name :name
+          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
           %th
 
       %tbody
-        - if @dietary_requirements.any?
-          = render partial: 'spina/admin/conferences/shared/dietary_requirement', collection: @dietary_requirements
-
-        - else
-          %tr
-            %td.align-center{ colspan: 100 }
-              %em= t('spina.conferences.dietary_requirements.no_dietary_requirements')
+        = render @dietary_requirements.any? ? @dietary_requirements : 'empty_list', message: t('.no_dietary_requirements')

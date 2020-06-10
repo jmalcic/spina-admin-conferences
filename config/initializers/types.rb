@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spina/conferences/types/interval_type'
+require 'spina/admin/conferences/types/interval_type'
 
-ActiveRecord::Type.register :interval, Spina::Conferences::IntervalType, adapter: :postgresql
+ActiveRecord::Type.register :interval, Spina::Admin::Conferences::IntervalType, adapter: :postgresql
 
 ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.class_eval do
   alias_method :configure_connection_without_interval, :configure_connection

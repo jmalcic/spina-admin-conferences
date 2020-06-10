@@ -7,30 +7,30 @@ module Spina
     module Conferences
       class PresentationTypesTest < ApplicationSystemTestCase
         setup do
-          @presentation_type = spina_conferences_presentation_types :plenary_1
+          @presentation_type = spina_admin_conferences_presentation_types :plenary_1
+          @empty_presentation_type = spina_admin_conferences_presentation_types :empty_presentation_type
           @user = spina_users :joe
-          visit admin_login_url
-          fill_in 'email', with: @user.email
-          fill_in 'password', with: 'password'
+          visit admin_login_path
+          within '.login-fields' do
+            fill_in 'email', with: @user.email
+            fill_in 'password', with: 'password'
+          end
           click_on 'Login'
         end
 
         test 'visiting the index' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           assert_selector '.breadcrumbs', text: 'Presentation types'
           Percy.snapshot page, name: 'Presentation types index'
         end
 
         test 'creating a presentation type' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           click_on 'New presentation type'
           assert_selector '.breadcrumbs', text: 'New presentation type'
-          select @presentation_type.conference.name, from: 'presentation_type_conference_id'
-          fill_in 'presentation_type_name', with: @presentation_type.name
-          fill_in 'presentation_type_minutes', with: @presentation_type.minutes
-          @presentation_type.room_possessions.each do |room_possession|
-            select room_possession.room_name, from: 'presentation_type_room_possession_ids'
-          end
+          select @presentation_type.conference.name, from: 'admin_conferences_presentation_type_conference_id'
+          fill_in 'admin_conferences_presentation_type_name', with: @presentation_type.name
+          fill_in 'admin_conferences_presentation_type_minutes', with: @presentation_type.minutes
           Percy.snapshot page, name: 'Presentation types form on create'
           click_on 'Save presentation type'
           assert_text 'Presentation type saved'
@@ -38,37 +38,34 @@ module Spina
         end
 
         test 'updating a presentation type' do
-          visit admin_conferences_presentation_types_url
+          visit admin_conferences_presentation_types_path
           within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
             click_on 'Edit'
           end
           assert_selector '.breadcrumbs', text: @presentation_type.name
           Percy.snapshot page, name: 'Presentation types form on update'
-          select @presentation_type.conference.name, from: 'presentation_type_conference_id'
-          fill_in 'presentation_type_name', with: @presentation_type.name
-          fill_in 'presentation_type_minutes', with: @presentation_type.minutes
-          @presentation_type.room_possessions.each do |room_possession|
-            select room_possession.room_name, from: 'presentation_type_room_possession_ids'
-          end
+          select @presentation_type.conference.name, from: 'admin_conferences_presentation_type_conference_id'
+          fill_in 'admin_conferences_presentation_type_name', with: @presentation_type.name
+          fill_in 'admin_conferences_presentation_type_minutes', with: @presentation_type.minutes
           click_on 'Save presentation type'
           assert_text 'Presentation type saved'
           Percy.snapshot page, name: 'Presentation types index on update'
         end
 
         test 'destroying a presentation type' do
-          visit admin_conferences_presentation_types_url
-          within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
+          visit admin_conferences_presentation_types_path
+          within "tr[data-presentation-type-id=\"#{@empty_presentation_type.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @presentation_type.name
+          assert_selector '.breadcrumbs', text: @empty_presentation_type.name
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the presentation type #{@presentation_type.name}?"
+          assert_text "Are you sure you want to delete the presentation type #{@empty_presentation_type.name}?"
           Percy.snapshot page, name: 'Presentation types delete dialog'
           click_on 'Yes, I\'m sure'
           assert_text 'Presentation type deleted'
-          assert_no_selector "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]"
+          assert_no_selector "tr[data-presentation-type-id=\"#{@empty_presentation_type.id}\"]"
           Percy.snapshot page, name: 'Presentation types index on delete'
         end
       end

@@ -1,0 +1,8 @@
+%tr{ data: { session_id: session.id } }
+  %td= session.name
+  %td= session.presentation_type_name
+  %td= session.room_name
+  %td.align-right
+    = link_to edit_admin_conferences_session_path(session), class: %w[button button-small button-link] do
+      = icon 'pencil-outline'
+      = t 'spina.edit'

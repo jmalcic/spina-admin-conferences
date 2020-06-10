@@ -1,46 +1,55 @@
 #presentation_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "conference_id": { "value": "id", "text": "name" }, "presentation_type_id": { "trigger": "conference_id", "key": "presentation_types", "value": "id", "text": "name" }, "presentation_date": { "trigger": "conference_id", "key": "localized_dates", "value": "date", "text": "localization" }, "presentation_room_use_id": { "trigger": "presentation_type_id", "key": "room_uses", "value": "id", "text": "room_name" } }', records_values: @conferences } } }
+    .horizontal-form{ data: { controller: 'select-options', select_options: { record_values: @conferences } } }
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :conference
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
         .horizontal-form-content
-          .select-dropdown= select_tag :conference_id, options_from_collection_for_select(Spina::Conferences::Conference.sorted, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), required: true, include_blank: true, data: { action: 'select-options#updateFilteredData' }
+          .select-dropdown= select_tag :admin_conferences_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), include_blank: true, required: true, data: { action: 'select-options#setVisibility', select_options_target: 'select', text_key: 'name' }
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :presentation_type
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :session
         .horizontal-form-content
-          .select-dropdown= select_tag :presentation_type_id, options_from_collection_for_select(Spina::Conferences::PresentationType.where(conference: @presentation.conference || Spina::Conferences::Conference.sorted.first), :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), { disabled: @presentation.presentation_type.blank?, required: true, include_blank: true, data: { action: 'select-options#updateFilteredData', select_options_target: 'select' } }
+          .input-group
+            .select-dropdown= select_tag :admin_conferences_presentation_type_id, options_from_collection_for_select((@presentation.conference || Spina::Admin::Conferences::Conference.first).presentation_types, :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), include_blank: true, required: true, data: { action: 'select-options#setVisibility', select_options_target: 'select', key_path: 'presentation_types', text_key: 'name' }
+            .select-dropdown= f.collection_select :session_id, (@presentation.presentation_type || Spina::Admin::Conferences::Conference.first).sessions, :id, :name, { include_blank: true }, required: true, data: { select_options_target: 'select', key_path: 'presentation_types:sessions', text_key: 'name' }
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :room_use
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :date
         .horizontal-form-content
-          .select-dropdown= f.collection_select :room_use_id, Spina::Conferences::RoomUse.where(presentation_type: @presentation.presentation_type || Spina::Conferences::Conference.sorted.first.presentation_types.first), :id, :room_name, {}, { disabled: @presentation.room_use.blank?, required: true, include_blank: true, data: { select_options_target: 'select' } }
-
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :date
-        .horizontal-form-content
-          .select-dropdown= f.select :date, (@presentation.conference || Spina::Conferences::Conference.sorted.first).dates.collect { |date| [l(date, format: :short), date.strftime("%Y-%m-%d")] }, {}, { disabled: @presentation.date.blank?, required: true, data: { select_options_target: 'select' } }
+          .select-dropdown= f.select :date, (@presentation.conference || Spina::Admin::Conferences::Conference.first).dates.collect { |date| [l(date, format: :short), date.to_formatted_s(:iso8601)] }, { include_blank: true }, required: true, data: { select_options_target: 'select', key_path: 'localized_dates', text_key: 'localization', value_key: 'date' }
 
       .horizontal-form-group
         .horizontal-form-label
-          = Spina::Conferences::Presentation.human_attribute_name :start_time
-          %small= Spina::Conferences::Presentation.human_attribute_name :start_time_description
-        .horizontal-form-content= f.time_field :start_time, value: (@presentation.start_time.strftime("%H:%M") unless @presentation.start_time.blank?), placeholder: Spina::Conferences::Presentation.human_attribute_name(:start_time), required: true
+          = Spina::Admin::Conferences::Presentation.human_attribute_name :start_time
+          %small= t '.start_time_instructions'
+        .horizontal-form-content= f.time_field :start_time, value: (@presentation.start_time.to_formatted_s(:time) unless @presentation.start_time.blank?), placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:start_time), required: true
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :title
-        .horizontal-form-content= f.text_field :title, placeholder: Spina::Conferences::Presentation.human_attribute_name(:title), required: true
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :title
+        .horizontal-form-content= f.text_field :title, placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:title), required: true
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Conferences::Presentation.human_attribute_name :abstract
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :abstract
         .horizontal-form-content= render 'spina/admin/shared/rich_text_field', f: f, field: :abstract
 
       .horizontal-form-group
         .horizontal-form-label
-          = Spina::Conferences::Presentation.human_attribute_name :presenters
-          %small= (Spina::Conferences::Presentation.human_attribute_name :presenters_description).try(:html_safe)
+          = Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
+          %small= t '.multiple_presenters_selection_instructions_html'
         .horizontal-form-content
-          .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
+          .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
+
+      .horizontal-form-group{ class: dom_class(@presentation.attachments) }
+        .horizontal-form-content
+          .structure-form{ data: { controller: 'presentation-attachments-form', presentation_attachments_form: { active_class: 'active' } } }
+            .structure-form-menu
+              %label= Spina::Admin::Conferences::Presentation.human_attribute_name :attachments
+              %ul= render partial: 'attachment_row', collection: f.object.attachments, as: :attachment
+              = link_to icon('plus'), @presentation.new_record? ? attach_new_admin_conferences_presentation_path : attach_admin_conferences_presentation_path(@presentation, index: @presentation.attachments.size), remote: true, class: %w[button button-link icon], data: { presentation_attachments_form_target: 'addFormLink', disable_with: '&#xF12C;' }
+
+            .structure-form-content{ data: { action: 'presentationAttachmentFieldAdded->presentation-attachments-form#updateURL' } }
+              = f.fields_for :attachments do |attachment_fields|
+                = render 'attachment_fields', f: attachment_fields
 
   - unless @presentation.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, data: { confirm: t('spina.conferences.presentations.delete_confirmation', presentation: @presentation.title) }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', presentation: @presentation.title) }, class: %w[button button-link button-danger]

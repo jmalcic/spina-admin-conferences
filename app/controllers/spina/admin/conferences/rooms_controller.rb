@@ -3,66 +3,97 @@
 module Spina
   module Admin
     module Conferences
-      # This class manages rooms and sets breadcrumbs
-      class RoomsController < ::Spina::Admin::AdminController
-        include ::Spina::Conferences
-
+      # Controller for {Room} objects.
+      # @see Room
+      class RoomsController < ApplicationController
+        before_action :set_room, only: %i[edit update destroy]
         before_action :set_breadcrumbs
-        before_action :set_tabs, only: %i[new create edit update]
+        before_action :set_tabs
 
         layout 'spina/admin/conferences/institutions'
 
+        # @!group Actions
+
+        # Renders a list of rooms.
+        # @return [void]
         def index
-          @rooms = Room.all
+          @rooms = Room.sorted
         end
 
+        # Renders a form for a new room.
+        # @return [void]
         def new
           @room = Room.new
-          add_breadcrumb I18n.t('spina.conferences.rooms.new')
-          render layout: 'spina/admin/admin'
+          add_breadcrumb t('.new')
         end
 
+        # Renders a form for an existing room.
+        # @return [void]
         def edit
-          @room = Room.find params[:id]
           add_breadcrumb @room.name
-          render layout: 'spina/admin/admin'
         end
 
-        def create
+        # Creates a room.
+        # @return [void]
+        def create # rubocop:disable Metrics/MethodLength
           @room = Room.new(room_params)
-          add_breadcrumb I18n.t('spina.conferences.rooms.new')
+
           if @room.save
-            redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
+            redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
-            render :new, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb t('.new')
+                render :new
+              end
+              format.js { render partial: 'errors', locals: { errors: @room.errors } }
+            end
           end
         end
 
-        def update
-          @room = Room.find params[:id]
-          add_breadcrumb @room.name
+        # Updates a room.
+        # @return [void]
+        def update # rubocop:disable Metrics/MethodLength
           if @room.update(room_params)
-            redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.saved') }
+            redirect_to admin_conferences_rooms_path, success: t('.saved')
           else
-            render :edit, layout: 'spina/admin/admin'
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @room.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @room.errors } }
+            end
           end
         end
 
-        def destroy
-          @room = Room.find params[:id]
-          @room.destroy
-          redirect_to admin_conferences_rooms_path, flash: { success: t('spina.conferences.rooms.destroyed') }
+        # Destroys a room.
+        # @return [void]
+        def destroy # rubocop:disable Metrics/MethodLength
+          if @room.destroy
+            redirect_to admin_conferences_rooms_path, success: t('.destroyed')
+          else
+            respond_to do |format|
+              format.html do
+                add_breadcrumb @room.name
+                render :edit
+              end
+              format.js { render partial: 'errors', locals: { errors: @room.errors } }
+            end
+          end
         end
 
-        def import
-          Room.import params[:file]
-        end
+        # @!endgroup
 
         private
 
+        def set_room
+          @room = Room.find params[:id]
+        end
+
         def set_breadcrumbs
-          add_breadcrumb I18n.t('spina.conferences.website.institutions'), admin_conferences_institutions_path
-          add_breadcrumb I18n.t('spina.conferences.website.rooms'), admin_conferences_rooms_path
+          add_breadcrumb Institution.model_name.human(count: 0), admin_conferences_institutions_path
+          add_breadcrumb Room.model_name.human(count: 0), admin_conferences_rooms_path
         end
 
         def set_tabs
@@ -70,7 +101,7 @@ module Spina
         end
 
         def room_params
-          params.require(:room).permit(:building, :number, :institution_id)
+          params.require(:admin_conferences_room).permit(:building, :number, :institution_id)
         end
       end
     end

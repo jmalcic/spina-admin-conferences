@@ -10,7 +10,7 @@ require 'rdoc/task'
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Spina::Conferences'
+  rdoc.title    = 'Spina::Admin::Conferences'
   rdoc.options << '--line-numbers'
   rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
@@ -30,6 +30,7 @@ Rake::TestTask.new(:test) do |t|
   t.pattern = 'test/**/*_test.rb'
   t.verbose = false
   t.warning = false
+  t.ruby_opts = %w[-W:no-deprecated]
 end
 
 task default: :test
