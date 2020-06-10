@@ -1,4 +1,5 @@
 ---
+os: linux
 dist: bionic
 addons:
   apt:
@@ -13,7 +14,7 @@ cache:
   directories:
     - node_modules
 services:
-  - redis-server
+  - redis
 before_install:
   - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
   - nvm install
