@@ -38,7 +38,7 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: 2
+    parallelize workers: 2 unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
 
     setup do
       Spina::Image.all.each do |image|
