@@ -3,7 +3,7 @@
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
 SimpleCov.start 'rails'
 
 Coveralls.wear!('rails')
@@ -38,7 +38,15 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: 2 unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
+    parallelize workers: :number_of_processors unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
+
+    parallelize_setup do |worker|
+      SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+    end
+
+    parallelize_teardown do
+      SimpleCov.result
+    end
 
     setup do
       Spina::Image.all.each do |image|
