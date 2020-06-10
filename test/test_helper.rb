@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+SimpleCov.start 'rails'
+
+Coveralls.wear!('rails')
+
 require 'minitest/mock'
 require 'minitest/reporters'
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
-
-if ENV['CODECOV_TOKEN']
-  require 'simplecov'
-  require 'codecov'
-
-  SimpleCov.start 'rails'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
 
 require 'percy'
 
@@ -38,7 +38,15 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: 2 unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
+    parallelize workers: :number_of_processors unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
+
+    parallelize_setup do |worker|
+      SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+    end
+
+    parallelize_teardown do
+      SimpleCov.result
+    end
 
     setup do
       Spina::Image.all.each do |image|
