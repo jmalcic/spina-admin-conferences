@@ -10,6 +10,7 @@ env:
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   CONTINUOUS_INTEGRATION: true
+  PGHOST: 127.0.0.1
   PGPASSWORD: postgres
 
 jobs:
