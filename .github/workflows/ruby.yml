@@ -19,7 +19,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:latest
         env:
           PGPASSWORD: postgres
         options: >-
@@ -51,6 +51,8 @@ jobs:
       run: sudo apt-get install google-chrome-stable
     - name: Install Chromedriver
       run: sudo apt-get install chromium-chromedriver
+    - name: Install Postgres library
+      run: sudo apt-get -yqq install libpq-dev
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
     - name: Cache Bundler dependencies
