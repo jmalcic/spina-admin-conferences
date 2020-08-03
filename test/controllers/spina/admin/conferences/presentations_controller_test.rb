@@ -183,16 +183,6 @@ module Spina
                  params: { file: fixture_file_upload(file_fixture('presentations.csv')) }
           end
         end
-
-        test 'should render attachment form for new record' do
-          get attach_new_admin_conferences_presentation_url, params: { index: 1, active: true }, xhr: true
-          assert_response :success
-        end
-
-        test 'should render attachment form for existing record' do
-          get attach_admin_conferences_presentation_url(@presentation), params: { index: 1, active: true }, xhr: true
-          assert_response :success
-        end
       end
     end
   end
