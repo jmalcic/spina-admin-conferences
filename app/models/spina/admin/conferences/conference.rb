@@ -28,6 +28,11 @@ module Spina
         #   @note A conference cannot be destroyed if it has dependent presentation types.
         #   @see PresentationType
         has_many :presentation_types, inverse_of: :conference, dependent: :restrict_with_error
+        # @!attribute [rw] events
+        #   @return [ActiveRecord::Relation] directly associated events
+        #   @note Destroying a conference destroys dependent events.
+        #   @see Event
+        has_many :events, inverse_of: :conference, dependent: :destroy
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session

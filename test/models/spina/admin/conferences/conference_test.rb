@@ -8,6 +8,7 @@ module Spina
       class ConferenceTest < ActiveSupport::TestCase # rubocop:disable Metrics/ClassLength
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
+          @empty_conference = spina_admin_conferences_conferences :empty_conference
           @new_conference = Conference.new
         end
 
@@ -28,6 +29,11 @@ module Spina
         test 'conference has associated presentation types' do
           assert_not_empty @conference.presentation_types
           assert_empty @new_conference.presentation_types
+        end
+
+        test 'conference has associated events' do
+          assert_not_empty @conference.events
+          assert_empty @new_conference.events
         end
 
         test 'conference has associated sessions' do
@@ -60,6 +66,13 @@ module Spina
             @conference.destroy
           end
           assert_not_empty @conference.errors[:base]
+        end
+
+        test 'destroys associated events' do
+          assert_difference 'Event.count', -2 do
+            @empty_conference.destroy
+          end
+          assert_empty @empty_conference.errors[:base]
         end
 
         test 'name must not be empty' do
