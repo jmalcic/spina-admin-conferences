@@ -1,0 +1,5 @@
+%li{ class: ('active' if (local_assigns[:active] == true) || (local_assigns[:index] == 0) || local_assigns[:event_iteration]&.first?),
+     data: { conference_events_form: { target: 'formLink' } } }
+  = link_to event&.name || '',
+    "#structure_form_pane_#{local_assigns[:index] || local_assigns[:event_iteration]&.index}",
+    data: { conference_events_form_target: 'formLinkLabel' }
