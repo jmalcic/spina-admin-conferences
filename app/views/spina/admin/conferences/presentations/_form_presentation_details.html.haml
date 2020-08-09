@@ -47,7 +47,7 @@
               %ul= render partial: 'attachment_row', collection: f.object.attachments, as: :attachment
               = link_to icon('plus'), @presentation.new_record? ? new_admin_conferences_presentation_attachment_path : new_admin_conferences_presentation_presentation_attachment_path(@presentation, index: @presentation.attachments.size), remote: true, class: %w[button button-link icon], data: { presentation_attachments_form_target: 'addFormLink', disable_with: '&#xF12C;' }
 
-            .structure-form-content{ data: { action: 'presentationAttachmentFieldAdded->presentation-attachments-form#updateURL' } }
+            .structure-form-content{ data: { action: 'presentationAttachmentFieldsAdded->presentation-attachments-form#updateURL' } }
               = f.fields_for :attachments do |attachment_fields|
                 = render 'attachment_fields', f: attachment_fields
 
