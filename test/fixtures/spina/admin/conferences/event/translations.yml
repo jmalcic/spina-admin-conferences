@@ -13,3 +13,10 @@ drinks:
   location: The Pickerel
   locale: en-GB
   translated_model: drinks
+
+pub_crawl:
+  name: Pub crawl
+  description: Pub trip 2.
+  location: Every pub
+  locale: en-GB
+  translated_model: pub_crawl
