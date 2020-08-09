@@ -58,6 +58,7 @@ module Spina
         #   @see Delegate
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id, # rubocop:disable Rails/HasAndBelongsToMany
                                             association_foreign_key: :spina_conferences_delegate_id
+        accepts_nested_attributes_for :events, allow_destroy: true
 
         validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
