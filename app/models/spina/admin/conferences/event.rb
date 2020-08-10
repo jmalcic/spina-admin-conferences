@@ -103,7 +103,7 @@ module Spina
           event.categories = Event.model_name.human(count: 0)
           event.summary = name
           event.append_custom_property(:alt_description, description.try(:html_safe))
-          event.description = description.try(:gsub, /<\/?[^>]*>/, "")
+          event.description = description.try(:gsub, /<\/?[^>]*>/, '')
           event
         end
       end
