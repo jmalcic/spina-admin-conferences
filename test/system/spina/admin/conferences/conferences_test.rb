@@ -50,7 +50,7 @@ module Spina
           Percy.snapshot page, name: 'Conferences index on create'
         end
 
-        test 'updating a conference' do
+        test 'updating a conference' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_conferences_path
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'

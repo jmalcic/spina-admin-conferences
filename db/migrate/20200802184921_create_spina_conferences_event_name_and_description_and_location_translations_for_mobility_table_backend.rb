@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class CreateSpinaConferencesEventNameAndDescriptionAndLocationTranslationsForMobilityTableBackend < ActiveRecord::Migration[6.0] # :nodoc:
-  def change
+class CreateSpinaConferencesEventNameAndDescriptionAndLocationTranslationsForMobilityTableBackend < ActiveRecord::Migration[6.0] # rubocop:disable Style/Documentation
+  def change # rubocop:disable Metrics/MethodLength
     create_table :spina_conferences_event_translations do |t|
       # Translated attribute(s)
       t.string :name

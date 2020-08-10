@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Conferences
-      class EventTest < ActiveSupport::TestCase
+      class EventTest < ActiveSupport::TestCase # rubocop:disable Metrics/ClassLength
         setup do
           @event = spina_admin_conferences_events :agm
           @new_event = Event.new
