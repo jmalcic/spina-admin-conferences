@@ -90,6 +90,22 @@ module Spina
 
           self.finish_datetime = Time.parse(finish_time, date).to_datetime.in_time_zone
         end
+
+        # @return [Icalendar::Event] the event as an iCal event
+        def to_ics
+          event = Icalendar::Event.new
+          return event if invalid?
+
+          event.dtstart = start_datetime
+          event.dtend = finish_datetime
+          event.location = location
+          event.contact = Spina::Account.first.email
+          event.categories = Event.model_name.human(count: 0)
+          event.summary = name
+          event.append_custom_property(:alt_description, description.try(:html_safe))
+          event.description = description.try(:gsub, /<\/?[^>]*>/, "")
+          event
+        end
       end
     end
   end

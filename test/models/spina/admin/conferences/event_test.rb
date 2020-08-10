@@ -174,6 +174,11 @@ module Spina
           end
           assert_nil @new_event.start_datetime
         end
+
+        test 'returns an iCal event' do
+          assert_instance_of Icalendar::Event, @event.to_ics
+          assert_instance_of Icalendar::Event, @new_event.to_ics
+        end
       end
     end
   end
