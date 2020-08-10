@@ -115,7 +115,7 @@ module Spina
         end
 
         # @return [Icalendar::Event] the presentation as an iCal event
-        def to_ics # rubocop:disable Metrics/AbcSize
+        def to_ics # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
