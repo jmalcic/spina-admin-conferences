@@ -1,12 +1,12 @@
 # Conferences
 
 [![Build Status](https://travis-ci.com/jmalcic/spina-conferences.svg?branch=master)](https://travis-ci.com/jmalcic/spina-conferences)
+![Rails tests](https://github.com/jmalcic/spina-conferences/workflows/Rails%20tests/badge.svg?branch=master&event=push)
 [![Coverage Status](https://coveralls.io/repos/github/jmalcic/spina-conferences/badge.svg?branch=master)](https://coveralls.io/github/jmalcic/spina-conferences?branch=master)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/jmalcic/spina-conferences.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jmalcic/spina-conferences/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/jmalcic/spina-conferences.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jmalcic/spina-conferences/context:javascript)
 [![Code quality](https://www.codefactor.io/repository/github/jmalcic/spina-conferences/badge)](https://www.codefactor.io/repository/github/jmalcic/spina-conferences)
 [![Visual testing](https://percy.io/static/images/percy-badge.svg)](https://percy.io/Ulab/spina-conferences)
-![Dependency updates](https://api.dependabot.com/badges/status?host=github&repo=jmalcic/spina-conferences)
 
 *Conferences* is a plugin for [Spina](https://www.spinacms.com 'Spina website') (a [Rails](http://rubyonrails.org 'Ruby on Rails website') content management system) to add conference management functionality.
 With the plugin, you'll be able to manage details of conferences, delegates, and presentations.
