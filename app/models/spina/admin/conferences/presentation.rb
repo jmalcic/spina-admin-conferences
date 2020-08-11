@@ -115,7 +115,7 @@ module Spina
         end
 
         # @return [Icalendar::Event] the presentation as an iCal event
-        def to_ics # rubocop:disable Metrics/AbcSize
+        def to_ics # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
@@ -123,9 +123,10 @@ module Spina
           event.dtend = start_datetime + presentation_type.duration
           event.location = session.room_name
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
-          event.categories = self.class.name.demodulize.upcase
+          event.categories = Presentation.model_name.human(count: 0)
           event.summary = title
-          event.description = abstract.try(:html_safe)
+          event.append_custom_property(:alt_description, abstract.try(:html_safe))
+          event.description = abstract.try(:gsub, %r{</?[^>]*>}, '')
           event
         end
       end

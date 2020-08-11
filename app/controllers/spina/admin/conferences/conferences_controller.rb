@@ -103,7 +103,9 @@ module Spina
         end
 
         def conference_params
-          params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name)
+          params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
+                                                               events_attributes:
+                                                                 %i[id name date start_time finish_time description location])
         end
       end
     end

@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_510_125_131) do
+ActiveRecord::Schema.define(version: 20_200_802_184_921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -145,6 +145,27 @@ ActiveRecord::Schema.define(version: 20_200_510_125_131) do
     t.datetime 'updated_at', null: false
   end
 
+  create_table 'spina_conferences_event_translations', force: :cascade do |t|
+    t.string 'name'
+    t.text 'description'
+    t.string 'location'
+    t.string 'locale', null: false
+    t.bigint 'spina_conferences_event_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['locale'], name: 'index_spina_conferences_event_translations_on_locale'
+    t.index %w[spina_conferences_event_id locale], name: 'index_a26428290c005036f14c7c9cab5f5a91289e46e0', unique: true
+  end
+
+  create_table 'spina_conferences_events', force: :cascade do |t|
+    t.datetime 'start_datetime'
+    t.datetime 'finish_datetime'
+    t.bigint 'conference_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['conference_id'], name: 'index_spina_conferences_events_on_conference_id'
+  end
+
   create_table 'spina_conferences_institution_translations', force: :cascade do |t|
     t.string 'name'
     t.string 'city'
@@ -179,8 +200,8 @@ ActiveRecord::Schema.define(version: 20_200_510_125_131) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['locale'], name: 'index_f3417b08c78b5a87825d3f14b49fb06e76b8bed4'
-    t.index %w[spina_conferences_presentation_attachment_type_id locale], name: 'index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb',
-                                                                          unique: true
+    t.index %w[spina_conferences_presentation_attachment_type_id
+               locale], name: 'index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb', unique: true
   end
 
   create_table 'spina_conferences_presentation_attachment_types', force: :cascade do |t|
@@ -487,6 +508,8 @@ ActiveRecord::Schema.define(version: 20_200_510_125_131) do
   add_foreign_key 'spina_conferences_conference_translations', 'spina_conferences_conferences'
   add_foreign_key 'spina_conferences_delegates', 'spina_conferences_institutions', column: 'institution_id', on_delete: :cascade
   add_foreign_key 'spina_conferences_dietary_requirement_translations', 'spina_conferences_dietary_requirements', on_delete: :cascade
+  add_foreign_key 'spina_conferences_event_translations', 'spina_conferences_events'
+  add_foreign_key 'spina_conferences_events', 'spina_conferences_conferences', column: 'conference_id', on_delete: :cascade
   add_foreign_key 'spina_conferences_institution_translations', 'spina_conferences_institutions', on_delete: :cascade
   add_foreign_key 'spina_conferences_institutions', 'spina_images', column: 'logo_id', on_delete: :cascade
   add_foreign_key 'spina_conferences_presentation_attachment_type_translations', 'spina_conferences_presentation_attachment_types',

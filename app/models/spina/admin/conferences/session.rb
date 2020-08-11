@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Conferences
-      # Sessuib records.
+      # Session records.
       #
       # = Validators
       # Presence:: {#name}.
