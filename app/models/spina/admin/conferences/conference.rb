@@ -28,6 +28,11 @@ module Spina
         #   @note A conference cannot be destroyed if it has dependent presentation types.
         #   @see PresentationType
         has_many :presentation_types, inverse_of: :conference, dependent: :restrict_with_error
+        # @!attribute [rw] events
+        #   @return [ActiveRecord::Relation] directly associated events
+        #   @note Destroying a conference destroys dependent events.
+        #   @see Event
+        has_many :events, inverse_of: :conference, dependent: :destroy
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session
@@ -53,6 +58,7 @@ module Spina
         #   @see Delegate
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id, # rubocop:disable Rails/HasAndBelongsToMany
                                             association_foreign_key: :spina_conferences_delegate_id
+        accepts_nested_attributes_for :events, allow_destroy: true
 
         validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
@@ -110,7 +116,7 @@ module Spina
         end
 
         # @return [Icalendar::Event] the conference as an iCal event
-        def to_ics
+        def to_ics # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
@@ -119,6 +125,7 @@ module Spina
           event.dtend = finish_date
           event.dtend.ical_param(:value, 'DATE')
           event.location = location
+          event.contact = Spina::Account.first.email
           event.categories = Conference.model_name.human(count: 0)
           event.summary = name
           event

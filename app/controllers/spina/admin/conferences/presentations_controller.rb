@@ -89,15 +89,6 @@ module Spina
           Presentation.import params[:file]
         end
 
-        # Renders a form for a {PresentationAttachment}.
-        # @return [void]
-        def attach
-          @presentation = Presentation.find_by(id: params[:id]) || Presentation.new
-          @attachment = @presentation.attachments.build
-          respond_to :js
-          render locals: { index: params[:index].to_i, active: params[:active] == 'true' }
-        end
-
         # @!endgroup
 
         private

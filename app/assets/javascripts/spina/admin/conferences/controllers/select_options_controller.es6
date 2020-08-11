@@ -118,7 +118,7 @@ SelectOptionsController.KeyPath = class {
     this.segments.forEach(key => {
       switch (childObject.constructor) {
       case Array:
-        if (filter) childObject = childObject.filter(object => object.visible === true)
+        if (filter) childObject = childObject.filter(object => object.hidden !== true)
         childObject = childObject.flatMap(object => object[key])
         break
       case String:
@@ -210,7 +210,7 @@ SelectOptionsController.RecordFilter = class {
    * @returns {Object[]} The raw records, with the target records marked for visibility.
    */
   setVisibility() {
-    this.targetRecords.forEach(record => record.visible = record[this.valueKey].toString() === this.targetValue)
+    this.targetRecords.forEach(record => record.hidden = record[this.valueKey].toString() !== this.targetValue)
     return this.rawRecords
   }
 }
