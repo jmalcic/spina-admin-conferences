@@ -125,7 +125,7 @@ module Spina
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)
           event.summary = title
-          event.append_custom_property(:alt_description, description.try(:html_safe))
+          event.append_custom_property(:alt_description, abstract.try(:html_safe))
           event.description = abstract.try(:gsub, %r{</?[^>]*>}, '')
           event
         end
