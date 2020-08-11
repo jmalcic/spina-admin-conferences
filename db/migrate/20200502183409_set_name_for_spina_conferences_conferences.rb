@@ -4,12 +4,14 @@ class SetNameForSpinaConferencesConferences < ActiveRecord::Migration[6.0] # :no
   def up
     insert <<-SQL.squish
       INSERT INTO "spina_conferences_conference_translations" (
-        "locale", "spina_conferences_conference_id", "name"
+        "locale", "spina_conferences_conference_id", "name", "created_at", "updated_at"
       )
         SELECT
           '#{I18n.default_locale}' "locale",
           "spina_conferences_conferences"."id" AS "spina_conferences_conference_id",
-          date_part('year', lower("spina_conferences_conferences"."dates")) AS "name"
+          date_part('year', lower("spina_conferences_conferences"."dates")) AS "name",
+          "spina_conferences_conferences"."created_at",
+          "spina_conferences_conferences"."updated_at"
         FROM "spina_conferences_conferences"
     SQL
   end

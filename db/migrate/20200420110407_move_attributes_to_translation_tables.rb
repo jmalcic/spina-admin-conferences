@@ -2,12 +2,12 @@
 
 class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
   def up
-    insert_translations('spina_conferences_dietary_requirements', 'name')
-    insert_translations('spina_conferences_institutions', 'name', 'city')
-    insert_translations('spina_conferences_presentations', 'title', 'abstract')
-    insert_translations('spina_conferences_presentation_attachment_types', 'name')
-    insert_translations('spina_conferences_presentation_types', 'name')
-    insert_translations('spina_conferences_rooms', 'building', 'number')
+    insert_translations('spina_conferences_dietary_requirements', 'name', 'created_at', 'updated_at')
+    insert_translations('spina_conferences_institutions', 'name', 'city', 'created_at', 'updated_at')
+    insert_translations('spina_conferences_presentations', 'title', 'abstract', 'created_at', 'updated_at')
+    insert_translations('spina_conferences_presentation_attachment_types', 'name', 'created_at', 'updated_at')
+    insert_translations('spina_conferences_presentation_types', 'name', 'created_at', 'updated_at')
+    insert_translations('spina_conferences_rooms', 'building', 'number', 'created_at', 'updated_at')
   end
 
   def down

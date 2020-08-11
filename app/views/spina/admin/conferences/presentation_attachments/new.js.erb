@@ -2,7 +2,7 @@ document.querySelector('[data-controller=\'presentation-attachments-form\'] .str
   .insertAdjacentHTML(
     'beforeend',
     '<%=
-      j render(partial: 'attachment_row', object: @attachment, as: :attachment,
+      j render(partial: 'spina/admin/conferences/presentations/attachment_row', object: @attachment, as: :attachment,
                locals: { index: index, active: active })
     %>'
   );
@@ -12,10 +12,10 @@ document.querySelector('[data-controller=\'presentation-attachments-form\'] .str
     '<%=
       fields_for @presentation do |f|
         f.fields_for :attachments, @attachment, child_index: index do |ff|
-          j render('attachment_fields', f: ff, active: active)
+          j render('spina/admin/conferences/presentations/attachment_fields', f: ff, active: active)
         end
       end
     %>'
   );
 document.querySelector('[data-controller=\'presentation-attachments-form\'] .structure-form-content')
-  .dispatchEvent(new Event('presentationAttachmentFieldAdded'))
+  .dispatchEvent(new Event('presentationAttachmentFieldsAdded'))

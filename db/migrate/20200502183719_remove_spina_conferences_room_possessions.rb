@@ -3,10 +3,12 @@
 class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] # :nodoc:
   def up
     add_reference :spina_conferences_room_uses, :room, foreign_key: { to_table: :spina_conferences_rooms }
+    add_timestamps :spina_conferences_room_uses, null: true
     update_room_uses_with_room_id
     remove_reference :spina_conferences_room_uses, :room_possession
     drop_table :spina_conferences_room_possessions
-    add_timestamps :spina_conferences_room_uses
+    change_column_null :spina_conferences_room_uses, :created_at, false
+    change_column_null :spina_conferences_room_uses, :updated_at, false
   end
 
   def down
@@ -30,7 +32,9 @@ class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] # :no
   def update_room_uses_with_room_id
     update <<-SQL.squish
       UPDATE "spina_conferences_room_uses"
-        SET "room_id" = "spina_conferences_room_possessions"."room_id"
+        SET "room_id" = "spina_conferences_room_possessions"."room_id",
+            "created_at" = current_timestamp,
+            "updated_at" = current_timestamp
         FROM "spina_conferences_room_uses" AS "room_uses"
         INNER JOIN "spina_conferences_room_possessions"
         ON "spina_conferences_room_possessions"."id" = "room_uses"."room_possession_id"

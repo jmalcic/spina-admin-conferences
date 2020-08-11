@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+agm:
+  name: AGM
+  description: Annual general meeting.
+  location: Broom cupboard 3
+  locale: en-GB
+  translated_model: agm
+
+drinks:
+  name: Drinks
+  description: Pub trip.
+  location: The Pickerel
+  locale: en-GB
+  translated_model: drinks
+
+pub_crawl:
+  name: Pub crawl
+  description: Pub trip 2.
+  location: Every pub
+  locale: en-GB
+  translated_model: pub_crawl

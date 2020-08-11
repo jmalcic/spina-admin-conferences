@@ -31,13 +31,26 @@ module Spina
           fill_in 'admin_conferences_conference_name', with: @conference.name
           fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
           fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
+          within '.admin_conferences_event' do
+            click_link class: %w[button button-link icon]
+            within '#structure_form_pane_0' do
+              fill_in 'admin_conferences_conference_events_attributes_0_name', with: @conference.events.first.name
+              fill_in 'admin_conferences_conference_events_attributes_0_date', with: @conference.events.first.date
+              fill_in 'admin_conferences_conference_events_attributes_0_start_time', with: @conference.events.first.start_time
+              fill_in 'admin_conferences_conference_events_attributes_0_finish_time', with: @conference.events.first.finish_time
+              fill_in 'admin_conferences_conference_events_attributes_0_location', with: @conference.events.first.location
+              find(class: 'horizontal-form-label', text: 'Description')
+                .sibling(class: 'horizontal-form-content').find('trix-editor')
+                .execute_script('this.editor.loadHTML(arguments[0])', @conference.events.first.description)
+            end
+          end
           Percy.snapshot page, name: 'Conferences form on create'
           click_on 'Save conference'
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on create'
         end
 
-        test 'updating a conference' do
+        test 'updating a conference' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_conferences_path
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
@@ -47,6 +60,22 @@ module Spina
           fill_in 'admin_conferences_conference_name', with: @conference.name
           fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
           fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
+          within '.admin_conferences_event' do
+            click_link class: %w[button button-link icon]
+            within '.structure-form-menu ul' do
+              click_link href: '#structure_form_pane_1'
+            end
+            within '#structure_form_pane_1' do
+              fill_in 'admin_conferences_conference_events_attributes_1_name', with: @conference.events.first.name
+              fill_in 'admin_conferences_conference_events_attributes_1_date', with: @conference.events.first.date
+              fill_in 'admin_conferences_conference_events_attributes_1_start_time', with: @conference.events.first.start_time
+              fill_in 'admin_conferences_conference_events_attributes_1_finish_time', with: @conference.events.first.finish_time
+              fill_in 'admin_conferences_conference_events_attributes_1_location', with: @conference.events.first.location
+              find(class: 'horizontal-form-label', text: 'Description')
+                .sibling(class: 'horizontal-form-content').find('trix-editor')
+                .execute_script('this.editor.loadHTML(arguments[0])', @conference.events.first.description)
+            end
+          end
           click_on 'Save conference'
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on update'
