@@ -7,14 +7,14 @@ require 'spina/admin/conferences/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
-  spec.name        = 'spina-admin-conferences'
-  spec.version     = Spina::Admin::Conferences::VERSION
-  spec.authors     = ['Justin Malčić']
-  spec.email       = ['j.malcic@me.com']
-  spec.homepage    = 'https://jmalcic.github.io/projects/spina-admin-conferences'
-  spec.summary     = 'Conference management plugin for Spina.'
+  spec.name = 'spina-admin-conferences'
+  spec.version = Spina::Admin::Conferences::VERSION
+  spec.authors = ['Justin Malčić']
+  spec.email = ['j.malcic@me.com']
+  spec.homepage = 'https://jmalcic.github.io/projects/spina-admin-conferences'
+  spec.summary = 'Conference management plugin for Spina.'
   spec.description = 'Keep track of conference attendees and presentations with this plugin.'
-  spec.license     = 'MIT'
+  spec.license = 'MIT'
   spec.required_ruby_version = '~> 2.7'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
