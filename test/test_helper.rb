@@ -51,14 +51,12 @@ module ActiveSupport
     setup do
       Spina::Image.all.each do |image|
         unless image.file.attached?
-          fixture = file_fixture('dubrovnik.jpeg')
-          image.file.attach io: fixture.open, filename: fixture.basename
+          file_fixture('dubrovnik.jpeg').then { |fixture| image.file.attach io: fixture.open, filename: fixture.basename }
         end
       end
       Spina::Attachment.all.each do |attachment|
         unless attachment.file.attached?
-          fixture = file_fixture('handout.pdf')
-          attachment.file.attach io: fixture.open, filename: fixture.basename
+          file_fixture('handout.pdf').then { |fixture| attachment.file.attach io: fixture.open, filename: fixture.basename }
         end
       end
       I18n.locale = I18n.default_locale
