@@ -101,7 +101,7 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w[conference_details delegates presentation_types rooms presentations]
+          @tabs = %w[conference_details parts delegates presentation_types rooms presentations]
         end
 
         def set_parts
@@ -127,7 +127,8 @@ module Spina
         def conference_params
           params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
                                                                events_attributes:
-                                                                 %i[id name date start_time finish_time description location])
+                                                                 %i[id name date start_time finish_time description location],
+                                                               parts_attributes: {})
         end
       end
     end

@@ -59,6 +59,7 @@ en:
           form:
             save: Save conference
             conference_details: Conference details
+            parts: Parts
             delegates: Delegates
             presentations: Presentations
             presentation_types: Presentation types
