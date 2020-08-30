@@ -36,6 +36,11 @@ module Spina
           assert_empty @new_conference.events
         end
 
+        test 'conference has associated parts' do
+          assert_not_empty @conference.parts
+          assert_empty @new_conference.parts
+        end
+
         test 'conference has associated sessions' do
           assert_not_empty @conference.sessions
           assert_empty @new_conference.sessions

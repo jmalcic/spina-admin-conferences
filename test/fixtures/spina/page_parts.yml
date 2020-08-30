@@ -63,3 +63,13 @@ committee_bios:
   title: Committee bios
   page_partable: committee_bios (Spina::Structure)
   page: committee
+
+date:
+  name: date
+  title: Date
+  page_partable: valid_date (Spina::Admin::Conferences::DatePart)
+
+url:
+  name: url
+  title: URL
+  page_partable: valid_url (Spina::Admin::Conferences::UrlPart)
