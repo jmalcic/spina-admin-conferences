@@ -38,7 +38,7 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: :number_of_processors unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
+    parallelize workers: :number_of_processors
 
     parallelize_setup do |worker|
       SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
