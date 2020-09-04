@@ -27,7 +27,7 @@ module Spina
           @event.finish_datetime = nil
           assert_nil @validator.validate_each(@event, :finish_time, @event.finish_time)
         end
-  
+
         test 'empty start times are valid' do
           @event.finish_datetime = @event.start_time - 1.hour
           @event.start_datetime = nil
