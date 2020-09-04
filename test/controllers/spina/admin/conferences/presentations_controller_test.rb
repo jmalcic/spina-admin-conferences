@@ -158,23 +158,25 @@ module Spina
         end
 
         test 'should fail to destroy presentation if impossible' do
+          callbacks = Presentation._destroy_callbacks
           Presentation.before_destroy { throw :abort }
           assert_no_difference 'Presentation.count' do
             delete admin_conferences_presentation_url(@presentation)
           end
           assert_response :success
           assert_not_equal 'Presentation deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          Presentation._destroy_callbacks = callbacks
         end
 
         test 'should fail to destroy presentation if impossible with remote form' do
+          callbacks = Presentation._destroy_callbacks
           Presentation.before_destroy { throw :abort }
           assert_no_difference 'Presentation.count' do
             delete admin_conferences_presentation_url(@presentation), xhr: true
           end
           assert_response :success
           assert_not_equal 'Presentation deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          Presentation._destroy_callbacks = callbacks
         end
 
         test 'should enqueue presentation import' do
