@@ -41,7 +41,7 @@ module ActiveSupport
     parallelize workers: :number_of_processors
 
     parallelize_setup do |worker|
-      SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+      SimpleCov.command_name "#{SimpleCov.command_name} worker #{worker}"
     end
 
     parallelize_teardown do
