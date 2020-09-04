@@ -132,23 +132,25 @@ module Spina
         end
 
         test 'should fail to destroy delegate if impossible' do
+          callbacks = Delegate._destroy_callbacks
           Delegate.before_destroy { throw :abort }
           assert_no_difference 'Delegate.count' do
             delete admin_conferences_delegate_url(@delegate)
           end
           assert_response :success
           assert_not_equal 'Delegate deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          Delegate._destroy_callbacks = callbacks
         end
 
         test 'should fail to destroy delegate if impossible with remote form' do
+          callbacks = Delegate._destroy_callbacks
           Delegate.before_destroy { throw :abort }
           assert_no_difference 'Delegate.count' do
             delete admin_conferences_delegate_url(@delegate), xhr: true
           end
           assert_response :success
           assert_not_equal 'Delegate deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          Delegate._destroy_callbacks = callbacks
         end
 
         test 'should enqueue delegate import' do

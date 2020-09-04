@@ -130,23 +130,25 @@ module Spina
         end
 
         test 'should fail to destroy dietary requirement if impossible' do
+          callbacks = DietaryRequirement._destroy_callbacks
           DietaryRequirement.before_destroy { throw :abort }
           assert_no_difference 'DietaryRequirement.count' do
             delete admin_conferences_dietary_requirement_url(@dietary_requirement)
           end
           assert_response :success
           assert_not_equal 'Dietary requirement deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          DietaryRequirement._destroy_callbacks = callbacks
         end
 
         test 'should fail to destroy dietary requirement if impossible with remote form' do
+          callbacks = DietaryRequirement._destroy_callbacks
           DietaryRequirement.before_destroy { throw :abort }
           assert_no_difference 'DietaryRequirement.count' do
             delete admin_conferences_dietary_requirement_url(@dietary_requirement), xhr: true
           end
           assert_response :success
           assert_not_equal 'Dietary requirement deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          DietaryRequirement._destroy_callbacks = callbacks
         end
       end
     end

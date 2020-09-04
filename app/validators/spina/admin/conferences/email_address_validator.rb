@@ -17,11 +17,8 @@ module Spina
 
         private
 
-        def parse(*values)
-          values.each do |value|
-            address = Mail::Address.new(value)
-            return address.domain.present? && address.local.present?
-          end
+        def parse(value)
+          Mail::Address.new(value).then { |address| address.domain.present? && address.local.present? }
         rescue Mail::Field::IncompleteParseError
           false
         end

@@ -1,0 +1,19 @@
+.horizontal-form-content
+  .structure-form
+    .structure-form-menu
+      %label= f.object.title
+
+      %ul
+        - f.object.partable.structure_items.order(:position).each_with_index do |structure_item, index|
+          %li{ class: ('active' if index == 0), data: { structure_item_id: index } }
+            = link_to "#structure_form_pane_#{index}" do
+              %i.icon.icon-bars.sortable-handle
+              = structure_item.structure_parts.first.try(:structure_partable).try(:content)
+
+      = f.fields_for :partable do |ff|
+        = new_custom_structure_item ff, f.object
+
+    .structure-form-content
+      = f.fields_for :partable do |ff|
+        = ff.fields_for :structure_items, ff.object.structure_items.order(:position) do |fff|
+          = render 'form_structure_item', f: fff, structure: f.object
