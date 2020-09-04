@@ -6,8 +6,8 @@ module Spina
   module Admin
     module Conferences
       class Test < ActiveSupport::TestCase
-        test 'truth' do
-          assert_kind_of Module, Spina::Admin::Conferences
+        test 'version set' do
+          assert_kind_of String, VERSION
         end
       end
     end
