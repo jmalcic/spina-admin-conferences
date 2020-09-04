@@ -26,7 +26,7 @@ module Spina
         end
 
         test 'invalid email addresses are invalid' do
-          @delegate.email_address = '#'
+          @delegate.email_address = 'John Doe, Example INC <john.doe@example.com>'
           assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
                           'is not an email address'
         end
