@@ -15,12 +15,12 @@ module Spina
 
         def new_custom_structure_item(form, part)
           item = StructureItem.new
+          build_custom_structure_parts(part.name, item)
           fields = form.fields_for(:structure_items, item, child_index: item.object_id) do |builder|
-            build_custom_structure_parts(part.name, item)
             render('spina/admin/conferences/conferences/form_structure_item', f: builder, structure: part)
           end
-          link_to icon('plus'), '#', class: 'add_structure_item_fields button button-link',
-                                     data: { id: item.object_id, fields: fields }
+          link_to icon('plus'), '#', class: %w[add_structure_item_fields button button-link],
+                                     data: { id: item.object_id, fields: fields.squish }
         end
 
         def build_custom_structure_parts(name, item)
