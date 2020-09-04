@@ -4,14 +4,17 @@ require 'simplecov'
 require 'coveralls'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  enable_coverage :branch
+  add_group 'Validators', 'app/validators'
+end
 
 Coveralls.wear!('rails')
 
 require 'minitest/mock'
 require 'minitest/reporters'
 
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
+Minitest::Reporters.use!
 
 require 'percy'
 
@@ -29,7 +32,7 @@ Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path('fixtures', __dir__)
   ActionDispatch::IntegrationTest.fixture_path = ActiveSupport::TestCase.fixture_path
-  ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + '/files'
+  ActiveSupport::TestCase.file_fixture_path = "#{ActiveSupport::TestCase.fixture_path}/files"
   ActiveSupport::TestCase.fixtures :all
 end
 
@@ -38,10 +41,10 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: :number_of_processors unless /rubymine/.match? ENV['XPC_SERVICE_NAME']
+    parallelize workers: :number_of_processors
 
     parallelize_setup do |worker|
-      SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+      SimpleCov.command_name "#{SimpleCov.command_name} worker #{worker}"
     end
 
     parallelize_teardown do
@@ -51,14 +54,12 @@ module ActiveSupport
     setup do
       Spina::Image.all.each do |image|
         unless image.file.attached?
-          fixture = file_fixture('dubrovnik.jpeg')
-          image.file.attach io: fixture.open, filename: fixture.basename
+          file_fixture('dubrovnik.jpeg').then { |fixture| image.file.attach io: fixture.open, filename: fixture.basename }
         end
       end
       Spina::Attachment.all.each do |attachment|
         unless attachment.file.attached?
-          fixture = file_fixture('handout.pdf')
-          attachment.file.attach io: fixture.open, filename: fixture.basename
+          file_fixture('handout.pdf').then { |fixture| attachment.file.attach io: fixture.open, filename: fixture.basename }
         end
       end
       I18n.locale = I18n.default_locale

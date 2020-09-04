@@ -28,6 +28,12 @@ module Spina
           @conference.finish_date = nil
           assert_nil @validator.validate_each(@conference, :finish_date, @conference.finish_date)
         end
+
+        test 'empty start dates are valid' do
+          @conference.finish_date = (@conference.start_date - 1.day).iso8601
+          @conference.start_date = nil
+          assert_nil @validator.validate_each(@conference, :finish_date, @conference.finish_date)
+        end
       end
     end
   end

@@ -24,7 +24,7 @@ module Spina
           Percy.snapshot page, name: 'Conferences index'
         end
 
-        test 'creating a conference' do
+        test 'creating a conference' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_conferences_path
           click_on 'New conference'
           assert_selector '.breadcrumbs', text: 'New conference'
@@ -45,6 +45,49 @@ module Spina
             end
           end
           Percy.snapshot page, name: 'Conferences form on create'
+          click_on 'Parts'
+          within '[data-name="text"]' do
+            find('trix-editor')
+              .execute_script('this.editor.loadHTML(arguments[0])', @conference.parts.find_by(name: 'text').partable.content)
+          end
+          within '[data-name="submission_url"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_url').partable.content
+          end
+          within '[data-name="submission_date"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_date').partable.content
+          end
+          within '[data-name="submission_text"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_text').partable.content
+          end
+          within '[data-name="gallery"]' do
+            execute_script '$.fx.off = true;'
+            click_on 'Choose image'
+          end
+          within '#overlay', visible: true, style: { display: 'block' } do
+            first('.gallery .item:not(.item-uploader)').click
+            find('.gallery-select-sidebar').click_on 'Choose image'
+          end
+          assert_no_selector '#overlay'
+          within '[data-name="sponsors"]' do
+            click_link class: %w[button button-link]
+            within id: /structure_form_pane_[0-9]+/ do
+              fill_in id: /admin_conferences_conference_parts_attributes_5_partable_attributes_structure_items_attributes_[0-9]+
+                           _structure_parts_attributes_0_partable_attributes_content/x,
+                      with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts.find_by(name: 'name')
+                                       .partable.content
+              fill_in id: /admin_conferences_conference_parts_attributes_5_partable_attributes_structure_items_attributes_[0-9]+
+                           _structure_parts_attributes_2_partable_attributes_content/x,
+                      with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts
+                                       .find_by(name: 'website').partable.content
+              execute_script '$.fx.off = true;'
+              click_on 'Choose image'
+            end
+          end
+          within '#overlay', visible: true, style: { display: 'block' } do
+            first('.gallery .item:not(.item-uploader)').click
+            find('.gallery-select-sidebar').click_on 'Choose image'
+          end
+          assert_no_selector '#overlay'
           click_on 'Save conference'
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on create'
@@ -76,6 +119,48 @@ module Spina
                 .execute_script('this.editor.loadHTML(arguments[0])', @conference.events.first.description)
             end
           end
+          click_on 'Parts'
+          within '[data-name="text"]' do
+            find('trix-editor')
+              .execute_script('this.editor.loadHTML(arguments[0])', @conference.parts.find_by(name: 'text').partable.content)
+          end
+          within '[data-name="submission_url"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_url').partable.content
+          end
+          within '[data-name="submission_date"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_date').partable.content
+          end
+          within '[data-name="submission_text"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_text').partable.content
+          end
+          within '[data-name="gallery"]' do
+            execute_script '$.fx.off = true;'
+            click_on 'Choose image'
+          end
+          within '#overlay', visible: true, style: { display: 'block' } do
+            first('.gallery .item:not(.item-uploader)').click
+            find('.gallery-select-sidebar').click_on 'Choose image'
+          end
+          assert_no_selector '#overlay'
+          within '[data-name="sponsors"]' do
+            within id: /structure_form_pane_[0-9]+/ do
+              fill_in id: /admin_conferences_conference_parts_attributes_5_partable_attributes_structure_items_attributes_[0-9]+
+                             _structure_parts_attributes_0_partable_attributes_content/x,
+                      with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts.find_by(name: 'name')
+                              .partable.content
+              fill_in id: /admin_conferences_conference_parts_attributes_5_partable_attributes_structure_items_attributes_[0-9]+
+                             _structure_parts_attributes_2_partable_attributes_content/x,
+                      with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts
+                              .find_by(name: 'website').partable.content
+              execute_script '$.fx.off = true;'
+              click_on 'Choose image'
+            end
+          end
+          within '#overlay', visible: true, style: { display: 'block' } do
+            first('.gallery .item:not(.item-uploader)').click
+            find('.gallery-select-sidebar').click_on 'Choose image'
+          end
+          assert_no_selector '#overlay'
           click_on 'Save conference'
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on update'

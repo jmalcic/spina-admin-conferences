@@ -9,7 +9,8 @@ module Spina
         before_action :set_conference, only: %i[edit update destroy]
         before_action :set_conferences_breadcrumb
         before_action :set_tabs
-        before_action :set_institutions, only: %i[new edit]
+        before_action :set_institutions, :set_parts, only: %i[new edit]
+        before_action :build_parts, only: :edit
 
         # @!group Actions
 
@@ -23,6 +24,7 @@ module Spina
         # @return [void]
         def new
           @conference = Conference.new
+          build_parts
           add_breadcrumb t('.new')
         end
 
@@ -99,13 +101,34 @@ module Spina
         end
 
         def set_tabs
-          @tabs = %w[conference_details delegates presentation_types rooms presentations]
+          @tabs = %w[conference_details parts delegates presentation_types rooms presentations]
+        end
+
+        def set_parts
+          @parts = [
+            { name: 'text', title: 'Text', partable_type: 'Spina::Text' },
+            { name: 'submission_url', title: 'Submission URL', partable_type: 'Spina::Admin::Conferences::UrlPart' },
+            { name: 'submission_date', title: 'Submission date', partable_type: 'Spina::Admin::Conferences::DatePart' },
+            { name: 'submission_text', title: 'Submission text', partable_type: 'Spina::Line' },
+            { name: 'gallery', title: 'Gallery', partable_type: 'Spina::ImageCollection' },
+            { name: 'sponsors', title: 'Sponsors', partable_type: 'Spina::Structure' }
+          ]
+        end
+
+        def build_parts
+          return unless @parts.is_a? Array
+
+          @parts.each do |part_attributes|
+            @conference.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
+                       .then { |part| part.partable ||= part.partable_type.constantize.new }
+          end
         end
 
         def conference_params
           params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
                                                                events_attributes:
-                                                                 %i[id name date start_time finish_time description location])
+                                                                 %i[id name date start_time finish_time description location],
+                                                               parts_attributes: {})
         end
       end
     end

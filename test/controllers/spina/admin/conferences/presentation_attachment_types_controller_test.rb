@@ -126,23 +126,25 @@ module Spina
         end
 
         test 'should fail to destroy presentation attachment type if impossible' do
+          callbacks = PresentationAttachmentType._destroy_callbacks
           PresentationAttachmentType.before_destroy { throw :abort }
           assert_no_difference 'PresentationAttachmentType.count' do
             delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type)
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          PresentationAttachmentType._destroy_callbacks = callbacks
         end
 
         test 'should fail to destroy presentation attachment type if impossible with remote form' do
+          callbacks = PresentationAttachmentType._destroy_callbacks
           PresentationAttachmentType.before_destroy { throw :abort }
           assert_no_difference 'PresentationAttachmentType.count' do
             delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), xhr: true
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type deleted', flash[:success]
-          Rails.autoloaders.main.reload
+          PresentationAttachmentType._destroy_callbacks = callbacks
         end
       end
     end

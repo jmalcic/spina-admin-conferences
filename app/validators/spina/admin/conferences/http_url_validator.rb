@@ -17,11 +17,8 @@ module Spina
 
         private
 
-        def parse(*values)
-          values.each do |value|
-            uri = URI.parse(value)
-            return uri.is_a?(URI::HTTP) && uri.host.present?
-          end
+        def parse(value)
+          URI.parse(value).then { |uri| uri.is_a?(URI::HTTP) && uri.host.present? }
         rescue URI::InvalidURIError
           false
         end
