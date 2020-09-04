@@ -10,11 +10,9 @@ module Spina
         # @param attribute [Symbol] the attribute key
         # @param value [Time] the attribute value
         def validate_each(record, attribute, value)
-          return if value.blank? || value >= record.start_time
+          return if value.blank? || record.start_time.blank? || value >= record.start_time
 
           record.errors.add(attribute, :before_start_time)
-        rescue ArgumentError
-          nil
         end
       end
     end
