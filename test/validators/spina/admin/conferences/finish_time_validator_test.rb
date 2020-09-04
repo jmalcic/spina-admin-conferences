@@ -23,7 +23,7 @@ module Spina
           assert_includes @validator.validate_each(@event, :finish_time, @event.finish_time), 'is before start time'
         end
 
-        test 'empty dates are valid' do
+        test 'empty times are valid' do
           @event.finish_datetime = nil
           assert_nil @validator.validate_each(@event, :finish_time, @event.finish_time)
         end
