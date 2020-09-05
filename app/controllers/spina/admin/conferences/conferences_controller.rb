@@ -128,7 +128,15 @@ module Spina
           params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
                                                                events_attributes:
                                                                  %i[id name date start_time finish_time description location],
-                                                               parts_attributes: {})
+                                                               parts_attributes:
+                                                                 [:id, :title, :name, :partable_type, :partable_id,
+                                                                  { partable_attributes:
+                                                                      [:id, :content, :image_tokens, :image_positions,
+                                                                       { structure_items_attributes:
+                                                                           [:id, :position, :_destroy,
+                                                                            { structure_parts_attributes:
+                                                                                [:id, :title, :structure_partable_type, :name,
+                                                                                 { partable_attributes: {} }] }] }] }])
         end
       end
     end
