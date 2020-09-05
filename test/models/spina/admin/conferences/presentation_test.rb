@@ -67,12 +67,11 @@ module Spina
           assert_empty @new_presentation.presenters
         end
 
-        # TODO: fix flaky test
-        # test 'destroys associated attachments' do
-        #   assert_difference 'PresentationAttachment.count', -@presentation.attachments.count do
-        #     assert @presentation.destroy
-        #   end
-        # end
+        test 'destroys associated attachments' do
+          assert_difference 'PresentationAttachment.count', -@presentation.attachments.count do
+            assert @presentation.destroy
+          end
+        end
 
         test 'accepts nested attributes for attachments' do
           assert_changes '@presentation.attachments.first.attachment_type_id' do

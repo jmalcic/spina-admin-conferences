@@ -13,6 +13,8 @@ module Spina
       # = Translations
       # - {#name}
       class Conference < ApplicationRecord
+        include Partable
+
         # @!attribute [rw] dates
         #   @return [Range<Date>, nil] the dates of the conference
 
