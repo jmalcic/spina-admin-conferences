@@ -201,6 +201,33 @@ module Spina
             @conference.reload
           end
         end
+
+        test 'finds an existing part' do
+          assert_equal @conference.parts.find_by(name: 'text'), @conference.part(name: 'text')
+        end
+
+        test 'initializes a new part' do
+          @conference.part(name: 'foo', partable_type: 'Spina::Line').then do |part|
+            assert_equal 'foo', part.name
+            assert_equal 'Spina::Line', part.partable_type
+            assert_kind_of Spina::Line, part.partable
+          end
+        end
+
+        test 'recreates a partable' do
+          @conference.part(name: 'text').partable.destroy
+          assert_kind_of Spina::Text, @conference.part(name: 'text').partable
+        end
+
+        test 'responds to content' do
+          assert_equal @conference.parts.find_by(name: 'text').content, @conference.content('text')
+          assert_nil @new_conference.content('text')
+        end
+
+        test 'responds to has_content' do
+          assert @conference.has_content? 'text'
+          assert_not @new_conference.has_content? 'text'
+        end
       end
     end
   end
