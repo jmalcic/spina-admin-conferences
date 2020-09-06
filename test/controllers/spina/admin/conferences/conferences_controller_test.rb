@@ -183,8 +183,7 @@ module Spina
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
-          submission_text = @conference.parts.find_by(name: 'submission_text')
-          attributes[:parts_attributes].find { |part| part['name'] == submission_text.name }
+          attributes[:parts_attributes].find { |part| part['name'] == 'submission_text' }
                                        .then { |part| part['partable_attributes']['content'] = 'Dolor sit amen' }
           assert_changes -> { @conference.content('submission_text') }, from: 'Lorem ipsum dolor sit amet', to: 'Dolor sit amen' do
             patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
@@ -197,19 +196,14 @@ module Spina
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
-          sponsors = @conference.parts.find_by(name: 'sponsors')
-          attributes[:parts_attributes]
-            .find { |part| part['name'] == sponsors.name }
-            .then do |part|
+          attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
             part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
               structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
                 structure_part.attributes.merge({ 'partable_attributes' => structure_part.partable.attributes })
               end })
             end
           end
-          attributes[:parts_attributes]
-            .find { |part| part['name'] == sponsors.name }
-            .then do |part|
+          attributes[:parts_attributes].find { |part| part['name'] == sponsors.name }.then do |part|
             part['partable_attributes']['structure_items_attributes']
               .first['structure_parts_attributes']
               .find { |structure_part| structure_part['name'] == 'name' }
@@ -227,10 +221,7 @@ module Spina
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
-          sponsors = @conference.parts.find_by(name: 'sponsors')
-          attributes[:parts_attributes]
-            .find { |part| part['name'] == sponsors.name }
-            .then do |part|
+          attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
             part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
               structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
                 structure_part.attributes.merge({ 'partable_attributes' => structure_part.partable.attributes })
