@@ -135,7 +135,7 @@ module Spina
                                                                        { structure_items_attributes:
                                                                            [:id, :position, :_destroy,
                                                                             { structure_parts_attributes:
-                                                                                [:id, :title, :structure_partable_type, :name,
+                                                                                [:id, :title, :structure_partable_type, :name, :partable_id,
                                                                                  { partable_attributes: {} }] }] }] }])
         end
       end
