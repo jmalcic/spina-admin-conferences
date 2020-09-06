@@ -190,7 +190,7 @@ module Spina
           end
         end
 
-        test 'should save structure part' do # rubocop:disable Metrics/BlockLength
+        test 'should save generic structure part' do
           attributes = @conference.attributes.merge(start_date: @conference.start_date, finish_date: @conference.finish_date,
                                                     name: @conference.name, parts_attributes:
                                                       @conference.parts.collect do |part|
