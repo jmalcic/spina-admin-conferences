@@ -13,6 +13,8 @@ module Spina
           @invalid_conference = Conference.new
           @empty_conference = spina_admin_conferences_conferences :empty_conference
           @user = spina_users :joe
+          @rovinj_image = spina_images(:rovinj)
+          @dubrovnik_image = spina_images(:dubrovnik)
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
@@ -181,33 +183,27 @@ module Spina
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
-          submission_text = @conference.parts.find_by(name: 'submission_text')
-          attributes[:parts_attributes].find { |part| part['name'] == submission_text.name }
+          attributes[:parts_attributes].find { |part| part['name'] == 'submission_text' }
                                        .then { |part| part['partable_attributes']['content'] = 'Dolor sit amen' }
           assert_changes -> { @conference.content('submission_text') }, from: 'Lorem ipsum dolor sit amet', to: 'Dolor sit amen' do
             patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
           end
         end
 
-        test 'should save structure part' do # rubocop:disable Metrics/BlockLength
+        test 'should save generic structure part' do
           attributes = @conference.attributes.merge(start_date: @conference.start_date, finish_date: @conference.finish_date,
                                                     name: @conference.name, parts_attributes:
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
-          sponsors = @conference.parts.find_by(name: 'sponsors')
-          attributes[:parts_attributes]
-            .find { |part| part['name'] == sponsors.name }
-            .then do |part|
+          attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
             part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
               structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
                 structure_part.attributes.merge({ 'partable_attributes' => structure_part.partable.attributes })
               end })
             end
           end
-          attributes[:parts_attributes]
-            .find { |part| part['name'] == sponsors.name }
-            .then do |part|
+          attributes[:parts_attributes].find { |part| part['name'] == sponsors.name }.then do |part|
             part['partable_attributes']['structure_items_attributes']
               .first['structure_parts_attributes']
               .find { |structure_part| structure_part['name'] == 'name' }
@@ -217,6 +213,36 @@ module Spina
                          from: 'Lorem ipsum dolor sit amet', to: 'Test' do
             patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
           end
+        end
+
+        test 'should save structure part image' do
+          attributes = @conference.attributes.merge(start_date: @conference.start_date, finish_date: @conference.finish_date,
+                                                    name: @conference.name, parts_attributes:
+                                                      @conference.parts.collect do |part|
+                                                        part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
+                                                      end)
+          attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
+            part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
+              structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
+                structure_part.attributes.merge({ 'partable_attributes' => structure_part.partable.attributes })
+              end })
+            end
+          end
+          attributes[:parts_attributes].find { |part| part['name'] == sponsors.name }.then do |part|
+            part['partable_attributes']['structure_items_attributes']
+              .first['structure_parts_attributes']
+              .find { |structure_part| structure_part['name'] == 'logo' }
+              .tap { |structure_part| structure_part.delete('partable_attributes') }
+              .then { |structure_part| structure_part['partable_id'] = @rovinj_image.id }
+          end
+          assert_changes -> { @conference.content('sponsors').structure_items.first.content('logo') },
+                         from: @dubrovnik_image, to: @rovinj_image do
+            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
+          end
+        end
+
+        test 'should render form when partable missing' do
+          get edit_admin_conferences_conference_url(@empty_conference)
         end
       end
     end
