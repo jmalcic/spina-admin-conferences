@@ -240,6 +240,10 @@ module Spina
             patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, xhr: true
           end
         end
+
+        test 'should render form when partable missing' do
+          get edit_admin_conferences_conference_url(@empty_conference)
+        end
       end
     end
   end

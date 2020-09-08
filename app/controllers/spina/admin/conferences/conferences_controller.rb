@@ -9,7 +9,7 @@ module Spina
         before_action :set_conference, only: %i[edit update destroy]
         before_action :set_conferences_breadcrumb
         before_action :set_tabs
-        before_action :set_institutions, :set_parts, only: %i[new edit]
+        before_action :set_institutions, :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: :edit
 
         # @!group Actions
@@ -104,8 +104,8 @@ module Spina
           @tabs = %w[conference_details parts delegates presentation_types rooms presentations]
         end
 
-        def set_parts
-          @parts = [
+        def set_parts_attributes
+          @parts_attributes = [
             { name: 'text', title: 'Text', partable_type: 'Spina::Text' },
             { name: 'submission_url', title: 'Submission URL', partable_type: 'Spina::Admin::Conferences::UrlPart' },
             { name: 'submission_date', title: 'Submission date', partable_type: 'Spina::Admin::Conferences::DatePart' },
@@ -116,11 +116,11 @@ module Spina
         end
 
         def build_parts
-          return unless @parts.is_a? Array
+          return unless @parts_attributes.is_a? Array
 
-          @parts.each do |part_attributes|
+          @conference.parts = @parts_attributes.collect do |part_attributes|
             @conference.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
-                       .then { |part| part.partable ||= part.partable_type.constantize.new }
+                       .tap { |part| part.partable ||= part.partable_type.constantize.new }
           end
         end
 
