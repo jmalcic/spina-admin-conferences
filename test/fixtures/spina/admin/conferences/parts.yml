@@ -71,3 +71,9 @@ empty_sponsors:
   title: Sponsors
   partable_type: Spina::Structure
   pageable: university_of_shangri_la_2018 (Spina::Admin::Conferences::Conference)
+
+new_sponsors:
+  name: sponsors
+  title: Sponsors
+  partable_type: Spina::Structure
+  pageable: empty_conference (Spina::Admin::Conferences::Conference)
