@@ -196,6 +196,7 @@ module Spina
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
+          sponsors = @conference.parts.find_by(name: 'sponsors')
           attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
             part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
               structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
@@ -221,6 +222,7 @@ module Spina
                                                       @conference.parts.collect do |part|
                                                         part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
                                                       end)
+          sponsors = @conference.parts.find_by(name: 'sponsors')
           attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
             part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
               structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
