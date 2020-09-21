@@ -28,7 +28,7 @@
     "@percy/agent": "^0.28.2",
     "babel-eslint": "^10.0.3",
     "eslint": "^7.9.0",
-    "jsdoc": "^3.6.5"
+    "jsdoc": "^3.6.6"
   },
   "scripts": {
     "lint": "eslint app/assets/javascripts"
