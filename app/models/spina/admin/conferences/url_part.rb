@@ -3,7 +3,11 @@
 module Spina
   module Admin
     module Conferences
-      # This class represents URLs. The format is validated.
+      # URL parts. The format is validated.
+      #
+      # = Validators
+      # HTTP(S) URL (using {HttpUrlValidator}):: {#content}.
+      # @see HttpUrlValidator
       class UrlPart < ApplicationRecord
         has_many :page_parts, as: :page_partable
         has_many :parts, as: :partable
