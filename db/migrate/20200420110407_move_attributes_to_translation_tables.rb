@@ -36,81 +36,79 @@ class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
 
   def update_dietary_requirements
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_update <<-SQL.squish, 'add dietary requirement attributes', binds
+    update <<-SQL.squish, 'Add dietary requirement attributes', binds
       UPDATE spina_conferences_dietary_requirements SET name = translations.name
         FROM spina_conferences_dietary_requirement_translations AS translations
-          WHERE translations.spina_conferences_dietary_requirement_id = spina_conferences_dietary_requirements.id
-            AND translations.locale = $1
+          WHERE spina_conferences_dietary_requirement_id = spina_conferences_dietary_requirements.id AND locale = $1
     SQL
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_dietary_requirement_translations
     SQL
   end
 
   def update_institutions
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_update <<-SQL.squish, 'add institution attributes', binds
+    update <<-SQL.squish, 'Add institution attributes', binds
       UPDATE spina_conferences_institutions SET (name, city) = (translations.name, translations.city)
         FROM spina_conferences_institution_translations AS translations
-          WHERE translations.spina_conferences_institution_id = spina_conferences_institutions.id AND translations.locale = $1
+          WHERE translations.spina_conferences_institution_id = spina_conferences_institutions.id AND locale = $1
     SQL
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_institution_translations
     SQL
   end
 
   def update_presentations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_update <<-SQL.squish, 'add presentation attributes', binds
+    update <<-SQL.squish, 'Add presentation attributes', binds
       UPDATE spina_conferences_presentations SET (title, abstract) = (translations.title, translations.abstract)
         FROM spina_conferences_presentation_translations AS translations
-          WHERE translations.spina_conferences_presentation_id = spina_conferences_presentations.id AND translations.locale = $1
+          WHERE spina_conferences_presentation_id = spina_conferences_presentations.id AND locale = $1
     SQL
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_presentation_translations
     SQL
   end
 
   def update_presentation_attachment_types
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_update <<-SQL.squish, 'add presentation attachment type attributes', binds
+    update <<-SQL.squish, 'Add presentation attachment type attributes', binds
       UPDATE spina_conferences_presentation_attachment_types SET name = translations.name
         FROM spina_conferences_presentation_attachment_type_translations AS translations
-          WHERE translations.spina_conferences_presentation_attachment_type_id = spina_conferences_presentation_attachment_types.id
-            AND translations.locale = $1
+          WHERE spina_conferences_presentation_attachment_type_id = spina_conferences_presentation_attachment_types.id AND locale = $1
     SQL
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_presentation_attachment_type_translations
     SQL
   end
 
   def update_presentation_types
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_update <<-SQL.squish, 'add presentation type attributes', binds
+    update <<-SQL.squish, 'Add presentation type attributes', binds
       UPDATE spina_conferences_presentation_types SET name = translations.name
         FROM spina_conferences_presentation_type_translations AS translations
-          WHERE translations.spina_conferences_presentation_type_id = spina_conferences_presentation_types.id AND translations.locale = $1
+          WHERE spina_conferences_presentation_type_id = spina_conferences_presentation_types.id AND locale = $1
     SQL
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_presentation_type_translations
     SQL
   end
 
   def update_rooms
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_update <<-SQL.squish, 'add room attributes', binds
+    update <<-SQL.squish, 'Add room attributes', binds
       UPDATE spina_conferences_rooms SET (building, number) = (translations.building, translations.number)
         FROM spina_conferences_room_translations AS translations
-          WHERE translations.spina_conferences_room_id = spina_conferences_rooms.id AND translations.locale = $1
+          WHERE spina_conferences_room_id = spina_conferences_rooms.id AND locale = $1
     SQL
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_room_translations
     SQL
   end
 
   def insert_dietary_requirement_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'insert dietary requirement translations', binds
+    insert <<-SQL.squish, 'Insert dietary requirement translations', nil, nil, nil, binds
       INSERT INTO spina_conferences_dietary_requirement_translations
         (name, locale, created_at, updated_at, spina_conferences_dietary_requirement_id)
         SELECT name, $1, created_at, updated_at, id FROM spina_conferences_dietary_requirements
@@ -119,7 +117,7 @@ class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
 
   def insert_institution_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'insert institution translations', binds
+    insert <<-SQL.squish, 'Insert institution translations', nil, nil, nil, binds
       INSERT INTO spina_conferences_institution_translations
         (name, city, locale, created_at, updated_at, spina_conferences_institution_id)
         SELECT name, city, $1, created_at, updated_at, id FROM spina_conferences_institutions
@@ -128,7 +126,7 @@ class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
 
   def insert_presentation_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'insert presentation translations', binds
+    insert <<-SQL.squish, 'Insert presentation translations', nil, nil, nil, binds
       INSERT INTO spina_conferences_presentation_translations
         (title, abstract, locale, created_at, updated_at, spina_conferences_presentation_id)
         SELECT title, abstract, $1, created_at, updated_at, id FROM spina_conferences_presentations
@@ -137,7 +135,7 @@ class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
 
   def insert_presentation_attachment_type_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'insert presentation attachment type translations', binds
+    insert <<-SQL.squish, 'Insert presentation attachment type translations', nil, nil, nil, binds
       INSERT INTO spina_conferences_presentation_attachment_type_translations
         (name, locale, created_at, updated_at, spina_conferences_presentation_attachment_type_id)
         SELECT name, $1, created_at, updated_at, id FROM spina_conferences_presentation_attachment_types
@@ -146,7 +144,7 @@ class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
 
   def insert_presentation_type_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'insert presentation type translations', binds
+    insert <<-SQL.squish, 'Insert presentation type translations', nil, nil, nil, binds
       INSERT INTO spina_conferences_presentation_type_translations
         (name, locale, created_at, updated_at, spina_conferences_presentation_type_id)
         SELECT name, $1, created_at, updated_at, id FROM spina_conferences_presentation_types
@@ -155,7 +153,7 @@ class MoveAttributesToTranslationTables < ActiveRecord::Migration[6.0] # :nodoc:
 
   def insert_room_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'insert room translations', binds
+    insert <<-SQL.squish, 'Insert room translations', nil, nil, nil, binds
       INSERT INTO spina_conferences_room_translations (building, number, locale, created_at, updated_at, spina_conferences_room_id)
         SELECT building, number, $1, created_at, updated_at, id FROM spina_conferences_rooms
     SQL
