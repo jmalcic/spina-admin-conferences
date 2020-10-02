@@ -30,7 +30,7 @@ class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] # :no
   end
 
   def update_room_uses_with_room_id
-    exec_update <<-SQL.squish
+    update <<-SQL.squish, 'Update room uses'
       UPDATE spina_conferences_room_uses
         SET (room_id, created_at, updated_at) = (spina_conferences_room_possessions.room_id, current_timestamp, current_timestamp)
         FROM spina_conferences_room_possessions
@@ -39,7 +39,7 @@ class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] # :no
   end
 
   def insert_room_possessions
-    exec_insert <<-SQL.squish
+    insert <<-SQL.squish, 'Add room possessions'
       INSERT INTO spina_conferences_room_possessions (room_id, conference_id)
         SELECT DISTINCT spina_conferences_room_uses.room_id, spina_conferences_presentation_types.conference_id
           FROM spina_conferences_room_uses
@@ -49,11 +49,10 @@ class RemoveSpinaConferencesRoomPossessions < ActiveRecord::Migration[6.0] # :no
   end
 
   def update_room_uses_with_room_possession_id
-    exec_update <<-SQL.squish
+    update <<-SQL.squish, 'Add references to room uses'
       UPDATE spina_conferences_room_uses SET room_possession_id = spina_conferences_room_possessions.id
         FROM spina_conferences_room_possessions
-          LEFT JOIN spina_conferences_presentation_types
-            ON spina_conferences_room_possessions.conference_id = spina_conferences_presentation_types.conference_id
+          INNER JOIN spina_conferences_presentation_types USING (conference_id)
           WHERE spina_conferences_room_possessions.room_id = spina_conferences_room_uses.room_id
             AND spina_conferences_room_possessions.conference_id = spina_conferences_presentation_types.conference_id
     SQL

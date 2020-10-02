@@ -3,7 +3,7 @@
 
 class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
   def up
-    insert <<~SQL, 'Insert conferences parts'
+    insert <<-SQL, 'Insert conferences parts'
       WITH parts AS (
         SELECT
           title,
@@ -28,7 +28,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
       INSERT INTO spina_conferences_parts (title, name, partable_id, partable_type, pageable_id, pageable_type)
         SELECT title, name, page_partable_id, page_partable_type, pageable_id, pageable_type FROM parts
     SQL
-    delete <<~SQL, 'Delete page parts'
+    delete <<-SQL, 'Delete page parts'
       WITH parts AS (
         SELECT spina_page_parts.id AS id
           FROM spina_conferences_conferences
@@ -46,10 +46,10 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
       )
       DELETE FROM spina_page_parts USING parts WHERE spina_page_parts.id = parts.id
     SQL
-    delete <<~SQL, 'Delete pages'
+    delete <<-SQL, 'Delete pages'
       DELETE FROM spina_pages USING spina_conferences_conference_page_parts WHERE conference_page_id = spina_pages.id
     SQL
-    delete <<~SQL, 'Delete conference page parts'
+    delete <<-SQL, 'Delete conference page parts'
       DELETE FROM spina_conferences_conference_page_parts
         USING spina_conferences_conferences, spina_conferences_presentations
           WHERE (
@@ -61,10 +61,10 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
                 AND conference_page_partable_type = 'Spina::Conferences::Presentation'
             )
     SQL
-    delete <<~SQL, 'Delete conferences page'
+    delete <<-SQL, 'Delete conferences page'
       DELETE FROM spina_pages WHERE name = 'conferences'
     SQL
-    delete <<~SQL, 'Delete conference pages resource'
+    delete <<-SQL, 'Delete conference pages resource'
       DELETE FROM spina_resources WHERE name = 'conference_pages'
     SQL
     remove_column :spina_pages, :type
@@ -72,13 +72,13 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
 
   def down
     add_column :spina_pages, :type, :string
-    insert <<~SQL, 'Insert resource if missing'
+    insert <<-SQL, 'Insert resource if missing'
       INSERT INTO spina_resources (name, label, created_at, updated_at)
         SELECT 'conference_pages', 'Conference pages', current_timestamp, current_timestamp
           WHERE NOT EXISTS (SELECT name FROM spina_resources WHERE name = 'conference_pages')
     SQL
     locale = ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)
-    insert <<~SQL, 'Insert root page if missing', nil, nil, nil, [locale]
+    insert <<-SQL, 'Insert root page if missing', nil, nil, nil, [locale]
       WITH pages AS (
         INSERT INTO spina_pages (name, view_template, deletable, created_at, updated_at)
           SELECT 'conferences', 'conferences', false, current_timestamp, current_timestamp
@@ -88,7 +88,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
       INSERT INTO spina_page_translations (title, spina_page_id, locale, created_at, updated_at)
         SELECT 'Conferences', pages.id, $1, current_timestamp, current_timestamp FROM pages
     SQL
-    insert <<~SQL, 'Insert conference pages for conferences', nil, nil, nil, [locale]
+    insert <<-SQL, 'Insert conference pages for conferences', nil, nil, nil, [locale]
       WITH
         resources AS (SELECT id FROM spina_resources WHERE name = 'conference_pages' LIMIT 1),
         conferences_pages AS (SELECT id FROM spina_pages WHERE view_template = 'conferences' LIMIT 1),
@@ -132,7 +132,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
               SELECT page_id, row_number() OVER (ORDER BY page_id) AS index FROM conference_pages
             ) AS pages_with_indices USING (index)
     SQL
-    insert <<~SQL, 'Insert conference pages for presentations', nil, nil, nil, [locale]
+    insert <<-SQL, 'Insert conference pages for presentations', nil, nil, nil, [locale]
       WITH
         resources AS (SELECT id FROM spina_resources WHERE name = 'conference_pages' LIMIT 1),
         conference_pages_to_insert AS (
@@ -177,7 +177,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
               SELECT page_id, row_number() OVER (ORDER BY page_id) AS index FROM conference_pages
             ) AS pages_with_indices USING (index)
     SQL
-    insert <<~SQL, 'Insert page parts'
+    insert <<-SQL, 'Insert page parts'
       INSERT INTO spina_page_parts (title, name, page_id, page_partable_id, page_partable_type, created_at, updated_at)
         SELECT
           spina_conferences_parts.title, spina_conferences_parts.name, spina_pages.id, partable_id, partable_type, current_timestamp,
@@ -191,7 +191,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
               ON pageable_id = conference_page_partable_id AND pageable_type = conference_page_partable_type
             INNER JOIN spina_pages ON conference_page_id = spina_pages.id
     SQL
-    delete <<~SQL, 'Delete conference parts'
+    delete <<-SQL, 'Delete conference parts'
       DELETE FROM spina_conferences_parts USING spina_page_parts WHERE page_partable_id = partable_id AND page_partable_type = partable_type
     SQL
   end

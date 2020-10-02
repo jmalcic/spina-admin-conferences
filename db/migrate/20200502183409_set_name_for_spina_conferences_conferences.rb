@@ -13,7 +13,7 @@ class SetNameForSpinaConferencesConferences < ActiveRecord::Migration[6.0] # :no
   private
 
   def set_institution_from_room
-    exec_update <<-SQL.squish, 'set institution from room'
+    update <<-SQL.squish, 'Set institution from room'
       UPDATE spina_conferences_conferences SET (institution_id) = (
         SELECT spina_conferences_rooms.institution_id
           FROM spina_conferences_presentation_types
@@ -28,20 +28,20 @@ class SetNameForSpinaConferencesConferences < ActiveRecord::Migration[6.0] # :no
   end
 
   def delete_translations
-    exec_delete <<-SQL.squish, 'delete translations'
+    delete <<-SQL.squish, 'Delete translations'
       DELETE FROM spina_conferences_conference_translations
     SQL
   end
 
   def add_translations
     binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    exec_insert <<-SQL.squish, 'add translations', binds
-      INSERT INTO spina_conferences_conference_translations (locale, spina_conferences_conference_id, "name", created_at, updated_at)
+    insert <<-SQL.squish, 'Add translations', nil, nil, nil, binds
+      INSERT INTO spina_conferences_conference_translations (locale, spina_conferences_conference_id, name, created_at, updated_at)
         SELECT $1, spina_conferences_conferences.id,
                concat_ws(' ', spina_conferences_institution_translations.name, date_part('year', lower(dates))),
                spina_conferences_conferences.created_at, spina_conferences_conferences.updated_at
           FROM spina_conferences_conferences
-            LEFT JOIN spina_conferences_institution_translations ON spina_conferences_institution_id = institution_id AND locale = $1
+            INNER JOIN spina_conferences_institution_translations ON spina_conferences_institution_id = institution_id AND locale = $1
     SQL
   end
 end
