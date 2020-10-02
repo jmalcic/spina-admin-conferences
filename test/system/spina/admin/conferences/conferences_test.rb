@@ -5,7 +5,7 @@ require 'application_system_test_case'
 module Spina
   module Admin
     module Conferences
-      class ConferencesTest < ApplicationSystemTestCase
+      class ConferencesTest < ApplicationSystemTestCase # rubocop:disable Metrics/ClassLength
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
           @empty_conference = spina_admin_conferences_conferences :empty_conference
@@ -147,11 +147,11 @@ module Spina
               fill_in id: /admin_conferences_conference_parts_attributes_5_partable_attributes_structure_items_attributes_[0-9]+
                              _structure_parts_attributes_0_partable_attributes_content/x,
                       with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts.find_by(name: 'name')
-                              .partable.content
+                                       .partable.content
               fill_in id: /admin_conferences_conference_parts_attributes_5_partable_attributes_structure_items_attributes_[0-9]+
                              _structure_parts_attributes_2_partable_attributes_content/x,
                       with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts
-                              .find_by(name: 'website').partable.content
+                                       .find_by(name: 'website').partable.content
               execute_script '$.fx.off = true;'
               click_on 'Choose image'
             end
