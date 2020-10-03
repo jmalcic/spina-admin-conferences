@@ -13,3 +13,8 @@ url:
   name: url
   title: URL
   layout_partable: valid_url (Spina::Admin::Conferences::UrlPart)
+
+email_address:
+  name: email_address
+  title: Email address
+  layout_partable: valid_email_address (Spina::Admin::Conferences::EmailAddressPart)

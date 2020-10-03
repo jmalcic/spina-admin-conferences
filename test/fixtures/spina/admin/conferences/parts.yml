@@ -36,6 +36,18 @@ empty_submission_url:
   partable_type: Spina::Admin::Conferences::UrlPart
   pageable: university_of_shangri_la_2018 (Spina::Admin::Conferences::Conference)
 
+submission_email_address:
+  name: submission_email_address
+  title: Submission email address
+  partable: valid_email_address (Spina::Admin::Conferences::EmailAddressPart)
+  pageable: university_of_atlantis_2017 (Spina::Admin::Conferences::Conference)
+
+empty_submission_email_address:
+  name: submission_email_address
+  title: Submission email address
+  partable_type: Spina::Admin::Conferences::EmailAddressPart
+  pageable: university_of_shangri_la_2018 (Spina::Admin::Conferences::Conference)
+
 submission_date:
   name: submission_date
   title: Submission date
@@ -77,3 +89,8 @@ new_sponsors:
   title: Sponsors
   partable_type: Spina::Structure
   pageable: empty_conference (Spina::Admin::Conferences::Conference)
+
+email_address:
+  name: email_address
+  title: Email address
+  partable: valid_email_address (Spina::Admin::Conferences::EmailAddressPart)
