@@ -18,3 +18,8 @@ email_address:
   name: email_address
   title: Email address
   layout_partable: valid_email_address (Spina::Admin::Conferences::EmailAddressPart)
+
+time:
+  name: time
+  title: Time
+  layout_partable: valid_time (Spina::Admin::Conferences::TimePart)
