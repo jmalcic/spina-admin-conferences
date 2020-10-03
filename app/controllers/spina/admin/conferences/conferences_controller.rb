@@ -133,7 +133,7 @@ module Spina
                                                                parts_attributes:
                                                                  [:id, :title, :name, :partable_type, :partable_id,
                                                                   { partable_attributes:
-                                                                      [:id, :content, :image_tokens, :image_positions,
+                                                                      [:id, :content, :image_tokens, :image_positions, :date, :time,
                                                                        { structure_items_attributes:
                                                                            [:id, :position, :_destroy,
                                                                             { structure_parts_attributes:

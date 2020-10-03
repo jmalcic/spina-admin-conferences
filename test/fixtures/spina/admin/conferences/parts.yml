@@ -90,6 +90,11 @@ new_sponsors:
   partable_type: Spina::Structure
   pageable: empty_conference (Spina::Admin::Conferences::Conference)
 
+time:
+  name: time
+  title: Time
+  partable: valid_time (Spina::Admin::Conferences::TimePart)
+
 email_address:
   name: email_address
   title: Email address
