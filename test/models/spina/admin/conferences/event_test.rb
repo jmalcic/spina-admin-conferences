@@ -136,8 +136,8 @@ module Spina
         end
 
         test 'setting date updates start datetime' do
-          assert_changes '@event.start_datetime' do
-            @event.date = (@event.date + 1.day).iso8601
+          assert_changes '@event.start_datetime.inspect', to: @event.date.+(1.day).iso8601.inspect do
+            @event.date = @event.date.+(1.day).iso8601
           end
           assert_changes '@event.start_datetime' do
             @event.date = nil
@@ -153,14 +153,13 @@ module Spina
         end
 
         test 'returns start time' do
-          assert_equal @event.start_datetime,
-                       @event.start_time
+          assert_equal @event.start_datetime, @event.start_time
           assert_nil @new_event.start_time
         end
 
         test 'setting start time updates start datetime' do
-          assert_changes '@event.start_datetime' do
-            @event.start_time = (@event.start_time + 2.hours).to_formatted_s(:time)
+          assert_changes '@event.start_datetime.inspect', to: @event.start_time.+(2.hours).inspect do
+            @event.start_time = @event.start_time.+(2.hours).to_formatted_s(:time)
           end
           assert_changes '@event.start_datetime' do
             @event.start_time = nil
