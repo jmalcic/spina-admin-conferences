@@ -79,3 +79,8 @@ url:
   name: url
   title: URL
   structure_partable: valid_url (Spina::Admin::Conferences::UrlPart)
+
+email_address:
+  name: email_address
+  title: Email address
+  structure_partable: valid_email_address (Spina::Admin::Conferences::EmailAddressPart)

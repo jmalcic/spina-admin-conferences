@@ -53,6 +53,9 @@ module Spina
           within '[data-name="submission_url"]' do
             fill_in with: @conference.parts.find_by(name: 'submission_url').partable.content
           end
+          within '[data-name="submission_email_address"]' do
+            fill_in with: @conference.parts.find_by(name: 'email_address').partable.content
+          end
           within '[data-name="submission_date"]' do
             fill_in with: @conference.parts.find_by(name: 'submission_date').partable.content
           end
@@ -126,6 +129,9 @@ module Spina
           end
           within '[data-name="submission_url"]' do
             fill_in with: @conference.parts.find_by(name: 'submission_url').partable.content
+          end
+          within '[data-name="submission_email_address"]' do
+            fill_in with: @conference.parts.find_by(name: 'submission_email_address').partable.content
           end
           within '[data-name="submission_date"]' do
             fill_in with: @conference.parts.find_by(name: 'submission_date').partable.content
