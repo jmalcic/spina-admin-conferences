@@ -2,8 +2,7 @@
 
 class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metrics/ClassLength, Style/Documentation
   def up
-    binds = [ActiveRecord::Relation::QueryAttribute.new('locale', I18n.default_locale, ActiveRecord::Type::String.new)]
-    insert <<-SQL.squish, 'Create events', nil, nil, nil, binds
+    insert <<-SQL.squish, 'Create events', nil, nil, nil
       WITH event_structure_items_with_parts AS (
         SELECT DISTINCT
           spina_structure_items.id AS structure_item_id,
@@ -13,6 +12,7 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
           names.content AS title,
           locations.content AS location,
           descriptions.content AS description,
+          names.locale AS locale,
           start_times.id AS start_time_id,
           names.id AS title_translation_id,
           locations.id AS location_translation_id,
@@ -28,7 +28,8 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
                       AND spina_structure_parts.name = 'start_time'
             ) AS start_times ON start_times.structure_item_id = spina_structure_items.id
             LEFT JOIN (
-              SELECT spina_lines.id AS id, spina_line_translations.content AS content, structure_item_id
+              SELECT
+                spina_lines.id AS id, content, locale, structure_item_id
                 FROM spina_structure_parts
                   INNER JOIN spina_lines
                     ON structure_partable_id = spina_lines.id
@@ -37,10 +38,9 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
                   INNER JOIN spina_line_translations
                     ON spina_line_id = spina_lines.id
                 WHERE content IS NOT NULL
-                ORDER BY locale = 'en-GB'
             ) AS names ON names.structure_item_id = spina_structure_items.id
             LEFT JOIN (
-              SELECT spina_lines.id AS id, content, structure_item_id
+              SELECT spina_lines.id AS id, content, locale, structure_item_id
                 FROM spina_structure_parts
                   INNER JOIN spina_lines
                     ON structure_partable_id = spina_lines.id
@@ -49,10 +49,9 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
                   INNER JOIN spina_line_translations
                     ON spina_line_id = spina_lines.id
                 WHERE content IS NOT NULL
-                ORDER BY locale = 'en-GB'
             ) AS locations ON locations.structure_item_id = spina_structure_items.id
             LEFT JOIN (
-              SELECT spina_texts.id AS id, content, structure_item_id
+              SELECT spina_texts.id AS id, content, locale, structure_item_id
                 FROM spina_structure_parts
                   INNER JOIN spina_texts
                     ON structure_partable_id = spina_texts.id
@@ -61,23 +60,31 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
                   INNER JOIN spina_text_translations
                     ON spina_text_id = spina_texts.id
                 WHERE content IS NOT NULL
-                ORDER BY locale = 'en-GB'
             ) AS descriptions ON descriptions.structure_item_id = spina_structure_items.id
-          WHERE pageable_type = 'Spina::Admin::Conferences::Conference' AND spina_conferences_parts.name IN ('meetings', 'socials')
+          WHERE pageable_type = 'Spina::Admin::Conferences::Conference'
+            AND spina_conferences_parts.name IN ('meetings', 'socials')
+            AND names.locale = locations.locale
+            AND locations.locale = descriptions.locale
+      ), untranslated_event_structure_items_with_parts AS (
+        SELECT structure_item_id, start_time, conference_id
+          FROM event_structure_items_with_parts
+          GROUP BY structure_item_id, start_time, conference_id
       ), events AS (
         INSERT INTO spina_conferences_events (start_datetime, finish_datetime, conference_id, created_at, updated_at)
           SELECT start_time, start_time + interval '1 hour', conference_id, current_timestamp, current_timestamp
-            FROM event_structure_items_with_parts
+            FROM untranslated_event_structure_items_with_parts
           RETURNING id
       ), event_translations AS (
         INSERT INTO spina_conferences_event_translations
           (name, description, location, locale, spina_conferences_event_id, created_at, updated_at) 
-          SELECT title, description, location, $1, structure_item_events.id, current_timestamp, current_timestamp
+          SELECT DISTINCT ON (structure_item_id, locale)
+            title, description, location, locale, structure_item_events.id, current_timestamp, current_timestamp
             FROM (
-              SELECT title, description, location, row_number() OVER (ORDER BY structure_item_id) AS index
-                FROM event_structure_items_with_parts
+              SELECT structure_item_id, row_number() OVER (ORDER BY structure_item_id) AS index
+                FROM untranslated_event_structure_items_with_parts
             ) AS event_structure_items_with_parts_and_indices
               INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM events) AS structure_item_events USING (index)
+              INNER JOIN event_structure_items_with_parts USING (structure_item_id)
       ), line_translations AS (
         DELETE FROM spina_line_translations
           USING event_structure_items_with_parts
