@@ -179,7 +179,7 @@ module Spina
         end
 
         test 'setting date updates start datetime' do
-          assert_changes '@presentation.start_datetime.inspect', to: @presentation.date.+(1.day).inspect do
+          assert_changes '@presentation.start_datetime.inspect', to: @presentation.start_datetime.+(1.day).inspect do
             @presentation.date = @presentation.date.+(1.day).iso8601
           end
           assert_changes '@presentation.start_datetime' do
