@@ -2,6 +2,6 @@
 
 class RemoveNameFromSpinaConferencesPresentationTypes < ActiveRecord::Migration[6.0] # :nodoc:
   def change
-    remove_column :spina_conferences_presentation_types, :name, :string, null: false
+    remove_column :spina_conferences_presentation_types, :name, :string
   end
 end
