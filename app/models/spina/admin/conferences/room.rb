@@ -34,7 +34,7 @@ module Spina
         #   @return [ActiveRecord::Relation] Presentations associated with {#sessions}
         #   @see Presentation
         #   @see Session#presentations
-        has_many :presentations, through: :sessions
+        has_many :presentations, -> { distinct }, through: :sessions
 
         validates :number, :building, presence: true
 
