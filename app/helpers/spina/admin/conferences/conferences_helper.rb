@@ -27,11 +27,15 @@ module Spina
           structure = STRUCTURES.find { |structure_attributes| structure_attributes[:name] == name }
           return item.parts if structure.blank?
 
-          structure[:structure_parts].map do |part_attributes|
-            item.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes).then do |part|
-              part.partable ||= part.partable_type.constantize.new
-              part
-            end
+          structure[:structure_parts].map { |part_attributes| build_custom_structure_part(item.parts, part_attributes) }
+        end
+
+        private
+
+        def build_custom_structure_part(parts, part_attributes)
+          parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes).then do |part|
+            part.partable ||= part.partable_type.constantize.new
+            part
           end
         end
       end

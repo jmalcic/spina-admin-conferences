@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Conferences
-      # This class represents dates, without associated times.
+      # Date parts, without associated times.
       class DatePart < ApplicationRecord
         has_many :page_parts, as: :page_partable
         has_many :parts, as: :partable

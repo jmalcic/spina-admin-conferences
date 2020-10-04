@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Conferences
+      # Join records between partables and pageables.
       class Part < ApplicationRecord
         include Spina::Part
         include Spina::Optionable

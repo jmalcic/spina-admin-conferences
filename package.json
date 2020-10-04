@@ -25,10 +25,10 @@
     "stimulus": "https://github.com/stimulusjs/dev-builds/archive/b8cc8c4/stimulus.tar.gz"
   },
   "devDependencies": {
-    "@percy/agent": "^0.28.0",
+    "@percy/agent": "^0.28.2",
     "babel-eslint": "^10.0.3",
-    "eslint": "^7.6.0",
-    "jsdoc": "^3.6.5"
+    "eslint": "^7.10.0",
+    "jsdoc": "^3.6.6"
   },
   "scripts": {
     "lint": "eslint app/assets/javascripts"
