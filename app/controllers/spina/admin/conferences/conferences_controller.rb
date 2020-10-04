@@ -108,6 +108,8 @@ module Spina
           @parts_attributes = [
             { name: 'text', title: 'Text', partable_type: 'Spina::Text' },
             { name: 'submission_url', title: 'Submission URL', partable_type: 'Spina::Admin::Conferences::UrlPart' },
+            { name: 'submission_email_address', title: 'Submission email address',
+              partable_type: 'Spina::Admin::Conferences::EmailAddressPart' },
             { name: 'submission_date', title: 'Submission date', partable_type: 'Spina::Admin::Conferences::DatePart' },
             { name: 'submission_text', title: 'Submission text', partable_type: 'Spina::Line' },
             { name: 'gallery', title: 'Gallery', partable_type: 'Spina::ImageCollection' },
@@ -124,14 +126,14 @@ module Spina
           end
         end
 
-        def conference_params
+        def conference_params # rubocop:disable Metrics/MethodLength
           params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
                                                                events_attributes:
                                                                  %i[id name date start_time finish_time description location],
                                                                parts_attributes:
                                                                  [:id, :title, :name, :partable_type, :partable_id,
                                                                   { partable_attributes:
-                                                                      [:id, :content, :image_tokens, :image_positions,
+                                                                      [:id, :content, :image_tokens, :image_positions, :date, :time,
                                                                        { structure_items_attributes:
                                                                            [:id, :position, :_destroy,
                                                                             { structure_parts_attributes:
