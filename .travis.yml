@@ -16,7 +16,6 @@ cache:
 services:
   - redis
 before_install:
-  - timedatectl set-timezone Europe/London
   - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
   - nvm install
   - gem update --system
