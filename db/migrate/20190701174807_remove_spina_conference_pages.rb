@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spina_conferences (originally 20190701174807)
 
 class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
