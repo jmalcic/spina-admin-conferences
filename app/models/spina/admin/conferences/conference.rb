@@ -44,22 +44,22 @@ module Spina
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session
         #   @see PresentationType#sessions
-        has_many :sessions, through: :presentation_types
+        has_many :sessions, -> { distinct }, through: :presentation_types
         # @!attribute [rw] presentations
         #   @return [ActiveRecord::Relation] Presentations associated with {#sessions}
         #   @see Presentation
         #   @see Session#presentations
-        has_many :presentations, through: :sessions
+        has_many :presentations, -> { distinct }, through: :sessions
         # @!attribute [rw] rooms
         #   @return [ActiveRecord::Relation] Rooms associated with {#sessions}
         #   @see Room
         #   @see Session#rooms
-        has_many :rooms, through: :sessions
+        has_many :rooms, -> { distinct }, through: :sessions
         # @!attribute [rw] institutions
         #   @return [ActiveRecord::Relation] Institutions associated with {#rooms}
         #   @see Institution
         #   @see Room#institutions
-        has_many :institutions, through: :rooms
+        has_many :institutions, -> { distinct }, through: :rooms
         # @!attribute [rw] delegates
         #   @return [ActiveRecord::Relation] directly associated delegates
         #   @see Delegate
