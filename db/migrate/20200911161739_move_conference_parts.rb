@@ -66,9 +66,8 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
             AND names.locale = locations.locale
             AND locations.locale = descriptions.locale
       ), untranslated_event_structure_items_with_parts AS (
-        SELECT structure_item_id, start_time, conference_id
+        SELECT DISTINCT ON (structure_item_id) structure_item_id, start_time, conference_id
           FROM event_structure_items_with_parts
-          GROUP BY structure_item_id, start_time, conference_id
       ), events AS (
         INSERT INTO spina_conferences_events (start_datetime, finish_datetime, conference_id, created_at, updated_at)
           SELECT start_time, start_time + interval '1 hour', conference_id, current_timestamp, current_timestamp
@@ -77,14 +76,16 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
       ), event_translations AS (
         INSERT INTO spina_conferences_event_translations
           (name, description, location, locale, spina_conferences_event_id, created_at, updated_at) 
-          SELECT DISTINCT ON (structure_item_id, locale)
+          SELECT DISTINCT ON (event_structure_items_with_parts_and_indices.structure_item_id, locale)
             title, description, location, locale, structure_item_events.id, current_timestamp, current_timestamp
             FROM (
               SELECT structure_item_id, row_number() OVER (ORDER BY structure_item_id) AS index
                 FROM untranslated_event_structure_items_with_parts
             ) AS event_structure_items_with_parts_and_indices
-              INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM events) AS structure_item_events USING (index)
-              INNER JOIN event_structure_items_with_parts USING (structure_item_id)
+              INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM events) AS structure_item_events
+                ON structure_item_events.index = event_structure_items_with_parts_and_indices.index
+              INNER JOIN event_structure_items_with_parts
+                ON event_structure_items_with_parts.structure_item_id = event_structure_items_with_parts_and_indices.structure_item_id
       ), line_translations AS (
         DELETE FROM spina_line_translations
           USING event_structure_items_with_parts
