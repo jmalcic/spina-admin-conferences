@@ -27,7 +27,7 @@ module Spina
         # @!attribute [rw] institution
         #   @return [Institution, nil] directly associated institution
         #   @see Institution
-        belongs_to :institution, inverse_of: :delegates
+        belongs_to :institution, inverse_of: :delegates, touch: true
         # @!attribute [rw] conferences
         #   @return [ActiveRecord::Relation] directly associated conferences
         #   @see Conference

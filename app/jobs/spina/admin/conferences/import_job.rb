@@ -18,7 +18,7 @@ module Spina
         # @yieldparam row [Hash] the current row of the CSV
         def import(file)
           csv_rows = CSV.parse file, encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: [:json]
-          csv_rows.collect { |row| yield(row) }
+          csv_rows.each { |row| yield(row) }
         end
       end
     end

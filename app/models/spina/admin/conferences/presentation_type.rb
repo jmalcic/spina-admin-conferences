@@ -24,7 +24,7 @@ module Spina
 
         # @!attribute [rw] conference
         #   @return [Conference, nil] directly associated conference
-        belongs_to :conference, inverse_of: :presentation_types
+        belongs_to :conference, inverse_of: :presentation_types, touch: true
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] directly associated sessions
         #   @note A presentation type cannot be destroyed if it has dependent sessions.
