@@ -78,6 +78,9 @@ module Spina
         end
 
         test 'performs import job' do
+          file_fixture('delegates.csv.erb').read
+            .then { |file| ERB.new(file).result(binding) }
+            .then { |result| Pathname.new(File.join(file_fixture_path, 'delegates.csv')).write(result) }
           assert_enqueued_jobs 1, only: DelegateImportJob do
             Delegate.import file_fixture('delegates.csv')
           end
