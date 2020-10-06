@@ -180,6 +180,9 @@ module Spina
         end
 
         test 'should enqueue presentation import' do
+          file_fixture('presentations.csv.erb').read
+            .then { |file| ERB.new(file).result(binding) }
+            .then { |result| Pathname.new(File.join(file_fixture_path, 'presentations.csv')).write(result) }
           assert_enqueued_with job: PresentationImportJob do
             post import_admin_conferences_presentations_url,
                  params: { file: fixture_file_upload(file_fixture('presentations.csv')) }

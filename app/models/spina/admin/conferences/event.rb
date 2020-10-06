@@ -28,7 +28,7 @@ module Spina
 
         # @!attribute [rw] conference
         #   @return [Conference, nil] directly associated conferences
-        belongs_to :conference, inverse_of: :events
+        belongs_to :conference, inverse_of: :events, touch: true
 
         validates :name, :date, :start_time, :start_datetime, :finish_time, :finish_datetime, :location, presence: true
         validates :date, 'spina/admin/conferences/conference_date': true

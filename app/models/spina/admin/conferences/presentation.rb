@@ -32,7 +32,7 @@ module Spina
         # @!attribute [rw] session
         #   @return [Session, nil] directly associated session
         #   @see Session
-        belongs_to :session, inverse_of: :presentations
+        belongs_to :session, inverse_of: :presentations, touch: true
         # @!attribute [rw] presentation_type
         #   @return [PresentationType, nil] Presentation type associated with {#session}
         #   @see PresentationType
