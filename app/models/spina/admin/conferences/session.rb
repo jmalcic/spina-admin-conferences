@@ -17,11 +17,11 @@ module Spina
 
         # @!attribute [rw] room
         #   @return [Room, nil] directly associated room
-        belongs_to :room, inverse_of: :sessions
+        belongs_to :room, inverse_of: :sessions, touch: true
         # @!attribute [rw] room
         #   @return [PresentationType, nil] directly associated presentation type
         #   @see PresentationType
-        belongs_to :presentation_type, inverse_of: :sessions
+        belongs_to :presentation_type, inverse_of: :sessions, touch: true
         # @!attribute [rw] conference
         #   @return [Conference, nil] Conference associated with {#presentation_type}
         #   @see Conference

@@ -24,7 +24,7 @@ module Spina
         # @!attribute [rw] institution
         #   @return [Institution, nil] directly associated institution
         #   @see Institution
-        belongs_to :institution, inverse_of: :rooms, autosave: true
+        belongs_to :institution, inverse_of: :rooms, autosave: true, touch: true
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] directly associated sessions
         #   @note A room cannot be destroyed if it has dependent sessions.
