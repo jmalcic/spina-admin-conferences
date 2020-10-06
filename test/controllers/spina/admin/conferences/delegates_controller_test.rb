@@ -154,6 +154,9 @@ module Spina
         end
 
         test 'should enqueue delegate import' do
+          file_fixture('delegates.csv.erb').read
+            .then { |file| ERB.new(file).result(binding) }
+            .then { |result| Pathname.new(File.join(file_fixture_path, 'delegates.csv')).write(result) }
           assert_enqueued_with job: DelegateImportJob do
             post import_admin_conferences_delegates_url,
                  params: { file: fixture_file_upload(file_fixture('delegates.csv')) }
