@@ -6,6 +6,17 @@ module Spina
       # Controller for {Conference} objects.
       # @see Conference
       class ConferencesController < ApplicationController
+        PARTS = [
+          { name: 'text', title: 'Text', partable_type: 'Spina::Text' },
+          { name: 'submission_url', title: 'Submission URL', partable_type: 'Spina::Admin::Conferences::UrlPart' },
+          { name: 'submission_email_address', title: 'Submission email address',
+            partable_type: 'Spina::Admin::Conferences::EmailAddressPart' },
+          { name: 'submission_date', title: 'Submission date', partable_type: 'Spina::Admin::Conferences::DatePart' },
+          { name: 'submission_text', title: 'Submission text', partable_type: 'Spina::Line' },
+          { name: 'gallery', title: 'Gallery', partable_type: 'Spina::ImageCollection' },
+          { name: 'sponsors', title: 'Sponsors', partable_type: 'Spina::Structure' }
+        ].freeze
+
         before_action :set_conference, only: %i[edit update destroy]
         before_action :set_conferences_breadcrumb
         before_action :set_tabs
@@ -105,16 +116,7 @@ module Spina
         end
 
         def set_parts_attributes
-          @parts_attributes = [
-            { name: 'text', title: 'Text', partable_type: 'Spina::Text' },
-            { name: 'submission_url', title: 'Submission URL', partable_type: 'Spina::Admin::Conferences::UrlPart' },
-            { name: 'submission_email_address', title: 'Submission email address',
-              partable_type: 'Spina::Admin::Conferences::EmailAddressPart' },
-            { name: 'submission_date', title: 'Submission date', partable_type: 'Spina::Admin::Conferences::DatePart' },
-            { name: 'submission_text', title: 'Submission text', partable_type: 'Spina::Line' },
-            { name: 'gallery', title: 'Gallery', partable_type: 'Spina::ImageCollection' },
-            { name: 'sponsors', title: 'Sponsors', partable_type: 'Spina::Structure' }
-          ]
+          @parts_attributes = PARTS
         end
 
         def build_parts
