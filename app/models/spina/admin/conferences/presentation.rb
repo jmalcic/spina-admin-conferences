@@ -117,7 +117,7 @@ module Spina
         end
 
         # @return [Icalendar::Event] the presentation as an iCal event
-        def to_ics # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
@@ -130,6 +130,12 @@ module Spina
           event.append_custom_property('alt_description', abstract.try(:html_safe))
           event.description = abstract.try(:gsub, %r{</?[^>]*>}, '')
           event
+        end
+
+        # @param (see #to_event)
+        # @deprecated Use {#to_event} instead
+        def to_ics
+          to_event
         end
       end
     end

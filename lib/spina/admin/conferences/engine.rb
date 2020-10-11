@@ -12,6 +12,14 @@ module Spina
             plugin.namespace = 'conferences'
           end
         end
+
+        config.after_initialize do
+          ActiveSupport::Deprecation
+            .new('2.0', 'Spina::Admin::Conferences')
+            .tap { |deprecator| deprecator.deprecate_methods(Conference, to_ics: :to_event) }
+            .tap { |deprecator| deprecator.deprecate_methods(Presentation, to_ics: :to_event) }
+            .tap { |deprecator| deprecator.deprecate_methods(Event, to_ics: :to_event) }
+        end
       end
     end
   end
