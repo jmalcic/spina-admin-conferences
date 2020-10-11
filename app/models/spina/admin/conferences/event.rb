@@ -104,7 +104,7 @@ module Spina
           event.contact = Spina::Account.first.email
           event.categories = Event.model_name.human(count: 0)
           event.summary = name
-          event.append_custom_property(:alt_description, description.try(:html_safe))
+          event.append_custom_property('alt_description', description.try(:html_safe))
           event.description = description.try(:gsub, %r{</?[^>]*>}, '')
           event
         end
