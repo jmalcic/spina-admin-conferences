@@ -7,12 +7,12 @@ module Spina
       class PresentationAttachment < ApplicationRecord
         # @!attribute [rw] presentation
         #   @return [Presentation, nil] directly associated presentation
-        belongs_to :presentation, inverse_of: :attachments, touch: true
+        belongs_to :presentation, -> { includes(:translations) }, inverse_of: :attachments, touch: true
         # @!attribute [rw] presentation_attachment_type
         #   @return [PresentationAttachmentType, nil] directly associated presentation attachment type
-        belongs_to :attachment_type, class_name: 'Spina::Admin::Conferences::PresentationAttachmentType',
-                                     inverse_of: :presentation_attachments,
-                                     touch: true
+        belongs_to :attachment_type, -> { includes(:translations) }, class_name: 'Spina::Admin::Conferences::PresentationAttachmentType',
+                                                                     inverse_of: :presentation_attachments,
+                                                                     touch: true
         # @!attribute [rw] attachment
         #   @return [Spina::Attachment, nil] directly associated attachment
         belongs_to :attachment, class_name: 'Spina::Attachment'

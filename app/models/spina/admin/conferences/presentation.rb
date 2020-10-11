@@ -15,6 +15,8 @@ module Spina
       # - {#title}
       # - {#abstract}
       class Presentation < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] title
         #   @return [String, nil] the presentation title
         # @!attribute [rw] abstract
@@ -32,22 +34,22 @@ module Spina
         # @!attribute [rw] session
         #   @return [Session, nil] directly associated session
         #   @see Session
-        belongs_to :session, inverse_of: :presentations, touch: true
+        belongs_to :session, -> { includes(:translations) }, inverse_of: :presentations, touch: true
         # @!attribute [rw] presentation_type
         #   @return [PresentationType, nil] Presentation type associated with {#session}
         #   @see PresentationType
         #   @see Session#presentation_type
-        has_one :presentation_type, through: :session
+        has_one :presentation_type, -> { includes(:translations) }, through: :session
         # @!attribute [rw] room
         #   @return [Room, nil] Room associated with {#session}
         #   @see Session
         #   @see Session#room
-        has_one :room, through: :session
+        has_one :room, -> { includes(:translations) }, through: :session
         # @!attribute [rw] conference
         #   @return [Conference, nil] Conference associated with {#presentation_type}
         #   @see Conference
         #   @see PresentationType#conference
-        has_one :conference, through: :presentation_type
+        has_one :conference, -> { includes(:translations) }, through: :presentation_type
         # @!attribute [rw] attachments
         #   @return [ActiveRecord::Relation] directly associated presentation attachments
         #   @note This relation accepts nested attributes.
@@ -115,7 +117,7 @@ module Spina
         end
 
         # @return [Icalendar::Event] the presentation as an iCal event
-        def to_ics # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
@@ -125,9 +127,15 @@ module Spina
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)
           event.summary = title
-          event.append_custom_property(:alt_description, abstract.try(:html_safe))
+          event.append_custom_property('alt_description', abstract.try(:html_safe))
           event.description = abstract.try(:gsub, %r{</?[^>]*>}, '')
           event
+        end
+
+        # @param (see #to_event)
+        # @deprecated Use {#to_event} instead
+        def to_ics
+          to_event
         end
       end
     end

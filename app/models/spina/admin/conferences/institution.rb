@@ -12,6 +12,8 @@ module Spina
       # - {#name}
       # - {#city}
       class Institution < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] name
         #   @return [String, nil] the name of the institution
         # @!attribute [rw] city
@@ -28,7 +30,7 @@ module Spina
         #   @return [ActiveRecord::Relation] directly associated rooms
         #   @note An institution cannot be destroyed if it has dependent rooms.
         #   @see Room
-        has_many :rooms, inverse_of: :institution, dependent: :restrict_with_error
+        has_many :rooms, -> { includes(:translations) }, inverse_of: :institution, dependent: :restrict_with_error
         # @!attribute [rw] delegates
         #   @return [ActiveRecord::Relation] directly associated delegates
         #   @note This relation accepts nested attributes.

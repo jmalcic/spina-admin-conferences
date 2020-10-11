@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_201_002_122_517) do
+ActiveRecord::Schema.define(version: 20_201_007_125_625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -191,6 +191,8 @@ ActiveRecord::Schema.define(version: 20_201_002_122_517) do
     t.bigint 'partable_id'
     t.string 'pageable_type'
     t.bigint 'pageable_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'spina_conferences_presentation_attachment_type_translations', force: :cascade do |t|

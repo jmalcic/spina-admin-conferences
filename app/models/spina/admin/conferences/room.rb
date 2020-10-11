@@ -12,6 +12,8 @@ module Spina
       # - {#number}
       # - {#building}
       class Room < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] number
         #   @return [String, nil] the number of the room
         # @!attribute [rw] building
@@ -24,17 +26,17 @@ module Spina
         # @!attribute [rw] institution
         #   @return [Institution, nil] directly associated institution
         #   @see Institution
-        belongs_to :institution, inverse_of: :rooms, autosave: true, touch: true
+        belongs_to :institution, -> { includes(:translations) }, inverse_of: :rooms, autosave: true, touch: true
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] directly associated sessions
         #   @note A room cannot be destroyed if it has dependent sessions.
         #   @see Session
-        has_many :sessions, inverse_of: :room, dependent: :restrict_with_error
+        has_many :sessions, -> { includes(:translations) }, inverse_of: :room, dependent: :restrict_with_error
         # @!attribute [rw] presentations
         #   @return [ActiveRecord::Relation] Presentations associated with {#sessions}
         #   @see Presentation
         #   @see Session#presentations
-        has_many :presentations, -> { distinct }, through: :sessions
+        has_many :presentations, -> { distinct.includes(:translations) }, through: :sessions
 
         validates :number, :building, presence: true
 

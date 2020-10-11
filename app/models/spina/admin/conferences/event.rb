@@ -15,6 +15,8 @@ module Spina
       # - {#description}
       # - {#location}
       class Event < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] name
         #   @return [String, nil] the translated name of the conference
         # @!attribute [rw] description
@@ -28,7 +30,7 @@ module Spina
 
         # @!attribute [rw] conference
         #   @return [Conference, nil] directly associated conferences
-        belongs_to :conference, inverse_of: :events, touch: true
+        belongs_to :conference, -> { includes(:translations) }, inverse_of: :events, touch: true
 
         validates :name, :date, :start_time, :start_datetime, :finish_time, :finish_datetime, :location, presence: true
         validates :date, 'spina/admin/conferences/conference_date': true
@@ -92,7 +94,7 @@ module Spina
         end
 
         # @return [Icalendar::Event] the event as an iCal event
-        def to_ics # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
@@ -102,9 +104,15 @@ module Spina
           event.contact = Spina::Account.first.email
           event.categories = Event.model_name.human(count: 0)
           event.summary = name
-          event.append_custom_property(:alt_description, description.try(:html_safe))
+          event.append_custom_property('alt_description', description.try(:html_safe))
           event.description = description.try(:gsub, %r{</?[^>]*>}, '')
           event
+        end
+
+        # @param (see #to_event)
+        # @deprecated Use {#to_event} instead
+        def to_ics
+          to_event
         end
       end
     end
