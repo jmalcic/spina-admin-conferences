@@ -11,27 +11,29 @@ module Spina
       # = Translations
       # - {#name}
       class Session < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] name
         #   @return [String, nil] the name of the session
         translates :name, fallbacks: true
 
         # @!attribute [rw] room
         #   @return [Room, nil] directly associated room
-        belongs_to :room, inverse_of: :sessions, touch: true
+        belongs_to :room, -> { includes(:translations) }, inverse_of: :sessions, touch: true
         # @!attribute [rw] room
         #   @return [PresentationType, nil] directly associated presentation type
         #   @see PresentationType
-        belongs_to :presentation_type, inverse_of: :sessions, touch: true
+        belongs_to :presentation_type, -> { includes(:translations) }, inverse_of: :sessions, touch: true
         # @!attribute [rw] conference
         #   @return [Conference, nil] Conference associated with {#presentation_type}
         #   @see Conference
         #   @see PresentationType#conference
-        has_one :conference, through: :presentation_type
+        has_one :conference, -> { includes(:translations) }, through: :presentation_type
         # @!attribute [rw] institution
         #   @return [Institution, nil] Institution associated with {#room}
         #   @see Institution
         #   @see Room#institution
-        has_one :institution, through: :room
+        has_one :institution, -> { includes(:translations) }, through: :room
         # @!attribute [rw] presentations
         #   @return [ActiveRecord::Relation] directly associated presentations
         #   @note A session cannot be destroyed if it has dependent presentations.
