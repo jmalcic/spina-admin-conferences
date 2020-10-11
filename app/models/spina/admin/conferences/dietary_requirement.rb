@@ -11,6 +11,8 @@ module Spina
       # = Translations
       # - {#name}
       class DietaryRequirement < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] name
         #   @return [String, nil] the name of the dietary requirement
         translates :name, fallbacks: true

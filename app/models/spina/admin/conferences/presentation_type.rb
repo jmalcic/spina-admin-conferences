@@ -11,6 +11,8 @@ module Spina
       # = Translations
       # - {#name}
       class PresentationType < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] name
         #   @return [String, nil] the name of the presentation type
         translates :name, fallbacks: true
@@ -24,17 +26,17 @@ module Spina
 
         # @!attribute [rw] conference
         #   @return [Conference, nil] directly associated conference
-        belongs_to :conference, inverse_of: :presentation_types, touch: true
+        belongs_to :conference, -> { includes(:translations) }, inverse_of: :presentation_types, touch: true
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] directly associated sessions
         #   @note A presentation type cannot be destroyed if it has dependent sessions.
         #   @see Session
-        has_many :sessions, inverse_of: :presentation_type, dependent: :restrict_with_error
+        has_many :sessions, -> { includes(:translations) }, inverse_of: :presentation_type, dependent: :restrict_with_error
         # @!attribute [rw] presentations
         #   @return [ActiveRecord::Relation] Presentations associated with {#sessions}
         #   @see Presentation
         #   @see Session#presentations
-        has_many :presentations, -> { distinct }, through: :sessions
+        has_many :presentations, -> { distinct.includes(:translations) }, through: :sessions
 
         validates :name, :minutes, :duration, presence: true
         validates :minutes, numericality: { greater_than_or_equal_to: 1 }

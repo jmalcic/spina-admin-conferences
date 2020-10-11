@@ -11,6 +11,8 @@ module Spina
       # = Translations
       # - {#name}
       class PresentationAttachmentType < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] name
         #   @return [String, nil] the name of the presentation attachment type
         translates :name, fallbacks: true

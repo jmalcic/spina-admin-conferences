@@ -15,6 +15,8 @@ module Spina
       # - {#title}
       # - {#abstract}
       class Presentation < ApplicationRecord
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] title
         #   @return [String, nil] the presentation title
         # @!attribute [rw] abstract
@@ -32,22 +34,22 @@ module Spina
         # @!attribute [rw] session
         #   @return [Session, nil] directly associated session
         #   @see Session
-        belongs_to :session, inverse_of: :presentations, touch: true
+        belongs_to :session, -> { includes(:translations) }, inverse_of: :presentations, touch: true
         # @!attribute [rw] presentation_type
         #   @return [PresentationType, nil] Presentation type associated with {#session}
         #   @see PresentationType
         #   @see Session#presentation_type
-        has_one :presentation_type, through: :session
+        has_one :presentation_type, -> { includes(:translations) }, through: :session
         # @!attribute [rw] room
         #   @return [Room, nil] Room associated with {#session}
         #   @see Session
         #   @see Session#room
-        has_one :room, through: :session
+        has_one :room, -> { includes(:translations) }, through: :session
         # @!attribute [rw] conference
         #   @return [Conference, nil] Conference associated with {#presentation_type}
         #   @see Conference
         #   @see PresentationType#conference
-        has_one :conference, through: :presentation_type
+        has_one :conference, -> { includes(:translations) }, through: :presentation_type
         # @!attribute [rw] attachments
         #   @return [ActiveRecord::Relation] directly associated presentation attachments
         #   @note This relation accepts nested attributes.

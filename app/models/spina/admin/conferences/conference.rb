@@ -15,6 +15,8 @@ module Spina
       class Conference < ApplicationRecord
         include Partable
 
+        default_scope { includes(:translations) }
+
         # @!attribute [rw] dates
         #   @return [Range<Date>, nil] the dates of the conference
 
@@ -29,37 +31,38 @@ module Spina
         #   @return [ActiveRecord::Relation] directly associated presentation types
         #   @note A conference cannot be destroyed if it has dependent presentation types.
         #   @see PresentationType
-        has_many :presentation_types, inverse_of: :conference, dependent: :restrict_with_error
+        has_many :presentation_types, -> { includes(:translations) }, inverse_of: :conference, dependent: :restrict_with_error
         # @!attribute [rw] events
         #   @return [ActiveRecord::Relation] directly associated events
         #   @note Destroying a conference destroys dependent events.
         #   @see Event
-        has_many :events, inverse_of: :conference, dependent: :destroy
+        has_many :events, -> { includes(:translations) }, inverse_of: :conference, dependent: :destroy
         # @!attribute [rw] events
         #   @return [ActiveRecord::Relation] directly associated events
         #   @note Destroying a conference destroys dependent events.
         #   @see Event
-        has_many :parts, as: :pageable, dependent: :destroy
+        has_many :parts, -> { includes(:partable) },
+                 as: :pageable, dependent: :destroy
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session
         #   @see PresentationType#sessions
-        has_many :sessions, -> { distinct }, through: :presentation_types
+        has_many :sessions, -> { distinct.includes(:translations) }, through: :presentation_types
         # @!attribute [rw] presentations
         #   @return [ActiveRecord::Relation] Presentations associated with {#sessions}
         #   @see Presentation
         #   @see Session#presentations
-        has_many :presentations, -> { distinct }, through: :sessions
+        has_many :presentations, -> { distinct.includes(:translations) }, through: :sessions
         # @!attribute [rw] rooms
         #   @return [ActiveRecord::Relation] Rooms associated with {#sessions}
         #   @see Room
         #   @see Session#rooms
-        has_many :rooms, -> { distinct }, through: :sessions
+        has_many :rooms, -> { distinct.includes(:translations) }, through: :sessions
         # @!attribute [rw] institutions
         #   @return [ActiveRecord::Relation] Institutions associated with {#rooms}
         #   @see Institution
         #   @see Room#institutions
-        has_many :institutions, -> { distinct }, through: :rooms
+        has_many :institutions, -> { distinct.includes(:translations) }, through: :rooms
         # @!attribute [rw] delegates
         #   @return [ActiveRecord::Relation] directly associated delegates
         #   @see Delegate
