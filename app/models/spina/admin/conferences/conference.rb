@@ -41,7 +41,8 @@ module Spina
         #   @return [ActiveRecord::Relation] directly associated events
         #   @note Destroying a conference destroys dependent events.
         #   @see Event
-        has_many :parts, as: :pageable, dependent: :destroy
+        has_many :parts, -> { includes(:partable) },
+                 as: :pageable, dependent: :destroy
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session
