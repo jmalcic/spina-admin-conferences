@@ -175,8 +175,8 @@ module Spina
         end
 
         test 'returns an iCal event' do
-          assert_instance_of Icalendar::Event, @event.to_ics
-          assert_instance_of Icalendar::Event, @new_event.to_ics
+          assert_instance_of Icalendar::Event, @event.to_event
+          assert_instance_of Icalendar::Event, @new_event.to_event
         end
       end
     end
