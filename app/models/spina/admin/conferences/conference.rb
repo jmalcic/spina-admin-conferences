@@ -15,7 +15,7 @@ module Spina
       class Conference < ApplicationRecord
         include Partable
 
-        default_scope { includes(:translations, parts: [:partable]) }
+        default_scope { includes(:translations) }
 
         # @!attribute [rw] dates
         #   @return [Range<Date>, nil] the dates of the conference
