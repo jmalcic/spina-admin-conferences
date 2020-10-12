@@ -42,29 +42,52 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 module ActiveSupport
   class TestCase
     parallelize workers: :number_of_processors
-
     parallelize_setup do |worker|
       SimpleCov.command_name "#{SimpleCov.command_name} worker #{worker}"
     end
-
     parallelize_teardown do
       SimpleCov.result
     end
 
-    setup do
-      Spina::Image.all.each do |image|
-        unless image.file.attached?
-          file_fixture('dubrovnik.jpeg').then { |fixture| image.file.attach io: fixture.open, filename: fixture.basename }
-        end
-      end
-      Spina::Attachment.all.each do |attachment|
-        unless attachment.file.attached?
-          file_fixture('handout.pdf').then { |fixture| attachment.file.attach io: fixture.open, filename: fixture.basename }
-        end
-      end
-      I18n.locale = I18n.default_locale
-    end
-
+    setup { I18n.locale = I18n.default_locale }
     teardown { I18n.locale = I18n.default_locale }
+  end
+end
+
+module RemoveUploadedFiles
+  def before_setup
+    super
+    upload_files
+  end
+
+  def after_teardown
+    super
+    remove_uploaded_files
+  end
+
+  private
+
+  def upload_files
+    Spina::Image.all.each do |image|
+      unless image.file.attached?
+        file_fixture('dubrovnik.jpeg').then { |fixture| image.file.attach io: fixture.open, filename: fixture.basename }
+      end
+    end
+    Spina::Attachment.all.each do |attachment|
+      unless attachment.file.attached?
+        file_fixture('handout.pdf').then { |fixture| attachment.file.attach io: fixture.open, filename: fixture.basename }
+      end
+    end
+  end
+
+  def remove_uploaded_files
+    Spina::Image.all.each { |image| image.file.purge }
+    Spina::Attachment.all.each { |attachment| attachment.file.purge }
+  end
+end
+
+module ActionDispatch
+  class IntegrationTest
+    prepend RemoveUploadedFiles
   end
 end
