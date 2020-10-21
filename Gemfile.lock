@@ -339,23 +339,23 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara
-  coveralls_reborn
-  dotenv-rails
-  image_processing
-  minitest-rails
-  minitest-reporters
-  percy-capybara
-  puma
-  reek
-  rubocop
-  rubocop-performance
-  rubocop-rails
-  selenium-webdriver
-  simplecov
+  capybara (~> 3.33)
+  coveralls_reborn (~> 0.18)
+  dotenv-rails (~> 2.7)
+  image_processing (~> 1.12)
+  minitest-rails (~> 6.0)
+  minitest-reporters (~> 1.4)
+  percy-capybara (~> 4.3)
+  puma (~> 5.0)
+  reek (~> 6.0)
+  rubocop (~> 0.93)
+  rubocop-performance (~> 1.8)
+  rubocop-rails (~> 2.8)
+  selenium-webdriver (~> 3.142)
+  simplecov (~> 0.19)
   spina-admin-conferences!
-  web-console
-  webdrivers
+  web-console (~> 4.0)
+  webdrivers (~> 4.4)
 
 BUNDLED WITH
    2.1.4
