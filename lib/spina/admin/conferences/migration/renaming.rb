@@ -20,14 +20,12 @@ module Spina
                 migration = {}
                 migration[:old] = migration_hash(name)
                 migration[:new] = migration_hash(to)
-                if [migration[:old], migration[:new]].pluck(:file).all?(&:present?)
-                  @stale_migrations << migration
-                end
+                @stale_migrations << migration if [migration[:old], migration[:new]].pluck(:file).all?(&:present?)
               end
             end
 
             def raise_on_duplicate_migrations!
-              raise DuplicateMigrationsError.new(@stale_migrations) if @stale_migrations.any?
+              raise DuplicateMigrationsError, @stale_migrations if @stale_migrations.any?
             end
 
             private
@@ -42,7 +40,7 @@ module Spina
 
               private
 
-              MIGRATION_REGEXP = /([0-9]+)_.+\.(spina(_admin)?_conferences).rb$/
+              MIGRATION_REGEXP = /([0-9]+)_.+\.(spina(_admin)?_conferences).rb$/.freeze
 
               def generate_message(migration)
                 old_version, old_scope = parse_filename(migration[:old][:file])

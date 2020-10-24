@@ -10,8 +10,7 @@ module Spina
           setup do
             @dummy_class = Class.new(Rails::Railtie) do
               class << self
-                attr_accessor :stale_migrations
-                attr_accessor :migrations_path
+                attr_accessor :stale_migrations, :migrations_path
               end
             end
           end
