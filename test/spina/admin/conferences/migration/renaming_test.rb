@@ -41,8 +41,8 @@ module Spina
             @dummy_class.include(Renaming)
             @dummy_class.stale_migrations = [
               {
-                old: { name: 'old_name', file: '00000000000000_old_name.spina_conferences.rb' },
-                new: { name: 'new_name', file: '00000000000000_new_name.spina_conferences.rb' }
+                old: { name: 'old_name', file: '00000000000000_old_name.spina_conferences_engine.rb' },
+                new: { name: 'new_name', file: '00000000000000_new_name.spina_conferences_engine.rb' }
               }
             ]
             assert_raises Renaming::DuplicateMigrationsError do
