@@ -65,7 +65,7 @@ module Spina
             end
 
             def engine_migration_glob(name)
-              "#{migrations_path}/**/*_#{name}.spina{_admin,}_conferences.rb"
+              "#{migrations_path}/**/*_#{name}.spina{_admin,}_conferences_engine.rb"
             end
 
             def detect_migration(name)
