@@ -130,7 +130,8 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
         ), parts AS (
           INSERT INTO spina_conferences_parts (title, name, partable_type, partable_id, pageable_type, pageable_id)
             SELECT
-              'Events', 'events', 'Spina::Structure', structures_with_indices.id, 'Spina::Admin::Conferences::Conference', conferences.id
+              'Events', 'events', 'Spina::Structure', structures_with_indices.id, 'Spina::Admin::Conferences::Conference',
+              conferences_with_indices.id
               FROM (SELECT id, row_number() OVER (ORDER BY id) AS index FROM structures) AS structures_with_indices
                 INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM conferences) AS conferences_with_indices USING (index)
       ), events AS (
@@ -207,7 +208,8 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
             structure_items_with_indices.id, partable_id, type, replace(lower(title), '\W', '_'), title, current_timestamp,
             current_timestamp
             FROM structure_parts_to_insert
-              INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM events) AS events_with_indices ON event_id = events.id
+              INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM events) AS events_with_indices
+                ON event_id = events_with_indices.id
               INNER JOIN (SELECT id, row_number() OVER (ORDER BY id) AS index FROM structure_items) AS structure_items_with_indices
                 USING (index)
       ), deleted_events AS (
