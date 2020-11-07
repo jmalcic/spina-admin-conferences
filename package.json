@@ -1,6 +1,6 @@
 {
   "name": "spina-admin-conferences",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "description": "Conference management plugin for Spina.",
   "repository": {
     "type": "git",
