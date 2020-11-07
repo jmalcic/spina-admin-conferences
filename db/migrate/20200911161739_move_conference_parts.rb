@@ -14,9 +14,9 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
           descriptions.content AS description,
           names.locale AS locale,
           start_times.id AS start_time_id,
-          names.id AS title_translation_id,
-          locations.id AS location_translation_id,
-          descriptions.id AS description_translation_id
+          names.translation_id AS title_translation_id,
+          locations.translation_id AS location_translation_id,
+          descriptions.translation_id AS description_translation_id
           FROM spina_conferences_parts
             INNER JOIN spina_structure_items ON partable_id = structure_id AND partable_type = 'Spina::Structure'
             LEFT JOIN (
@@ -29,7 +29,7 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
             ) AS start_times ON start_times.structure_item_id = spina_structure_items.id
             LEFT JOIN (
               SELECT
-                spina_lines.id AS id, content, locale, structure_item_id
+                spina_line_translations.id AS translation_id, content, locale, structure_item_id
                 FROM spina_structure_parts
                   INNER JOIN spina_lines
                     ON structure_partable_id = spina_lines.id
@@ -40,7 +40,7 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
                 WHERE content IS NOT NULL
             ) AS names ON names.structure_item_id = spina_structure_items.id
             LEFT JOIN (
-              SELECT spina_lines.id AS id, content, locale, structure_item_id
+              SELECT spina_line_translations.id AS translation_id, content, locale, structure_item_id
                 FROM spina_structure_parts
                   INNER JOIN spina_lines
                     ON structure_partable_id = spina_lines.id
@@ -51,7 +51,7 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
                 WHERE content IS NOT NULL
             ) AS locations ON locations.structure_item_id = spina_structure_items.id
             LEFT JOIN (
-              SELECT spina_texts.id AS id, content, locale, structure_item_id
+              SELECT spina_text_translations.id AS translation_id, content, locale, structure_item_id
                 FROM spina_structure_parts
                   INNER JOIN spina_texts
                     ON structure_partable_id = spina_texts.id
