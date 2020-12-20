@@ -298,17 +298,18 @@ en:
         finish_datetime: Finish time
         description: Description
       spina/admin/conferences/delegate:
+        email_address: Email address
+        url: Website
+        conferences: Conferences
+        dietary_requirements: Dietary requirements
+      spina/admin/conferences/delegation:
+        name: Name
         first_name: First name
         last_name: Last name
         full_name: "%{first_name} %{last_name}"
         reversed_name: "%{last_name}, %{first_name}"
         name_and_institution: "%{name}, %{institution}"
-        name: Name
         institution: Institution
-        email_address: Email address
-        url: Website
-        conferences: Conferences
-        dietary_requirements: Dietary requirements
       spina/admin/conferences/presentation:
         title: Title
         start_datetime: Start time
