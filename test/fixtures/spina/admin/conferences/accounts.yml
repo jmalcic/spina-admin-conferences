@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+account_without_dependents:
+  first_name: Joe
+  last_name: Bloggs
+  email_address: joe@bloggs.com
+  unconfirmed: false
+  password_digest: <%= BCrypt::Password.create('password') %>
+  password_reset_token: <%= SecureRandom.base58(24) %>
+
+account_with_affiliations:
+  first_name: Mo
+  last_name: Boggs
+  email_address: mo@boggs.com
+  unconfirmed: false
+  password_digest: <%= BCrypt::Password.create('password') %>
+  password_reset_token: <%= SecureRandom.base58(24) %>
+
+account_with_delegate:
+  first_name: Bo
+  last_name: Togs
+  email_address: bo@togs.com
+  unconfirmed: false
+  password_digest: <%= BCrypt::Password.create('password') %>
+  password_reset_token: <%= SecureRandom.base58(24) %>
+
+unconfirmed_account:
+  first_name: Flo
+  last_name: Frogs
+  email_address: flo@frogs.com
+  unconfirmed: true
+  password_digest: <%= BCrypt::Password.create('password') %>
+  password_reset_token: <%= SecureRandom.base58(24) %>

@@ -1,0 +1,5 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+valid_authorship:
+  presentation: presentation_with_delegations
+  delegation: delegation_with_authorships
