@@ -5,8 +5,6 @@
 # below each fixture, per the syntax in the comments below
 #
 joe_bloggs:
-  first_name: Joe
-  last_name: Bloggs
   institution: university_of_atlantis
   email_address: someone@someaddress.com
   url: https://www.bloggs.com
@@ -16,8 +14,6 @@ joe_bloggs:
   dietary_requirements: pescetarian
 
 brandon_krapp:
-  first_name: Brandon
-  last_name: Krapp
   institution: university_of_shangri_la
   email_address: someoneelse@someotheraddress.com
   conferences:
@@ -25,8 +21,6 @@ brandon_krapp:
   dietary_requirements: vegan
 
 mr_nobody:
-  first_name: Mr
-  last_name: Nobody
   institution: university_of_shangri_la
   conferences:
     - university_of_shangri_la_2018

@@ -48,7 +48,6 @@ module Spina
                                                        association_foreign_key: :spina_conferences_dietary_requirement_id
         accepts_nested_attributes_for :delegations
 
-        validates :first_name, :last_name, presence: true
         validates :email_address, 'spina/admin/conferences/email_address': true
         validates :url, 'spina/admin/conferences/http_url': true
 
@@ -58,34 +57,6 @@ module Spina
         # @see DelegateImportJob
         def self.import(file)
           DelegateImportJob.perform_later Pathname.new(file).read
-        end
-
-        # @return [String] the first name and last name of the delegate
-        def full_name
-          return if first_name.blank? || last_name.blank?
-
-          Delegate.human_attribute_name :full_name, first_name: first_name, last_name: last_name
-        end
-
-        # @return [String] the full name and institution of the delegate
-        def full_name_and_institution
-          return if full_name.blank? || institution.blank?
-
-          Delegate.human_attribute_name :name_and_institution, name: full_name, institution: institution.name
-        end
-
-        # @return [String] the last name and first name of the delegate
-        def reversed_name
-          return if first_name.blank? || last_name.blank?
-
-          Delegate.human_attribute_name :reversed_name, first_name: first_name, last_name: last_name
-        end
-
-        # @return [String] the reversed name and institution of the delegate
-        def reversed_name_and_institution
-          return if reversed_name.blank? || institution.blank?
-
-          Delegate.human_attribute_name :name_and_institution, name: reversed_name, institution: institution.name
         end
       end
     end

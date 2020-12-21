@@ -40,21 +40,8 @@ module Spina
           assert @delegate.invalid?
           assert_not_empty @delegate.errors[:institution]
         end
-
-        test 'first name must not be empty' do
-          assert @delegate.valid?
-          assert_empty @delegate.errors[:first_name]
-          @delegate.first_name = nil
-          assert @delegate.invalid?
-          assert_not_empty @delegate.errors[:first_name]
         end
 
-        test 'last name must not be empty' do
-          assert @delegate.valid?
-          assert_empty @delegate.errors[:last_name]
-          @delegate.last_name = nil
-          assert @delegate.invalid?
-          assert_not_empty @delegate.errors[:last_name]
         end
 
         test 'email address must be email address' do
@@ -84,34 +71,6 @@ module Spina
           assert_enqueued_jobs 1, only: DelegateImportJob do
             Delegate.import file_fixture('delegates.csv')
           end
-        end
-
-        test 'returns localized full name' do
-          assert_equal Delegate.human_attribute_name(:full_name, first_name: @delegate.first_name,
-                                                                 last_name: @delegate.last_name),
-                       @delegate.full_name
-          assert_nil @new_delegate.full_name
-        end
-
-        test 'returns localized full name and institution' do
-          assert_equal Delegate.human_attribute_name(:name_and_institution, name: @delegate.full_name,
-                                                                            institution: @delegate.institution.name),
-                       @delegate.full_name_and_institution
-          assert_nil @new_delegate.full_name_and_institution
-        end
-
-        test 'returns localized reversed name' do
-          assert_equal Delegate.human_attribute_name(:reversed_name, first_name: @delegate.first_name,
-                                                                     last_name: @delegate.last_name),
-                       @delegate.reversed_name
-          assert_nil @new_delegate.reversed_name
-        end
-
-        test 'returns localized reversed name and institution' do
-          assert_equal Delegate.human_attribute_name(:name_and_institution, name: @delegate.reversed_name,
-                                                                            institution: @delegate.institution.name),
-                       @delegate.reversed_name_and_institution
-          assert_nil @new_delegate.reversed_name_and_institution
         end
       end
     end
