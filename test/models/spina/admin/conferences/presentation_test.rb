@@ -64,6 +64,11 @@ module Spina
           assert_empty @new_presentation.attachments
         end
 
+        test 'presentation has associated authorships' do
+          assert_not_empty @presentation_with_delegations.authorships
+          assert_empty @new_presentation.authorships
+        end
+
         test 'presentation has associated presenters' do
           assert_not_empty @presentation_with_delegations.presenters
           assert_empty @new_presentation.presenters
@@ -75,10 +80,23 @@ module Spina
           end
         end
 
+        test 'destroys associated authorships' do
+          assert_difference 'Authorship.count', -1 do
+            assert @presentation_with_delegations.destroy
+          end
+        end
+
         test 'accepts nested attributes for attachments' do
           assert_changes '@presentation_with_attachments.attachments.first.attachment_type_id' do
             @presentation_with_attachments.assign_attributes attachments_attributes: { id: @presentation_with_attachments.attachments.first.id,
                                                                                        attachment_type_id: rand(999_999) }
+          end
+        end
+
+        test 'accepts nested attributes for authorships' do
+          assert_changes '@presentation_with_delegations.authorships.first.delegation_id' do
+            @presentation_with_delegations.assign_attributes authorships_attributes: { id: @presentation_with_delegations.authorships.first.id,
+                                                                                       delegation_id: rand(999_999) }
           end
         end
 
@@ -114,12 +132,12 @@ module Spina
           assert_not_empty @presentation_with_delegations.errors[:abstract]
         end
 
-        test 'presenters must not be empty' do
-          assert @presentation.valid?
-          assert_empty @presentation.errors[:presenters]
-          @presentation.presenters.clear
-          assert @presentation.invalid?
-          assert_not_empty @presentation.errors[:presenters]
+        test 'authorships must not be empty' do
+          assert @presentation_with_delegations.valid?
+          assert_empty @presentation_with_delegations.errors[:authorships]
+          @presentation_with_delegations.authorships.clear
+          assert @presentation_with_delegations.invalid?
+          assert_not_empty @presentation_with_delegations.errors[:authorships]
         end
 
         test 'start datetime must be during conference' do
@@ -133,11 +151,11 @@ module Spina
           assert_not_empty @presentation_with_delegations.errors[:start_datetime]
         end
 
-        test 'validates associated presenters' do
-          assert @presentation.valid?
-          @presentation.presenters.build
-          assert @presentation.invalid?
-          assert_not_empty @presentation.presenters.last.errors
+        test 'validates associated authorships' do
+          assert @presentation_with_delegations.valid?
+          @presentation_with_delegations.authorships.build
+          assert @presentation_with_delegations.invalid?
+          assert_not_empty @presentation_with_delegations.authorships.last.errors
         end
 
         test 'validates associated attachments' do

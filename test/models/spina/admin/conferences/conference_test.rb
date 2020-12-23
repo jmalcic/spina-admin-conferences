@@ -62,6 +62,11 @@ module Spina
           assert_empty @new_conference.institutions
         end
 
+        test 'conference has associated delegations' do
+          assert_not_empty @conference_with_presentations_with_delegations.delegations
+          assert_empty @new_conference.delegations
+        end
+
         test 'conference has associated delegates' do
           assert_not_empty @conference_with_presentations_with_delegations.delegates
           assert_empty @new_conference.delegates
@@ -79,6 +84,13 @@ module Spina
             assert @conference_with_presentations_with_events.destroy
           end
           assert_empty @conference_with_presentations_with_events.errors[:base]
+        end
+
+        test 'destroys associated delegations' do
+          assert_difference 'Delegation.count', -2 do
+            assert @conference_with_presentations_with_delegations.destroy
+          end
+          assert_empty @conference_with_presentations_with_delegations.errors[:base]
         end
 
         test 'name must not be empty' do

@@ -13,6 +13,16 @@ module Spina
           @new_presentation_type = PresentationType.new
         end
 
+        test 'translates name' do
+          @presentation_type_without_dependents.name = 'foo'
+          I18n.locale = :ja
+          assert_equal 'foo', @presentation_type_without_dependents.name
+          @presentation_type_without_dependents.name = 'bar'
+          assert_equal 'bar', @presentation_type_without_dependents.name
+          I18n.locale = I18n.default_locale
+          assert_equal 'foo', @presentation_type_without_dependents.name
+        end
+
         test 'presentation types have sorted scope' do
           assert_equal PresentationType.i18n.order(:name), PresentationType.sorted
         end

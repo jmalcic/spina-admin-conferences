@@ -17,17 +17,24 @@ module Spina
           @new_delegate = Delegate.new
         end
 
-        test 'delegates have sorted scope' do
-          assert_equal Delegate.order(:last_name, :first_name), Delegate.sorted
+        test 'delegate has associated account' do
+          assert_not_nil @delegate_without_dependents_with_account.account
+          assert_nil @new_delegate.account
         end
 
-        test 'delegate has associated institution' do
-          assert_not_nil @delegate.institution
+        test 'delegate has associated delegations' do
+          assert_not_empty @delegate_without_dependents_with_delegations.delegations
+          assert_empty @new_delegate.delegations
         end
 
         test 'delegate has associated conferences' do
           assert_not_empty @delegate_without_dependents_with_delegations.conferences
           assert_empty @new_delegate.conferences
+        end
+
+        test 'delegate has associated authorships' do
+          assert_not_empty @delegate_without_dependents_with_authorships.authorships
+          assert_empty @new_delegate.authorships
         end
 
         test 'delegate has associated presentations' do
@@ -40,15 +47,18 @@ module Spina
           assert_empty @new_delegate.dietary_requirements
         end
 
-        test 'institution must not be empty' do
-          assert @delegate.valid?
-          assert_empty @delegate.errors[:institution]
-          @delegate.institution = nil
-          assert @delegate.invalid?
-          assert_not_empty @delegate.errors[:institution]
-        end
+        test 'destroys associated delegations' do
+          assert_difference 'Delegation.count', -1 do
+            assert @delegate_without_dependents_with_delegations.destroy
+          end
+          assert_empty @delegate_without_dependents_with_delegations.errors[:base]
         end
 
+        test 'accepts nested attributes for delegations' do
+          assert_changes '@delegate_without_dependents_with_delegations.delegations.first.first_name' do
+            @delegate_without_dependents_with_delegations
+              .update(delegations_attributes: [{ id: @delegate_without_dependents_with_delegations.delegations.first.id, first_name: 'Leo' }])
+          end
         end
 
         test 'email address must be email address' do
@@ -73,8 +83,8 @@ module Spina
 
         test 'performs import job' do
           file_fixture('delegates.csv.erb').read
-            .then { |file| ERB.new(file).result(binding) }
-            .then { |result| Pathname.new(File.join(file_fixture_path, 'delegates.csv')).write(result) }
+                                           .then { |file| ERB.new(file).result(binding) }
+                                           .then { |result| Pathname.new(File.join(file_fixture_path, 'delegates.csv')).write(result) }
           assert_enqueued_jobs 1, only: DelegateImportJob do
             Delegate.import file_fixture('delegates.csv')
           end

@@ -47,9 +47,14 @@ module Spina
           assert_empty @new_institution.rooms
         end
 
-        test 'institution has associated delegates' do
-          assert_not_empty @institution.delegates
-          assert_empty @new_institution.delegates
+        test 'institution has associated delegation affiliations' do
+          assert_not_empty @institution_without_dependents.delegation_affiliations
+          assert_empty @new_institution.delegation_affiliations
+        end
+
+        test 'institution has associated affiliations' do
+          assert_not_empty @institution_without_dependents.affiliations
+          assert_empty @new_institution.affiliations
         end
 
         test 'accepts nested attributes for rooms' do
@@ -65,11 +70,11 @@ module Spina
           assert_not_empty @institution_with_rooms.errors[:base]
         end
 
-        test 'does not destroy associated delegates' do
-          assert_no_difference 'Delegate.count' do
-            @institution.destroy
+        test 'destroys associated delegation affiliations' do
+          assert_changes 'DelegationAffiliation.count' do
+            @institution_without_dependents.destroy
           end
-          assert_not_empty @institution.errors[:base]
+          assert_empty @institution_without_dependents.errors[:base]
         end
 
         test 'logo may be empty' do
