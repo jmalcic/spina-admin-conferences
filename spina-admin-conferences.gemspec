@@ -30,7 +30,6 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_dependency 'spina', '~> 1.1'
 
   spec.add_development_dependency 'capybara', '~> 3.33'
-  spec.add_development_dependency 'coveralls_reborn', '~> 0.18'
   spec.add_development_dependency 'dotenv-rails', '~> 2.7'
   spec.add_development_dependency 'image_processing', '~> 1.12'
   spec.add_development_dependency 'minitest-rails', '~> 6.0'
@@ -43,6 +42,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
   spec.add_development_dependency 'selenium-webdriver', '~> 3.142'
   spec.add_development_dependency 'simplecov', '~> 0.19'
+  spec.add_development_dependency 'simplecov-lcov', '~> 0.8'
   spec.add_development_dependency 'web-console', '~> 4.0'
   spec.add_development_dependency 'webdrivers', '~> 4.4'
 end
