@@ -54,6 +54,5 @@ module ActiveSupport
     end
 
     setup { I18n.locale = I18n.default_locale }
-    teardown { I18n.locale = I18n.default_locale }
   end
 end
