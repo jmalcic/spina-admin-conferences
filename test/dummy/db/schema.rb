@@ -4,15 +4,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_201_007_125_625) do
+ActiveRecord::Schema.define(version: 20_210_121_162_757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -44,7 +44,14 @@ ActiveRecord::Schema.define(version: 20_201_007_125_625) do
     t.bigint 'byte_size', null: false
     t.string 'checksum', null: false
     t.datetime 'created_at', null: false
+    t.string 'service_name', null: false
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
+  end
+
+  create_table 'active_storage_variant_records', force: :cascade do |t|
+    t.bigint 'blob_id', null: false
+    t.string 'variation_digest', null: false
+    t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
 
   create_table 'spina_accounts', id: :serial, force: :cascade do |t|
@@ -202,8 +209,8 @@ ActiveRecord::Schema.define(version: 20_201_007_125_625) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['locale'], name: 'index_f3417b08c78b5a87825d3f14b49fb06e76b8bed4'
-    t.index %w[spina_conferences_presentation_attachment_type_id
-               locale], name: 'index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb', unique: true
+    t.index %w[spina_conferences_presentation_attachment_type_id locale], name: 'index_1b650dff92fcf8462275bfd83c507ea5c40b3ebb',
+                                                                          unique: true
   end
 
   create_table 'spina_conferences_presentation_attachment_types', force: :cascade do |t|
@@ -508,6 +515,7 @@ ActiveRecord::Schema.define(version: 20_201_007_125_625) do
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'spina_conferences_conference_translations', 'spina_conferences_conferences'
   add_foreign_key 'spina_conferences_delegates', 'spina_conferences_institutions', column: 'institution_id', on_delete: :cascade
   add_foreign_key 'spina_conferences_dietary_requirement_translations', 'spina_conferences_dietary_requirements', on_delete: :cascade
