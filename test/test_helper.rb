@@ -3,17 +3,19 @@
 require 'simplecov'
 
 if ENV['CI']
-  require 'coveralls'
+  require 'simplecov-lcov'
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+  SimpleCov::Formatter::LcovFormatter.config do |config|
+    config.single_report_path = 'coverage/lcov.info'
+  end
+
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
 end
 
 SimpleCov.start 'rails' do
   enable_coverage :branch
   add_group 'Validators', 'app/validators'
 end
-
-Coveralls.wear!('rails') if ENV['CI']
 
 require 'minitest/mock'
 require 'minitest/reporters'
