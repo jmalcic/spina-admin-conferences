@@ -15,3 +15,9 @@ university_of_shangri_la:
   city: Shangri-La
   locale: en-GB
   translated_model: university_of_shangri_la
+
+empty_institution:
+  name: Institution
+  city: City
+  locale: en-GB
+  translated_model: empty_institution

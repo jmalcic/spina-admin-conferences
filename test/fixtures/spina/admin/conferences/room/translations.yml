@@ -39,3 +39,9 @@ medical_school_g_16:
   number: G.16
   locale: en-GB
   translated_model: medical_school_g_16
+
+empty_room:
+  building: Building
+  number: Number
+  locale: en-GB
+  translated_model: empty_room
