@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+if ENV['CI']
+  require 'coveralls'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [SimpleCov::Formatter::HTMLFormatter, Coveralls::SimpleCov::Formatter]
+end
+
 SimpleCov.start 'rails' do
   enable_coverage :branch
   add_group 'Validators', 'app/validators'
 end
 
-Coveralls.wear!('rails')
+Coveralls.wear!('rails') if ENV['CI']
 
 require 'minitest/mock'
 require 'minitest/reporters'
