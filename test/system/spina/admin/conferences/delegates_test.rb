@@ -19,14 +19,18 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_delegates_path
-          assert_selector '.breadcrumbs', text: 'Delegates'
+          assert_selector '.breadcrumbs' do
+            assert_text 'Delegates'
+          end
           Percy.snapshot page, name: 'Delegates index'
         end
 
         test 'creating a delegate' do
           visit admin_conferences_delegates_path
           click_on 'New delegate'
-          assert_selector '.breadcrumbs', text: 'New delegate'
+          assert_selector '.breadcrumbs' do
+            assert_text 'New delegate'
+          end
           fill_in 'admin_conferences_delegate_first_name', with: @delegate.first_name
           fill_in 'admin_conferences_delegate_last_name', with: @delegate.last_name
           select @delegate.institution.name, from: 'admin_conferences_delegate_institution_id'
@@ -45,7 +49,9 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @delegate.full_name
+          assert_selector '.breadcrumbs' do
+            assert_text @delegate.full_name
+          end
           Percy.snapshot page, name: 'Delegates form on update'
           fill_in 'admin_conferences_delegate_first_name', with: @delegate.first_name
           fill_in 'admin_conferences_delegate_last_name', with: @delegate.last_name
@@ -64,7 +70,9 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @delegate.full_name
+          assert_selector '.breadcrumbs' do
+            assert_text @delegate.full_name
+          end
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }

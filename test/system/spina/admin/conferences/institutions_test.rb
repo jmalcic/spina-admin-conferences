@@ -20,14 +20,18 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_institutions_path
-          assert_selector '.breadcrumbs', text: 'Institutions'
+          assert_selector '.breadcrumbs' do
+            assert_text 'Institutions'
+          end
           Percy.snapshot page, name: 'Institutions index'
         end
 
         test 'creating an institution' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_institutions_path
           click_on 'New institution'
-          assert_selector '.breadcrumbs', text: 'New institution'
+          assert_selector '.breadcrumbs' do
+            assert_text 'New institution'
+          end
           fill_in 'admin_conferences_institution_name', with: @institution.name
           fill_in 'admin_conferences_institution_city', with: @institution.city
           execute_script '$.fx.off = true;'
@@ -48,7 +52,9 @@ module Spina
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @institution.name
+          assert_selector '.breadcrumbs' do
+            assert_text @institution.name
+          end
           Percy.snapshot page, name: 'Institutions form on update'
           fill_in 'admin_conferences_institution_name', with: @institution.name
           fill_in 'admin_conferences_institution_city', with: @institution.city
@@ -69,7 +75,9 @@ module Spina
           within "tr[data-institution-id=\"#{@empty_institution.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @empty_institution.name
+          assert_selector '.breadcrumbs' do
+            assert_text @empty_institution.name
+          end
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }

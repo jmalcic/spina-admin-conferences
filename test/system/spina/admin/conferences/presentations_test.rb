@@ -19,14 +19,18 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_presentations_path
-          assert_selector '.breadcrumbs', text: 'Presentations'
+          assert_selector '.breadcrumbs' do
+            assert_text 'Presentations'
+          end
           Percy.snapshot page, name: 'Presentations index'
         end
 
         test 'creating a presentation' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_presentations_path
           click_on 'New presentation'
-          assert_selector '.breadcrumbs', text: 'New presentation'
+          assert_selector '.breadcrumbs' do
+            assert_text 'New presentation'
+          end
           select @presentation.conference.name, from: 'admin_conferences_conference_id'
           select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
           select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
@@ -64,7 +68,9 @@ module Spina
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @presentation.name
+          assert_selector '.breadcrumbs' do
+            assert_text @presentation.name
+          end
           Percy.snapshot page, name: 'Presentations form on update'
           select @presentation.conference.name, from: 'admin_conferences_conference_id'
           select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
@@ -103,7 +109,9 @@ module Spina
           within "tr[data-presentation-id=\"#{@presentation.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @presentation.name
+          assert_selector '.breadcrumbs' do
+            assert_text @presentation.name
+          end
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }

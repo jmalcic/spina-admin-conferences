@@ -20,14 +20,18 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_sessions_path
-          assert_selector '.breadcrumbs', text: 'Sessions'
+          assert_selector '.breadcrumbs' do
+            assert_text 'Sessions'
+          end
           Percy.snapshot page, name: 'Sessions index'
         end
 
         test 'creating a session' do
           visit admin_conferences_sessions_path
           click_on 'New session'
-          assert_selector '.breadcrumbs', text: 'New session'
+          assert_selector '.breadcrumbs' do
+            assert_text 'New session'
+          end
           fill_in 'admin_conferences_session_name', with: @session.name
           select @session.conference.name, from: 'admin_conferences_conference_id'
           select @session.presentation_type.name, from: 'admin_conferences_session_presentation_type_id'
@@ -44,7 +48,9 @@ module Spina
           within "tr[data-session-id=\"#{@session.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @session.name
+          assert_selector '.breadcrumbs' do
+            assert_text @session.name
+          end
           Percy.snapshot page, name: 'Sessions form on update'
           fill_in 'admin_conferences_session_name', with: @session.name
           select @session.conference.name, from: 'admin_conferences_conference_id'
@@ -61,7 +67,9 @@ module Spina
           within "tr[data-session-id=\"#{@empty_session.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @empty_session.name
+          assert_selector '.breadcrumbs' do
+            assert_text @empty_session.name
+          end
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }

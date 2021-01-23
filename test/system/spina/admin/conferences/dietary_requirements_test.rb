@@ -19,14 +19,18 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_dietary_requirements_path
-          assert_selector '.breadcrumbs', text: 'Dietary requirements'
+          assert_selector '.breadcrumbs' do
+            assert_text 'Dietary requirements'
+          end
           Percy.snapshot page, name: 'Dietary requirements index'
         end
 
         test 'creating a dietary requirement' do
           visit admin_conferences_dietary_requirements_path
           click_on 'New dietary requirement'
-          assert_selector '.breadcrumbs', text: 'New dietary requirement'
+          assert_selector '.breadcrumbs' do
+            assert_text 'New dietary requirement'
+          end
           fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on create'
           click_on 'Save dietary requirement'
@@ -39,7 +43,9 @@ module Spina
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @dietary_requirement.name
+          assert_selector '.breadcrumbs' do
+            assert_text @dietary_requirement.name
+          end
           Percy.snapshot page, name: 'Dietary requirements form on update'
           fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
           click_on 'Save dietary requirement'
@@ -52,7 +58,9 @@ module Spina
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs', text: @dietary_requirement.name
+          assert_selector '.breadcrumbs' do
+            assert_text @dietary_requirement.name
+          end
           page.execute_script '$.fx.off = true;'
           click_on 'Permanently delete'
           find '#overlay', visible: true, style: { display: 'block' }
