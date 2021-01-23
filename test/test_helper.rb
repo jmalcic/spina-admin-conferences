@@ -5,6 +5,10 @@ require 'simplecov'
 if ENV['CI']
   require 'simplecov-lcov'
 
+  SimpleCov::Formatter::LcovFormatter.config do |config|
+    config.report_with_single_file = true
+  end
+
   SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
 end
 
