@@ -13,27 +13,29 @@ module Spina
 
         test 'valid email addresses are valid' do
           @delegate.email_address = 'foo@bar.com'
-          assert_nil @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          assert_empty @delegate.errors[:email_address]
         end
 
         test 'email addresses without domains and local parts are invalid' do
           @delegate.email_address = 'foo@'
-          assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
-                          'is not an email address'
+          @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          assert_includes @delegate.errors[:email_address], 'is not an email address'
           @delegate.email_address = '@bar.com'
-          assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
-                          'is not an email address'
+          @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          assert_includes @delegate.errors[:email_address], 'is not an email address'
         end
 
         test 'invalid email addresses are invalid' do
           @delegate.email_address = 'John Doe, Example INC <john.doe@example.com>'
-          assert_includes @validator.validate_each(@delegate, :email_address, @delegate.email_address),
-                          'is not an email address'
+          @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          assert_includes @delegate.errors[:email_address], 'is not an email address'
         end
 
         test 'empty email addresses are valid' do
           @delegate.email_address = nil
-          assert_nil @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          @validator.validate_each(@delegate, :email_address, @delegate.email_address)
+          assert_empty @delegate.errors[:email_address]
         end
       end
     end

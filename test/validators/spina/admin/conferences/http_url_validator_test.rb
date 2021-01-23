@@ -13,26 +13,29 @@ module Spina
 
         test 'valid HTTP(S) URLs are valid' do
           @delegate.url = 'https://www.bbc.co.uk'
-          assert_nil @validator.validate_each(@delegate, :url, @delegate.url)
+          @validator.validate_each(@delegate, :url, @delegate.url)
+          assert_empty @delegate.errors[:url]
           @delegate.url = 'http://www.bbc.co.uk'
-          assert_nil @validator.validate_each(@delegate, :url, @delegate.url)
+          @validator.validate_each(@delegate, :url, @delegate.url)
+          assert_empty @delegate.errors[:url]
         end
 
         test 'invalid HTTP(S) URLs are invalid' do
           @delegate.url = 'ftp://www.bbc.co.uk'
-          assert_includes @validator.validate_each(@delegate, :url, @delegate.url),
-                          'is not a valid HTTP or HTTPS URL'
+          @validator.validate_each(@delegate, :url, @delegate.url)
+          assert_includes @delegate.errors[:url], 'is not a valid HTTP or HTTPS URL'
         end
 
         test 'invalid URIs are invalid' do
           @delegate.url = '\\'
-          assert_includes @validator.validate_each(@delegate, :url, @delegate.url),
-                          'is not a valid HTTP or HTTPS URL'
+          @validator.validate_each(@delegate, :url, @delegate.url)
+          assert_includes @delegate.errors[:url], 'is not a valid HTTP or HTTPS URL'
         end
 
         test 'empty URIs are valid' do
           @delegate.url = nil
-          assert_nil @validator.validate_each(@delegate, :url, @delegate.url)
+          @validator.validate_each(@delegate, :url, @delegate.url)
+          assert_empty @delegate.errors[:url]
         end
       end
     end
