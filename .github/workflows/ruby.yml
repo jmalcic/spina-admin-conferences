@@ -86,7 +86,7 @@ jobs:
       run: bundle exec rails db:setup
     - name: Test with Rake
       run: bundle exec rake
-    - name: Coveralls GitHub Action
+    - name: Upload coverage to Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
