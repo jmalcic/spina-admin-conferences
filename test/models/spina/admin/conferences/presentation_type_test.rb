@@ -18,7 +18,7 @@ module Spina
         test 'duration must be an interval' do
           assert @presentation_type.valid?
           assert_empty @presentation_type.errors[:duration]
-          @presentation_type.duration = 0.5
+          @presentation_type.duration = '20 minutes'
           assert @presentation_type.invalid?
           assert_not_empty @presentation_type.errors[:duration]
         end
