@@ -5,10 +5,6 @@ require 'simplecov'
 if ENV['CI']
   require 'simplecov-lcov'
 
-  SimpleCov::Formatter::LcovFormatter.config do |config|
-    config.single_report_path = 'coverage/lcov.info'
-  end
-
   SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
 end
 
