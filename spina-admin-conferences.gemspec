@@ -39,7 +39,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'percy-capybara', '~> 4.3'
   spec.add_development_dependency 'puma', '~> 5.0'
   spec.add_development_dependency 'reek', '~> 6.0'
-  spec.add_development_dependency 'rubocop', '~> 0.93'
+  spec.add_development_dependency 'rubocop', '~> 1.8'
   spec.add_development_dependency 'rubocop-performance', '~> 1.8'
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
   spec.add_development_dependency 'selenium-webdriver', '~> 3.142'
