@@ -1,14 +1,13 @@
-/* global Stimulus */
-
 /**
- * @external Stimulus
+ * @external Controller
  * @see {@link https://stimulusjs.org}
  */
+import { Controller } from 'stimulus'
 
 /**
  * @classdesc Controller that links related select elements.
  */
-class SelectOptionsController extends Stimulus.Controller { // eslint-disable-line no-unused-vars
+export default class SelectOptionsController extends Controller {
   // noinspection JSUnusedGlobalSymbols
   static get targets() {
     return [
@@ -24,7 +23,7 @@ class SelectOptionsController extends Stimulus.Controller { // eslint-disable-li
     return {
       /**
        * @private
-       * @property {Array} recordValues - The record values.
+       * @property {Array} recordValue - The record values.
        */
       record: Array,
     }
@@ -44,7 +43,7 @@ class SelectOptionsController extends Stimulus.Controller { // eslint-disable-li
    * Hook to update select targets when record values change.
    * @private
    */
-  recordValuesChanged() {
+  recordValueChanged() {
     this.selectTargets.forEach(target => {
       if (!(target instanceof HTMLSelectElement)) return
       this.updateOptions(target)
@@ -59,8 +58,8 @@ class SelectOptionsController extends Stimulus.Controller { // eslint-disable-li
   setVisibility(event) {
     const target = event.currentTarget
     if (!(target instanceof HTMLSelectElement)) return
-    const recordFilter = new SelectOptionsController.RecordFilter(this.recordValues, target)
-    this.recordValues = recordFilter.setVisibility()
+    const recordFilter = new SelectOptionsController.RecordFilter(this.recordValue, target)
+    this.recordValue = recordFilter.setVisibility()
   }
 
   /**
@@ -69,7 +68,7 @@ class SelectOptionsController extends Stimulus.Controller { // eslint-disable-li
    * @param {HTMLSelectElement} target - The select element to update the options of.
    */
   updateOptions(target) {
-    let newRecords = this.recordValues
+    let newRecords = this.recordValue
     if ('keyPath' in target.dataset) {
       const keyPath = new SelectOptionsController.KeyPath(target.dataset.keyPath)
       newRecords = keyPath.visibleObjectsAtKeyPath(newRecords)

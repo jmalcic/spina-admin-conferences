@@ -4,6 +4,7 @@ require 'spina'
 require 'spina/admin/conferences/engine'
 require 'spina/admin/conferences/railtie' if defined?(Rails::Railtie)
 require 'rails-i18n'
+require 'stimulus-rails'
 require 'icalendar'
 
 # Spina content management system.

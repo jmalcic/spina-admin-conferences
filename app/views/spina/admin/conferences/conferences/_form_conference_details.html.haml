@@ -1,6 +1,6 @@
 #conference_details.tab-content.active
   .well
-    .horizontal-form{ data: { controller: 'select-options', select_options: { config_value: '{ "admin_conferences_conference_institution_id": { "value": "id", "text": "name" }, "admin_conferences_conference_room_ids": { "trigger": "admin_conferences_conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }', records_values: @institutions } } }
+    .horizontal-form{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { config_value: '{ "admin_conferences_conference_institution_id": { "value": "id", "text": "name" }, "admin_conferences_conference_room_ids": { "trigger": "admin_conferences_conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }', record_value: @institutions } } }
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :name
         .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:name), required: true
@@ -15,13 +15,13 @@
 
       .horizontal-form-group{ class: dom_class(@conference.events) }
         .horizontal-form-content
-          .structure-form{ data: { controller: 'conference-events-form', conference_events_form: { active_class: 'active' } } }
+          .structure-form{ data: { controller: 'spina--admin--conferences--conference-events-form', 'spina--admin--conferences--conference_events_form': { active_class: 'active' } } }
             .structure-form-menu
               %label= Spina::Admin::Conferences::Conference.human_attribute_name :events
               %ul= render partial: 'event_row', collection: f.object.events, as: :event
-              = link_to icon('plus'), @conference.new_record? ? new_admin_conferences_event_path : new_admin_conferences_conference_event_path(@conference, index: @conference.events.size), remote: true, class: %w[button button-link icon], data: { conference_events_form_target: 'addFormLink', disable_with: '&#xF12C;' }
+              = link_to icon('plus'), @conference.new_record? ? new_admin_conferences_event_path : new_admin_conferences_conference_event_path(@conference, index: @conference.events.size), remote: true, class: %w[button button-link icon], data: { 'spina--admin--conferences--conference_events_form_target': 'addFormLink', disable_with: '&#xF12C;' }
 
-            .structure-form-content{ data: { action: 'conferenceEventFieldsAdded->conference-events-form#updateURL' } }
+            .structure-form-content{ data: { action: 'conferenceEventFieldsAdded->spina--admin--conferences--conference-events-form#updateURL' } }
               = f.fields_for :events do |event_fields|
                 = render 'event_fields', f: event_fields
 

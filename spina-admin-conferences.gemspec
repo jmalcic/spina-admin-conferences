@@ -23,11 +23,11 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.add_dependency 'babel-transpiler', '~> 0.7'
   spec.add_dependency 'icalendar', '~> 2.5'
   spec.add_dependency 'rails', '~> 6.0'
   spec.add_dependency 'rails-i18n', '~> 6.0'
   spec.add_dependency 'spina', '~> 1.1'
+  spec.add_dependency 'stimulus-rails', '~> 0.2.2'
 
   spec.add_development_dependency 'capybara', '~> 3.33'
   spec.add_development_dependency 'dotenv-rails', '~> 2.7'
@@ -41,6 +41,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'rubocop-performance', '~> 1.8'
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
   spec.add_development_dependency 'selenium-webdriver', '~> 3.142'
+  spec.add_development_dependency 'sidekiq', '~> 6.1'
   spec.add_development_dependency 'simplecov', '~> 0.19'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8'
   spec.add_development_dependency 'web-console', '~> 4.0'

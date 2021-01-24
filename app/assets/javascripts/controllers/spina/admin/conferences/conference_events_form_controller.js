@@ -1,14 +1,13 @@
-/* global Stimulus */
-
 /**
- * @external Stimulus
+ * @external Controller
  * @see {@link https://stimulusjs.org}
  */
+import { Controller } from 'stimulus'
 
 /**
  * @classdesc Controller that manages conference event inputs.
  */
-class ConferenceEventsFormController extends Stimulus.Controller { // eslint-disable-line no-unused-vars
+export default class extends Controller {
   // noinspection JSUnusedGlobalSymbols
   static get targets() {
     return [
