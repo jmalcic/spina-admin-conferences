@@ -8,16 +8,16 @@
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Session.human_attribute_name :presentation_type
         .horizontal-form-content
-          .input-group{ data: { controller: 'select-options', select_options: { record_values: @conferences } } }
-            .select-dropdown= select_tag :admin_conferences_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@session.conference.id unless @session.conference.blank?)), include_blank: true, required: true, data: { action: 'select-options#setVisibility', select_options_target: 'select', text_key: 'name' }
-            .select-dropdown= f.collection_select :presentation_type_id, @session.conference.present? ? @session.conference.presentation_types : Spina::Admin::Conferences::Conference.first.presentation_types, :id, :name, { include_blank: true }, required: true, data: { select_options_target: 'select', text_key: 'name', key_path: 'presentation_types' }
+          .input-group{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { record_value: @conferences } } }
+            .select-dropdown= select_tag :admin_conferences_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@session.conference.id unless @session.conference.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
+            .select-dropdown= f.collection_select :presentation_type_id, @session.conference.present? ? @session.conference.presentation_types : Spina::Admin::Conferences::Conference.first.presentation_types, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', text_key: 'name', key_path: 'presentation_types' }
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Session.human_attribute_name :room
         .horizontal-form-content
-          .input-group{ data: { controller: 'select-options', select_options: { record_values: @institutions } } }
-            .select-dropdown= select_tag :admin_conferences_institution_id, options_from_collection_for_select(Spina::Admin::Conferences::Institution.all, :id, :name, (@session.institution.id unless @session.institution.blank?)), include_blank: true, required: true, data: { action: 'select-options#setVisibility', select_options_target: 'select', text_key: 'name' }
-            .select-dropdown= f.collection_select :room_id, @session.institution.present? ? @session.institution.rooms : Spina::Admin::Conferences::Institution.first.rooms, :id, :name, { include_blank: true }, required: true, data: { select_options_target: 'select', text_key: 'name', key_path: 'rooms' }
+          .input-group{ data: { controller: 'select-options', 'spina--admin--conferences--select_options': { record_value: @institutions } } }
+            .select-dropdown= select_tag :admin_conferences_institution_id, options_from_collection_for_select(Spina::Admin::Conferences::Institution.all, :id, :name, (@session.institution.id unless @session.institution.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
+            .select-dropdown= f.collection_select :room_id, @session.institution.present? ? @session.institution.rooms : Spina::Admin::Conferences::Institution.first.rooms, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', text_key: 'name', key_path: 'rooms' }
 
   - unless @session.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_session_path(@session), method: :delete, remote: true, data: { confirm: t('.delete_confirmation', session: @session.name) }, class: %w[button button-link button-danger]

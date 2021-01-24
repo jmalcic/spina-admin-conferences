@@ -1,4 +1,4 @@
-document.querySelector('[data-controller=\'conference-events-form\'] .structure-form-menu ul')
+document.querySelector('[data-controller=\'spina--admin--conferences--conference-events-form\'] .structure-form-menu ul')
   .insertAdjacentHTML(
     'beforeend',
     '<%=
@@ -6,7 +6,7 @@ document.querySelector('[data-controller=\'conference-events-form\'] .structure-
                locals: { index: index, active: active })
     %>'
   );
-document.querySelector('[data-controller=\'conference-events-form\'] .structure-form-content')
+document.querySelector('[data-controller=\'spina--admin--conferences--conference-events-form\'] .structure-form-content')
   .insertAdjacentHTML(
     'beforeend',
     '<%=
@@ -17,7 +17,7 @@ document.querySelector('[data-controller=\'conference-events-form\'] .structure-
       end
     %>'
   );
-document.querySelector('[data-controller=\'conference-events-form\'] .structure-form-content')
+document.querySelector('[data-controller=\'spina--admin--conferences--conference-events-form\'] .structure-form-content')
   .dispatchEvent(new Event('conferenceEventFieldsAdded'))
 Array.from(document.getElementsByClassName('conference-datepicker')).forEach(element => {
   $(element).datepicker({

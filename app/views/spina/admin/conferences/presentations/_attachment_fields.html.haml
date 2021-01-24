@@ -1,11 +1,11 @@
-.structure-form-pane{ class: ('active' if (local_assigns[:active] == true) || (f.index == 0)), id: "structure_form_pane_#{f.index}", data: { presentation_attachments_form: { target: 'formPane' } } }
+.structure-form-pane{ class: ('active' if (local_assigns[:active] == true) || (f.index == 0)), id: "structure_form_pane_#{f.index}", data: { 'spina--admin--conferences--presentation_attachments_form': { target: 'formPane' } } }
   .structure-form-part
     .horizontal-form-label
       = Spina::Admin::Conferences::PresentationAttachment.human_attribute_name :attachment_type
     .horizontal-form-content
       .select-dropdown
         = f.label :attachment_type, Spina::Admin::Conferences::PresentationAttachment.human_attribute_name(:attachment_type)
-        = f.collection_select :attachment_type_id, Spina::Admin::Conferences::PresentationAttachmentType.all, :id, :name, {}, data: { action: 'presentation-attachments-form#updateType' }
+        = f.collection_select :attachment_type_id, Spina::Admin::Conferences::PresentationAttachmentType.all, :id, :name, {}, data: { action: 'spina--admin--conferences--presentation-attachments-form#updateType' }
   .structure-form-part
     .horizontal-form-label
       = Spina::Admin::Conferences::PresentationAttachment.human_attribute_name :attachment
@@ -23,5 +23,5 @@
 
   = f.hidden_field :id
 
-  = f.hidden_field :_destroy, data: { presentation_attachments_form_target: 'destroyField' }
-  = button_tag t('spina.delete'), type: 'button', class: %w[button button-mini button-link pull-right], data: { action: 'presentation-attachments-form#removeForm' }
+  = f.hidden_field :_destroy, data: { 'spina--admin--conferences--presentation_attachments_form_target': 'destroyField' }
+  = button_tag t('spina.delete'), type: 'button', class: %w[button button-mini button-link pull-right], data: { action: 'spina--admin--conferences--presentation-attachments-form#removeForm' }

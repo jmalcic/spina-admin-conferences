@@ -4,7 +4,7 @@
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :conference
         .horizontal-form-content
-          .select-dropdown= f.collection_select :conference_id, Spina::Admin::Conferences::Conference.order(:dates).reverse_order, :id, :name, {}, required: true, data: { action: 'select-options#updateFilteredData' }
+          .select-dropdown= f.collection_select :conference_id, Spina::Admin::Conferences::Conference.order(:dates).reverse_order, :id, :name, {}, required: true, data: { action: 'spina--admin--conferences--select-options#updateFilteredData' }
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :name

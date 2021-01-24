@@ -1,5 +1,5 @@
 .structure-form-pane{ class: ('active' if (local_assigns[:active] == true) || (f.index == 0)), id: "structure_form_pane_#{f.index}",
-                      data: { conference_events_form: { target: 'formPane' } } }
+                      data: { 'spina--admin--conferences--conference_events_form': { target: 'formPane' } } }
   .structure-form-part
     .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :name
     .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:name), required: true
@@ -34,6 +34,6 @@
 
   = f.hidden_field :id
 
-  = f.hidden_field :_destroy, data: { conference_events_form_target: 'destroyField' }
+  = f.hidden_field :_destroy, data: { 'spina--admin--conferences--conference_events_form_target': 'destroyField' }
   = button_tag t('spina.delete'), type: 'button', class: %w[button button-mini button-link pull-right],
-               data: { action: 'conference-events-form#removeForm' }
+               data: { action: 'spina--admin--conferences--conference-events-form#removeForm' }
