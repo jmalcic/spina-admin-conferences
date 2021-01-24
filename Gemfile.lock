@@ -7,6 +7,7 @@ PATH
       rails (~> 6.0)
       rails-i18n (~> 6.0)
       spina (~> 1.1)
+      stimulus-rails (~> 0.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -307,6 +308,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stimulus-rails (0.2.2)
+      rails (>= 6.0.0)
     temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
