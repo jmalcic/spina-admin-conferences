@@ -237,7 +237,7 @@ GEM
     request_store (1.5.0)
       rack (>= 1.4)
     rexml (3.2.4)
-    rubocop (1.8.1)
+    rubocop (1.9.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
