@@ -1,4 +1,4 @@
-- content_for :application do
+- content_for :admin_header do
   %header#header
     #header_actions
       = yield(:header_actions)
@@ -12,6 +12,4 @@
         %li{class: ('active' if controller_name == 'rooms')}
           = link_to Spina::Admin::Conferences::Room.model_name.human(count: 0), admin_conferences_rooms_path
 
-  = yield
-
-= render template: 'layouts/spina/admin/admin'
+= render template: 'layouts/spina/admin/conferences/application'

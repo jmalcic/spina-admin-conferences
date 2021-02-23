@@ -1,0 +1,6 @@
+- content_for :application do
+  %div{ data: { turbolinks: 'false' } }
+    = yield(:admin_header)
+    = yield
+
+= render template: 'layouts/spina/admin/admin'
