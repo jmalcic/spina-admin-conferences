@@ -1,5 +1,5 @@
 %li#conferences-primary-navigation{ data: { turbolinks: 'false', turbo: 'permanent' },
-                                    class: ('active' if %w[conferences delegates presentations dietary_requirements presentation_types institutions rooms].include? controller_name) }
+                                    class: ('active' if %w[conferences delegates presentations presentation_types institutions rooms].include? controller_name) }
   = link_to admin_conferences_presentations_path do
     = icon('comment')
     = t("spina.admin.conferences.title")
@@ -10,7 +10,7 @@
       = link_to Spina::Admin::Conferences::Institution.model_name.human(count: 0), spina.admin_conferences_institutions_path
     %li{ class: ('active' if %w[conferences presentation_types sessions].include? controller_name) }
       = link_to Spina::Admin::Conferences::Conference.model_name.human(count: 0), spina.admin_conferences_conferences_path
-    %li{ class: ('active' if %w[delegates dietary_requirements].include? controller_name) }
+    %li{ class: ('active' if %w[delegates].include? controller_name) }
       = link_to Spina::Admin::Conferences::Delegate.model_name.human(count: 0), spina.admin_conferences_delegates_path
     %li{ class: ('active' if %w[presentations].include? controller_name) }
       = link_to Spina::Admin::Conferences::Presentation.model_name.human(count: 0), spina.admin_conferences_presentations_path
