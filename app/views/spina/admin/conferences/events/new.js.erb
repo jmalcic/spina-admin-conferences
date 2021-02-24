@@ -19,9 +19,3 @@ document.querySelector('[data-controller=\'spina--admin--conferences--conference
   );
 document.querySelector('[data-controller=\'spina--admin--conferences--conference-events-form\'] .structure-form-content')
   .dispatchEvent(new Event('conferenceEventFieldsAdded'))
-Array.from(document.getElementsByClassName('conference-datepicker')).forEach(element => {
-  $(element).datepicker({
-    dateFormat: 'yy-mm-dd',
-    firstDay: 1
-  })
-})
