@@ -7,7 +7,6 @@
   .structure-form-part
     .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :date
     .horizontal-form-content= f.date_field :date, value: f.object.conference.start_date&.strftime("%Y-%m-%d"),
-                                                  class: 'conference-datepicker',
                                                   placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:date),
                                                   required: true
 

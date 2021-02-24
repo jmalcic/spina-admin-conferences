@@ -7,11 +7,11 @@
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :start_date
-        .horizontal-form-content= f.date_field :start_date, value: (@conference.start_date.strftime("%Y-%m-%d") if @conference.start_date.present?), class: 'conference-datepicker', placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:start_date), required: true
+        .horizontal-form-content= f.date_field :start_date, value: (@conference.start_date.strftime("%Y-%m-%d") if @conference.start_date.present?), placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:start_date), required: true
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :finish_date
-        .horizontal-form-content= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), class: 'conference-datepicker', placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:finish_date), required: true
+        .horizontal-form-content= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
       .horizontal-form-group{ class: dom_class(@conference.events) }
         .horizontal-form-content
