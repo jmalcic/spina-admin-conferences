@@ -43,16 +43,13 @@ module Spina
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_time/, with: @conference.events.first.start_time
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_time/, with: @conference.events.first.finish_time
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
-              find(class: 'horizontal-form-label', text: 'Description')
-                .sibling(class: 'horizontal-form-content').find('trix-editor')
-                .execute_script('this.editor.loadHTML(arguments[0])', @conference.events.first.description)
+              fill_in_rich_text_area with: @conference.events.first.description
             end
           end
           Percy.snapshot page, name: 'Conferences form on create'
           click_on 'Parts'
           within '[data-name="text"]' do
-            find('trix-editor')
-              .execute_script('this.editor.loadHTML(arguments[0])', @conference.parts.find_by(name: 'text').partable.content)
+            fill_in_rich_text_area with: @conference.parts.find_by(name: 'text').partable.content
           end
           within '[data-name="submission_url"]' do
             fill_in with: @conference.parts.find_by(name: 'submission_url').partable.content
@@ -123,15 +120,12 @@ module Spina
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_time/, with: @conference.events.first.start_time
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_time/, with: @conference.events.first.finish_time
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
-              find(class: 'horizontal-form-label', text: 'Description')
-                .sibling(class: 'horizontal-form-content').find('trix-editor')
-                .execute_script('this.editor.loadHTML(arguments[0])', @conference.events.first.description)
+              fill_in_rich_text_area with: @conference.events.first.description
             end
           end
           click_on 'Parts'
           within '[data-name="text"]' do
-            find('trix-editor')
-              .execute_script('this.editor.loadHTML(arguments[0])', @conference.parts.find_by(name: 'text').partable.content)
+            fill_in_rich_text_area with: @conference.parts.find_by(name: 'text').partable.content
           end
           within '[data-name="submission_url"]' do
             fill_in with: @conference.parts.find_by(name: 'submission_url').partable.content

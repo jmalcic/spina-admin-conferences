@@ -38,9 +38,7 @@ module Spina
                  from: 'admin_conferences_presentation_date'
           fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
           fill_in 'admin_conferences_presentation_title', with: @presentation.title
-          find(class: 'horizontal-form-label', text: 'Abstract')
-            .sibling(class: 'horizontal-form-content').find('trix-editor')
-            .execute_script('this.editor.loadHTML(arguments[0])', @presentation.abstract)
+          fill_in_rich_text_area 'admin_conferences_presentation[abstract]', with: @presentation.abstract
           @presentation.presenters.each do |presenter|
             select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
           end
@@ -79,9 +77,7 @@ module Spina
                  from: 'admin_conferences_presentation_date'
           fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
           fill_in 'admin_conferences_presentation_title', with: @presentation.title
-          find(class: 'horizontal-form-label', text: 'Abstract')
-            .sibling(class: 'horizontal-form-content').find('trix-editor')
-            .execute_script('this.editor.loadHTML(arguments[0])', @presentation.abstract)
+          fill_in_rich_text_area 'admin_conferences_presentation[abstract]', with: @presentation.abstract
           @presentation.presenters.each do |presenter|
             select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
           end
