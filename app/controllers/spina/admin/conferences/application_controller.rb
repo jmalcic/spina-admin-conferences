@@ -12,7 +12,7 @@ module Spina
         private
 
         def admin_layout
-          'spina/admin/admin'
+          'spina/admin/conferences/application'
         end
       end
     end

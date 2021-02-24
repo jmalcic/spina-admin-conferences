@@ -1,5 +1,6 @@
 {
-  "imports": { 
+  "imports": {
+    "turbo": "<%= asset_path "turbo" %>",
     <%= importmap_list_with_stimulus_from Spina::Admin::Conferences::Engine.root.join('app/assets/javascripts/controllers').relative_path_from(Rails.root) %>
   }
 }
