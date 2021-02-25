@@ -59,7 +59,7 @@ module Spina
           attributes[:name] = @institution.name
           attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, xhr: true
+            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
@@ -81,7 +81,7 @@ module Spina
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, xhr: true
+            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -100,7 +100,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = @institution.name
           attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, xhr: true
+          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
@@ -118,7 +118,7 @@ module Spina
           attributes = @invalid_institution.attributes
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, xhr: true
+          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
@@ -133,7 +133,7 @@ module Spina
 
         test 'should destroy institution with remote form' do
           assert_difference 'Institution.count', -1 do
-            delete admin_conferences_institution_url(@empty_institution), xhr: true
+            delete admin_conferences_institution_url(@empty_institution), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution deleted', flash[:success]
@@ -149,7 +149,7 @@ module Spina
 
         test 'should fail to destroy institution with dependent records with remote form' do
           assert_no_difference 'Institution.count' do
-            delete admin_conferences_institution_url(@institution), xhr: true
+            delete admin_conferences_institution_url(@institution), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Institution deleted', flash[:success]

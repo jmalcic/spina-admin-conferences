@@ -54,7 +54,7 @@ module Spina
           attributes[:minutes] = @presentation_type.minutes
           attributes[:name] = @presentation_type.name
           assert_difference 'PresentationType.count' do
-            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }, xhr: true
+            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
@@ -76,7 +76,7 @@ module Spina
           attributes[:minutes] = @invalid_presentation_type.minutes
           attributes[:name] = @invalid_presentation_type.name
           assert_no_difference 'PresentationType.count' do
-            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }, xhr: true
+            post admin_conferences_presentation_types_url, params: { admin_conferences_presentation_type: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
@@ -96,7 +96,7 @@ module Spina
           attributes[:minutes] = @presentation_type.minutes
           attributes[:name] = @presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { admin_conferences_presentation_type: attributes }, xhr: true
+                params: { admin_conferences_presentation_type: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
         end
@@ -115,7 +115,7 @@ module Spina
           attributes[:minutes] = @invalid_presentation_type.minutes
           attributes[:name] = @invalid_presentation_type.name
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { admin_conferences_presentation_type: attributes }, xhr: true
+                params: { admin_conferences_presentation_type: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
         end
@@ -130,7 +130,7 @@ module Spina
 
         test 'should destroy presentation type with remote form' do
           assert_difference 'PresentationType.count', -1 do
-            delete admin_conferences_presentation_type_url(@empty_presentation_type), xhr: true
+            delete admin_conferences_presentation_type_url(@empty_presentation_type), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type deleted', flash[:success]
@@ -146,7 +146,7 @@ module Spina
 
         test 'should fail to destroy presentation type with dependent records with remote form' do
           assert_no_difference 'PresentationType.count' do
-            delete admin_conferences_presentation_type_url(@presentation_type), xhr: true
+            delete admin_conferences_presentation_type_url(@presentation_type), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation type deleted', flash[:success]

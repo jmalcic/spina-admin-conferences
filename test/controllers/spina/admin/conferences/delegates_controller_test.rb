@@ -56,7 +56,7 @@ module Spina
           attributes = @delegate.attributes
           attributes[:conference_ids] = @delegate.conference_ids
           assert_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }, xhr: true
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
@@ -76,7 +76,7 @@ module Spina
           attributes = @invalid_delegate.attributes
           attributes[:conference_ids] = @invalid_delegate.conference_ids
           assert_no_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }, xhr: true
+            post admin_conferences_delegates_url, params: { admin_conferences_delegate: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
@@ -94,7 +94,7 @@ module Spina
           attributes = @delegate.attributes
           attributes[:conference_ids] = @delegate.conference_ids
           patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes },
-                                                           xhr: true
+                                                           as: :turbo_stream
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
@@ -110,7 +110,7 @@ module Spina
         test 'should fail to update invalid delegate with remote form' do
           attributes = @invalid_delegate.attributes
           attributes[:conference_ids] = @invalid_delegate.conference_ids
-          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes }, xhr: true
+          patch admin_conferences_delegate_url(@delegate), params: { admin_conferences_delegate: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
@@ -125,7 +125,7 @@ module Spina
 
         test 'should destroy delegate with remote form' do
           assert_difference 'Delegate.count', -1 do
-            delete admin_conferences_delegate_url(@delegate), xhr: true
+            delete admin_conferences_delegate_url(@delegate), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate deleted', flash[:success]
@@ -146,7 +146,7 @@ module Spina
           callbacks = Delegate._destroy_callbacks
           Delegate.before_destroy { throw :abort }
           assert_no_difference 'Delegate.count' do
-            delete admin_conferences_delegate_url(@delegate), xhr: true
+            delete admin_conferences_delegate_url(@delegate), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Delegate deleted', flash[:success]
