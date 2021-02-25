@@ -44,7 +44,7 @@ module Spina
                 add_breadcrumb t('.new')
                 render :new
               end
-              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
             end
           end
         end
@@ -60,7 +60,7 @@ module Spina
                 add_breadcrumb @dietary_requirement.name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
             end
           end
         end
@@ -76,7 +76,7 @@ module Spina
                 add_breadcrumb @dietary_requirement.name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @dietary_requirement.errors } }
             end
           end
         end

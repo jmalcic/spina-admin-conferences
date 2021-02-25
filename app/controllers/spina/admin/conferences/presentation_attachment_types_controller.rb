@@ -43,7 +43,7 @@ module Spina
                 add_breadcrumb t('.new')
                 render :new
               end
-              format.js { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
             end
           end
         end
@@ -59,7 +59,7 @@ module Spina
                 add_breadcrumb @presentation_attachment_type.name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
             end
           end
         end
@@ -75,7 +75,7 @@ module Spina
                 add_breadcrumb @presentation_attachment_type.name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @presentation_attachment_type.errors } }
             end
           end
         end
