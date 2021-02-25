@@ -2,7 +2,7 @@
   - content_for :notifications do
     = render 'errors', errors: @conference.errors
 
-= form_for @conference, remote: true, html: { autocomplete: 'off' } do |f|
+= form_for @conference, html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 
