@@ -44,7 +44,7 @@ module Spina
                 add_breadcrumb t('.new')
                 render :new
               end
-              format.js { render partial: 'errors', locals: { errors: @delegate.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @delegate.errors } }
             end
           end
         end
@@ -60,7 +60,7 @@ module Spina
                 add_breadcrumb @delegate.full_name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @delegate.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @delegate.errors } }
             end
           end
         end
@@ -76,7 +76,7 @@ module Spina
                 add_breadcrumb @delegate.full_name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @delegate.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @delegate.errors } }
             end
           end
         end

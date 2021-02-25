@@ -53,7 +53,7 @@ module Spina
           attributes[:building] = @room.building
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }, xhr: true
+            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
@@ -75,7 +75,7 @@ module Spina
           attributes[:building] = @invalid_room.building
           attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }, xhr: true
+            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
@@ -94,7 +94,7 @@ module Spina
           attributes = @room.attributes
           attributes[:building] = @room.building
           attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }, xhr: true
+          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
@@ -112,7 +112,7 @@ module Spina
           attributes = @invalid_room.attributes
           attributes[:building] = @invalid_room.building
           attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }, xhr: true
+          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
@@ -127,7 +127,7 @@ module Spina
 
         test 'should destroy room with remote form' do
           assert_difference 'Room.count', -1 do
-            delete admin_conferences_room_url(@empty_room), xhr: true
+            delete admin_conferences_room_url(@empty_room), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room deleted', flash[:success]
@@ -143,7 +143,7 @@ module Spina
 
         test 'should fail to destroy room with dependent records with remote form' do
           assert_no_difference 'Room.count' do
-            delete admin_conferences_room_url(@room), xhr: true
+            delete admin_conferences_room_url(@room), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Room deleted', flash[:success]

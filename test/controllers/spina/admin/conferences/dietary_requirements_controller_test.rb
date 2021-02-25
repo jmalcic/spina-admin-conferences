@@ -51,7 +51,7 @@ module Spina
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }, xhr: true
+            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
@@ -71,7 +71,7 @@ module Spina
           attributes = @invalid_dietary_requirement.attributes
           attributes[:name] = @invalid_dietary_requirement.name
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }, xhr: true
+            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
@@ -90,7 +90,7 @@ module Spina
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: attributes }, xhr: true
+                params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
         end
@@ -108,7 +108,7 @@ module Spina
           attributes = @invalid_dietary_requirement.attributes
           attributes[:name] = @invalid_dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: attributes }, xhr: true
+                params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
@@ -123,7 +123,7 @@ module Spina
 
         test 'should destroy dietary requirement with remote form' do
           assert_difference 'DietaryRequirement.count', -1 do
-            delete admin_conferences_dietary_requirement_url(@dietary_requirement), xhr: true
+            delete admin_conferences_dietary_requirement_url(@dietary_requirement), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement deleted', flash[:success]
@@ -144,7 +144,7 @@ module Spina
           callbacks = DietaryRequirement._destroy_callbacks
           DietaryRequirement.before_destroy { throw :abort }
           assert_no_difference 'DietaryRequirement.count' do
-            delete admin_conferences_dietary_requirement_url(@dietary_requirement), xhr: true
+            delete admin_conferences_dietary_requirement_url(@dietary_requirement), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Dietary requirement deleted', flash[:success]
