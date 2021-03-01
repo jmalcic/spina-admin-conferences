@@ -46,7 +46,7 @@ module Spina
           attributes[:name] = @presentation_attachment_type.name
           assert_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url,
-                 params: { admin_conferences_presentation_attachment_type: attributes }, xhr: true
+                 params: { admin_conferences_presentation_attachment_type: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
@@ -67,7 +67,7 @@ module Spina
           attributes[:name] = @invalid_presentation_attachment_type.name
           assert_no_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url,
-                 params: { admin_conferences_presentation_attachment_type: attributes }, xhr: true
+                 params: { admin_conferences_presentation_attachment_type: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
@@ -86,7 +86,7 @@ module Spina
           attributes = @presentation_attachment_type.attributes
           attributes[:name] = @presentation_attachment_type.name
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { admin_conferences_presentation_attachment_type: attributes }, xhr: true
+                params: { admin_conferences_presentation_attachment_type: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
         end
@@ -104,7 +104,7 @@ module Spina
           attributes = @invalid_presentation_attachment_type.attributes
           attributes[:name] = @invalid_presentation_attachment_type.name
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { admin_conferences_presentation_attachment_type: attributes }, xhr: true
+                params: { admin_conferences_presentation_attachment_type: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
         end
@@ -119,7 +119,7 @@ module Spina
 
         test 'should destroy presentation attachment type with remote form' do
           assert_difference 'PresentationAttachmentType.count', -1 do
-            delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), xhr: true
+            delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type deleted', flash[:success]
@@ -140,7 +140,7 @@ module Spina
           callbacks = PresentationAttachmentType._destroy_callbacks
           PresentationAttachmentType.before_destroy { throw :abort }
           assert_no_difference 'PresentationAttachmentType.count' do
-            delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), xhr: true
+            delete admin_conferences_presentation_attachment_type_url(@presentation_attachment_type), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type deleted', flash[:success]

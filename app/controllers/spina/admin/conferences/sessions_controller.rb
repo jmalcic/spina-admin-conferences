@@ -47,7 +47,7 @@ module Spina
                 add_breadcrumb t('.new')
                 render :new
               end
-              format.js { render partial: 'errors', locals: { errors: @session.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @session.errors } }
             end
           end
         end
@@ -63,7 +63,7 @@ module Spina
                 add_breadcrumb @session.name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @session.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @session.errors } }
             end
           end
         end
@@ -79,7 +79,7 @@ module Spina
                 add_breadcrumb @session.name
                 render :edit
               end
-              format.js { render partial: 'errors', locals: { errors: @session.errors } }
+              format.turbo_stream { render partial: 'errors', locals: { errors: @session.errors } }
             end
           end
         end

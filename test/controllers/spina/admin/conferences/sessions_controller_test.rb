@@ -51,7 +51,7 @@ module Spina
           attributes = @session.attributes
           attributes[:name] = @session.name
           assert_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }, xhr: true
+            post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
@@ -71,7 +71,7 @@ module Spina
           attributes = @invalid_session.attributes
           attributes[:name] = @invalid_session.name
           assert_no_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }, xhr: true
+            post admin_conferences_sessions_url, params: { admin_conferences_session: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
@@ -88,7 +88,7 @@ module Spina
         test 'should update session with remote form' do
           attributes = @session.attributes
           attributes[:name] = @session.name
-          patch admin_conferences_session_url(@session), params: { admin_conferences_session: attributes }, xhr: true
+          patch admin_conferences_session_url(@session), params: { admin_conferences_session: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
@@ -104,7 +104,7 @@ module Spina
         test 'should fail to update invalid session with remote form' do
           attributes = @invalid_session.attributes
           attributes[:name] = @invalid_session.name
-          patch admin_conferences_session_url(@session), params: { admin_conferences_session: attributes }, xhr: true
+          patch admin_conferences_session_url(@session), params: { admin_conferences_session: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
@@ -119,7 +119,7 @@ module Spina
 
         test 'should destroy session with remote form' do
           assert_difference 'Session.count', -1 do
-            delete admin_conferences_session_url(@empty_session), xhr: true
+            delete admin_conferences_session_url(@empty_session), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session deleted', flash[:success]
@@ -135,7 +135,7 @@ module Spina
 
         test 'should fail to destroy session with dependent records with remote form' do
           assert_no_difference 'Session.count' do
-            delete admin_conferences_session_url(@session), xhr: true
+            delete admin_conferences_session_url(@session), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Session deleted', flash[:success]

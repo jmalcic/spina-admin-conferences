@@ -59,7 +59,7 @@ module Spina
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, xhr: true
+            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
@@ -87,7 +87,7 @@ module Spina
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, xhr: true
+            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
@@ -112,7 +112,7 @@ module Spina
           attributes[:date] = @presentation.date
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, xhr: true
+          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
@@ -136,7 +136,7 @@ module Spina
           attributes[:date] = @invalid_presentation.date
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, xhr: true
+          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
@@ -151,7 +151,7 @@ module Spina
 
         test 'should destroy presentation with remote form' do
           assert_difference 'Presentation.count', -1 do
-            delete admin_conferences_presentation_url(@presentation), xhr: true
+            delete admin_conferences_presentation_url(@presentation), as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation deleted', flash[:success]
@@ -172,7 +172,7 @@ module Spina
           callbacks = Presentation._destroy_callbacks
           Presentation.before_destroy { throw :abort }
           assert_no_difference 'Presentation.count' do
-            delete admin_conferences_presentation_url(@presentation), xhr: true
+            delete admin_conferences_presentation_url(@presentation), as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation deleted', flash[:success]
