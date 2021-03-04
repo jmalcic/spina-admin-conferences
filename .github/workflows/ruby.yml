@@ -41,14 +41,8 @@ jobs:
     steps:
     - name: Check out repo
       uses: actions/checkout@v2
-    - name: Add Chrome repo to APT sources
-      run: |
-        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
     - name: Update package lists
       run: sudo apt-get update
-    - name: Update Chrome
-      run: sudo apt-get install google-chrome-stable
     - name: Install Chromedriver
       run: sudo apt-get install chromium-chromedriver
     - name: Install Postgres library
