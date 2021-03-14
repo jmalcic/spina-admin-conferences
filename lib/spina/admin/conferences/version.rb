@@ -4,7 +4,7 @@ module Spina
   module Admin
     module Conferences
       # Version number.
-      VERSION = '1.3.7'
+      VERSION = '1.3.8'
     end
   end
 end
