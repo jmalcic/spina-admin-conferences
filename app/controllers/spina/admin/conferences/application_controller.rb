@@ -7,13 +7,7 @@ module Spina
       class ApplicationController < ::Spina::Admin::AdminController
         add_flash_types :success
 
-        layout :admin_layout, only: %i[new edit]
-
-        private
-
-        def admin_layout
-          'spina/admin/conferences/application'
-        end
+        layout 'spina/admin/conferences/application', only: %i[new edit]
       end
     end
   end
