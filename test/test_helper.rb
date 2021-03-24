@@ -58,3 +58,29 @@ module ActiveSupport
     setup { I18n.locale = I18n.default_locale }
   end
 end
+
+module StorageHelpers
+  module ::ActiveStorage
+    class FixtureSet
+      include ActiveSupport::Testing::FileFixtures
+      include ActiveRecord::SecureToken
+
+      def self.blob(filename:, **attributes)
+        new.prepare ActiveStorage::Blob.new(filename: filename, key: generate_unique_secure_token), **attributes
+      end
+
+      def prepare(instance, **attributes)
+        io = file_fixture(instance.filename.to_s).open
+        instance.unfurl(io)
+        instance.assign_attributes(attributes)
+        instance.upload_without_unfurling(io)
+
+        instance.attributes.transform_values { |value| value.is_a?(Hash) ? value.to_json : value }.compact.to_json
+      end
+    end
+
+    ::ActiveStorage::FixtureSet.file_fixture_path = "#{ActiveSupport::TestCase.fixture_path}/files"
+  end
+end
+
+ActiveRecord::FixtureSet.context_class.include StorageHelpers

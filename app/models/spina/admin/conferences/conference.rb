@@ -13,7 +13,10 @@ module Spina
       # = Translations
       # - {#name}
       class Conference < ApplicationRecord
-        include Partable
+        include AttrJson::Record
+        include AttrJson::NestedAttributes
+        include Spina::Partable
+        include Spina::TranslatedContent
 
         default_scope { includes(:translations) }
 
@@ -37,11 +40,6 @@ module Spina
         #   @note Destroying a conference destroys dependent events.
         #   @see Event
         has_many :events, -> { includes(:translations) }, inverse_of: :conference, dependent: :destroy
-        # @!attribute [rw] events
-        #   @return [ActiveRecord::Relation] directly associated events
-        #   @note Destroying a conference destroys dependent events.
-        #   @see Event
-        has_many :parts, as: :pageable, dependent: :destroy
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session
@@ -68,7 +66,6 @@ module Spina
         has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id, # rubocop:disable Rails/HasAndBelongsToMany
                                             association_foreign_key: :spina_conferences_delegate_id
         accepts_nested_attributes_for :events, allow_destroy: true
-        accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }

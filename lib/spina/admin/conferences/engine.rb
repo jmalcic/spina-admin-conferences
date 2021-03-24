@@ -16,6 +16,11 @@ module Spina
         end
 
         config.after_initialize do
+          Spina::Part.register(Spina::Parts::Admin::Conferences::Date)
+          Spina::Part.register(Spina::Parts::Admin::Conferences::EmailAddress)
+          Spina::Part.register(Spina::Parts::Admin::Conferences::Time)
+          Spina::Part.register(Spina::Parts::Admin::Conferences::Url)
+
           ActiveSupport::Deprecation
             .new('2.0', 'Spina::Admin::Conferences')
             .tap { |deprecator| deprecator.deprecate_methods(Conference, to_ics: :to_event) }

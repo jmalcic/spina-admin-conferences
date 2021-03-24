@@ -61,12 +61,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @dietary_requirement.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the dietary requirement #{@dietary_requirement.name}?"
-          Percy.snapshot page, name: 'Dietary requirements delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the dietary requirement <strong>#{@dietary_requirement.name}</strong>?" do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Dietary requirements delete dialog'
+          end
           assert_text 'Dietary requirement deleted'
           assert_no_selector "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]"
           Percy.snapshot page, name: 'Dietary requirements index on delete'

@@ -66,12 +66,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @empty_presentation_type.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the presentation type #{@empty_presentation_type.name}?"
-          Percy.snapshot page, name: 'Presentation types delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the presentation type <strong>#{@empty_presentation_type.name}</strong>?" do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Presentation types delete dialog'
+          end
           assert_text 'Presentation type deleted'
           assert_no_selector "tr[data-presentation-type-id=\"#{@empty_presentation_type.id}\"]"
           Percy.snapshot page, name: 'Presentation types index on delete'

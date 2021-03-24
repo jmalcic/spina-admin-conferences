@@ -5,7 +5,7 @@ require 'application_system_test_case'
 module Spina
   module Admin
     module Conferences
-      class PresentationsTest < ApplicationSystemTestCase # rubocop:disable Metrics/ClassLength
+      class PresentationsTest < ApplicationSystemTestCase
         setup do
           @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
           @user = spina_users :joe
@@ -25,7 +25,7 @@ module Spina
           Percy.snapshot page, name: 'Presentations index'
         end
 
-        test 'creating a presentation' do # rubocop:disable Metrics/BlockLength
+        test 'creating a presentation' do
           visit admin_conferences_presentations_path
           click_on 'New presentation'
           assert_selector '.breadcrumbs' do
@@ -43,16 +43,10 @@ module Spina
           within '.presentation_attachment' do
             click_link class: %w[button button-link icon]
             within '#structure_form_pane_0' do
-              select @presentation.attachments.first.name,
-                     from: 'presentation_attachments_attributes_0_attachment_type_id'
-              click_on 'Choose from library'
+              select @presentation.attachments.first.name, from: 'presentation_attachments_attributes_0_attachment_type_id'
+              select @presentation.attachments.first.attachment.name, from: 'presentation_attachments_attributes_0_attachment_id'
             end
           end
-          within '#overlay', visible: true, style: { display: 'block' } do
-            first('li').choose allow_label_click: true
-            click_on 'Insert document'
-          end
-          assert_no_selector '#overlay'
           Percy.snapshot page, name: 'Presentations form on create'
           click_on 'Save presentation'
           assert_text 'Presentation saved'
@@ -81,16 +75,10 @@ module Spina
             click_link class: %w[button button-link icon]
             find_link(href: '#structure_form_pane_2').click
             within '#structure_form_pane_2' do
-              select @presentation.attachments.second.name,
-                     from: 'presentation_attachments_attributes_2_attachment_type_id'
-              click_on 'Choose from library'
+              select @presentation.attachments.second.name, from: 'presentation_attachments_attributes_2_attachment_type_id'
+              select @presentation.attachments.first.attachment.name, from: 'presentation_attachments_attributes_2_attachment_id'
             end
           end
-          within '#overlay', visible: true, style: { display: 'block' } do
-            first('li').choose allow_label_click: true
-            click_on 'Insert document'
-          end
-          assert_no_selector '#overlay'
           click_on 'Save presentation'
           assert_text 'Presentation saved'
           Percy.snapshot page, name: 'Presentations index on update'
@@ -104,12 +92,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @presentation.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the presentation #{@presentation.name}?"
-          Percy.snapshot page, name: 'Presentations delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the presentation <strong>#{@presentation.name}</strong>?" do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Presentations delete dialog'
+          end
           assert_text 'Presentation deleted'
           assert_no_selector "tr[data-presentation-id=\"#{@presentation.id}\"]"
           Percy.snapshot page, name: 'Presentations index on delete'

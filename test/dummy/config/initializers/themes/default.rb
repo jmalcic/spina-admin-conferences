@@ -4,178 +4,149 @@
   theme.name = 'default'
   theme.title = 'Default'
 
-  theme.page_parts = [{
+  theme.layout_parts = %w[current_conference_alert]
+
+  theme.parts = [{
     name: 'text',
     title: 'Text',
-    partable_type: 'Spina::Text'
+    part_type: 'Spina::Parts::Text'
   }, {
     name: 'gallery',
     title: 'Gallery',
-    partable_type: 'Spina::ImageCollection'
+    part_type: 'Spina::Parts::ImageCollection'
   }, {
     name: 'constitution',
     title: 'Constitution',
-    partable_type: 'Spina::Attachment'
+    part_type: 'Spina::Parts::Attachment'
   }, {
     name: 'slides',
     title: 'Slides',
-    partable_type: 'Spina::Attachment'
+    part_type: 'Spina::Parts::Attachment'
   }, {
     name: 'handout',
     title: 'Handout',
-    partable_type: 'Spina::Attachment'
+    part_type: 'Spina::Parts::Attachment'
   }, {
     name: 'poster',
     title: 'Poster',
-    partable_type: 'Spina::Attachment'
+    part_type: 'Spina::Parts::Attachment'
   }, {
     name: 'partner_societies',
     title: 'Partner societies',
-    partable_type: 'Spina::Structure'
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[name logo description]
   }, {
     name: 'minutes',
     title: 'Minutes',
-    partable_type: 'Spina::Structure'
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[attachment]
   }, {
     name: 'contact',
     title: 'Contact',
-    partable_type: 'Spina::Text'
+    part_type: 'Spina::Parts::Text'
   }, {
     name: 'socials',
     title: 'Socials',
-    partable_type: 'Spina::Structure'
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[name location description]
   }, {
     name: 'meetings',
     title: 'Meetings',
-    partable_type: 'Spina::Structure'
-  }, {
-    name: 'submission_text',
-    title: 'Submission text',
-    partable_type: 'Spina::Line'
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[name location description]
   }, {
     name: 'committee_bios',
     title: 'Committee bios',
-    partable_type: 'Spina::Structure'
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[name role bio profile_picture]
   }, {
     name: 'sponsors',
     title: 'Sponsors',
-    partable_type: 'Spina::Structure'
-  }]
-
-  theme.layout_parts = [{
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[name website logo]
+  }, {
     name: 'current_conference_alert',
     title: 'Alert',
-    partable_type: 'Spina::Line'
-  }]
-
-  theme.structures = [{
-    name: 'partner_societies',
-    structure_parts: [{
-      name: 'name',
-      title: 'Name',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'logo',
-      title: 'Logo',
-      partable_type: 'Spina::Image'
-    }, {
-      name: 'description',
-      title: 'Description',
-      partable_type: 'Spina::Text'
-    }]
+    part_type: 'Spina::Parts::Line'
   }, {
-    name: 'minutes',
-    structure_parts: [{
-      name: 'attachment',
-      title: 'Attachment',
-      partable_type: 'Spina::Attachment'
-    }]
+    name: 'name',
+    title: 'Name',
+    part_type: 'Spina::Parts::Line'
   }, {
-    name: 'socials',
-    structure_parts: [{
-      name: 'name',
-      title: 'Name',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'location',
-      title: 'Location',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'description',
-      title: 'Description',
-      partable_type: 'Spina::Text'
-    }]
+    name: 'description',
+    title: 'Description',
+    part_type: 'Spina::Parts::Text'
   }, {
-    name: 'meetings',
-    structure_parts: [{
-      name: 'name',
-      title: 'Name',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'location',
-      title: 'Location',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'description',
-      title: 'Description',
-      partable_type: 'Spina::Text'
-    }]
+    name: 'attachment',
+    title: 'Attachment',
+    part_type: 'Spina::Parts::Attachment'
   }, {
-    name: 'committee_bios',
-    structure_parts: [{
-      name: 'name',
-      title: 'Name',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'role',
-      title: 'Role',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'bio',
-      title: 'Bio',
-      partable_type: 'Spina::Text'
-    }, {
-      name: 'profile_picture',
-      title: 'Profile picture',
-      partable_type: 'Spina::Image'
-    }]
+    name: 'location',
+    title: 'Location',
+    part_type: 'Spina::Parts::Line'
   }, {
-    name: 'sponsors',
-    structure_parts: [{
-      name: 'name',
-      title: 'Name',
-      partable_type: 'Spina::Line'
-    }, {
-      name: 'logo',
-      title: 'Logo',
-      partable_type: 'Spina::Image'
-    }]
-  }]
+    name: 'role',
+    title: 'Role',
+    part_type: 'Spina::Parts::Line'
+  }, {
+    name: 'bio',
+    title: 'Bio',
+    part_type: 'Spina::Parts::Text'
+  }, {
+    name: 'profile_picture',
+    title: 'Profile picture',
+    part_type: 'Spina::Parts::Image'
+  }, {
+    name: 'website',
+    title: 'Website',
+    part_type: 'Spina::Parts::Admin::Conferences::Url'
+  }, {
+    name: 'logo',
+    title: 'Logo',
+    part_type: 'Spina::Parts::Image'
+  }, {
+    name: 'submission_url',
+    title: 'Submission URL',
+    part_type: 'Spina::Parts::Admin::Conferences::Url'
+  }, {
+    name: 'submission_email_address',
+    title: 'Submission email address',
+    part_type: 'Spina::Parts::Admin::Conferences::EmailAddress'
+  }, {
+    name: 'submission_date',
+    title: 'Submission date',
+    part_type: 'Spina::Parts::Admin::Conferences::Date'
+  }, {
+    name: 'submission_text',
+    title: 'Submission text',
+    part_type: 'Spina::Parts::Line'
+  }
+]
 
   theme.view_templates = [{
     name: 'homepage',
     title: 'Homepage',
-    page_parts: %w[gallery]
+    parts: %w[gallery]
   }, {
     name: 'information',
     title: 'Information',
     description: 'Contains general information',
-    page_parts: %w[text]
+    parts: %w[text]
   }, {
     name: 'committee',
     title: 'Committee',
     description: 'Contains committee bios',
-    page_parts: %w[text committee_bios]
+    parts: %w[text committee_bios]
   }, {
     name: 'about',
     title: 'About',
     description: 'Contains information about the society',
-    page_parts: %w[text constitution minutes partner_societies contact]
+    parts: %w[text constitution minutes partner_societies contact]
   }, {
     name: 'show',
     title: 'Blank',
     description: 'Blank template',
-    page_parts: []
+    parts: %w[]
   }]
 
   theme.custom_pages = [{
@@ -200,6 +171,4 @@
   }]
 
   theme.plugins = ['conferences']
-
-  theme.resources = []
 end

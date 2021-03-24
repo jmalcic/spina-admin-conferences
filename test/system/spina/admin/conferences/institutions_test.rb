@@ -26,7 +26,7 @@ module Spina
           Percy.snapshot page, name: 'Institutions index'
         end
 
-        test 'creating an institution' do # rubocop:disable Metrics/BlockLength
+        test 'creating an institution' do
           visit admin_conferences_institutions_path
           click_on 'New institution'
           assert_selector '.breadcrumbs' do
@@ -34,13 +34,10 @@ module Spina
           end
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
-          execute_script '$.fx.off = true;'
           click_on 'Choose image'
-          within '#overlay', visible: true, style: { display: 'block' } do
-            first('.gallery .item:not(.item-uploader)').click
-            find('.gallery-select-sidebar').click_on 'Choose image'
+          within '.modal', visible: true, style: { display: 'block' } do
+            first('.media-picker-image').click
           end
-          assert_no_selector '#overlay'
           Percy.snapshot page, name: 'Institutions form on create'
           click_on 'Save institution'
           assert_text 'Institution saved'
@@ -58,13 +55,10 @@ module Spina
           Percy.snapshot page, name: 'Institutions form on update'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
-          page.execute_script '$.fx.off = true;'
           click_on 'Choose image'
-          within '#overlay', visible: true, style: { display: 'block' } do
-            first('.gallery .item:not(.item-uploader)').click
-            find('.gallery-select-sidebar').click_on 'Choose image'
+          within '.modal', visible: true, style: { display: 'block' } do
+            first('.media-picker-image').click
           end
-          assert_no_selector '#overlay'
           click_on 'Save institution'
           assert_text 'Institution saved'
           Percy.snapshot page, name: 'Institutions index on update'
@@ -78,12 +72,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @empty_institution.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the institution #{@empty_institution.name}?"
-          Percy.snapshot page, name: 'Institutions delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the institution <strong>#{@empty_institution.name}</strong>?" do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Institutions delete dialog'
+          end
           assert_text 'Institution deleted'
           assert_no_selector "tr[data-institution-id=\"#{@empty_institution.id}\"]"
           Percy.snapshot page, name: 'Institutions index on delete'

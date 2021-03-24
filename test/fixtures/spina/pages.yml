@@ -7,18 +7,167 @@
 homepage:
   name: homepage
   view_template: homepage
+  json_attributes:
+    en_content:
+      - name: gallery
+        title: Gallery
+        type: Spina::Parts::ImageCollection
+        images:
+          - image_id: <%= ActiveRecord::FixtureSet.identify(:dubrovnik) %>
+            filename: dubrovnik.jpeg
+            signed_blob_id:
+            alt: Dubrovnik
+          - image_id: <%= ActiveRecord::FixtureSet.identify(:rovinj) %>
+            filename: rovinj.jpeg
+            signed_blob_id:
+            alt: Rovinj
 
 information:
   name: information
   view_template: information
+  json_attributes:
+    en_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+        content:
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+          Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+          Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+          ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+          augue.<\/div>
 
 about:
   name: about
   view_template: about
+  json_attributes:
+    en_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+        content: 
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+          Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+          Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+          ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+          augue.<\/div>
+      - name: contact
+        title: Contact
+        type: Spina::Parts::Text
+        content: 
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+          Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+          Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+          ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+          augue.<\/div>
+      - name: constitution
+        title: Constitution
+        type: Spina::Parts::Attachment
+        attachment_id: <%= ActiveRecord::FixtureSet.identify(:constitution) %>
+        filename: constitution.pdf
+        signed_blob_id:
+      - name: partner_societies
+        title: Partner societies
+        type: Spina::Parts::Repeater
+        content:
+          - name: partner_societies
+            title: Partner societies
+            parts:
+              - name: name
+                title: Name
+                type: Spina::Parts::Line
+                content:
+              - name: logo
+                title: Logo
+                type: Spina::Parts::Image
+                attachment_id: minutes
+                filename: logo.png
+                signed_blob_id:
+                alt: Logo
+              - name: description
+                title: Description
+                type: Spina::Parts::Text
+                content:
+                  <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+                  Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+                  Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+                  ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                  Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+                  augue.<\/div>
+      - name: minutes
+        title: Minutes
+        type: Spina::Parts::Repeater
+        content:
+          - name: minutes
+            title: Minutes
+            parts:
+              - name: attachment
+                title: Attachment
+                type: Spina::Parts::Attachment
+                attachment_id: <%= ActiveRecord::FixtureSet.identify(:minutes) %>
+                filename: minutes.pdf
+                signed_blob_id:
+      - name: contact
+        title: Contact
+        type: Spina::Parts::Text
+        content: 
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+          Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+          Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+          ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+          augue.<\/div>
 
 committee:
   name: committee
   view_template: committee
+  json_attributes:
+    en_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+        content:
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+          Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+          Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+          ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+          augue.<\/div>
+      - name: committee_bios
+        title: Committee bios
+        type: Spina::Parts::Repeater
+        content:
+          - name: committee_bios
+            title: Committee bios
+            parts:
+              - name: name
+                title: Name
+                type: Spina::Parts::Line
+                content: Joe Bloggs
+              - name: role
+                title: Role
+                type: Spina::Parts::Line
+                content: Stand-in
+              - name: bio
+                title: Bio
+                type: Spina::Parts::Text
+                content:
+                  <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+                  Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+                  Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+                  ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                  Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+                  augue.<\/div>
+              - name: profile_picture
+                title: Profile picture
+                type: Spina::Parts::Image
+                attachment_id: profile_picture
+                filename: profile_picture.jpg
+                signed_blob_id:
+                alt: Profile picture
 
 blank:
   name: blank

@@ -66,12 +66,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @empty_room.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the room #{@empty_room.name}?"
-          Percy.snapshot page, name: 'Rooms delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the room <strong>#{@empty_room.name}</strong>?" do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Rooms delete dialog'
+          end
           assert_text 'Room deleted'
           assert_no_selector "tr[data-room-id=\"#{@empty_room.id}\"]"
           Percy.snapshot page, name: 'Rooms index on delete'

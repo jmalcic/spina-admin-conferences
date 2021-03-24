@@ -39,6 +39,7 @@ en:
       images: Images # This translation is apparently not provided by Spina for some reason
     images:
       delete: Delete # Ditto
+      choose: Choose
     admin:
       conferences:
         title: Conferences
