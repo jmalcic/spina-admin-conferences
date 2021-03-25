@@ -9,15 +9,4 @@
     = icon 'plus'
     = t '.new'
 
-.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
-          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :title
-          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
-          %th
-
-      %tbody
-        = render @presentations.any? ? @presentations : 'empty_list', message: t('.no_presentations')
+= render partial: 'presentations', object: @presentations

@@ -1,0 +1,9 @@
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
+          %th
+
+      %tbody= render dietary_requirements.presence || 'empty_list', message: t('.no_dietary_requirements')

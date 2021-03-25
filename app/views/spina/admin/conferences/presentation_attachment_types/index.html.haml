@@ -3,13 +3,4 @@
     = icon 'plus'
     = t '.new'
 
-.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
-          %th
-
-      %tbody
-        = render @presentation_attachment_types.any? ? @presentation_attachment_types : 'empty_list', message: t('.no_presentation_attachment_types')
+= render partial: 'presentation_attachment_types', object: @presentation_attachment_types

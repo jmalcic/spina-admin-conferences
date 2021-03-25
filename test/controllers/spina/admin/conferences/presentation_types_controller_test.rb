@@ -25,6 +25,12 @@ module Spina
         test 'should get new' do
           get new_admin_conferences_presentation_type_url
           assert_response :success
+          assert_select '#presentations tbody > tr' do
+            assert_select 'td', 'There are no presentations'
+          end
+          assert_select '#sessions tbody > tr' do
+            assert_select 'td', 'There are no sessions'
+          end
         end
 
         test 'should get edit' do

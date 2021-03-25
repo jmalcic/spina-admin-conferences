@@ -1,12 +1,1 @@
-#delegates.tab-content.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :name
-          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :email_address
-          %th= Spina::Admin::Conferences::Delegate.human_attribute_name :institution
-          %th
-
-      %tbody
-        = render @institution.delegates.any? ? @institution.delegates : 'empty_list', message: t('spina.admin.conferences.delegates.index.no_delegates')
+#delegates.tab-content= render partial: 'delegates', object: @institution.delegates

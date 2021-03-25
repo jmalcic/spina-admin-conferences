@@ -25,10 +25,10 @@ module Spina
           get new_admin_conferences_institution_url
           assert_response :success
           assert_select '#delegates tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.delegates.index.no_delegates')
+            assert_select 'td', 'There are no delegates'
           end
           assert_select '#rooms tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.rooms.index.no_rooms')
+            assert_select 'td', 'There are no rooms'
           end
         end
 

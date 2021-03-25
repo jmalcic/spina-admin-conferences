@@ -3,13 +3,4 @@
     = icon 'plus'
     = t '.new'
 
-.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
-          %th
-
-      %tbody
-        = render @dietary_requirements.any? ? @dietary_requirements : 'empty_list', message: t('.no_dietary_requirements')
+= render partial: 'dietary_requirements', object: @dietary_requirements

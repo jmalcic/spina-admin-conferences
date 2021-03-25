@@ -1,12 +1,1 @@
-#presentations.tab-content.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
-          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :title
-          %th= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
-          %th
-
-      %tbody
-        = render @conference.presentations.any? ? @conference.presentations : 'empty_list', message: t('spina.admin.conferences.presentations.index.no_presentations')
+#presentations.tab-content= render partial: 'presentations', object: @conference.presentations

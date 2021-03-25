@@ -1,12 +1,1 @@
-#rooms.tab-content.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::Room.human_attribute_name :institution
-          %th= Spina::Admin::Conferences::Room.human_attribute_name :building
-          %th= Spina::Admin::Conferences::Room.human_attribute_name :number
-          %th
-
-      %tbody
-        = render @institution.rooms.any? ? @institution.rooms : 'empty_list', message: t('spina.admin.conferences.rooms.index.no_rooms')
+#rooms.tab-content= render partial: 'rooms', object: @institution.rooms

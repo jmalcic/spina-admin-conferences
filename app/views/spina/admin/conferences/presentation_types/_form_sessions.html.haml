@@ -1,12 +1,1 @@
-#sessions.tab-content.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= Spina::Admin::Conferences::Session.human_attribute_name :name
-          %th= Spina::Admin::Conferences::Session.human_attribute_name :presentation_type
-          %th= Spina::Admin::Conferences::Session.human_attribute_name :room
-          %th
-
-      %tbody
-        = render @presentation_type.sessions.any? ? @presentation_type.sessions : 'empty_list', message: t('spina.admin.conferences.sessions.index.no_sessions')
+#sessions.tab-content= render partial: 'sessions', object: @presentation_type.sessions

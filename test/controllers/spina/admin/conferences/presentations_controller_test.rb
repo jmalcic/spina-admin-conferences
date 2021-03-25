@@ -24,7 +24,7 @@ module Spina
           get new_admin_conferences_presentation_url
           assert_response :success
           assert_select '#presenters tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.presenters.no_presenters')
+            assert_select 'td', 'There are no delegates'
           end
         end
 

@@ -45,7 +45,6 @@ en:
         conferences:
           index:
             new: New conference
-            no_conferences: There are no conferences
             import: Import CSV
           new:
             new: New conference
@@ -73,7 +72,6 @@ en:
         delegates:
           index:
             new: New delegate
-            no_delegates: There are no delegates
             import: Import CSV
           new:
             new: New delegate
@@ -108,7 +106,6 @@ en:
         presentations:
           index:
             new: New presentation
-            no_presentations: There are no presentations
             import: Import CSV
           new:
             new: New presentation
@@ -131,7 +128,6 @@ en:
         presentation_types:
           index:
             new: New presentation type
-            no_presentation_types: There are no presentation types
             import: Import CSV
           new:
             new: New presentation type
@@ -154,7 +150,6 @@ en:
         dietary_requirements:
           index:
             new: New dietary requirement
-            no_dietary_requirements: There are no dietary requirements
             import: Import CSV
           new:
             new: New dietary requirement
@@ -175,7 +170,6 @@ en:
         presentation_attachment_types:
           index:
             new: New presentation attachment type
-            no_presentation_attachment_types: There are no presentation attachment types
           new:
             new: New presentation attachment type
           create:
@@ -193,7 +187,6 @@ en:
         institutions:
           index:
             new: New institution
-            no_institutions: There are no institutions
             import: Import CSV
           new:
             new: New institution
@@ -215,7 +208,6 @@ en:
         rooms:
           index:
             new: New room
-            no_rooms: There are no rooms
             import: Import CSV
           new:
             new: New room
@@ -235,7 +227,6 @@ en:
         sessions:
           index:
             new: New session
-            no_sessions: There are no sessions
           new:
             new: New session
           create:
@@ -251,6 +242,25 @@ en:
             presentations: Presentations
           form_session_details:
             delete_confirmation: "Are you sure you want to delete the session <strong>%{session}</strong>?"
+        application:
+          conferences:
+            no_conferences: There are no conferences
+          delegates:
+            no_delegates: There are no delegates
+          dietary_requirements:
+            no_dietary_requirements: There are no dietary requirements
+          institutions:
+            no_institutions: There are no institutions
+          presentation_types:
+            no_presentation_types: There are no presentation types
+          presentations:
+            no_presentations: There are no presentations
+          presentation_attachment_types:
+            no_presentation_attachment_types: There are no presentation attachment types
+          rooms:
+            no_rooms: There are no rooms
+          sessions:
+            no_sessions: There are no sessions
   activerecord:
     models:
       spina/admin/conferences/conference:
