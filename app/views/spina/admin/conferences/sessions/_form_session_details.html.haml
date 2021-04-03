@@ -15,7 +15,7 @@
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Session.human_attribute_name :room
         .horizontal-form-content
-          .input-group{ data: { controller: 'select-options', 'spina--admin--conferences--select_options': { record_value: @institutions } } }
+          .input-group{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { record_value: @institutions } } }
             .select-dropdown= select_tag :admin_conferences_institution_id, options_from_collection_for_select(Spina::Admin::Conferences::Institution.all, :id, :name, (@session.institution.id unless @session.institution.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
             .select-dropdown= f.collection_select :room_id, @session.institution.present? ? @session.institution.rooms : Spina::Admin::Conferences::Institution.first.rooms, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', text_key: 'name', key_path: 'rooms' }
 
