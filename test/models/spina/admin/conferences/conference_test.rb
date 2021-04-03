@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class ConferenceTest < ActiveSupport::TestCase # rubocop:disable Metrics/ClassLength
         setup do
-          @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
+          @conference = spina_admin_conferences_conferences :university_of_atlantis_2017 # rubocop:disable Naming/VariableNumber
           @empty_conference = spina_admin_conferences_conferences :empty_conference
           @new_conference = Conference.new
         end
@@ -193,7 +193,7 @@ module Spina
           assert_instance_of Icalendar::Event, @conference.to_event
           assert_instance_of Icalendar::Event, @new_conference.to_event
           assert_instance_of Icalendar::Event, @conference.to_ics
-          assert_instance_of Icalendar::Event, @new_conference.to_icss
+          assert_instance_of Icalendar::Event, @new_conference.to_ics
         end
 
         test 'finish date saved correctly' do
