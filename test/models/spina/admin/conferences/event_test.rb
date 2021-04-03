@@ -66,36 +66,12 @@ module Spina
           assert_not_empty @event.errors[:name]
         end
 
-        test 'date must not be empty' do
-          assert @event.valid?
-          assert_empty @event.errors[:date]
-          @event.date = nil
-          assert @event.invalid?
-          assert_not_empty @event.errors[:date]
-        end
-
-        test 'start time must not be empty' do
-          assert @event.valid?
-          assert_empty @event.errors[:start_time]
-          @event.start_time = nil
-          assert @event.invalid?
-          assert_not_empty @event.errors[:start_time]
-        end
-
         test 'start datetime must not be empty' do
           assert @event.valid?
           assert_empty @event.errors[:start_datetime]
           @event.start_datetime = nil
           assert @event.invalid?
           assert_not_empty @event.errors[:start_datetime]
-        end
-
-        test 'finish time must not be empty' do
-          assert @event.valid?
-          assert_empty @event.errors[:finish_time]
-          @event.finish_time = nil
-          assert @event.invalid?
-          assert_not_empty @event.errors[:finish_time]
         end
 
         test 'finish datetime must not be empty' do
@@ -114,64 +90,38 @@ module Spina
           assert_not_empty @event.errors[:location]
         end
 
-        test 'date must be during conference' do
+        test 'start datetime must be during conference' do
           assert @event.valid?
-          assert_empty @event.errors[:date]
-          @event.date = @event.conference.dates.max + 5.days
+          assert_empty @event.errors[:start_datetime]
+          @event.start_datetime = @event.conference.dates.max + 5.days
           assert @event.invalid?
-          assert_not_empty @event.errors[:date]
+          assert_not_empty @event.errors[:start_datetime]
+        end
+        
+        test 'finish datetime must be during conference' do
+          assert @event.valid?
+          assert_empty @event.errors[:finish_datetime]
+          @event.finish_datetime = @event.conference.dates.max + 5.days
+          assert @event.invalid?
+          assert_not_empty @event.errors[:finish_datetime]
         end
 
-        test 'finish time must not be before start time' do
+        test 'finish datetime must not be before start time' do
           assert @event.valid?
-          assert_empty @event.errors[:finish_time]
+          assert_empty @event.errors[:finish_datetime]
           @event.finish_datetime = @event.start_datetime - 1.hour
           assert @event.invalid?
-          assert_not_empty @event.errors[:finish_time]
-        end
-
-        test 'returns date' do
-          assert_equal @event.start_datetime.to_date, @event.date
-          assert_nil @new_event.date
-        end
-
-        test 'setting date updates start datetime' do
-          assert_changes '@event.start_datetime.inspect', to: @event.start_datetime.+(1.day).inspect do
-            @event.date = @event.date.+(1.day).iso8601
-          end
-          assert_changes '@event.start_datetime' do
-            @event.date = nil
-          end
-          assert_nil @event.start_datetime
-          assert_changes '@new_event.start_datetime' do
-            @new_event.date = Date.today.iso8601 # rubocop:disable Rails/Date
-          end
-          assert_changes '@new_event.start_datetime' do
-            @new_event.date = nil
-          end
-          assert_nil @new_event.start_datetime
+          assert_not_empty @event.errors[:finish_datetime]
         end
 
         test 'returns start time' do
-          assert_equal @event.start_datetime, @event.start_time
-          assert_nil @new_event.start_time
-        end
-
-        test 'setting start time updates start datetime' do
-          assert_changes '@event.start_datetime.inspect', to: @event.start_datetime.+(2.hours).at_beginning_of_minute.inspect do
-            @event.start_time = @event.start_time.+(2.hours).to_formatted_s(:time)
-          end
-          assert_changes '@event.start_datetime' do
-            @event.start_time = nil
-          end
-          assert_nil @event.start_datetime
-          assert_changes '@new_event.start_datetime' do
-            @new_event.start_time = DateTime.current.to_formatted_s(:time)
-          end
-          assert_changes '@new_event.start_datetime' do
-            @new_event.start_time = nil
-          end
+          assert_equal @event.start_time, @event.start_datetime
           assert_nil @new_event.start_datetime
+        end
+        
+        test 'returns date' do
+          assert_equal @event.start_datetime.to_date, @event.date
+          assert_nil @new_event.date
         end
 
         test 'returns an iCal event' do

@@ -39,9 +39,10 @@ module Spina
             click_link class: %w[button button-link icon]
             within '#structure_form_pane_0' do
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_name/, with: @conference.events.first.name
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_date/, with: @conference.events.first.date
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_time/, with: @conference.events.first.start_time
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_time/, with: @conference.events.first.finish_time
+              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_datetime/,
+                      with: @conference.events.first.start_datetime
+              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_datetime/,
+                      with: @conference.events.first.finish_datetime
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
               fill_in_rich_text_area with: @conference.events.first.description
             end
@@ -116,9 +117,10 @@ module Spina
             end
             within '#structure_form_pane_1' do
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_name/, with: @conference.events.first.name
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_date/, with: @conference.events.first.date
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_time/, with: @conference.events.first.start_time
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_time/, with: @conference.events.first.finish_time
+              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_datetime/,
+                      with: @conference.events.first.start_datetime
+              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_datetime/,
+                      with: @conference.events.first.finish_datetime
               fill_in id: /admin_conferences_conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
               fill_in_rich_text_area with: @conference.events.first.description
             end

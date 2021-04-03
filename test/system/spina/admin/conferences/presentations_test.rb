@@ -34,9 +34,7 @@ module Spina
           select @presentation.conference.name, from: 'admin_conferences_conference_id'
           select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
           select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
-          select I18n.localize(@presentation.date, locale: :'en-GB', format: :short),
-                 from: 'admin_conferences_presentation_date'
-          fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
+          fill_in 'admin_conferences_presentation_start_datetime', with: @presentation.start_datetime
           fill_in 'admin_conferences_presentation_title', with: @presentation.title
           fill_in_rich_text_area 'admin_conferences_presentation[abstract]', with: @presentation.abstract
           @presentation.presenters.each do |presenter|
@@ -73,9 +71,7 @@ module Spina
           select @presentation.conference.name, from: 'admin_conferences_conference_id'
           select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
           select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
-          select I18n.localize(@presentation.date, locale: :'en-GB', format: :short),
-                 from: 'admin_conferences_presentation_date'
-          fill_in 'admin_conferences_presentation_start_time', with: @presentation.start_time
+          fill_in 'admin_conferences_presentation_start_datetime', with: @presentation.start_datetime
           fill_in 'admin_conferences_presentation_title', with: @presentation.title
           fill_in_rich_text_area 'admin_conferences_presentation[abstract]', with: @presentation.abstract
           @presentation.presenters.each do |presenter|

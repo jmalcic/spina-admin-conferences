@@ -14,15 +14,9 @@
             .select-dropdown= f.collection_select :session_id, (@presentation.presentation_type || Spina::Admin::Conferences::Conference.first).sessions, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types:sessions', text_key: 'name' }
 
       .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :date
-        .horizontal-form-content
-          .select-dropdown= f.select :date, (@presentation.conference || Spina::Admin::Conferences::Conference.first).dates.collect { |date| [l(date, format: :short), date.to_formatted_s(:iso8601)] }, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', key_path: 'localized_dates', text_key: 'localization', value_key: 'date' }
-
-      .horizontal-form-group
         .horizontal-form-label
-          = Spina::Admin::Conferences::Presentation.human_attribute_name :start_time
-          %small= t '.start_time_instructions'
-        .horizontal-form-content= f.time_field :start_time, value: (@presentation.start_time.to_formatted_s(:time) unless @presentation.start_time.blank?), placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:start_time), required: true
+          = Spina::Admin::Conferences::Presentation.human_attribute_name :start_datetime
+        .horizontal-form-content= f.datetime_field :start_datetime, required: true
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :title

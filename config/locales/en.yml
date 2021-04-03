@@ -290,14 +290,14 @@ en:
     attributes:
       spina/admin/conferences/conference:
         name: Name
-        start_date: Start date
-        finish_date: Finish date
+        start_datetime: Start time
+        finish_datetime: Finish time
         events: Events
       spina/admin/conferences/event:
         name: Name
         location: Location
-        start_time: Start time
-        finish_time: Finish time
+        start_datetime: Start time
+        finish_datetime: Finish time
         description: Description
       spina/admin/conferences/delegate:
         first_name: First name
@@ -313,8 +313,7 @@ en:
         dietary_requirements: Dietary requirements
       spina/admin/conferences/presentation:
         title: Title
-        date: Date
-        start_time: Start time
+        start_datetime: Start time
         abstract: Abstract
         room_type: Type
         presenters: Presenters

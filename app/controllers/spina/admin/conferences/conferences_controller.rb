@@ -131,7 +131,7 @@ module Spina
         def conference_params # rubocop:disable Metrics/MethodLength
           params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
                                                                events_attributes:
-                                                                 %i[id name date start_time finish_time description location],
+                                                                 %i[id name start_datetime finish_datetime description location],
                                                                parts_attributes:
                                                                  [:id, :title, :name, :partable_type, :partable_id,
                                                                   { partable_attributes:
