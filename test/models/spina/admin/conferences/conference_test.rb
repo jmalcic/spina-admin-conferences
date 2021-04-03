@@ -192,6 +192,8 @@ module Spina
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @conference.to_event
           assert_instance_of Icalendar::Event, @new_conference.to_event
+          assert_instance_of Icalendar::Event, @conference.to_ics
+          assert_instance_of Icalendar::Event, @new_conference.to_icss
         end
 
         test 'finish date saved correctly' do
