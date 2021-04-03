@@ -97,22 +97,6 @@ module Spina
           assert_not_empty @presentation.errors[:title]
         end
 
-        test 'date must not be empty' do
-          assert @presentation.valid?
-          assert_empty @presentation.errors[:date]
-          @presentation.start_datetime = nil
-          assert @presentation.invalid?
-          assert_not_empty @presentation.errors[:date]
-        end
-
-        test 'start time must not be empty' do
-          assert @presentation.valid?
-          assert_empty @presentation.errors[:start_time]
-          @presentation.start_datetime = nil
-          assert @presentation.invalid?
-          assert_not_empty @presentation.errors[:start_time]
-        end
-
         test 'start datetime must not be empty' do
           assert @presentation.valid?
           assert_empty @presentation.errors[:start_datetime]
@@ -137,15 +121,15 @@ module Spina
           assert_not_empty @presentation.errors[:presenters]
         end
 
-        test 'date must be during conference' do
+        test 'start datetime must be during conference' do
           assert @presentation.valid?
-          assert_empty @presentation.errors[:date]
+          assert_empty @presentation.errors[:start_datetime]
           @presentation.start_datetime = @presentation.conference.finish_date.end_of_day + 1.second
           assert @presentation.invalid?
-          assert_not_empty @presentation.errors[:date]
+          assert_not_empty @presentation.errors[:start_datetime]
           @presentation.start_datetime = @presentation.conference.start_date.beginning_of_day - 1.second
           assert @presentation.invalid?
-          assert_not_empty @presentation.errors[:date]
+          assert_not_empty @presentation.errors[:start_datetime]
         end
 
         test 'validates associated presenters' do
@@ -181,48 +165,16 @@ module Spina
           assert_nil @new_presentation.date
         end
 
-        test 'setting date updates start datetime' do
-          assert_changes '@presentation.start_datetime.inspect', to: @presentation.start_datetime.+(1.day).inspect do
-            @presentation.date = @presentation.date.+(1.day).iso8601
-          end
-          assert_changes '@presentation.start_datetime' do
-            @presentation.date = nil
-          end
-          assert_nil @presentation.start_datetime
-          assert_changes '@new_presentation.start_datetime' do
-            @new_presentation.date = Date.today.iso8601 # rubocop:disable Rails/Date
-          end
-          assert_changes '@new_presentation.start_datetime' do
-            @new_presentation.date = nil
-          end
-          assert_nil @new_presentation.start_datetime
-        end
-
         test 'returns start time' do
           assert_equal @presentation.start_datetime, @presentation.start_time
           assert_nil @new_presentation.start_time
         end
 
-        test 'setting start time updates start datetime' do
-          assert_changes '@presentation.start_datetime.inspect', to: @presentation.start_time.+(2.hours).inspect do
-            @presentation.start_time = @presentation.start_time.+(2.hours).to_formatted_s(:time)
-          end
-          assert_changes '@presentation.start_datetime' do
-            @presentation.start_time = nil
-          end
-          assert_nil @presentation.start_datetime
-          assert_changes '@new_presentation.start_datetime' do
-            @new_presentation.start_time = DateTime.current.to_formatted_s(:time)
-          end
-          assert_changes '@new_presentation.start_datetime' do
-            @new_presentation.start_time = nil
-          end
-          assert_nil @new_presentation.start_datetime
-        end
-
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @presentation.to_event
           assert_instance_of Icalendar::Event, @new_presentation.to_event
+          assert_instance_of Icalendar::Event, @presentation.to_ics
+          assert_instance_of Icalendar::Event, @new_presentation.to_ics
         end
       end
     end
