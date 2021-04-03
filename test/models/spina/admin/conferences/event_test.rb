@@ -97,7 +97,7 @@ module Spina
           assert @event.invalid?
           assert_not_empty @event.errors[:start_datetime]
         end
-        
+
         test 'finish datetime must be during conference' do
           assert @event.valid?
           assert_empty @event.errors[:finish_datetime]
@@ -118,7 +118,7 @@ module Spina
           assert_equal @event.start_time, @event.start_datetime
           assert_nil @new_event.start_datetime
         end
-        
+
         test 'returns date' do
           assert_equal @event.start_datetime.to_date, @event.date
           assert_nil @new_event.date

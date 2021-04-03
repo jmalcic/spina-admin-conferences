@@ -72,7 +72,7 @@ module Spina
         validates :start_datetime, 'spina/admin/conferences/conference_date': true
         validates_associated :presenters
         validates_associated :attachments
-        
+
         # @!attribute [rw] start_time
         #   @return [ActiveSupport::TimeWithZone, nil] the start time (alias)
         #   @see #start_datetime

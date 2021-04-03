@@ -31,7 +31,7 @@ module Spina
 
         # @return [ActiveRecord::Relation] all events, ordered by name
         scope :sorted, -> { i18n.order :name }
-        
+
         # @!attribute [rw] start_time
         #   @return [ActiveSupport::TimeWithZone, nil] the start time (alias)
         #   @see #start_datetime

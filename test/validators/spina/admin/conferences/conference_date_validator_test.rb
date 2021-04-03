@@ -17,7 +17,7 @@ module Spina
         end
 
         test 'dates outside of conference are invalid' do
-          @presentation.start_datetime = @presentation.conference.dates.begin - 1.days
+          @presentation.start_datetime = @presentation.conference.dates.begin - 1.day
           @validator.validate_each(@presentation, :start_datetime, @presentation.start_datetime)
           assert_includes @presentation.errors[:start_datetime], 'is not during the selected conference'
           @presentation.start_datetime = @presentation.conference.dates.end + 1.day
