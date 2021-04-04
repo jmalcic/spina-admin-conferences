@@ -2,7 +2,7 @@
   - content_for :notifications do
     = render 'errors', errors: @room.errors
 
-= form_for @room, html: { autocomplete: 'off' } do |f|
+= form_for [:admin_conferences, @room], html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 

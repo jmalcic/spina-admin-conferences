@@ -31,20 +31,20 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New presentation'
           end
-          select @presentation.conference.name, from: 'admin_conferences_conference_id'
-          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
-          select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
-          fill_in 'admin_conferences_presentation_start_datetime', with: @presentation.start_datetime
-          fill_in 'admin_conferences_presentation_title', with: @presentation.title
-          fill_in_rich_text_area 'admin_conferences_presentation[abstract]', with: @presentation.abstract
+          select @presentation.conference.name, from: 'conference_id'
+          select @presentation.presentation_type.name, from: 'presentation_type_id'
+          select @presentation.session.name, from: 'presentation_session_id'
+          fill_in 'presentation_start_datetime', with: @presentation.start_datetime
+          fill_in 'presentation_title', with: @presentation.title
+          fill_in_rich_text_area 'presentation[abstract]', with: @presentation.abstract
           @presentation.presenters.each do |presenter|
-            select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
+            select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
           end
-          within '.admin_conferences_presentation_attachment' do
+          within '.presentation_attachment' do
             click_link class: %w[button button-link icon]
             within '#structure_form_pane_0' do
               select @presentation.attachments.first.name,
-                     from: 'admin_conferences_presentation_attachments_attributes_0_attachment_type_id'
+                     from: 'presentation_attachments_attributes_0_attachment_type_id'
               click_on 'Choose from library'
             end
           end
@@ -68,21 +68,21 @@ module Spina
             assert_text @presentation.name
           end
           Percy.snapshot page, name: 'Presentations form on update'
-          select @presentation.conference.name, from: 'admin_conferences_conference_id'
-          select @presentation.presentation_type.name, from: 'admin_conferences_presentation_type_id'
-          select @presentation.session.name, from: 'admin_conferences_presentation_session_id'
-          fill_in 'admin_conferences_presentation_start_datetime', with: @presentation.start_datetime
-          fill_in 'admin_conferences_presentation_title', with: @presentation.title
-          fill_in_rich_text_area 'admin_conferences_presentation[abstract]', with: @presentation.abstract
+          select @presentation.conference.name, from: 'conference_id'
+          select @presentation.presentation_type.name, from: 'presentation_type_id'
+          select @presentation.session.name, from: 'presentation_session_id'
+          fill_in 'presentation_start_datetime', with: @presentation.start_datetime
+          fill_in 'presentation_title', with: @presentation.title
+          fill_in_rich_text_area 'presentation[abstract]', with: @presentation.abstract
           @presentation.presenters.each do |presenter|
-            select presenter.reversed_name_and_institution, from: 'admin_conferences_presentation_presenter_ids'
+            select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
           end
-          within '.admin_conferences_presentation_attachment' do
+          within '.presentation_attachment' do
             click_link class: %w[button button-link icon]
             find_link(href: '#structure_form_pane_2').click
             within '#structure_form_pane_2' do
               select @presentation.attachments.second.name,
-                     from: 'admin_conferences_presentation_attachments_attributes_2_attachment_type_id'
+                     from: 'presentation_attachments_attributes_2_attachment_type_id'
               click_on 'Choose from library'
             end
           end

@@ -32,18 +32,18 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New conference'
           end
-          fill_in 'admin_conferences_conference_name', with: @conference.name
-          fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
-          fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
-          within '.admin_conferences_event' do
+          fill_in 'conference_name', with: @conference.name
+          fill_in 'conference_start_date', with: @conference.start_date
+          fill_in 'conference_finish_date', with: @conference.finish_date
+          within '.event' do
             click_link class: %w[button button-link icon]
             within '#structure_form_pane_0' do
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_name/, with: @conference.events.first.name
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_datetime/,
+              fill_in id: /conference_events_attributes_[0-9]_name/, with: @conference.events.first.name
+              fill_in id: /conference_events_attributes_[0-9]_start_datetime/,
                       with: @conference.events.first.start_datetime
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_datetime/,
-                      with: @conference.events.first.finish_datetime
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
+              fill_in id: /conference_events_attributes_[0-9]_finish_datetime/,
+ with: @conference.events.first.finish_datetime
+              fill_in id: /conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
               fill_in_rich_text_area with: @conference.events.first.description
             end
           end
@@ -76,11 +76,11 @@ module Spina
           within '[data-name="sponsors"]' do
             click_link class: %w[button button-link]
             within id: /structure_form_pane_[0-9]+/ do
-              fill_in id: /admin_conferences_conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
+              fill_in id: /conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
                            _structure_parts_attributes_0_partable_attributes_content/x,
                       with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts.find_by(name: 'name')
                                        .partable.content
-              fill_in id: /admin_conferences_conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
+              fill_in id: /conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
                            _structure_parts_attributes_2_partable_attributes_content/x,
                       with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts
                                        .find_by(name: 'website').partable.content
@@ -107,21 +107,19 @@ module Spina
             assert_text @conference.name
           end
           Percy.snapshot page, name: 'Conferences form on update'
-          fill_in 'admin_conferences_conference_name', with: @conference.name
-          fill_in 'admin_conferences_conference_start_date', with: @conference.start_date
-          fill_in 'admin_conferences_conference_finish_date', with: @conference.finish_date
-          within '.admin_conferences_event' do
+          fill_in 'conference_name', with: @conference.name
+          fill_in 'conference_start_date', with: @conference.start_date
+          fill_in 'conference_finish_date', with: @conference.finish_date
+          within '.event' do
             click_link class: %w[button button-link icon]
             within '.structure-form-menu ul' do
               click_link href: '#structure_form_pane_1'
             end
             within '#structure_form_pane_1' do
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_name/, with: @conference.events.first.name
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_start_datetime/,
-                      with: @conference.events.first.start_datetime
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_finish_datetime/,
-                      with: @conference.events.first.finish_datetime
-              fill_in id: /admin_conferences_conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
+              fill_in id: /conference_events_attributes_[0-9]_name/, with: @conference.events.first.name
+              fill_in id: /conference_events_attributes_[0-9]_start_datetime/, with: @conference.events.first.start_datetime
+              fill_in id: /conference_events_attributes_[0-9]_finish_datetime/, with: @conference.events.first.finish_datetime
+              fill_in id: /conference_events_attributes_[0-9]_location/, with: @conference.events.first.location
               fill_in_rich_text_area with: @conference.events.first.description
             end
           end
@@ -152,11 +150,11 @@ module Spina
           assert_no_selector '#overlay'
           within '[data-name="sponsors"]' do
             within id: /structure_form_pane_[0-9]+/ do
-              fill_in id: /admin_conferences_conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
+              fill_in id: /conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
                              _structure_parts_attributes_0_partable_attributes_content/x,
                       with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts.find_by(name: 'name')
                                        .partable.content
-              fill_in id: /admin_conferences_conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
+              fill_in id: /conference_parts_attributes_[0-9]_partable_attributes_structure_items_attributes_[0-9]+
                              _structure_parts_attributes_2_partable_attributes_content/x,
                       with: @conference.parts.find_by(name: 'sponsors').partable.structure_items.first.structure_parts
                                        .find_by(name: 'website').partable.content

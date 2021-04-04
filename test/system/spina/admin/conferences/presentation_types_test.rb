@@ -32,9 +32,9 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New presentation type'
           end
-          select @presentation_type.conference.name, from: 'admin_conferences_presentation_type_conference_id'
-          fill_in 'admin_conferences_presentation_type_name', with: @presentation_type.name
-          fill_in 'admin_conferences_presentation_type_minutes', with: @presentation_type.minutes
+          select @presentation_type.conference.name, from: 'presentation_type_conference_id'
+          fill_in 'presentation_type_name', with: @presentation_type.name
+          fill_in 'presentation_type_minutes', with: @presentation_type.minutes
           Percy.snapshot page, name: 'Presentation types form on create'
           click_on 'Save presentation type'
           assert_text 'Presentation type saved'
@@ -50,9 +50,9 @@ module Spina
             assert_text @presentation_type.name
           end
           Percy.snapshot page, name: 'Presentation types form on update'
-          select @presentation_type.conference.name, from: 'admin_conferences_presentation_type_conference_id'
-          fill_in 'admin_conferences_presentation_type_name', with: @presentation_type.name
-          fill_in 'admin_conferences_presentation_type_minutes', with: @presentation_type.minutes
+          select @presentation_type.conference.name, from: 'presentation_type_conference_id'
+          fill_in 'presentation_type_name', with: @presentation_type.name
+          fill_in 'presentation_type_minutes', with: @presentation_type.minutes
           click_on 'Save presentation type'
           assert_text 'Presentation type saved'
           Percy.snapshot page, name: 'Presentation types index on update'

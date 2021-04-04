@@ -31,7 +31,7 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New dietary requirement'
           end
-          fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
+          fill_in 'dietary_requirement_name', with: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on create'
           click_on 'Save dietary requirement'
           assert_text 'Dietary requirement saved'
@@ -47,7 +47,7 @@ module Spina
             assert_text @dietary_requirement.name
           end
           Percy.snapshot page, name: 'Dietary requirements form on update'
-          fill_in 'admin_conferences_dietary_requirement_name', with: @dietary_requirement.name
+          fill_in 'dietary_requirement_name', with: @dietary_requirement.name
           click_on 'Save dietary requirement'
           assert_text 'Dietary requirement saved'
           Percy.snapshot page, name: 'Dietary requirements index on update'

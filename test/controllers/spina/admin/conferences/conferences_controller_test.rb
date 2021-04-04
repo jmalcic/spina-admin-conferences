@@ -63,7 +63,7 @@ module Spina
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
           assert_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
+            post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -75,7 +75,7 @@ module Spina
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
           assert_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            post admin_conferences_conferences_url, params: { conference: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -87,7 +87,7 @@ module Spina
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
           assert_no_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
+            post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
@@ -99,7 +99,7 @@ module Spina
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
           assert_no_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            post admin_conferences_conferences_url, params: { conference: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
@@ -110,7 +110,7 @@ module Spina
           attributes[:start_date] = @conference.start_date
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
         end
@@ -120,7 +120,7 @@ module Spina
           attributes[:start_date] = @conference.start_date
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
         end
@@ -130,7 +130,7 @@ module Spina
           attributes[:start_date] = @invalid_conference.start_date
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
         end
@@ -140,7 +140,7 @@ module Spina
           attributes[:start_date] = @invalid_conference.start_date
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
         end
@@ -186,7 +186,7 @@ module Spina
           attributes[:parts_attributes].find { |part| part['name'] == 'submission_text' }
                                        .then { |part| part['partable_attributes']['content'] = 'Dolor sit amen' }
           assert_changes -> { @conference.content('submission_text') }, from: 'Lorem ipsum dolor sit amet', to: 'Dolor sit amen' do
-            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           end
         end
 
@@ -212,7 +212,7 @@ module Spina
           end
           assert_changes -> { @conference.content('sponsors').structure_items.first.content('name') },
                          from: 'Lorem ipsum dolor sit amet', to: 'Test' do
-            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           end
         end
 
@@ -239,7 +239,7 @@ module Spina
           end
           assert_changes -> { @conference.content('sponsors').structure_items.first.content('logo') },
                          from: @dubrovnik_image, to: @rovinj_image do
-            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           end
         end
 

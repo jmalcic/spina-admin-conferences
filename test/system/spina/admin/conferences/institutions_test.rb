@@ -32,8 +32,8 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New institution'
           end
-          fill_in 'admin_conferences_institution_name', with: @institution.name
-          fill_in 'admin_conferences_institution_city', with: @institution.city
+          fill_in 'institution_name', with: @institution.name
+          fill_in 'institution_city', with: @institution.city
           execute_script '$.fx.off = true;'
           click_on 'Choose image'
           within '#overlay', visible: true, style: { display: 'block' } do
@@ -56,8 +56,8 @@ module Spina
             assert_text @institution.name
           end
           Percy.snapshot page, name: 'Institutions form on update'
-          fill_in 'admin_conferences_institution_name', with: @institution.name
-          fill_in 'admin_conferences_institution_city', with: @institution.city
+          fill_in 'institution_name', with: @institution.name
+          fill_in 'institution_city', with: @institution.city
           page.execute_script '$.fx.off = true;'
           click_on 'Choose image'
           within '#overlay', visible: true, style: { display: 'block' } do

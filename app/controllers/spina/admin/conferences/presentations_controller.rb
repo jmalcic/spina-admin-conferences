@@ -113,10 +113,9 @@ module Spina
         end
 
         def presentation_params
-          params.require(:admin_conferences_presentation).permit(:title, :abstract, :session_id, :start_datetime,
-                                                                 presenter_ids: [],
-                                                                 attachments_attributes:
-                                                                   %i[id attachment_id attachment_type_id _destroy])
+          params.require(:presentation).permit(:title, :abstract, :session_id, :start_datetime,
+                                               presenter_ids: [],
+                                               attachments_attributes: %i[id attachment_id attachment_type_id _destroy])
         end
       end
     end

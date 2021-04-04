@@ -128,19 +128,17 @@ module Spina
           end
         end
 
-        def conference_params # rubocop:disable Metrics/MethodLength
-          params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
-                                                               events_attributes:
-                                                                 %i[id name start_datetime finish_datetime description location],
-                                                               parts_attributes:
-                                                                 [:id, :title, :name, :partable_type, :partable_id,
-                                                                  { partable_attributes:
-                                                                      [:id, :content, :image_tokens, :image_positions, :date, :time,
-                                                                       { structure_items_attributes:
-                                                                           [:id, :position, :_destroy,
-                                                                            { structure_parts_attributes:
-                                                                                [:id, :title, :structure_partable_type, :name, :partable_id,
-                                                                                 { partable_attributes: {} }] }] }] }])
+        def conference_params
+          params.require(:conference).permit(:start_date, :finish_date, :name,
+                                             events_attributes: %i[id name start_datetime finish_datetime description location],
+                                             parts_attributes: [:id, :title, :name, :partable_type, :partable_id,
+                                                                { partable_attributes:
+                                                                    [:id, :content, :image_tokens, :image_positions, :date, :time,
+                                                                     { structure_items_attributes:
+                                                                         [:id, :position, :_destroy,
+                                                                          { structure_parts_attributes:
+                                                                              [:id, :title, :structure_partable_type, :name, :partable_id,
+                                                                               { partable_attributes: {} }] }] }] }])
         end
       end
     end

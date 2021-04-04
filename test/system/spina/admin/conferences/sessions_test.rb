@@ -32,11 +32,11 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New session'
           end
-          fill_in 'admin_conferences_session_name', with: @session.name
-          select @session.conference.name, from: 'admin_conferences_conference_id'
-          select @session.presentation_type.name, from: 'admin_conferences_session_presentation_type_id'
-          select @session.institution.name, from: 'admin_conferences_institution_id'
-          select @session.room.name, from: 'admin_conferences_session_room_id'
+          fill_in 'session_name', with: @session.name
+          select @session.conference.name, from: 'conference_id'
+          select @session.presentation_type.name, from: 'session_presentation_type_id'
+          select @session.institution.name, from: 'institution_id'
+          select @session.room.name, from: 'session_room_id'
           Percy.snapshot page, name: 'Sessions form on create'
           click_on 'Save session'
           assert_text 'Session saved'
@@ -52,11 +52,11 @@ module Spina
             assert_text @session.name
           end
           Percy.snapshot page, name: 'Sessions form on update'
-          fill_in 'admin_conferences_session_name', with: @session.name
-          select @session.conference.name, from: 'admin_conferences_conference_id'
-          select @session.presentation_type.name, from: 'admin_conferences_session_presentation_type_id'
-          select @session.institution.name, from: 'admin_conferences_institution_id'
-          select @session.room.name, from: 'admin_conferences_session_room_id'
+          fill_in 'session_name', with: @session.name
+          select @session.conference.name, from: 'conference_id'
+          select @session.presentation_type.name, from: 'session_presentation_type_id'
+          select @session.institution.name, from: 'institution_id'
+          select @session.room.name, from: 'session_room_id'
           click_on 'Save session'
           assert_text 'Session saved'
           Percy.snapshot page, name: 'Sessions index on update'

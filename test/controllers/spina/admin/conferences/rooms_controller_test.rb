@@ -42,7 +42,7 @@ module Spina
           attributes[:building] = @room.building
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }
+            post admin_conferences_rooms_url, params: { room: attributes }
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
@@ -53,7 +53,7 @@ module Spina
           attributes[:building] = @room.building
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }, as: :turbo_stream
+            post admin_conferences_rooms_url, params: { room: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
@@ -64,7 +64,7 @@ module Spina
           attributes[:building] = @invalid_room.building
           attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }
+            post admin_conferences_rooms_url, params: { room: attributes }
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
@@ -75,7 +75,7 @@ module Spina
           attributes[:building] = @invalid_room.building
           attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { admin_conferences_room: attributes }, as: :turbo_stream
+            post admin_conferences_rooms_url, params: { room: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
@@ -85,7 +85,7 @@ module Spina
           attributes = @room.attributes
           attributes[:building] = @room.building
           attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }
+          patch admin_conferences_room_url(@room), params: { room: attributes }
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
@@ -94,7 +94,7 @@ module Spina
           attributes = @room.attributes
           attributes[:building] = @room.building
           attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }, as: :turbo_stream
+          patch admin_conferences_room_url(@room), params: { room: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
@@ -103,7 +103,7 @@ module Spina
           attributes = @invalid_room.attributes
           attributes[:building] = @invalid_room.building
           attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }
+          patch admin_conferences_room_url(@room), params: { room: attributes }
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
@@ -112,7 +112,7 @@ module Spina
           attributes = @invalid_room.attributes
           attributes[:building] = @invalid_room.building
           attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { admin_conferences_room: attributes }, as: :turbo_stream
+          patch admin_conferences_room_url(@room), params: { room: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end

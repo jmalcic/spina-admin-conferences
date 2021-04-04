@@ -4,13 +4,13 @@
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
         .horizontal-form-content
-          .select-dropdown= select_tag :admin_conferences_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility', 'spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
+          .select-dropdown= select_tag :conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility', 'spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
 
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :session
         .horizontal-form-content
           .input-group
-            .select-dropdown= select_tag :admin_conferences_presentation_type_id, options_from_collection_for_select((@presentation.conference || Spina::Admin::Conferences::Conference.first).presentation_types, :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types', text_key: 'name' }
+            .select-dropdown= select_tag :presentation_type_id, options_from_collection_for_select((@presentation.conference || Spina::Admin::Conferences::Conference.first).presentation_types, :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types', text_key: 'name' }
             .select-dropdown= f.collection_select :session_id, (@presentation.presentation_type || Spina::Admin::Conferences::Conference.first).sessions, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types:sessions', text_key: 'name' }
 
       .horizontal-form-group

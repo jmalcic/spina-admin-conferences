@@ -32,9 +32,9 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New room'
           end
-          select @room.institution.name, from: 'admin_conferences_room_institution_id'
-          fill_in 'admin_conferences_room_building', with: @room.building
-          fill_in 'admin_conferences_room_number', with: @room.number
+          select @room.institution.name, from: 'room_institution_id'
+          fill_in 'room_building', with: @room.building
+          fill_in 'room_number', with: @room.number
           Percy.snapshot page, name: 'Rooms form on create'
           click_on 'Save room'
           assert_text 'Room saved'
@@ -50,9 +50,9 @@ module Spina
             assert_text @room.name
           end
           Percy.snapshot page, name: 'Rooms form on update'
-          select @room.institution.name, from: 'admin_conferences_room_institution_id'
-          fill_in 'admin_conferences_room_building', with: @room.building
-          fill_in 'admin_conferences_room_number', with: @room.number
+          select @room.institution.name, from: 'room_institution_id'
+          fill_in 'room_building', with: @room.building
+          fill_in 'room_number', with: @room.number
           click_on 'Save room'
           assert_text 'Room saved'
           Percy.snapshot page, name: 'Rooms index on update'

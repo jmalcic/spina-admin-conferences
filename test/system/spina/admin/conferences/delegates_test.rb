@@ -31,13 +31,13 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New delegate'
           end
-          fill_in 'admin_conferences_delegate_first_name', with: @delegate.first_name
-          fill_in 'admin_conferences_delegate_last_name', with: @delegate.last_name
-          select @delegate.institution.name, from: 'admin_conferences_delegate_institution_id'
-          fill_in 'admin_conferences_delegate_email_address', with: @delegate.email_address
-          fill_in 'admin_conferences_delegate_url', with: @delegate.url
+          fill_in 'delegate_first_name', with: @delegate.first_name
+          fill_in 'delegate_last_name', with: @delegate.last_name
+          select @delegate.institution.name, from: 'delegate_institution_id'
+          fill_in 'delegate_email_address', with: @delegate.email_address
+          fill_in 'delegate_url', with: @delegate.url
           @delegate
-            .conferences.each { |conference| select conference.name, from: 'admin_conferences_delegate_conference_ids' }
+            .conferences.each { |conference| select conference.name, from: 'delegate_conference_ids' }
           Percy.snapshot page, name: 'Delegates form on create'
           click_on 'Save delegate'
           assert_text 'Delegate saved'
@@ -53,13 +53,13 @@ module Spina
             assert_text @delegate.full_name
           end
           Percy.snapshot page, name: 'Delegates form on update'
-          fill_in 'admin_conferences_delegate_first_name', with: @delegate.first_name
-          fill_in 'admin_conferences_delegate_last_name', with: @delegate.last_name
-          select @delegate.institution.name, from: 'admin_conferences_delegate_institution_id'
-          fill_in 'admin_conferences_delegate_email_address', with: @delegate.email_address
-          fill_in 'admin_conferences_delegate_url', with: @delegate.url
+          fill_in 'delegate_first_name', with: @delegate.first_name
+          fill_in 'delegate_last_name', with: @delegate.last_name
+          select @delegate.institution.name, from: 'delegate_institution_id'
+          fill_in 'delegate_email_address', with: @delegate.email_address
+          fill_in 'delegate_url', with: @delegate.url
           @delegate
-            .conferences.each { |conference| select conference.name, from: 'admin_conferences_delegate_conference_ids' }
+            .conferences.each { |conference| select conference.name, from: 'delegate_conference_ids' }
           click_on 'Save delegate'
           assert_text 'Delegate saved'
           Percy.snapshot page, name: 'Delegates index on update'

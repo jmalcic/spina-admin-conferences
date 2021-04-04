@@ -31,7 +31,7 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New presentation attachment type'
           end
-          fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
+          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           Percy.snapshot page, name: 'Presentation attachment types form on create'
           click_on 'Save presentation attachment type'
           assert_text 'Presentation attachment type saved'
@@ -47,7 +47,7 @@ module Spina
             assert_text @presentation_attachment_type.name
           end
           Percy.snapshot page, name: 'Presentation attachment types form on update'
-          fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
+          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           click_on 'Save presentation attachment type'
           assert_text 'Presentation attachment type saved'
           Percy.snapshot page, name: 'Presentation attachment types index on update'

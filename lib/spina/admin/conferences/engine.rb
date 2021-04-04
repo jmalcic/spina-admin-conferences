@@ -6,6 +6,8 @@ module Spina
       # Engine class for the plugin. This is where the plugin is registered as a {Spina::Plugin} with {Spina}.
       # @note The +name+ and +namespace+ of the {Spina::Plugin} object is +'conferences'+ (for compatibility reasons).
       class Engine < ::Rails::Engine
+        isolate_namespace Spina::Admin::Conferences
+
         config.before_initialize do
           ::Spina::Plugin.register do |plugin|
             plugin.name = 'conferences'

@@ -2,7 +2,7 @@
   - content_for :notifications do
     = render 'errors', errors: @presentation_type.errors
 
-= form_for @presentation_type, html: { autocomplete: 'off' } do |f|
+= form_for [:admin_conferences, @presentation_type], html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 
