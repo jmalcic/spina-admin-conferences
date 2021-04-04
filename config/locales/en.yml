@@ -299,6 +299,7 @@ en:
     attributes:
       spina/admin/conferences/conference:
         name: Name
+        year: Year
         start_datetime: Start time
         finish_datetime: Finish time
         events: Events
