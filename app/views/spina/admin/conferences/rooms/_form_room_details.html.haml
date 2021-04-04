@@ -1,17 +1,16 @@
-#room_details.tab-content.active
-  .page-form
-    .page-form-group
-      .page-form-label= Spina::Admin::Conferences::Room.human_attribute_name :institution
-      .page-form-control
-        .select-dropdown= f.collection_select :institution_id, Spina::Admin::Conferences::Institution.all, :id, :name, {}, required: true
+.page-form
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Room.human_attribute_name :institution
+    .page-form-control
+      .select-dropdown= f.collection_select :institution_id, Spina::Admin::Conferences::Institution.all, :id, :name, {}, required: true
 
-    .page-form-group
-      .page-form-label= Spina::Admin::Conferences::Room.human_attribute_name :building
-      .page-form-control= f.text_field :building, placeholder: Spina::Admin::Conferences::Room.human_attribute_name(:building), required: true
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Room.human_attribute_name :building
+    .page-form-control= f.text_field :building, placeholder: Spina::Admin::Conferences::Room.human_attribute_name(:building), required: true
 
-    .page-form-group
-      .page-form-label= Spina::Admin::Conferences::Room.human_attribute_name :number
-      .page-form-control= f.text_field :number, placeholder: Spina::Admin::Conferences::Room.human_attribute_name(:number), required: true
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Room.human_attribute_name :number
+    .page-form-control= f.text_field :number, placeholder: Spina::Admin::Conferences::Room.human_attribute_name(:number), required: true
 
 - unless @room.new_record?
   .pull-right= link_to t('spina.permanently_delete'), admin_conferences_room_path(@room), method: :delete, data: { confirm: t('.delete_confirmation', room: @room.name) }, class: %w[button button-link button-danger]

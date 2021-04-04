@@ -1,17 +1,16 @@
-#presentation_type_details.tab-content.active
-  .page-form
-    .page-form-group
-      .page-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :conference
-      .page-form-control
-        .select-dropdown= f.collection_select :conference_id, Spina::Admin::Conferences::Conference.order(:dates).reverse_order, :id, :name, {}, required: true, data: { action: 'spina--admin--conferences--select-options#updateFilteredData' }
+.page-form
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :conference
+    .page-form-control
+      .select-dropdown= f.collection_select :conference_id, Spina::Admin::Conferences::Conference.order(:dates).reverse_order, :id, :name, {}, required: true, data: { action: 'spina--admin--conferences--select-options#updateFilteredData' }
 
-    .page-form-group
-      .page-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :name
-      .page-form-control= f.text_field :name, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:name), required: true, class: 'input-large'
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :name
+    .page-form-control= f.text_field :name, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:name), required: true, class: 'input-large'
 
-    .page-form-group
-      .page-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :duration
-      .page-form-control= f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::PresentationType.human_attribute_name :duration
+    .page-form-control= f.number_field :minutes, value: @presentation_type.minutes, placeholder: Spina::Admin::Conferences::PresentationType.human_attribute_name(:duration), required: true, step: 5, min: 5
 
-  - unless @presentation_type.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_type_path(@presentation_type), method: :delete, data: { confirm: t('.delete_confirmation', presentation_type: @presentation_type.name) }, class: %w[button button-link button-danger]
+- unless @presentation_type.new_record?
+  .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_type_path(@presentation_type), method: :delete, data: { confirm: t('.delete_confirmation', presentation_type: @presentation_type.name) }, class: %w[button button-link button-danger]

@@ -19,5 +19,5 @@
           %li{ class: ('active'if i == 0)}
             = link_to t(".#{tab}"), "##{tab}"
 
-  - @tabs.each do |tab|
-    = render "form_#{tab}", f: f
+  #session_details.tab-content.active= render 'form_session_details', f: f
+  #presentations.tab-content= render partial: 'presentations', object: @session.presentations

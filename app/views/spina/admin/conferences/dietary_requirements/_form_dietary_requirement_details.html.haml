@@ -1,9 +1,8 @@
-#dietary_requirement_details.tab-content.active
-  %div{ style: 'margin-top: 40px' }
-    .horizontal-form
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
-        .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::DietaryRequirement.human_attribute_name(:name), required: true
+%div{ style: 'margin-top: 40px' }
+  .horizontal-form
+    .horizontal-form-group
+      .horizontal-form-label= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
+      .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::DietaryRequirement.human_attribute_name(:name), required: true
 
-  - unless @dietary_requirement.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_dietary_requirement_path(@dietary_requirement), method: :delete, data: { confirm: t('.delete_confirmation', dietary_requirement: @dietary_requirement.name) }, class: %w[button button-link button-danger]
+- unless @dietary_requirement.new_record?
+  .pull-right= link_to t('spina.permanently_delete'), admin_conferences_dietary_requirement_path(@dietary_requirement), method: :delete, data: { confirm: t('.delete_confirmation', dietary_requirement: @dietary_requirement.name) }, class: %w[button button-link button-danger]
