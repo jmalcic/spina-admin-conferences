@@ -125,7 +125,6 @@ en:
             presenters: Presenters
           form_presentation_details:
             delete_confirmation: "Are you sure you want to delete the presentation <strong>%{presentation}</strong>?"
-            start_time_instructions: Enter in 24-hour format using a colon as the divider
             multiple_presenters_selection_instructions_html:
               "Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
               selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
