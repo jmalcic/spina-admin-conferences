@@ -1,14 +1,14 @@
 .structure-form-pane{ class: ('active' if (local_assigns[:active] == true) || (f.index == 0)), id: "structure_form_pane_#{f.index}", data: { 'spina--admin--conferences--presentation_attachments_form': { target: 'formPane' } } }
   .structure-form-part
-    .horizontal-form-label
+    .page-form-label
       = Spina::Admin::Conferences::PresentationAttachment.human_attribute_name :attachment_type
-    .horizontal-form-content
+    .page-form-control
       .select-dropdown
         = f.collection_select :attachment_type_id, Spina::Admin::Conferences::PresentationAttachmentType.all, :id, :name, {}, data: { action: 'spina--admin--conferences--presentation-attachments-form#updateType' }
   .structure-form-part
-    .horizontal-form-label
+    .page-form-label
       = Spina::Admin::Conferences::PresentationAttachment.human_attribute_name :attachment
-    .horizontal-form-content{ data: { controller: "attachment-picker" } }
+    .page-form-content{ data: { controller: "attachment-picker" } }
       .select-dropdown
         = f.collection_select :attachment_id, Spina::Attachment.sorted, :id, :name, { include_blank: t("spina.attachments.choose_attachment") }
 

@@ -1,31 +1,30 @@
 #institution_details.tab-content.active
-  .well
-    .horizontal-form
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Institution.human_attribute_name :name
-        .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::Institution.human_attribute_name(:name), required: true
+  .page-form
+    .page-form-group
+      .page-form-label= Spina::Admin::Conferences::Institution.human_attribute_name :name
+      .page-form-control= f.text_field :name, placeholder: Spina::Admin::Conferences::Institution.human_attribute_name(:name), required: true, class: 'input-large'
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Institution.human_attribute_name :city
-        .horizontal-form-content= f.text_field :city, placeholder: Spina::Admin::Conferences::Institution.human_attribute_name(:city), required: true
+    .page-form-group
+      .page-form-label= Spina::Admin::Conferences::Institution.human_attribute_name :city
+      .page-form-content= f.text_field :city, placeholder: Spina::Admin::Conferences::Institution.human_attribute_name(:city), required: true
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Institution.human_attribute_name :logo
-        .horizontal-form-content{ data: { controller: 'image-form' } }
-          .page-form-media-picker
-            %div{ style: 'width: 100%' }
-              = link_to admin_media_picker_path(selected_ids: [f.object.logo_id], input: "media_picker_#{f.object.object_id}", mode: 'single'), remote: true, class: 'image', data: { target: 'image-form.image' } do
-                .page-form-media-picker-placeholder= t 'spina.images.choose_image'
-                %div{ id: "media_picker_#{f.object.object_id}" }
-                  = f.hidden_field :logo_id, data: { target: 'image-form.imageId' }
-                  = f.hidden_field :logo_signed_blob_id, value: f.object.logo&.file&.signed_id, data: {target: 'image-form.signedBlobId'}
-                  = f.hidden_field :logo_filename, value: f.object.logo&.file&.filename, data: {target: 'image-form.filename'}
-                %div{ style: 'width: 200px; height: 150px; overflow: hidden' }
-                  - if f.object.logo.present?
-                    = image_tag main_app.url_for(f.object.logo.variant(resize: '400x300^', crop: '400x300+0+0')), width: 200, height: 150
+    .page-form-group
+      .page-form-label= Spina::Admin::Conferences::Institution.human_attribute_name :logo
+      .page-form-content{ data: { controller: 'image-form' } }
+        .page-form-media-picker
+          %div{ style: 'width: 100%' }
+            = link_to admin_media_picker_path(selected_ids: [f.object.logo_id], input: "media_picker_#{f.object.object_id}", mode: 'single'), remote: true, class: 'image', data: { target: 'image-form.image' } do
+              .page-form-media-picker-placeholder= t 'spina.images.choose_image'
+              %div{ id: "media_picker_#{f.object.object_id}" }
+                = f.hidden_field :logo_id, data: { target: 'image-form.imageId' }
+                = f.hidden_field :logo_signed_blob_id, value: f.object.logo&.file&.signed_id, data: {target: 'image-form.signedBlobId'}
+                = f.hidden_field :logo_filename, value: f.object.logo&.file&.filename, data: {target: 'image-form.filename'}
+              %div{ style: 'width: 200px; height: 150px; overflow: hidden' }
+                - if f.object.logo.present?
+                  = image_tag main_app.url_for(f.object.logo.variant(resize: '400x300^', crop: '400x300+0+0')), width: 200, height: 150
 
-            = button_tag type: :default, class: 'button button-small button-default', data: { action: 'image-form#remove' } do
-              %i.icon.icon-cross{ style: 'margin: 0; font-size: 10px' }
+          = button_tag type: :default, class: 'button button-small button-default', data: { action: 'image-form#remove' } do
+            %i.icon.icon-cross{ style: 'margin: 0; font-size: 10px' }
 
   - unless @institution.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_institution_path(@institution), method: :delete, data: { confirm: t('.delete_confirmation', institution: @institution.name) }, class: %w[button button-link button-danger]

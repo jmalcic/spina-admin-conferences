@@ -1,29 +1,28 @@
 #conference_details.tab-content.active
-  .well
-    .horizontal-form{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { config_value: '{ "admin_conferences_conference_institution_id": { "value": "id", "text": "name" }, "admin_conferences_conference_room_ids": { "trigger": "admin_conferences_conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }', record_value: @institutions } } }
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :name
-        .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:name), required: true
+  .page-form{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { config_value: '{ "admin_conferences_conference_institution_id": { "value": "id", "text": "name" }, "admin_conferences_conference_room_ids": { "trigger": "admin_conferences_conference_institution_id", "key": "rooms", "value": "id", "text": "name" } }', record_value: @institutions } } }
+    .page-form-group
+      .page-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :name
+      .page-form-control= f.text_field :name, placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:name), required: true, class: 'input-large'
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :start_date
-        .horizontal-form-content= f.date_field :start_date, value: (@conference.start_date.strftime("%Y-%m-%d") if @conference.start_date.present?), placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:start_date), required: true
+    .page-form-group
+      .page-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :start_date
+      .page-form-control= f.date_field :start_date, value: (@conference.start_date.strftime("%Y-%m-%d") if @conference.start_date.present?), placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:start_date), required: true
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :finish_date
-        .horizontal-form-content= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:finish_date), required: true
+    .page-form-group
+      .page-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :finish_date
+      .page-form-control= f.date_field :finish_date, value: (@conference.finish_date.strftime("%Y-%m-%d") if @conference.finish_date.present?), placeholder: Spina::Admin::Conferences::Conference.human_attribute_name(:finish_date), required: true
 
-      .horizontal-form-group{ class: dom_class(@conference.events) }
-        .horizontal-form-content
-          .structure-form{ data: { controller: 'spina--admin--conferences--conference-events-form', 'spina--admin--conferences--conference_events_form': { active_class: 'active' } } }
-            .structure-form-menu
-              %label= Spina::Admin::Conferences::Conference.human_attribute_name :events
-              %ul= render partial: 'event_row', collection: f.object.events, as: :event
-              = link_to icon('plus'), @conference.new_record? ? new_admin_conferences_event_path : new_admin_conferences_conference_event_path(@conference, index: @conference.events.size), remote: true, class: %w[button button-link icon], data: { 'spina--admin--conferences--conference_events_form_target': 'addFormLink', disable_with: '&#xF12C;' }
+    .page-form-group{ class: dom_class(@conference.events) }
+      .page-form-label= Spina::Admin::Conferences::Conference.human_attribute_name :events
+      .page-form-control
+        .structure-form{ data: { controller: 'spina--admin--conferences--conference-events-form', 'spina--admin--conferences--conference_events_form': { active_class: 'active' } } }
+          .structure-form-menu
+            %ul= render partial: 'event_row', collection: f.object.events, as: :event
+            = link_to icon('plus'), @conference.new_record? ? new_admin_conferences_event_path : new_admin_conferences_conference_event_path(@conference, index: @conference.events.size), remote: true, class: %w[button button-link icon], data: { 'spina--admin--conferences--conference_events_form_target': 'addFormLink', disable_with: '&#xF12C;' }
 
-            .structure-form-content{ data: { action: 'conferenceEventFieldsAdded->spina--admin--conferences--conference-events-form#updateURL' } }
-              = f.fields_for :events do |event_fields|
-                = render 'event_fields', f: event_fields
+          .structure-form-content{ data: { action: 'conferenceEventFieldsAdded->spina--admin--conferences--conference-events-form#updateURL' } }
+            = f.fields_for :events do |event_fields|
+              = render 'event_fields', f: event_fields
 
   - unless @conference.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_conference_path(@conference), method: :delete, data: { confirm: t('.delete_confirmation', name: @conference.name) }, class: %w[button button-link button-danger]

@@ -135,7 +135,6 @@ en:
           form_presentation_type_details:
             delete_confirmation:
               "Are you sure you want to delete the presentation type <strong>%{presentation_type}</strong>?"
-            duration_instructions: Enter in minutes
         dietary_requirements:
           index:
             new: New dietary requirement
