@@ -27,11 +27,18 @@
         .horizontal-form-content= render 'spina/admin/shared/rich_text_field', f: f, field: :abstract
 
       .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
-          %small= t '.multiple_presenters_selection_instructions_html'
+        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
         .horizontal-form-content
-          .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
+          .well{ style: 'margin: 0' }
+            .table-container
+              %table.table{ style: 'margin: 0' }
+                %tbody
+                  = f.collection_check_boxes :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution do |builder|
+                    %tr
+                      %td{ style: "padding-left: 16px" }
+                        .form-checkbox
+                          = builder.check_box
+                          = builder.label
 
       .horizontal-form-group{ class: dom_class(@presentation.attachments) }
         .horizontal-form-content

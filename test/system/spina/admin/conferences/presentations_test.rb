@@ -37,9 +37,7 @@ module Spina
           fill_in 'presentation_start_datetime', with: @presentation.start_datetime
           fill_in 'presentation_title', with: @presentation.title
           fill_in_rich_text_area 'presentation[abstract]', with: @presentation.abstract
-          @presentation.presenters.each do |presenter|
-            select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
-          end
+          @presentation.presenters.each { |presenter| check presenter.reversed_name_and_institution, allow_label_click: true }
           within '.presentation_attachment' do
             click_link class: %w[button button-link icon]
             within '#structure_form_pane_0' do
@@ -68,9 +66,7 @@ module Spina
           fill_in 'presentation_start_datetime', with: @presentation.start_datetime
           fill_in 'presentation_title', with: @presentation.title
           fill_in_rich_text_area 'presentation[abstract]', with: @presentation.abstract
-          @presentation.presenters.each do |presenter|
-            select presenter.reversed_name_and_institution, from: 'presentation_presenter_ids'
-          end
+          @presentation.presenters.each { |presenter| check presenter.reversed_name_and_institution, allow_label_click: true }
           within '.presentation_attachment' do
             click_link class: %w[button button-link icon]
             find_link(href: '#structure_form_pane_2').click

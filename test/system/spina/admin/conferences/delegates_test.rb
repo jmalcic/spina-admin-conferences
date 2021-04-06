@@ -36,8 +36,7 @@ module Spina
           select @delegate.institution.name, from: 'delegate_institution_id'
           fill_in 'delegate_email_address', with: @delegate.email_address
           fill_in 'delegate_url', with: @delegate.url
-          @delegate
-            .conferences.each { |conference| select conference.name, from: 'delegate_conference_ids' }
+          @delegate.conferences.each { |conference| check conference.name, allow_label_click: true }
           Percy.snapshot page, name: 'Delegates form on create'
           click_on 'Save delegate'
           assert_text 'Delegate saved'
@@ -58,8 +57,7 @@ module Spina
           select @delegate.institution.name, from: 'delegate_institution_id'
           fill_in 'delegate_email_address', with: @delegate.email_address
           fill_in 'delegate_url', with: @delegate.url
-          @delegate
-            .conferences.each { |conference| select conference.name, from: 'delegate_conference_ids' }
+          @delegate.conferences.each { |conference| check conference.name, allow_label_click: true }
           click_on 'Save delegate'
           assert_text 'Delegate saved'
           Percy.snapshot page, name: 'Delegates index on update'

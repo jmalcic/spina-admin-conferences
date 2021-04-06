@@ -67,9 +67,6 @@ en:
           form_conference_details:
             delete_confirmation:
               "Are you sure you want to delete the conference <strong>%{name}</strong>?"
-            multiple_rooms_selection_instructions_html:
-              "Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
-              selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
         delegates:
           index:
             new: New delegate
@@ -90,12 +87,6 @@ en:
             presentations: Presentations
           form_delegate_details:
             delete_confirmation: "Are you sure you want to delete the delegate <strong>%{delegate}</strong>?"
-            multiple_dietary_requirements_selection_instructions_html:
-              "Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and
-              <kbd>⇧</kbd> on Windows and Linux"
-            multiple_conferences_selection_instructions_html:
-              "Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd>
-              on Windows and Linux"
         presenters:
           new: New presenter
           save: Save presenter
@@ -123,9 +114,6 @@ en:
             presenters: Presenters
           form_presentation_details:
             delete_confirmation: "Are you sure you want to delete the presentation <strong>%{presentation}</strong>?"
-            multiple_presenters_selection_instructions_html:
-              "Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
-              selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
         presentation_types:
           index:
             new: New presentation type
