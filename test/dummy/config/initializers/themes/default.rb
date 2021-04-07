@@ -120,8 +120,7 @@
     name: 'submission_text',
     title: 'Submission text',
     part_type: 'Spina::Parts::Line'
-  }
-]
+  }]
 
   theme.view_templates = [{
     name: 'homepage',

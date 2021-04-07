@@ -336,7 +336,6 @@ module Spina
 
   module Admin
     module Conferences
-
       class DatePart < ApplicationRecord
         def convert_to_json!
           Spina::Parts::Admin::Conferences::Date.new(content: content)
