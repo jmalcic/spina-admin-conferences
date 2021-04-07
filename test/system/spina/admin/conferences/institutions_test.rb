@@ -40,6 +40,7 @@ module Spina
           end
           Percy.snapshot page, name: 'Institutions form on create'
           click_on 'Save institution'
+          assert_current_path admin_conferences_institutions_path
           assert_text 'Institution saved'
           Percy.snapshot page, name: 'Institutions index on create'
         end
@@ -60,6 +61,7 @@ module Spina
             first('.media-picker-image').click
           end
           click_on 'Save institution'
+          assert_current_path admin_conferences_institutions_path
           assert_text 'Institution saved'
           Percy.snapshot page, name: 'Institutions index on update'
         end
@@ -76,6 +78,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Institutions delete dialog'
           end
+          assert_current_path admin_conferences_institutions_path
           assert_text 'Institution deleted'
           assert_no_selector "tr[data-institution-id=\"#{@empty_institution.id}\"]"
           Percy.snapshot page, name: 'Institutions index on delete'

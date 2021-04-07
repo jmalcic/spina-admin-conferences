@@ -86,6 +86,7 @@ module Spina
             first('.media-picker-image').click
           end
           click_on 'Save conference'
+          assert_current_path admin_conferences_conferences_path
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on create'
         end
@@ -154,6 +155,7 @@ module Spina
             first('.media-picker-image').click
           end
           click_on 'Save conference'
+          assert_current_path admin_conferences_conferences_path
           assert_text 'Conference saved'
           Percy.snapshot page, name: 'Conferences index on update'
         end
@@ -170,6 +172,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Conferences delete dialog'
           end
+          assert_current_path admin_conferences_conferences_path
           assert_text 'Conference deleted'
           assert_no_selector "tr[data-conference-id=\"#{@empty_conference.id}\"]"
           Percy.snapshot page, name: 'Conferences index on delete'

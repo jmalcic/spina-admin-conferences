@@ -47,6 +47,7 @@ module Spina
           end
           Percy.snapshot page, name: 'Presentations form on create'
           click_on 'Save presentation'
+          assert_current_path admin_conferences_presentations_path
           assert_text 'Presentation saved'
           Percy.snapshot page, name: 'Presentations index on create'
         end
@@ -76,6 +77,7 @@ module Spina
             end
           end
           click_on 'Save presentation'
+          assert_current_path admin_conferences_presentations_path
           assert_text 'Presentation saved'
           Percy.snapshot page, name: 'Presentations index on update'
         end
@@ -92,6 +94,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Presentations delete dialog'
           end
+          assert_current_path admin_conferences_presentations_path
           assert_text 'Presentation deleted'
           assert_no_selector "tr[data-presentation-id=\"#{@presentation.id}\"]"
           Percy.snapshot page, name: 'Presentations index on delete'

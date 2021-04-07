@@ -39,6 +39,7 @@ module Spina
           @delegate.conferences.each { |conference| check conference.name, allow_label_click: true }
           Percy.snapshot page, name: 'Delegates form on create'
           click_on 'Save delegate'
+          assert_current_path admin_conferences_delegates_path
           assert_text 'Delegate saved'
           Percy.snapshot page, name: 'Delegates index on create'
         end
@@ -59,6 +60,7 @@ module Spina
           fill_in 'delegate_url', with: @delegate.url
           @delegate.conferences.each { |conference| check conference.name, allow_label_click: true }
           click_on 'Save delegate'
+          assert_current_path admin_conferences_delegates_path
           assert_text 'Delegate saved'
           Percy.snapshot page, name: 'Delegates index on update'
         end
@@ -75,6 +77,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Delegates delete dialog'
           end
+          assert_current_path admin_conferences_delegates_path
           assert_text 'Delegate deleted'
           assert_no_selector "tr[data-delegate-id=\"#{@delegate.id}\"]"
           Percy.snapshot page, name: 'Delegates index on delete'

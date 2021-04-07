@@ -39,6 +39,7 @@ module Spina
           select @session.room.name, from: 'session_room_id'
           Percy.snapshot page, name: 'Sessions form on create'
           click_on 'Save session'
+          assert_current_path admin_conferences_sessions_path
           assert_text 'Session saved'
           Percy.snapshot page, name: 'Sessions index on create'
         end
@@ -58,6 +59,7 @@ module Spina
           select @session.institution.name, from: 'institution_id'
           select @session.room.name, from: 'session_room_id'
           click_on 'Save session'
+          assert_current_path admin_conferences_sessions_path
           assert_text 'Session saved'
           Percy.snapshot page, name: 'Sessions index on update'
         end
@@ -74,6 +76,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Sessions delete dialog'
           end
+          assert_current_path admin_conferences_sessions_path
           assert_text 'Session deleted'
           assert_no_selector "tr[data-session-id=\"#{@empty_session.id}\"]"
           Percy.snapshot page, name: 'Sessions index on delete'

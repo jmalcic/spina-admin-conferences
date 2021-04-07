@@ -34,6 +34,7 @@ module Spina
           fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           Percy.snapshot page, name: 'Presentation attachment types form on create'
           click_on 'Save presentation attachment type'
+          assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type saved'
           Percy.snapshot page, name: 'Presentation attachment types index on create'
         end
@@ -49,6 +50,7 @@ module Spina
           Percy.snapshot page, name: 'Presentation attachment types form on update'
           fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           click_on 'Save presentation attachment type'
+          assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type saved'
           Percy.snapshot page, name: 'Presentation attachment types index on update'
         end
@@ -65,6 +67,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Presentation attachment types delete dialog'
           end
+          assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type deleted'
           assert_no_selector "tr[data-dietary-requirement-id=\"#{@presentation_attachment_type.id}\"]"
           Percy.snapshot page, name: 'Presentation attachment types index on delete'

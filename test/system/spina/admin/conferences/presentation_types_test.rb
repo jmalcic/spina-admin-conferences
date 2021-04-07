@@ -37,6 +37,7 @@ module Spina
           fill_in 'presentation_type_minutes', with: @presentation_type.minutes
           Percy.snapshot page, name: 'Presentation types form on create'
           click_on 'Save presentation type'
+          assert_current_path admin_conferences_presentation_types_path
           assert_text 'Presentation type saved'
           Percy.snapshot page, name: 'Presentation types index on create'
         end
@@ -54,6 +55,7 @@ module Spina
           fill_in 'presentation_type_name', with: @presentation_type.name
           fill_in 'presentation_type_minutes', with: @presentation_type.minutes
           click_on 'Save presentation type'
+          assert_current_path admin_conferences_presentation_types_path
           assert_text 'Presentation type saved'
           Percy.snapshot page, name: 'Presentation types index on update'
         end
@@ -70,6 +72,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Presentation types delete dialog'
           end
+          assert_current_path admin_conferences_presentation_types_path
           assert_text 'Presentation type deleted'
           assert_no_selector "tr[data-presentation-type-id=\"#{@empty_presentation_type.id}\"]"
           Percy.snapshot page, name: 'Presentation types index on delete'

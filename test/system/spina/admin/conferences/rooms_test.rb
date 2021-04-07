@@ -37,6 +37,7 @@ module Spina
           fill_in 'room_number', with: @room.number
           Percy.snapshot page, name: 'Rooms form on create'
           click_on 'Save room'
+          assert_current_path admin_conferences_rooms_path
           assert_text 'Room saved'
           Percy.snapshot page, name: 'Rooms index on create'
         end
@@ -54,6 +55,7 @@ module Spina
           fill_in 'room_building', with: @room.building
           fill_in 'room_number', with: @room.number
           click_on 'Save room'
+          assert_current_path admin_conferences_rooms_path
           assert_text 'Room saved'
           Percy.snapshot page, name: 'Rooms index on update'
         end
@@ -70,6 +72,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Rooms delete dialog'
           end
+          assert_current_path admin_conferences_rooms_path
           assert_text 'Room deleted'
           assert_no_selector "tr[data-room-id=\"#{@empty_room.id}\"]"
           Percy.snapshot page, name: 'Rooms index on delete'

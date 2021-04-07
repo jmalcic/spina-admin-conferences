@@ -34,6 +34,7 @@ module Spina
           fill_in 'dietary_requirement_name', with: @dietary_requirement.name
           Percy.snapshot page, name: 'Dietary requirements form on create'
           click_on 'Save dietary requirement'
+          assert_current_path admin_conferences_dietary_requirements_path
           assert_text 'Dietary requirement saved'
           Percy.snapshot page, name: 'Dietary requirements index on create'
         end
@@ -49,6 +50,7 @@ module Spina
           Percy.snapshot page, name: 'Dietary requirements form on update'
           fill_in 'dietary_requirement_name', with: @dietary_requirement.name
           click_on 'Save dietary requirement'
+          assert_current_path admin_conferences_dietary_requirements_path
           assert_text 'Dietary requirement saved'
           Percy.snapshot page, name: 'Dietary requirements index on update'
         end
@@ -65,6 +67,7 @@ module Spina
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Dietary requirements delete dialog'
           end
+          assert_current_path admin_conferences_dietary_requirements_path
           assert_text 'Dietary requirement deleted'
           assert_no_selector "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]"
           Percy.snapshot page, name: 'Dietary requirements index on delete'
