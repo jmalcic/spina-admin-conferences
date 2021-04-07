@@ -63,7 +63,8 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @presentation_attachment_type.name
           end
-          accept_confirm "Are you sure you want to delete the presentation attachment type <strong>#{@presentation_attachment_type.name}</strong>?" do
+          accept_confirm "Are you sure you want to delete the presentation attachment type <strong>#{@presentation_attachment_type.name}" \
+                         '</strong>?' do
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Presentation attachment types delete dialog'
           end

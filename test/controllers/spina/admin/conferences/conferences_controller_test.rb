@@ -196,15 +196,11 @@ module Spina
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
           attributes[:'en-GB_content_attributes'] = [
-            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes:
-              [
-                { title: 'Sponsors', name: 'sponsors', parts_attributes:
-                  [
-                    { title: 'Name', name: 'name', content: 'Another sponsor', type: 'Spina::Parts::Line' }
-                  ]
-                }
-              ]
-            }
+            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+              { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                { title: 'Name', name: 'name', content: 'Another sponsor', type: 'Spina::Parts::Line' }
+              ] }
+            ] }
           ]
           assert_changes -> { @conference.reload.content(:sponsors).first.content('name') }, from: 'Some sponsor', to: 'Another sponsor' do
             patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
@@ -217,16 +213,12 @@ module Spina
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
           attributes[:'en-GB_content_attributes'] = [
-            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes:
-              [
-                { title: 'Sponsors', name: 'sponsors', parts_attributes:
-                  [
-                    { title: 'Logo', name: 'logo', type: 'Spina::Parts::Image', image_id: @rovinj_image.id, filename: 'logo.jpeg',
-                      signed_blob_id: '', alt: 'Logo' }
-                  ]
-                }
-              ]
-            }
+            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+              { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                { title: 'Logo', name: 'logo', type: 'Spina::Parts::Image', image_id: @rovinj_image.id, filename: 'logo.jpeg',
+                  signed_blob_id: '', alt: 'Logo' }
+              ] }
+            ] }
           ]
           assert_changes -> { @conference.reload.content(:sponsors).first.content(:logo).spina_image },
                          from: @logo, to: @rovinj_image do

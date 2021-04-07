@@ -46,7 +46,7 @@ about:
       - name: text
         title: Text
         type: Spina::Parts::Text
-        content: 
+        content:
           <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
           Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
           Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
@@ -56,7 +56,7 @@ about:
       - name: contact
         title: Contact
         type: Spina::Parts::Text
-        content: 
+        content:
           <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
           Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
           Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
@@ -113,7 +113,7 @@ about:
       - name: contact
         title: Contact
         type: Spina::Parts::Text
-        content: 
+        content:
           <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
           Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
           Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis

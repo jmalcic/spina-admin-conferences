@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# This migration converts table-based partables from Spina v1 to the new JSON-based parts in Spina v2.
-# If you have custom partables you must modify this migration to ensure the conversion of your partables is handled appropriately
-# by implementing <tt>convert_to_json!</tt> for your partables.
-
 # Reregistering parts necessary due to deserialization from JSON, where class instances from registration used
 Spina::Part.all.delete_if { |part| Spina::Parts::Admin::Conferences.constants.include? :"#{part.name.demodulize}" }
 Spina::Part.register(Spina::Parts::Admin::Conferences::Date)
@@ -11,8 +7,11 @@ Spina::Part.register(Spina::Parts::Admin::Conferences::EmailAddress)
 Spina::Part.register(Spina::Parts::Admin::Conferences::Time)
 Spina::Part.register(Spina::Parts::Admin::Conferences::Url)
 
+# This migration converts table-based partables from Spina v1 to the new JSON-based parts in Spina v2.
+# If you have custom partables you must modify this migration to ensure the conversion of your partables is handled appropriately
+# by implementing <tt>convert_to_json!</tt> for your partables.
 class ConvertPartablesToJson < ActiveRecord::Migration[6.1]
-  def up
+  def up # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     announce 'converting partables to JSON parts'
     Spina.config.locales.each do |locale|
       I18n.with_locale(locale) do
@@ -38,7 +37,7 @@ class ConvertPartablesToJson < ActiveRecord::Migration[6.1]
     end
   end
 
-  def down
+  def down # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     announce 'converting JSON parts to partables'
     Spina.config.locales.each do |locale|
       I18n.with_locale(locale) do
@@ -65,7 +64,7 @@ class ConvertPartablesToJson < ActiveRecord::Migration[6.1]
   end
 end
 
-module Spina
+module Spina # :nodoc: all
   class ImageCollectionsImage < Spina::ApplicationRecord
     belongs_to :image
     belongs_to :image_collection
@@ -248,7 +247,7 @@ module Spina
     end
   end
 
-  module Parts
+  module Parts # :nodoc: all
     class Attachment < Base
       def convert_to_partable!
         Spina::Attachment.find(attachment_id)
@@ -374,40 +373,34 @@ module Spina
         end
       end
 
-      class Conference < ApplicationRecord
-        has_many :parts, as: :pageable
+      module Pageable
+        extend ActiveSupport::Concern
 
-        def convert_parts_to_json!
-          parts.reject { |part| part.partable.nil? }
-               .collect(&:convert_to_json!)
-               .compact
-               .then { |parts| send(:"#{I18n.locale}_content").union(parts) }
-               .then { |parts| update("#{I18n.locale}_content": parts) }
-        end
+        included do
+          has_many :parts, as: :pageable
 
-        def convert_json_to_parts!
-          update(parts: send(:"#{I18n.locale}_content").collect(&:convert_to_partable!)
-                                                       .compact
-                                                       .collect { |partable| Part.new(partable: partable) })
+          def convert_parts_to_json!
+            parts.reject { |part| part.partable.nil? }
+                 .collect(&:convert_to_json!)
+                 .compact
+                 .then { |parts| send(:"#{I18n.locale}_content").union(parts) }
+                 .then { |parts| update("#{I18n.locale}_content": parts) }
+          end
+
+          def convert_json_to_parts!
+            update(parts: send(:"#{I18n.locale}_content").collect(&:convert_to_partable!)
+                                                         .compact
+                                                         .collect { |partable| Part.new(partable: partable) })
+          end
         end
       end
 
+      class Conference < ApplicationRecord
+        include Pageable
+      end
+
       class Presentation < ApplicationRecord
-        has_many :parts, as: :pageable
-
-        def convert_parts_to_json!
-          parts.reject { |part| part.partable.nil? }
-               .collect(&:convert_to_json!)
-               .compact
-               .then { |parts| send(:"#{I18n.locale}_content").union(parts) }
-               .then { |parts| update("#{I18n.locale}_content": parts) }
-        end
-
-        def convert_json_to_parts!
-          update(parts: send(:"#{I18n.locale}_content").collect(&:convert_to_partable!)
-                                                       .compact
-                                                       .collect { |partable| Part.new(partable: partable) })
-        end
+        include Pageable
       end
     end
   end

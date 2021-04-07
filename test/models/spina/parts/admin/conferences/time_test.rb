@@ -8,8 +8,8 @@ module Spina
       module Conferences
         class TimeTest < ActiveSupport::TestCase
           setup do
-            @time_part = Time.new(content: 10.years.from_now)
-            @new_time_part = Time.new
+            @time_part = Time.new(content: 10.years.from_now) # rubocop:disable Rails/TimeZone
+            @new_time_part = Time.new # rubocop:disable Rails/TimeZone
           end
 
           test 'time has content' do
