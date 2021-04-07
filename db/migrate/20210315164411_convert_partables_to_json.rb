@@ -262,7 +262,7 @@ module Spina # :nodoc: all
 
     class ImageCollection < Base
       def convert_to_partable!
-        Spina::ImageCollection.new(images: images.collect(&:convert_to_part!))
+        Spina::ImageCollection.new(images: images.collect(&:convert_to_partable!))
       end
     end
 
