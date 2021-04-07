@@ -25,7 +25,7 @@ module Spina
           get new_admin_conferences_dietary_requirement_url
           assert_response :success
           assert_select '#delegates tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.delegates.index.no_delegates')
+            assert_select 'td', 'There are no delegates'
           end
         end
 
@@ -41,7 +41,7 @@ module Spina
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
@@ -51,7 +51,7 @@ module Spina
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
@@ -61,7 +61,7 @@ module Spina
           attributes = @invalid_dietary_requirement.attributes
           attributes[:name] = @invalid_dietary_requirement.name
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
@@ -71,7 +71,7 @@ module Spina
           attributes = @invalid_dietary_requirement.attributes
           attributes[:name] = @invalid_dietary_requirement.name
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
@@ -81,7 +81,7 @@ module Spina
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: attributes }
+                params: { dietary_requirement: attributes }
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
         end
@@ -90,7 +90,7 @@ module Spina
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
+                params: { dietary_requirement: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
         end
@@ -99,7 +99,7 @@ module Spina
           attributes = @invalid_dietary_requirement.attributes
           attributes[:name] = @invalid_dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: attributes }
+                params: { dietary_requirement: attributes }
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
@@ -108,7 +108,7 @@ module Spina
           attributes = @invalid_dietary_requirement.attributes
           attributes[:name] = @invalid_dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { admin_conferences_dietary_requirement: attributes }, as: :turbo_stream
+                params: { dietary_requirement: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end

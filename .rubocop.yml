@@ -9,6 +9,9 @@ AllCops:
 Style/CommandLiteral:
   EnforcedStyle: mixed
 
+Style/HashAsLastArrayItem:
+  EnforcedStyle: no_braces
+
 Layout/LineLength:
   Max: 140
   AutoCorrect: true

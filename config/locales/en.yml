@@ -39,13 +39,13 @@ en:
       images: Images # This translation is apparently not provided by Spina for some reason
     images:
       delete: Delete # Ditto
+      choose: Choose
     admin:
       conferences:
         title: Conferences
         conferences:
           index:
             new: New conference
-            no_conferences: There are no conferences
             import: Import CSV
           new:
             new: New conference
@@ -67,13 +67,9 @@ en:
           form_conference_details:
             delete_confirmation:
               "Are you sure you want to delete the conference <strong>%{name}</strong>?"
-            multiple_rooms_selection_instructions_html:
-              "Select multiple rooms by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
-              selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
         delegates:
           index:
             new: New delegate
-            no_delegates: There are no delegates
             import: Import CSV
           new:
             new: New delegate
@@ -91,12 +87,6 @@ en:
             presentations: Presentations
           form_delegate_details:
             delete_confirmation: "Are you sure you want to delete the delegate <strong>%{delegate}</strong>?"
-            multiple_dietary_requirements_selection_instructions_html:
-              "Select multiple dietary requirements with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and
-              <kbd>⇧</kbd> on Windows and Linux"
-            multiple_conferences_selection_instructions_html:
-              "Select multiple conferences with <kbd>⌘</kbd> and <kbd>⇧</kbd> on Mac, or <kbd>⌃</kbd> and <kbd>⇧</kbd>
-              on Windows and Linux"
         presenters:
           new: New presenter
           save: Save presenter
@@ -108,7 +98,6 @@ en:
         presentations:
           index:
             new: New presentation
-            no_presentations: There are no presentations
             import: Import CSV
           new:
             new: New presentation
@@ -125,14 +114,9 @@ en:
             presenters: Presenters
           form_presentation_details:
             delete_confirmation: "Are you sure you want to delete the presentation <strong>%{presentation}</strong>?"
-            start_time_instructions: Enter in 24-hour format using a colon as the divider
-            multiple_presenters_selection_instructions_html:
-              "Select multiple presenters by holding <kbd>⇧</kbd> for a continuous selection, or, for a discontinous
-              selection, <kbd>⌘</kbd> on Mac, or <kbd>Ctrl</kbd> on Windows and Linux"
         presentation_types:
           index:
             new: New presentation type
-            no_presentation_types: There are no presentation types
             import: Import CSV
           new:
             new: New presentation type
@@ -151,11 +135,9 @@ en:
           form_presentation_type_details:
             delete_confirmation:
               "Are you sure you want to delete the presentation type <strong>%{presentation_type}</strong>?"
-            duration_instructions: Enter in minutes
         dietary_requirements:
           index:
             new: New dietary requirement
-            no_dietary_requirements: There are no dietary requirements
             import: Import CSV
           new:
             new: New dietary requirement
@@ -176,7 +158,6 @@ en:
         presentation_attachment_types:
           index:
             new: New presentation attachment type
-            no_presentation_attachment_types: There are no presentation attachment types
           new:
             new: New presentation attachment type
           create:
@@ -194,7 +175,6 @@ en:
         institutions:
           index:
             new: New institution
-            no_institutions: There are no institutions
             import: Import CSV
           new:
             new: New institution
@@ -216,7 +196,6 @@ en:
         rooms:
           index:
             new: New room
-            no_rooms: There are no rooms
             import: Import CSV
           new:
             new: New room
@@ -236,7 +215,6 @@ en:
         sessions:
           index:
             new: New session
-            no_sessions: There are no sessions
           new:
             new: New session
           create:
@@ -252,6 +230,25 @@ en:
             presentations: Presentations
           form_session_details:
             delete_confirmation: "Are you sure you want to delete the session <strong>%{session}</strong>?"
+        application:
+          conferences:
+            no_conferences: There are no conferences
+          delegates:
+            no_delegates: There are no delegates
+          dietary_requirements:
+            no_dietary_requirements: There are no dietary requirements
+          institutions:
+            no_institutions: There are no institutions
+          presentation_types:
+            no_presentation_types: There are no presentation types
+          presentations:
+            no_presentations: There are no presentations
+          presentation_attachment_types:
+            no_presentation_attachment_types: There are no presentation attachment types
+          rooms:
+            no_rooms: There are no rooms
+          sessions:
+            no_sessions: There are no sessions
   activerecord:
     models:
       spina/admin/conferences/conference:
@@ -290,6 +287,7 @@ en:
     attributes:
       spina/admin/conferences/conference:
         name: Name
+        year: Year
         start_datetime: Start time
         finish_datetime: Finish time
         events: Events

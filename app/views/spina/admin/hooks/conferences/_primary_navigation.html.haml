@@ -7,13 +7,13 @@
 
   %ul
     %li{ class: ('active' if %w[institutions rooms].include? controller_name) }
-      = link_to Spina::Admin::Conferences::Institution.model_name.human(count: 0), spina.admin_conferences_institutions_path
+      = link_to Spina::Admin::Conferences::Institution.model_name.human(count: 0), admin_conferences_institutions_path
     %li{ class: ('active' if %w[conferences presentation_types sessions].include? controller_name) }
-      = link_to Spina::Admin::Conferences::Conference.model_name.human(count: 0), spina.admin_conferences_conferences_path
+      = link_to Spina::Admin::Conferences::Conference.model_name.human(count: 0), admin_conferences_conferences_path
     %li{ class: ('active' if %w[delegates].include? controller_name) }
-      = link_to Spina::Admin::Conferences::Delegate.model_name.human(count: 0), spina.admin_conferences_delegates_path
+      = link_to Spina::Admin::Conferences::Delegate.model_name.human(count: 0), admin_conferences_delegates_path
     %li{ class: ('active' if %w[presentations].include? controller_name) }
-      = link_to Spina::Admin::Conferences::Presentation.model_name.human(count: 0), spina.admin_conferences_presentations_path
+      = link_to Spina::Admin::Conferences::Presentation.model_name.human(count: 0), admin_conferences_presentations_path
 
     %li
       = link_to '#', class: 'back-to-main-menu' do

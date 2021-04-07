@@ -110,7 +110,7 @@ module Spina
         end
 
         def session_params
-          params.require(:admin_conferences_session).permit(:name, :presentation_type_id, :room_id)
+          params.require(:session).permit(:name, :presentation_type_id, :room_id)
         end
       end
     end

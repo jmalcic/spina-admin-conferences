@@ -101,7 +101,7 @@ module Spina
         end
 
         def room_params
-          params.require(:admin_conferences_room).permit(:building, :number, :institution_id)
+          params.require(:room).permit(:building, :number, :institution_id)
         end
       end
     end

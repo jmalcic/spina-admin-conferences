@@ -5,10 +5,10 @@
 # below each fixture, per the syntax in the comments below
 #
 university_of_atlantis:
-  logo: dubrovnik
+  logo: logo
 
 university_of_shangri_la:
-  logo: rovinj
+  logo: logo
 
 empty_institution:
-  logo: rovinj
+  logo: logo

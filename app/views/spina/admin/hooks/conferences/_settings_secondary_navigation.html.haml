@@ -1,6 +1,6 @@
 %li{ class: ('active' if %w[dietary_requirements].include? controller_name) }
-  = link_to Spina::Admin::Conferences::DietaryRequirement.model_name.human(count: 0), spina.admin_conferences_dietary_requirements_path,
+  = link_to Spina::Admin::Conferences::DietaryRequirement.model_name.human(count: 0), admin_conferences_dietary_requirements_path,
             data: { turbolinks: 'false' }
 %li{ class: ('active' if %w[presentation_attachment_types].include? controller_name) }
-  = link_to Spina::Admin::Conferences::PresentationAttachmentType.model_name.human(count: 0), spina.admin_conferences_presentation_attachment_types_path,
+  = link_to Spina::Admin::Conferences::PresentationAttachmentType.model_name.human(count: 0), admin_conferences_presentation_attachment_types_path,
             data: { turbolinks: 'false' }

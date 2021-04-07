@@ -1,0 +1,10 @@
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
+          %th
+
+      %tbody
+        = render presentation_attachment_types.presence || 'empty_list', message: t('.no_presentation_attachment_types')

@@ -2,7 +2,7 @@
   - content_for :notifications do
     = render 'errors', errors: @institution.errors
 
-= form_for @institution, html: { autocomplete: 'off' } do |f|
+= form_for [:admin_conferences, @institution], html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 
@@ -19,5 +19,6 @@
           %li{ class: ('active' if i == 0) }
             = link_to t(".#{tab}"), "##{tab}"
 
-  - @tabs.each do |tab|
-    = render "form_#{tab}", f: f
+  #institution_details.tab-content.active= render 'form_institution_details', f: f
+  #rooms.tab-content= render partial: 'rooms', object: @institution.rooms
+  #delegates.tab-content= render partial: 'delegates', object: @institution.delegates

@@ -14,7 +14,7 @@ module Spina
           @empty_conference = spina_admin_conferences_conferences :empty_conference
           @user = spina_users :joe
           @rovinj_image = spina_images(:rovinj)
-          @dubrovnik_image = spina_images(:dubrovnik)
+          @logo = spina_images(:logo)
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
@@ -27,16 +27,16 @@ module Spina
           get new_admin_conferences_conference_url
           assert_response :success
           assert_select '#delegates tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.delegates.index.no_delegates')
+            assert_select 'td', 'There are no delegates'
           end
           assert_select '#presentation_types tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.presentation_types.index.no_presentation_types')
+            assert_select 'td', 'There are no presentation types'
           end
           assert_select '#presentations tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.presentations.index.no_presentations')
+            assert_select 'td', 'There are no presentations'
           end
           assert_select '#rooms tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.rooms.index.no_rooms')
+            assert_select 'td', 'There are no rooms'
           end
         end
 
@@ -63,7 +63,7 @@ module Spina
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
           assert_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
+            post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -75,7 +75,7 @@ module Spina
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
           assert_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            post admin_conferences_conferences_url, params: { conference: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -87,7 +87,7 @@ module Spina
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
           assert_no_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }
+            post admin_conferences_conferences_url, params: { conference: attributes }
           end
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
@@ -99,7 +99,7 @@ module Spina
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
           assert_no_difference 'Conference.count' do
-            post admin_conferences_conferences_url, params: { admin_conferences_conference: attributes }, as: :turbo_stream
+            post admin_conferences_conferences_url, params: { conference: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
@@ -110,7 +110,7 @@ module Spina
           attributes[:start_date] = @conference.start_date
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
         end
@@ -120,7 +120,7 @@ module Spina
           attributes[:start_date] = @conference.start_date
           attributes[:finish_date] = @conference.finish_date
           attributes[:name] = @conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
         end
@@ -130,7 +130,7 @@ module Spina
           attributes[:start_date] = @invalid_conference.start_date
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
         end
@@ -140,7 +140,7 @@ module Spina
           attributes[:start_date] = @invalid_conference.start_date
           attributes[:finish_date] = @invalid_conference.finish_date
           attributes[:name] = @invalid_conference.name
-          patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
         end
@@ -178,68 +178,51 @@ module Spina
         end
 
         test 'should save generic part' do
-          attributes = @conference.attributes.merge(start_date: @conference.start_date, finish_date: @conference.finish_date,
-                                                    name: @conference.name, parts_attributes:
-                                                      @conference.parts.collect do |part|
-                                                        part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
-                                                      end)
-          attributes[:parts_attributes].find { |part| part['name'] == 'submission_text' }
-                                       .then { |part| part['partable_attributes']['content'] = 'Dolor sit amen' }
-          assert_changes -> { @conference.content('submission_text') }, from: 'Lorem ipsum dolor sit amet', to: 'Dolor sit amen' do
-            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
+          attributes[:'en-GB_content_attributes'] = [
+            { title: 'Submission text', name: 'submission_text', content: 'Dolor sit amen', type: 'Spina::Parts::Line' }
+          ]
+          assert_changes -> { @conference.reload.content(:submission_text) }, from: 'Lorem ipsum', to: 'Dolor sit amen' do
+            patch admin_conferences_conference_url(@conference), params: { conference: attributes }
           end
         end
 
         test 'should save generic structure part' do
-          attributes = @conference.attributes.merge(start_date: @conference.start_date, finish_date: @conference.finish_date,
-                                                    name: @conference.name, parts_attributes:
-                                                      @conference.parts.collect do |part|
-                                                        part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
-                                                      end)
-          sponsors = @conference.parts.find_by(name: 'sponsors')
-          attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
-            part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
-              structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
-                structure_part.attributes.merge({ 'partable_attributes' => structure_part.partable.attributes })
-              end })
-            end
-          end
-          attributes[:parts_attributes].find { |part| part['name'] == sponsors.name }.then do |part|
-            part['partable_attributes']['structure_items_attributes']
-              .first['structure_parts_attributes']
-              .find { |structure_part| structure_part['name'] == 'name' }
-              .then { |structure_part| structure_part['partable_attributes']['content'] = 'Test' }
-          end
-          assert_changes -> { @conference.content('sponsors').structure_items.first.content('name') },
-                         from: 'Lorem ipsum dolor sit amet', to: 'Test' do
-            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
+          attributes[:'en-GB_content_attributes'] = [
+            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+              { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                { title: 'Name', name: 'name', content: 'Another sponsor', type: 'Spina::Parts::Line' }
+              ] }
+            ] }
+          ]
+          assert_changes -> { @conference.reload.content(:sponsors).first.content('name') }, from: 'Some sponsor', to: 'Another sponsor' do
+            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           end
         end
 
         test 'should save structure part image' do
-          attributes = @conference.attributes.merge(start_date: @conference.start_date, finish_date: @conference.finish_date,
-                                                    name: @conference.name, parts_attributes:
-                                                      @conference.parts.collect do |part|
-                                                        part.attributes.merge({ 'partable_attributes' => part.partable.attributes })
-                                                      end)
-          sponsors = @conference.parts.find_by(name: 'sponsors')
-          attributes[:parts_attributes].find { |part| part['name'] == 'sponsors' }.then do |part|
-            part['partable_attributes']['structure_items_attributes'] = sponsors.partable.structure_items.collect do |structure_item|
-              structure_item.attributes.merge({ 'structure_parts_attributes' => structure_item.structure_parts.collect do |structure_part|
-                structure_part.attributes.merge({ 'partable_attributes' => structure_part.partable.attributes })
-              end })
-            end
-          end
-          attributes[:parts_attributes].find { |part| part['name'] == sponsors.name }.then do |part|
-            part['partable_attributes']['structure_items_attributes']
-              .first['structure_parts_attributes']
-              .find { |structure_part| structure_part['name'] == 'logo' }
-              .tap { |structure_part| structure_part.delete('partable_attributes') }
-              .then { |structure_part| structure_part['partable_id'] = @rovinj_image.id }
-          end
-          assert_changes -> { @conference.content('sponsors').structure_items.first.content('logo') },
-                         from: @dubrovnik_image, to: @rovinj_image do
-            patch admin_conferences_conference_url(@conference), params: { admin_conferences_conference: attributes }, as: :turbo_stream
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
+          attributes[:'en-GB_content_attributes'] = [
+            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+              { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                { title: 'Logo', name: 'logo', type: 'Spina::Parts::Image', image_id: @rovinj_image.id, filename: 'logo.jpeg',
+                  signed_blob_id: '', alt: 'Logo' }
+              ] }
+            ] }
+          ]
+          assert_changes -> { @conference.reload.content(:sponsors).first.content(:logo).spina_image },
+                         from: @logo, to: @rovinj_image do
+            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           end
         end
 

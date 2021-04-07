@@ -105,10 +105,8 @@ module Spina
         end
 
         def delegate_params
-          params.require(:admin_conferences_delegate).permit(:first_name, :last_name, :email_address, :url,
-                                                             :institution_id,
-                                                             conference_ids: [],
-                                                             dietary_requirement_ids: [])
+          params.require(:delegate).permit(:first_name, :last_name, :email_address, :url, :institution_id,
+                                           conference_ids: [], dietary_requirement_ids: [])
         end
       end
     end

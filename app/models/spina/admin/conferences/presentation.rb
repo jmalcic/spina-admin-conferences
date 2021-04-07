@@ -15,6 +15,11 @@ module Spina
       # - {#title}
       # - {#abstract}
       class Presentation < ApplicationRecord
+        include AttrJson::Record
+        include AttrJson::NestedAttributes
+        include Spina::Partable
+        include Spina::TranslatedContent
+
         # @!attribute [rw] start_datetime
         #   @return [ActiveSupport::TimeWithZone, nil] the presentation start time
 

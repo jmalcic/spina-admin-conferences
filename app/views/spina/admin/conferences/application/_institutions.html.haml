@@ -1,0 +1,10 @@
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::Institution.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Institution.human_attribute_name :city
+          %th
+
+      %tbody= render institutions.presence || 'empty_list', message: t('.no_institutions')

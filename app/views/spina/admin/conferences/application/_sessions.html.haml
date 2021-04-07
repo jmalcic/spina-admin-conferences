@@ -1,0 +1,11 @@
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::Session.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Session.human_attribute_name :presentation_type
+          %th= Spina::Admin::Conferences::Session.human_attribute_name :room
+          %th
+
+      %tbody= render sessions.presence || 'empty_list', message: t('.no_sessions')

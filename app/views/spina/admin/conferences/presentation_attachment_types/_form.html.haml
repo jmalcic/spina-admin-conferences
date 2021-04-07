@@ -2,7 +2,7 @@
   - content_for :notifications do
     = render 'errors', errors: @presentation_attachment_type.errors
 
-= form_for @presentation_attachment_type, html: { autocomplete: 'off' } do |f|
+= form_for [:admin_conferences, @presentation_attachment_type], html: { autocomplete: 'off' } do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 
@@ -13,7 +13,7 @@
 
       = link_to t('spina.cancel'), admin_conferences_presentation_attachment_types_path, class: 'button', style: 'margin-right: 0'
 
-  .well
+  %div{ style: 'margin-top: 40px' }
     .horizontal-form
       .horizontal-form-group
         .horizontal-form-label= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
