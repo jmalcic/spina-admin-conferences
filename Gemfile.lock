@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spina-admin-conferences (2.0.0.alpha)
+    spina-admin-conferences (2.0.0)
       icalendar (~> 2.5)
       rails (~> 6.0)
       rails-i18n (~> 6.0)
