@@ -98,7 +98,7 @@ module Spina
         end
 
         def conference_params
-          params.require(:admin_conferences_institution).permit(:name, :city, :logo_id)
+          params.require(:institution).permit(:name, :city, :logo_id)
         end
       end
     end

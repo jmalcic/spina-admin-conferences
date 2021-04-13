@@ -1,35 +1,29 @@
 .structure-form-pane{ class: ('active' if (local_assigns[:active] == true) || (f.index == 0)), id: "structure_form_pane_#{f.index}",
                       data: { 'spina--admin--conferences--conference_events_form': { target: 'formPane' } } }
   .structure-form-part
-    .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :name
-    .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:name), required: true
+    .page-form-label= Spina::Admin::Conferences::Event.human_attribute_name :name
+    .page-form-control= f.text_field :name, placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:name), required: true
 
   .structure-form-part
-    .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :date
-    .horizontal-form-content= f.date_field :date, value: f.object.conference.start_date&.strftime("%Y-%m-%d"),
-                                                  placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:date),
-                                                  required: true
+    .page-form-label= Spina::Admin::Conferences::Event.human_attribute_name :start_datetime
+    .page-form-control= f.datetime_field :start_datetime,
+                              placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:start_datetime), required: true
 
   .structure-form-part
-    .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :start_time
-    .horizontal-form-content= f.time_field :start_time,
-                              value: (f.object.start_time.to_formatted_s(:time) unless f.object.start_time.blank?),
-                              placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:start_time), required: true
+    .page-form-label= Spina::Admin::Conferences::Event.human_attribute_name :finish_datetime
+    .page-form-control= f.datetime_field :finish_datetime,
+                              placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:finish_datetime), required: true
 
   .structure-form-part
-    .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :finish_time
-    .horizontal-form-content= f.time_field :finish_time,
-                              value: (f.object.finish_time.to_formatted_s(:time) unless f.object.finish_time.blank?),
-                              placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:finish_time), required: true
+    .page-form-label= Spina::Admin::Conferences::Event.human_attribute_name :location
+    .page-form-control= f.text_field :location, placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:location),
+                        required: true
 
   .structure-form-part
-    .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :location
-    .horizontal-form-content= f.text_field :location, placeholder: Spina::Admin::Conferences::Event.human_attribute_name(:location),
-                                                      required: true
-
-  .structure-form-part
-    .horizontal-form-label= Spina::Admin::Conferences::Event.human_attribute_name :description
-    .horizontal-form-content= render 'spina/admin/shared/rich_text_field', f: f, field: :description
+    .page-form-label= Spina::Admin::Conferences::Event.human_attribute_name :description
+    .page-form-content
+      .page-form-rich-text
+        = render 'spina/admin/shared/rich_text_field', f: f, field: :description
 
   = f.hidden_field :id
 

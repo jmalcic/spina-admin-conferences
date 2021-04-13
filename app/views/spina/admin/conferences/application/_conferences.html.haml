@@ -1,0 +1,12 @@
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :name
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :year
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :start_date
+          %th= Spina::Admin::Conferences::Conference.human_attribute_name :finish_date
+          %th
+
+      %tbody= render conferences.presence || 'empty_list', message: t('.no_conferences')

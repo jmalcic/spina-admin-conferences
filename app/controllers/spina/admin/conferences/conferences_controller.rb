@@ -6,16 +6,21 @@ module Spina
       # Controller for {Conference} objects.
       # @see Conference
       class ConferencesController < ApplicationController
-        PARTS = [
-          { name: 'text', title: 'Text', partable_type: 'Spina::Text' },
-          { name: 'submission_url', title: 'Submission URL', partable_type: 'Spina::Admin::Conferences::UrlPart' },
-          { name: 'submission_email_address', title: 'Submission email address',
-            partable_type: 'Spina::Admin::Conferences::EmailAddressPart' },
-          { name: 'submission_date', title: 'Submission date', partable_type: 'Spina::Admin::Conferences::DatePart' },
-          { name: 'submission_text', title: 'Submission text', partable_type: 'Spina::Line' },
-          { name: 'gallery', title: 'Gallery', partable_type: 'Spina::ImageCollection' },
-          { name: 'sponsors', title: 'Sponsors', partable_type: 'Spina::Structure' }
+        PARTS_PARAMS = [
+          :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+          images_attributes: %i[filename signed_blob_id image_id alt],
+          content_attributes: [
+            :name, :title,
+            parts_attributes: [
+              :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+              images_attributes: %i[filename signed_blob_id image_id alt]
+            ]
+          ]
         ].freeze
+        CONTENT_PARAMS = Spina.config.locales.inject({}) { |params, locale| params.merge("#{locale}_content_attributes": [*PARTS_PARAMS]) }
+        PARAMS = [:start_date, :finish_date, :name, **CONTENT_PARAMS,
+          events_attributes: %i[id name start_datetime finish_datetime description location] ].freeze
+        PARTS = %w[text submission_url submission_email_address submission_date submission_text gallery sponsors].freeze
 
         before_action :set_conference, only: %i[edit update destroy]
         before_action :set_conferences_breadcrumb
@@ -116,31 +121,17 @@ module Spina
         end
 
         def set_parts_attributes
-          @parts_attributes = PARTS
+          @parts_attributes = current_theme.parts.select { |part| PARTS.include? part[:name] }
         end
 
         def build_parts
           return unless @parts_attributes.is_a? Array
 
-          @conference.parts = @parts_attributes.collect do |part_attributes|
-            @conference.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
-                       .tap { |part| part.partable ||= part.partable_type.constantize.new }
-          end
+          @parts = @parts_attributes.collect { |part_attributes| @conference.part(part_attributes) }
         end
 
-        def conference_params # rubocop:disable Metrics/MethodLength
-          params.require(:admin_conferences_conference).permit(:start_date, :finish_date, :name,
-                                                               events_attributes:
-                                                                 %i[id name date start_time finish_time description location],
-                                                               parts_attributes:
-                                                                 [:id, :title, :name, :partable_type, :partable_id,
-                                                                  { partable_attributes:
-                                                                      [:id, :content, :image_tokens, :image_positions, :date, :time,
-                                                                       { structure_items_attributes:
-                                                                           [:id, :position, :_destroy,
-                                                                            { structure_parts_attributes:
-                                                                                [:id, :title, :structure_partable_type, :name, :partable_id,
-                                                                                 { partable_attributes: {} }] }] }] }])
+        def conference_params
+          params.require(:conference).permit(PARAMS)
         end
       end
     end

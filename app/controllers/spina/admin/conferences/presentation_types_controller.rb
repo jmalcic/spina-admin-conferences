@@ -101,7 +101,7 @@ module Spina
         end
 
         def presentation_type_params
-          params.require(:admin_conferences_presentation_type).permit(:name, :conference_id, :minutes)
+          params.require(:presentation_type).permit(:name, :conference_id, :minutes)
         end
       end
     end

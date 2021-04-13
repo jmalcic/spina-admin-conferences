@@ -32,13 +32,14 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New session'
           end
-          fill_in 'admin_conferences_session_name', with: @session.name
-          select @session.conference.name, from: 'admin_conferences_conference_id'
-          select @session.presentation_type.name, from: 'admin_conferences_session_presentation_type_id'
-          select @session.institution.name, from: 'admin_conferences_institution_id'
-          select @session.room.name, from: 'admin_conferences_session_room_id'
+          fill_in 'session_name', with: @session.name
+          select @session.conference.name, from: 'conference_id'
+          select @session.presentation_type.name, from: 'session_presentation_type_id'
+          select @session.institution.name, from: 'institution_id'
+          select @session.room.name, from: 'session_room_id'
           Percy.snapshot page, name: 'Sessions form on create'
           click_on 'Save session'
+          assert_current_path admin_conferences_sessions_path
           assert_text 'Session saved'
           Percy.snapshot page, name: 'Sessions index on create'
         end
@@ -52,12 +53,13 @@ module Spina
             assert_text @session.name
           end
           Percy.snapshot page, name: 'Sessions form on update'
-          fill_in 'admin_conferences_session_name', with: @session.name
-          select @session.conference.name, from: 'admin_conferences_conference_id'
-          select @session.presentation_type.name, from: 'admin_conferences_session_presentation_type_id'
-          select @session.institution.name, from: 'admin_conferences_institution_id'
-          select @session.room.name, from: 'admin_conferences_session_room_id'
+          fill_in 'session_name', with: @session.name
+          select @session.conference.name, from: 'conference_id'
+          select @session.presentation_type.name, from: 'session_presentation_type_id'
+          select @session.institution.name, from: 'institution_id'
+          select @session.room.name, from: 'session_room_id'
           click_on 'Save session'
+          assert_current_path admin_conferences_sessions_path
           assert_text 'Session saved'
           Percy.snapshot page, name: 'Sessions index on update'
         end
@@ -70,12 +72,11 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @empty_session.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the session #{@empty_session.name}?"
-          Percy.snapshot page, name: 'Sessions delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the session <strong>#{@empty_session.name}</strong>?" do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Sessions delete dialog'
+          end
+          assert_current_path admin_conferences_sessions_path
           assert_text 'Session deleted'
           assert_no_selector "tr[data-session-id=\"#{@empty_session.id}\"]"
           Percy.snapshot page, name: 'Sessions index on delete'

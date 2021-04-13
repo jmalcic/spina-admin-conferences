@@ -6,9 +6,99 @@
 #
 university_of_atlantis_2017:
   dates: !ruby/range 2017-04-07...2017-04-10
+  json_attributes:
+    en-GB_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+        content:
+          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum dictum eu sed risus.
+          Curabitur eros mauris, malesuada in turpis in, rutrum laoreet velit. Quisque vel consequat arcu, vel hendrerit nisl.
+          Vivamus eu turpis luctus, facilisis quam ut, aliquet ipsum. Etiam accumsan tellus turpis, vel placerat felis
+          ultricies et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc, at dapibus elit dolor in tortor. Sed sed nunc
+          augue.<\/div>
+      - name: gallery
+        title: Gallery
+        type: Spina::Parts::ImageCollection
+        images:
+          - image_id: <%= ActiveRecord::FixtureSet.identify(:dubrovnik) %>
+            filename: dubrovnik.jpeg
+            signed_blob_id:
+            alt: Dubrovnik
+          - image_id: <%= ActiveRecord::FixtureSet.identify(:rovinj) %>
+            filename: rovinj.jpeg
+            signed_blob_id:
+            alt: Rovinj
+      - name: submission_url
+        title: Submission URL
+        type: Spina::Parts::Admin::Conferences::Url
+        content: https://www.ruby-lang.org
+      - name: submission_email_address
+        title: Submission email address
+        type: Spina::Parts::Admin::Conferences::EmailAddress
+        content: someone@someaddress.com
+      - name: submission_date
+        title: Submission date
+        type: Spina::Parts::Admin::Conferences::Date
+        content: 2019-01-01
+      - name: submission_text
+        title: Submission text
+        type: Spina::Parts::Line
+        content: Lorem ipsum
+      - name: sponsors
+        title: Sponsors
+        type: Spina::Parts::Repeater
+        content:
+          - name: sponsors
+            title: Sponsors
+            parts:
+              - name: name
+                title: Name
+                type: Spina::Parts::Line
+                content: Some sponsor
+              - name: logo
+                title: Logo
+                type: Spina::Parts::Image
+                image_id: <%= ActiveRecord::FixtureSet.identify(:logo) %>
+                filename: logo.png
+                signed_blob_id:
+                alt: Logo
+              - name: website
+                title: Website
+                type: Spina::Parts::Admin::Conferences::Url
+                content: https://www.ruby-lang.org
 
 university_of_shangri_la_2018:
   dates: !ruby/range 2018-04-09...2018-04-12
+  json_attributes:
+    en-GB_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+      - name: gallery
+        title: Gallery
+        type: Spina::Parts::ImageCollection
+      - name: submission_url
+        title: Submission URL
+        type: Spina::Parts::Admin::Conferences::Url
+      - name: submission_email_address
+        title: Submission email address
+        type: Spina::Parts::Admin::Conferences::EmailAddress
+      - name: submission_date
+        title: Submission date
+        type: Spina::Parts::Admin::Conferences::Date
+      - name: submission_text
+        title: Submission text
+        type: Spina::Parts::Line
+      - name: sponsors
+        title: Sponsors
+        type: Spina::Parts::Repeater
 
 empty_conference:
   dates: !ruby/range 2018-04-09...2018-04-12
+  json_attributes:
+    en-GB_content:
+      - name: sponsors
+        title: Sponsors
+        type: Spina::Parts::Repeater

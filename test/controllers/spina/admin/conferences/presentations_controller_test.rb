@@ -24,7 +24,7 @@ module Spina
           get new_admin_conferences_presentation_url
           assert_response :success
           assert_select '#presenters tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.presenters.no_presenters')
+            assert_select 'td', 'There are no delegates'
           end
         end
 
@@ -45,7 +45,7 @@ module Spina
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
+            post admin_conferences_presentations_url, params: { presentation: attributes }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
@@ -59,7 +59,7 @@ module Spina
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, as: :turbo_stream
+            post admin_conferences_presentations_url, params: { presentation: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
@@ -73,7 +73,7 @@ module Spina
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }
+            post admin_conferences_presentations_url, params: { presentation: attributes }
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
@@ -87,7 +87,7 @@ module Spina
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { admin_conferences_presentation: attributes }, as: :turbo_stream
+            post admin_conferences_presentations_url, params: { presentation: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
@@ -100,7 +100,7 @@ module Spina
           attributes[:date] = @presentation.date
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
@@ -112,7 +112,7 @@ module Spina
           attributes[:date] = @presentation.date
           attributes[:title] = @presentation.title
           attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, as: :turbo_stream
+          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
@@ -124,7 +124,7 @@ module Spina
           attributes[:date] = @invalid_presentation.date
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
@@ -136,7 +136,7 @@ module Spina
           attributes[:date] = @invalid_presentation.date
           attributes[:title] = @invalid_presentation.title
           attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { admin_conferences_presentation: attributes }, as: :turbo_stream
+          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end

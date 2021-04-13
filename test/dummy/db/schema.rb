@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_121_162_757) do
+ActiveRecord::Schema.define(version: 20_210_321_001_208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20_210_121_162_757) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.boolean 'robots_allowed', default: false
+    t.jsonb 'json_attributes'
   end
 
   create_table 'spina_attachment_collections', id: :serial, force: :cascade do |t|
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(version: 20_210_121_162_757) do
     t.daterange 'dates', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.jsonb 'json_attributes'
   end
 
   create_table 'spina_conferences_conferences_delegates', id: false, force: :cascade do |t|
@@ -263,6 +265,7 @@ ActiveRecord::Schema.define(version: 20_210_121_162_757) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.datetime 'start_datetime', null: false
+    t.jsonb 'json_attributes'
     t.index ['session_id'], name: 'index_spina_conferences_presentations_on_session_id'
   end
 
@@ -433,6 +436,7 @@ ActiveRecord::Schema.define(version: 20_210_121_162_757) do
     t.integer 'position'
     t.boolean 'active', default: true
     t.integer 'resource_id'
+    t.jsonb 'json_attributes'
     t.index ['resource_id'], name: 'index_spina_pages_on_resource_id'
   end
 
@@ -444,6 +448,7 @@ ActiveRecord::Schema.define(version: 20_210_121_162_757) do
     t.string 'order_by'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.jsonb 'slug'
     t.index ['parent_page_id'], name: 'index_spina_resources_on_parent_page_id'
   end
 

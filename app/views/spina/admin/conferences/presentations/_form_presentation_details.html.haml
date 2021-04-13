@@ -1,55 +1,56 @@
-#presentation_details.tab-content.active
-  .well
-    .horizontal-form{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { record_value: @conferences } } }
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
-        .horizontal-form-content
-          .select-dropdown= select_tag :admin_conferences_conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility', 'spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
+.page-form{ data: { controller: 'spina--admin--conferences--select-options', 'spina--admin--conferences--select_options': { record_value: @conferences } } }
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :conference
+    .page-form-control
+      .select-dropdown= select_tag :conference_id, options_from_collection_for_select(Spina::Admin::Conferences::Conference.all, :id, :name, (@presentation.conference.id unless @presentation.conference.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility', 'spina--admin--conferences--select_options_target': 'select', text_key: 'name' }
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :session
-        .horizontal-form-content
-          .input-group
-            .select-dropdown= select_tag :admin_conferences_presentation_type_id, options_from_collection_for_select((@presentation.conference || Spina::Admin::Conferences::Conference.first).presentation_types, :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types', text_key: 'name' }
-            .select-dropdown= f.collection_select :session_id, (@presentation.presentation_type || Spina::Admin::Conferences::Conference.first).sessions, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types:sessions', text_key: 'name' }
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :session
+    .page-form-control
+      .input-group
+        .select-dropdown= select_tag :presentation_type_id, options_from_collection_for_select((@presentation.conference || Spina::Admin::Conferences::Conference.first).presentation_types, :id, :name, (@presentation.presentation_type.id unless @presentation.presentation_type.blank?)), include_blank: true, required: true, data: { action: 'spina--admin--conferences--select-options#setVisibility','spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types', text_key: 'name' }
+        .select-dropdown= f.collection_select :session_id, (@presentation.presentation_type || Spina::Admin::Conferences::Conference.first).sessions, :id, :name, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', key_path: 'presentation_types:sessions', text_key: 'name' }
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :date
-        .horizontal-form-content
-          .select-dropdown= f.select :date, (@presentation.conference || Spina::Admin::Conferences::Conference.first).dates.collect { |date| [l(date, format: :short), date.to_formatted_s(:iso8601)] }, { include_blank: true }, required: true, data: {'spina--admin--conferences--select_options_target': 'select', key_path: 'localized_dates', text_key: 'localization', value_key: 'date' }
+  .page-form-group
+    .page-form-label
+      = Spina::Admin::Conferences::Presentation.human_attribute_name :start_datetime
+    .page-form-control= f.datetime_field :start_datetime, required: true
 
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Admin::Conferences::Presentation.human_attribute_name :start_time
-          %small= t '.start_time_instructions'
-        .horizontal-form-content= f.time_field :start_time, value: (@presentation.start_time.to_formatted_s(:time) unless @presentation.start_time.blank?), placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:start_time), required: true
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :title
+    .page-form-control= f.text_field :title, placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:title), required: true, class: 'input-large'
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :title
-        .horizontal-form-content= f.text_field :title, placeholder: Spina::Admin::Conferences::Presentation.human_attribute_name(:title), required: true
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :abstract
+    .page-form-content
+      .page-form-rich-text
+        = render 'spina/admin/shared/rich_text_field', f: f, field: :abstract
 
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :abstract
-        .horizontal-form-content= render 'spina/admin/shared/rich_text_field', f: f, field: :abstract
+  .page-form-group
+    .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
+    .page-form-content
+      .well{ style: 'margin: 0' }
+        .table-container
+          %table.table{ style: 'margin: 0' }
+            %tbody
+              = f.collection_check_boxes :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution do |builder|
+                %tr
+                  %td{ style: "padding-left: 16px" }
+                    .form-checkbox
+                      = builder.check_box
+                      = builder.label
 
-      .horizontal-form-group
-        .horizontal-form-label
-          = Spina::Admin::Conferences::Presentation.human_attribute_name :presenters
-          %small= t '.multiple_presenters_selection_instructions_html'
-        .horizontal-form-content
-          .multiple.select-dropdown= f.collection_select :presenter_ids, Spina::Admin::Conferences::Delegate.order(:last_name, :first_name), :id, :reversed_name_and_institution, {}, multiple: true, required: true
+  .page-form-group{ class: dom_class(@presentation.attachments) }
+    .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :attachments
+    .page-form-control
+      .structure-form{ data: { controller: 'spina--admin--conferences--presentation-attachments-form', 'spina--admin--conferences--presentation_attachments_form': { active_class: 'active' } } }
+        .structure-form-menu
+          %ul= render partial: 'attachment_row', collection: f.object.attachments, as: :attachment
+          = link_to icon('plus'), @presentation.new_record? ? new_admin_conferences_presentation_attachment_path : new_admin_conferences_presentation_presentation_attachment_path(@presentation, index: @presentation.attachments.size), remote: true, class: %w[button button-link icon], data: { 'spina--admin--conferences--presentation_attachments_form_target': 'addFormLink', disable_with: '&#xF12C;' }
 
-      .horizontal-form-group{ class: dom_class(@presentation.attachments) }
-        .horizontal-form-content
-          .structure-form{ data: { controller: 'spina--admin--conferences--presentation-attachments-form', 'spina--admin--conferences--presentation_attachments_form': { active_class: 'active' } } }
-            .structure-form-menu
-              %label= Spina::Admin::Conferences::Presentation.human_attribute_name :attachments
-              %ul= render partial: 'attachment_row', collection: f.object.attachments, as: :attachment
-              = link_to icon('plus'), @presentation.new_record? ? new_admin_conferences_presentation_attachment_path : new_admin_conferences_presentation_presentation_attachment_path(@presentation, index: @presentation.attachments.size), remote: true, class: %w[button button-link icon], data: { 'spina--admin--conferences--presentation_attachments_form_target': 'addFormLink', disable_with: '&#xF12C;' }
+        .structure-form-content{ data: { action: 'presentationAttachmentFieldsAdded->spina--admin--conferences--presentation-attachments-form#updateURL' } }
+          = f.fields_for :attachments do |attachment_fields|
+            = render 'attachment_fields', f: attachment_fields
 
-            .structure-form-content{ data: { action: 'presentationAttachmentFieldsAdded->spina--admin--conferences--presentation-attachments-form#updateURL' } }
-              = f.fields_for :attachments do |attachment_fields|
-                = render 'attachment_fields', f: attachment_fields
-
-  - unless @presentation.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, data: { confirm: t('.delete_confirmation', presentation: @presentation.title) }, class: %w[button button-link button-danger]
+- unless @presentation.new_record?
+  .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_path(@presentation), method: :delete, data: { confirm: t('.delete_confirmation', presentation: @presentation.title) }, class: %w[button button-link button-danger]

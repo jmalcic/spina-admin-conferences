@@ -1,0 +1,11 @@
+.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :institution
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :building
+          %th= Spina::Admin::Conferences::Room.human_attribute_name :number
+          %th
+
+      %tbody= render rooms.presence || 'empty_list', message: t('.no_rooms')

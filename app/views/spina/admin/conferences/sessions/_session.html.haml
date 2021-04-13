@@ -1,5 +1,5 @@
 %tr{ data: { session_id: session.id } }
-  %td= session.name
+  %td= link_to session.name, edit_admin_conferences_session_path(session)
   %td= session.presentation_type_name
   %td= session.room_name
   %td.align-right

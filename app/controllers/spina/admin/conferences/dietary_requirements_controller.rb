@@ -98,7 +98,7 @@ module Spina
         end
 
         def dietary_requirement_params
-          params.require(:admin_conferences_dietary_requirement).permit(:name)
+          params.require(:dietary_requirement).permit(:name)
         end
       end
     end

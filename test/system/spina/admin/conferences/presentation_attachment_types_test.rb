@@ -31,9 +31,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New presentation attachment type'
           end
-          fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
+          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           Percy.snapshot page, name: 'Presentation attachment types form on create'
           click_on 'Save presentation attachment type'
+          assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type saved'
           Percy.snapshot page, name: 'Presentation attachment types index on create'
         end
@@ -47,8 +48,9 @@ module Spina
             assert_text @presentation_attachment_type.name
           end
           Percy.snapshot page, name: 'Presentation attachment types form on update'
-          fill_in 'admin_conferences_presentation_attachment_type_name', with: @presentation_attachment_type.name
+          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           click_on 'Save presentation attachment type'
+          assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type saved'
           Percy.snapshot page, name: 'Presentation attachment types index on update'
         end
@@ -61,12 +63,12 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @presentation_attachment_type.name
           end
-          page.execute_script '$.fx.off = true;'
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the presentation attachment type #{@presentation_attachment_type.name}?"
-          Percy.snapshot page, name: 'Presentation attachment types delete dialog'
-          click_on 'Yes, I\'m sure'
+          accept_confirm "Are you sure you want to delete the presentation attachment type <strong>#{@presentation_attachment_type.name}" \
+                         '</strong>?' do
+            click_on 'Permanently delete'
+            Percy.snapshot page, name: 'Presentation attachment types delete dialog'
+          end
+          assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type deleted'
           assert_no_selector "tr[data-dietary-requirement-id=\"#{@presentation_attachment_type.id}\"]"
           Percy.snapshot page, name: 'Presentation attachment types index on delete'

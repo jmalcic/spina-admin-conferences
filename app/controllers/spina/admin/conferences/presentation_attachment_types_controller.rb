@@ -96,7 +96,7 @@ module Spina
 
         # noinspection RubyInstanceMethodNamingConvention
         def presentation_attachment_type_params
-          params.require(:admin_conferences_presentation_attachment_type).permit(:name)
+          params.require(:presentation_attachment_type).permit(:name)
         end
       end
     end

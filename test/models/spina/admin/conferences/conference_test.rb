@@ -7,7 +7,7 @@ module Spina
     module Conferences
       class ConferenceTest < ActiveSupport::TestCase # rubocop:disable Metrics/ClassLength
         setup do
-          @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
+          @conference = spina_admin_conferences_conferences :university_of_atlantis_2017 # rubocop:disable Naming/VariableNumber
           @empty_conference = spina_admin_conferences_conferences :empty_conference
           @new_conference = Conference.new
         end
@@ -34,11 +34,6 @@ module Spina
         test 'conference has associated events' do
           assert_not_empty @conference.events
           assert_empty @new_conference.events
-        end
-
-        test 'conference has associated parts' do
-          assert_not_empty @conference.parts
-          assert_empty @new_conference.parts
         end
 
         test 'conference has associated sessions' do
@@ -192,6 +187,8 @@ module Spina
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @conference.to_event
           assert_instance_of Icalendar::Event, @new_conference.to_event
+          assert_instance_of Icalendar::Event, @conference.to_ics
+          assert_instance_of Icalendar::Event, @new_conference.to_ics
         end
 
         test 'finish date saved correctly' do
@@ -200,33 +197,6 @@ module Spina
             @conference.save
             @conference.reload
           end
-        end
-
-        test 'finds an existing part' do
-          assert_equal @conference.parts.find_by(name: 'text'), @conference.part(name: 'text')
-        end
-
-        test 'initializes a new part' do
-          @conference.part(name: 'foo', partable_type: 'Spina::Line').then do |part|
-            assert_equal 'foo', part.name
-            assert_equal 'Spina::Line', part.partable_type
-            assert_kind_of Spina::Line, part.partable
-          end
-        end
-
-        test 'recreates a partable' do
-          @conference.part(name: 'text').partable.destroy
-          assert_kind_of Spina::Text, @conference.part(name: 'text').partable
-        end
-
-        test 'responds to content' do
-          assert_equal @conference.parts.find_by(name: 'text').content, @conference.content('text')
-          assert_nil @new_conference.content('text')
-        end
-
-        test 'responds to has_content' do
-          assert @conference.has_content? 'text'
-          assert_not @new_conference.has_content? 'text'
         end
       end
     end

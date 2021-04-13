@@ -25,10 +25,10 @@ module Spina
           get new_admin_conferences_institution_url
           assert_response :success
           assert_select '#delegates tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.delegates.index.no_delegates')
+            assert_select 'td', 'There are no delegates'
           end
           assert_select '#rooms tbody > tr' do
-            assert_select 'td', I18n.t('spina.admin.conferences.rooms.index.no_rooms')
+            assert_select 'td', 'There are no rooms'
           end
         end
 
@@ -48,7 +48,7 @@ module Spina
           attributes[:name] = @institution.name
           attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }
+            post admin_conferences_institutions_url, params: { institution: attributes }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
@@ -59,7 +59,7 @@ module Spina
           attributes[:name] = @institution.name
           attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, as: :turbo_stream
+            post admin_conferences_institutions_url, params: { institution: attributes }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
@@ -70,7 +70,7 @@ module Spina
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }
+            post admin_conferences_institutions_url, params: { institution: attributes }
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -81,7 +81,7 @@ module Spina
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { admin_conferences_institution: attributes }, as: :turbo_stream
+            post admin_conferences_institutions_url, params: { institution: attributes }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -91,7 +91,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = @institution.name
           attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }
+          patch admin_conferences_institution_url(@institution), params: { institution: attributes }
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
@@ -100,7 +100,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = @institution.name
           attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, as: :turbo_stream
+          patch admin_conferences_institution_url(@institution), params: { institution: attributes }, as: :turbo_stream
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
@@ -109,7 +109,7 @@ module Spina
           attributes = @invalid_institution.attributes
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }
+          patch admin_conferences_institution_url(@institution), params: { institution: attributes }
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
@@ -118,7 +118,7 @@ module Spina
           attributes = @invalid_institution.attributes
           attributes[:name] = @invalid_institution.name
           attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { admin_conferences_institution: attributes }, as: :turbo_stream
+          patch admin_conferences_institution_url(@institution), params: { institution: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end

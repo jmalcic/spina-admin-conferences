@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+dubrovnik: <%= ActiveStorage::FixtureSet.blob filename: 'dubrovnik.jpeg' %>
+rovinj: <%= ActiveStorage::FixtureSet.blob filename: 'rovinj.jpeg' %>
+logo: <%= ActiveStorage::FixtureSet.blob filename: 'logo.png' %>
+profile_picture: <%= ActiveStorage::FixtureSet.blob filename: 'profile_picture.jpg' %>
+handout: <%= ActiveStorage::FixtureSet.blob filename: 'handout.pdf' %>
+slides: <%= ActiveStorage::FixtureSet.blob filename: 'slides.pdf' %>
+minutes: <%= ActiveStorage::FixtureSet.blob filename: 'minutes.pdf' %>
+constitution: <%= ActiveStorage::FixtureSet.blob filename: 'constitution.pdf' %>

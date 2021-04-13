@@ -5,14 +5,17 @@ module Spina
     module Conferences
       # @abstract Subclass to implement a custom controller.
       class ApplicationController < ::Spina::Admin::AdminController
+        helper ::Spina::Engine.routes.url_helpers
+
         add_flash_types :success
 
-        layout :admin_layout, only: %i[new edit]
+        layout 'spina/admin/conferences/application', only: %i[new edit]
+        before_action :set_locale
 
         private
 
-        def admin_layout
-          'spina/admin/conferences/application'
+        def set_locale
+          @locale = params[:locale] || I18n.default_locale
         end
       end
     end

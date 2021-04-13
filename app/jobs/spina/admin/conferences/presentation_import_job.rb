@@ -13,8 +13,7 @@ module Spina
         #   == Columns
         #   The CSV should has the following columns. Make sure to include the column names in the header row.
         #   +session_id+:: The id of the associated session.
-        #   +date+:: The date of the presentation, in ISO 8601 format.
-        #   +start_time+:: The start time of the presentation, in HH:MM format.
+        #   +start_datetime+:: The start time of the presentation, in ISO 8601 format.
         #   +title+:: The title of the presentation for the default locale.
         #   +abstract+:: The presentation's abstract.
         #   +presenter_ids+:: The ids of the presenters.
@@ -30,7 +29,7 @@ module Spina
 
         def presentation_params(params)
           params = ActionController::Parameters.new(params)
-          params.permit :title, :date, :start_time, :abstract, :session_id, presenter_ids: []
+          params.permit :title, :start_datetime, :abstract, :session_id, presenter_ids: []
         end
       end
     end

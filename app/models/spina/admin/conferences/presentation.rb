@@ -15,6 +15,14 @@ module Spina
       # - {#title}
       # - {#abstract}
       class Presentation < ApplicationRecord
+        include AttrJson::Record
+        include AttrJson::NestedAttributes
+        include Spina::Partable
+        include Spina::TranslatedContent
+
+        # @!attribute [rw] start_datetime
+        #   @return [ActiveSupport::TimeWithZone, nil] the presentation start time
+
         default_scope { includes(:translations) }
 
         # @!attribute [rw] title
@@ -65,10 +73,15 @@ module Spina
                                              association_foreign_key: :spina_conferences_delegate_id
         accepts_nested_attributes_for :attachments, allow_destroy: true
 
-        validates :title, :date, :start_time, :start_datetime, :abstract, :presenters, presence: true
-        validates :date, 'spina/admin/conferences/conference_date': true
+        validates :title, :start_datetime, :abstract, :presenters, presence: true
+        validates :start_datetime, 'spina/admin/conferences/conference_date': true
         validates_associated :presenters
         validates_associated :attachments
+
+        # @!attribute [rw] start_time
+        #   @return [ActiveSupport::TimeWithZone, nil] the start time (alias)
+        #   @see #start_datetime
+        alias_attribute :start_time, :start_datetime
 
         # Imports a presentation from CSV.
         # @param file [String] the CSV file to be read
@@ -83,37 +96,6 @@ module Spina
           return if start_datetime.blank?
 
           start_datetime.to_date
-        end
-
-        # Sets the date of the presentation.
-        # @param date [Date] the new date
-        # @return [void]
-        def date=(date)
-          if date.blank? || date.to_date.blank?
-            self.start_datetime = nil
-            return
-          end
-
-          self.start_datetime = date.to_date + (start_datetime.try(:seconds_since_midnight) || 0).seconds
-        end
-
-        # @return [ActiveSupport::TimeWithZone, nil] the start time of the presentation. Nil if the presentation has no start date and time
-        def start_time
-          return if start_datetime.blank?
-
-          start_datetime
-        end
-
-        # Sets the start time of the presentation.
-        # @param start_time [ActiveSupport::TimeWithZone] the new start time
-        # @return [void]
-        def start_time=(start_time)
-          if start_time.blank?
-            self.start_datetime = nil
-            return
-          end
-
-          self.start_datetime = Time.parse(start_time, date).to_datetime.in_time_zone
         end
 
         # @return [Icalendar::Event] the presentation as an iCal event
