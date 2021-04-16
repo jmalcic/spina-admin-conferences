@@ -17,7 +17,7 @@ module Spina
         # Renders a list of presentation types.
         # @return [void]
         def index
-          @presentation_types = PresentationType.sorted
+          @presentation_types = PresentationType.sorted.page(params[:page])
         end
 
         # Renders a form for a new presentation type.

@@ -15,7 +15,7 @@ module Spina
         # Renders a list of dietary requirements.
         # @return [void]
         def index
-          @dietary_requirements = DietaryRequirement.sorted
+          @dietary_requirements = DietaryRequirement.sorted.page(params[:page])
         end
 
         # Renders a form for a new dietary requirement.

@@ -15,7 +15,7 @@ module Spina
         # Renders a list of delegates.
         # @return [void]
         def index
-          @delegates = Delegate.sorted
+          @delegates = Delegate.sorted.page(params[:page])
         end
 
         # Renders a form for a new delegate.

@@ -18,7 +18,7 @@ module Spina
         # Renders a list of sessions.
         # @return [void]
         def index
-          @sessions = Session.all
+          @sessions = Session.all.page(params[:page])
         end
 
         # Renders a form for a new session.
