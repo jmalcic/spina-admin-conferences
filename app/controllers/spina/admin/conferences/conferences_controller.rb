@@ -33,7 +33,7 @@ module Spina
         # Renders a list of conferences.
         # @return [void]
         def index
-          @conferences = Conference.sorted
+          @conferences = Conference.sorted.page(params[:page])
         end
 
         # Renders a form for a new conference.

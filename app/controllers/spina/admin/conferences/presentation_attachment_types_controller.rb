@@ -14,7 +14,7 @@ module Spina
         # Renders a list of presentation attachment types.
         # @return [void]
         def index
-          @presentation_attachment_types = PresentationAttachmentType.sorted
+          @presentation_attachment_types = PresentationAttachmentType.sorted.page(params[:page])
         end
 
         # Renders a form for a new presentation attachment type.

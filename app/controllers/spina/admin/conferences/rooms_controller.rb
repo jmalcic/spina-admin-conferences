@@ -17,7 +17,7 @@ module Spina
         # Renders a list of rooms.
         # @return [void]
         def index
-          @rooms = Room.sorted
+          @rooms = Room.sorted.page(params[:page])
         end
 
         # Renders a form for a new room.

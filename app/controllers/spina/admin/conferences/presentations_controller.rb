@@ -16,7 +16,7 @@ module Spina
         # Renders a list of presentations.
         # @return [void]
         def index
-          @presentations = Presentation.sorted
+          @presentations = Presentation.sorted.page(params[:page])
         end
 
         # Renders a form for a new presentation.

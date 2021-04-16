@@ -15,7 +15,7 @@ module Spina
         # Renders a list of institutions.
         # @return [void]
         def index
-          @institutions = Institution.sorted
+          @institutions = Institution.sorted.page(params[:page])
         end
 
         # Renders a form for a new institution.
