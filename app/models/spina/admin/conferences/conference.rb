@@ -70,6 +70,26 @@ module Spina
         validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
 
+        # @return [Array<TZInfo::TimezonePeriod>] the time zone periods for the conferences
+        def self.time_zone_periods
+          pluck(:dates).compact.collect(&:begin).collect(&:at_beginning_of_day).collect(&:period)
+        end
+
+        # @return [String] a set of conferences as an iCalendar
+        def self.to_ics
+          Rails.cache.fetch [all, 'calendar'] do
+            calendar = Icalendar::Calendar.new
+            calendar.x_wr_calname = (Current.account || Spina::Account.first).name
+            calendar.add_timezone(ical_timezone)
+            all.in_batches.each_record do |conference|
+              Rails.cache.fetch([conference, 'event']) { conference.to_event }
+                         .then { |event| calendar.add_event(event) }
+            end
+            calendar.publish
+            calendar.to_ical
+          end
+        end
+
         # @return [Date, nil] the start date of the conference. Nil if the conference has no dates
         def start_date
           return if dates.blank?
