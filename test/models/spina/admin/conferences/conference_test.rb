@@ -122,6 +122,16 @@ module Spina
           assert_not_empty @conference.presentation_types.last.errors
         end
 
+        test 'conferences return time zone periods' do
+          assert_kind_of Array, Conference.time_zone_periods
+          assert_kind_of Array, Conference.none.time_zone_periods
+        end
+
+        test 'conferences return an iCal calendar' do
+          assert_kind_of String, Conference.to_ics
+          assert_kind_of String, Conference.none.to_ics
+        end
+
         test 'conference returns a start date' do
           assert_equal @conference.dates.min, @conference.start_date
           assert_nil @new_conference.start_date
@@ -187,8 +197,16 @@ module Spina
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @conference.to_event
           assert_instance_of Icalendar::Event, @new_conference.to_event
-          assert_instance_of Icalendar::Event, @conference.to_ics
-          assert_instance_of Icalendar::Event, @new_conference.to_ics
+        end
+
+        test 'returns a time zone period' do
+          assert_kind_of TZInfo::TimezonePeriod, @conference.time_zone_period
+          assert_nil @new_conference.time_zone_period
+        end
+
+        test 'returns an iCal calendar' do
+          assert_kind_of String, @conference.to_ics
+          assert_nil @new_conference.to_ics
         end
 
         test 'finish date saved correctly' do

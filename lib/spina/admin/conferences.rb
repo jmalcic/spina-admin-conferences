@@ -7,6 +7,7 @@ require 'rails-i18n'
 require 'stimulus-rails'
 require 'turbo-rails'
 require 'icalendar'
+require 'icalendar/tzinfo'
 
 # Spina content management system.
 # @see https://www.spinacms.com Spina website

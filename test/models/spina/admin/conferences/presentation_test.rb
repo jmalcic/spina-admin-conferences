@@ -24,13 +24,13 @@ module Spina
         end
 
         test 'translates abstract' do
-          @presentation.title = 'foo'
+          @presentation.abstract = 'foo'
           I18n.locale = :ja
-          assert_equal 'foo', @presentation.title
-          @presentation.title = 'bar'
-          assert_equal 'bar', @presentation.title
+          assert_equal 'foo', @presentation.abstract.to_plain_text
+          @presentation.abstract = 'bar'
+          assert_equal 'bar', @presentation.abstract.to_plain_text
           I18n.locale = I18n.default_locale
-          assert_equal 'foo', @presentation.title
+          assert_equal 'foo', @presentation.abstract.to_plain_text
         end
 
         test 'presentations have sorted scope' do
@@ -170,11 +170,19 @@ module Spina
           assert_nil @new_presentation.start_time
         end
 
+        test 'returns finish datetime' do
+          assert_equal @presentation.start_datetime + @presentation.presentation_type.duration, @presentation.finish_datetime
+          assert_nil @new_presentation.finish_datetime
+        end
+
+        test 'returns a time zone period' do
+          assert_kind_of TZInfo::TimezonePeriod, @presentation.time_zone_period
+          assert_nil @new_presentation.time_zone_period
+        end
+
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @presentation.to_event
           assert_instance_of Icalendar::Event, @new_presentation.to_event
-          assert_instance_of Icalendar::Event, @presentation.to_ics
-          assert_instance_of Icalendar::Event, @new_presentation.to_ics
         end
       end
     end

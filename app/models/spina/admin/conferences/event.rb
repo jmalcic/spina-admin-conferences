@@ -20,14 +20,15 @@ module Spina
         # @!attribute [rw] name
         #   @return [String, nil] the translated name of the event
         # @!attribute [rw] description
-        #   @return [String, nil] the translated description of the event
+        #   @return [ActionText::RichText, nil] the translated description of the event
         # @!attribute [rw] start_datetime
         #   @return [ActiveSupport::TimeWithZone, nil] the start time of the event
         # @!attribute [rw] finish_datetime
         #   @return [ActiveSupport::TimeWithZone, nil] the finish time of the event
         # @!attribute [rw] location
         #   @return [String, nil] the translated location of the event
-        translates :name, :description, :location, fallbacks: true
+        translates :name, :location, fallbacks: true
+        translates :description, backend: :action_text, fallbacks: true
 
         # @return [ActiveRecord::Relation] all events, ordered by name
         scope :sorted, -> { i18n.order :name }
@@ -56,26 +57,27 @@ module Spina
           start_datetime.to_date
         end
 
+        # @return [TZInfo::TimezonePeriod, nil] the time zone period for the event
+        def time_zone_period
+          return if start_datetime.blank?
+
+          start_datetime.period
+        end
+
         # @return [Icalendar::Event] the event as an iCal event
         def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
-          event.dtstart = start_datetime
-          event.dtend = finish_datetime
+          event.dtstart = Icalendar::Values::DateTime.new(start_datetime, tzid: start_datetime.time_zone.tzinfo.name)
+          event.dtend = Icalendar::Values::DateTime.new(finish_datetime, tzid: start_datetime.time_zone.tzinfo.name)
           event.location = location
           event.contact = Spina::Account.first.email
           event.categories = Event.model_name.human(count: 0)
           event.summary = name
-          event.append_custom_property('alt_description', description.try(:html_safe))
-          event.description = description.try(:gsub, %r{</?[^>]*>}, '')
+          event.append_custom_property('alt_description', description.to_s)
+          event.description = description.try(:to_plain_text)
           event
-        end
-
-        # @param (see #to_event)
-        # @deprecated Use {#to_event} instead
-        def to_ics
-          to_event
         end
       end
     end

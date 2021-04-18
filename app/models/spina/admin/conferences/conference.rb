@@ -12,7 +12,7 @@ module Spina
       #
       # = Translations
       # - {#name}
-      class Conference < ApplicationRecord
+      class Conference < ApplicationRecord # rubocop:disable Metrics/ClassLength
         include AttrJson::Record
         include AttrJson::NestedAttributes
         include Spina::Partable
@@ -69,6 +69,67 @@ module Spina
 
         validates :name, :start_date, :finish_date, :year, presence: true
         validates :finish_date, 'spina/admin/conferences/finish_date': true, unless: proc { |conference| conference.start_date.blank? }
+
+        class << self
+          # @return [Array<TZInfo::TimezonePeriod>] the time zone periods for the conferences
+          def time_zone_periods
+            pluck(:dates).compact.collect(&:begin).collect(&:at_beginning_of_day).collect(&:period)
+          end
+
+          # @return [String] a set of conferences as an iCalendar
+          def to_ics
+            Rails.cache.fetch [all, 'calendar'] do
+              calendar = Icalendar::Calendar.new
+              calendar.x_wr_calname = (Current.account || Spina::Account.first).name
+              calendar.add_timezone(ical_timezone)
+              conference_events.each { |event| calendar.add_event(event) }
+              calendar.publish
+              calendar.to_ical
+            end
+          end
+
+          private
+
+          def conference_events
+            Rails.cache.fetch [all, 'events'] do
+              all.in_batches.each_record.collect do |conference|
+                Rails.cache.fetch([conference, 'event']) { conference.to_event }
+              end
+            end
+          end
+
+          def ical_timezone
+            Rails.cache.fetch [self, 'time_zone'] do
+              Icalendar::Timezone.new do |timezone|
+                timezone.tzid = Time.zone.name
+                daylight_periods.each { |daylight_period| timezone.add_daylight(daylight_period) }
+                standard_periods.each { |standard_period| timezone.add_daylight(standard_period) }
+              end
+            end
+          end
+
+          def daylight_periods
+            time_zone_periods.select(&:dst?).each do |period|
+              Icalendar::Timezone::Daylight.new do |ical_period|
+                ical_period.tzoffsetfrom = period.offset.ical_offset
+                ical_period.tzoffsetto = period.offset.ical_offset
+                ical_period.tzname = period.abbreviation
+                ical_period.dtstart = period.starts_at.to_datetime
+              end
+            end
+          end
+
+          def standard_periods
+            time_zone_periods.reject(&:dst?).each do |period|
+              Icalendar::Timezone::Standard.new do |ical_period|
+                ical_period.tzoffsetfrom = period.offset.ical_offset
+                ical_period.tzoffsetto = period.offset.ical_offset
+                ical_period.tzname = period.abbreviation
+                ical_period.dtstart = period.starts_at.to_datetime
+              end
+            end
+          end
+        end
 
         # @return [Date, nil] the start date of the conference. Nil if the conference has no dates
         def start_date
@@ -127,10 +188,8 @@ module Spina
           event = Icalendar::Event.new
           return event if invalid?
 
-          event.dtstart = start_date
-          event.dtstart.ical_param(:value, 'DATE')
-          event.dtend = finish_date
-          event.dtend.ical_param(:value, 'DATE')
+          event.dtstart = Icalendar::Values::Date.new(dates.begin)
+          event.dtend = Icalendar::Values::Date.new(dates.exclude_end? ? dates.end : dates.end + 1.day)
           event.location = location
           event.contact = Spina::Account.first.email
           event.categories = Conference.model_name.human(count: 0)
@@ -138,10 +197,71 @@ module Spina
           event
         end
 
-        # @param (see #to_event)
-        # @deprecated Use {#to_event} instead
+        # @return [TZInfo::TimezonePeriod, nil] the time zone period for the conference event
+        def time_zone_period
+          return if start_date.blank?
+
+          start_date.at_beginning_of_day.period
+        end
+
+        # @return [String, nil] the conference as an iCalendar
         def to_ics
-          to_event
+          Rails.cache.fetch [self, presentations, 'calendar'] do
+            calendar = Icalendar::Calendar.new
+            return if invalid?
+
+            calendar.x_wr_calname = name
+            calendar.add_timezone(ical_timezone)
+            eventables_events.each { |event| calendar.add_event(event) }
+            calendar.publish
+            calendar.to_ical
+          end
+        end
+
+        private
+
+        def eventables
+          [self, *events, *presentations]
+        end
+
+        def eventables_events
+          Rails.cache.fetch [self, *presentations, 'events'] do
+            eventables.collect do |eventable|
+              Rails.cache.fetch([eventable, 'event']) { eventable.to_event }
+            end
+          end
+        end
+
+        def ical_timezone
+          Rails.cache.fetch [self, presentations, 'time_zone'] do
+            Icalendar::Timezone.new do |timezone|
+              timezone.tzid = Time.zone.name
+              daylight_periods.each { |daylight_period| timezone.add_daylight(daylight_period) }
+              standard_periods.each { |standard_period| timezone.add_daylight(standard_period) }
+            end
+          end
+        end
+
+        def daylight_periods
+          time_zone_periods.select(&:dst?).each do |period|
+            Icalendar::Timezone::Daylight.new do |ical_period|
+              ical_period.tzoffsetfrom = period.offset.ical_offset
+              ical_period.tzoffsetto = period.offset.ical_offset
+              ical_period.tzname = period.abbreviation
+              ical_period.dtstart = period.starts_at.to_datetime
+            end
+          end
+        end
+
+        def standard_periods
+          time_zone_periods.reject(&:dst?).each do |period|
+            Icalendar::Timezone::Standard.new do |ical_period|
+              ical_period.tzoffsetfrom = period.offset.ical_offset
+              ical_period.tzoffsetto = period.offset.ical_offset
+              ical_period.tzname = period.abbreviation
+              ical_period.dtstart = period.starts_at.to_datetime
+            end
+          end
         end
       end
     end

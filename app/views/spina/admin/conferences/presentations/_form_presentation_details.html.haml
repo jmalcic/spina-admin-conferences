@@ -23,8 +23,7 @@
   .page-form-group
     .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :abstract
     .page-form-content
-      .page-form-rich-text
-        = render 'spina/admin/shared/rich_text_field', f: f, field: :abstract
+      .page-form-rich-text= f.rich_text_area :abstract
 
   .page-form-group
     .page-form-label= Spina::Admin::Conferences::Presentation.human_attribute_name :presenters

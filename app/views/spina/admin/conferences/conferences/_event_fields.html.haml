@@ -22,8 +22,7 @@
   .structure-form-part
     .page-form-label= Spina::Admin::Conferences::Event.human_attribute_name :description
     .page-form-content
-      .page-form-rich-text
-        = render 'spina/admin/shared/rich_text_field', f: f, field: :description
+      .page-form-rich-text= f.rich_text_area :description
 
   = f.hidden_field :id
 

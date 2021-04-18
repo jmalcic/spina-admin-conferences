@@ -28,8 +28,9 @@ module Spina
         # @!attribute [rw] title
         #   @return [String, nil] the presentation title
         # @!attribute [rw] abstract
-        #   @return [String, nil] the presentation abstract
-        translates :title, :abstract, fallbacks: true
+        #   @return [ActionText::RichText, nil] the presentation abstract
+        translates :title, fallbacks: true
+        translates :abstract, backend: :action_text, fallbacks: true
 
         # @return [ActiveRecord::Relation] all conferences, ordered by date
         scope :sorted, -> { order start_datetime: :desc }
@@ -98,26 +99,34 @@ module Spina
           start_datetime.to_date
         end
 
+        # @return [ActiveSupport::TimeWithZone, nil] the presentation end time. Nil if the presentation has no start date and time
+        def finish_datetime
+          return if start_datetime.blank?
+
+          start_datetime + presentation_type.duration
+        end
+
+        # @return [TZInfo::TimezonePeriod, nil] the time zone period for the presentation
+        def time_zone_period
+          return if start_datetime.blank?
+
+          start_datetime.period
+        end
+
         # @return [Icalendar::Event] the presentation as an iCal event
         def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
-          event.dtstart = start_datetime
-          event.dtend = start_datetime + presentation_type.duration
+          event.dtstart = Icalendar::Values::DateTime.new(start_datetime, tzid: start_datetime.time_zone.tzinfo.name)
+          event.dtend = Icalendar::Values::DateTime.new(finish_datetime, tzid: finish_datetime.time_zone.tzinfo.name)
           event.location = session.room_name
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)
           event.summary = title
-          event.append_custom_property('alt_description', abstract.try(:html_safe))
-          event.description = abstract.try(:gsub, %r{</?[^>]*>}, '')
+          event.append_custom_property('alt_description', abstract.to_s)
+          event.description = abstract.try(:to_plain_text)
           event
-        end
-
-        # @param (see #to_event)
-        # @deprecated Use {#to_event} instead
-        def to_ics
-          to_event
         end
       end
     end
