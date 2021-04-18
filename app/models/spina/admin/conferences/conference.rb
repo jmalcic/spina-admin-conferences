@@ -137,12 +137,6 @@ module Spina
           event.summary = name
           event
         end
-
-        # @param (see #to_event)
-        # @deprecated Use {#to_event} instead
-        def to_ics
-          to_event
-        end
       end
     end
   end

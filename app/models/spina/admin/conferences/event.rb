@@ -71,12 +71,6 @@ module Spina
           event.description = description.try(:gsub, %r{</?[^>]*>}, '')
           event
         end
-
-        # @param (see #to_event)
-        # @deprecated Use {#to_event} instead
-        def to_ics
-          to_event
-        end
       end
     end
   end
