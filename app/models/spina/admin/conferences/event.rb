@@ -56,6 +56,13 @@ module Spina
           start_datetime.to_date
         end
 
+        # @return [TZInfo::TimezonePeriod, nil] the time zone period for the event
+        def time_zone_period
+          return if start_datetime.blank?
+
+          start_datetime.period
+        end
+
         # @return [Icalendar::Event] the event as an iCal event
         def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new

@@ -137,6 +137,68 @@ module Spina
           event.summary = name
           event
         end
+
+        # @return [TZInfo::TimezonePeriod, nil] the time zone period for the conference event
+        def time_zone_period
+          return if start_date.blank?
+
+          start_date.at_beginning_of_day.period
+        end
+
+        # @return [String, nil] the conference as an iCalendar
+        def to_ics
+          Rails.cache.fetch [self, presentations, 'calendar'] do
+            calendar = Icalendar::Calendar.new
+            return if invalid?
+
+            calendar.x_wr_calname = name
+            calendar.add_timezone(ical_timezone)
+            eventables.each do |eventable|
+              Rails.cache.fetch([eventable, 'event']) { eventable.to_event }
+                         .then { |event| calendar.add_event(event) }
+            end
+            calendar.publish
+            calendar.to_ical
+          end
+        end
+
+        private
+
+        def self.ical_timezone
+          Rails.cache.fetch [self, 'time_zone'] do
+            Icalendar::Timezone.new do |timezone|
+              timezone.tzid = Time.zone.name
+              time_zone_periods.each do |period|
+                timezone.send(period.dst? ? :daylight : :standard) do |daylight|
+                  daylight.tzoffsetfrom = period.offset.ical_offset
+                  daylight.tzoffsetto = period.offset.ical_offset
+                  daylight.tzname = period.abbreviation
+                  daylight.dtstart = period.start_transition.at.utc.to_datetime
+                end
+              end
+            end
+          end
+        end
+
+        def eventables
+          [self, *events, *presentations]
+        end
+
+        def ical_timezone
+          Rails.cache.fetch [self, presentations, 'time_zone'] do
+            Icalendar::Timezone.new do |timezone|
+              timezone.tzid = Time.zone.name
+              eventables.collect(&:time_zone_period).uniq.each do |period|
+                timezone.send(period.dst? ? :daylight : :standard) do |daylight|
+                  daylight.tzoffsetfrom = period.offset.ical_offset
+                  daylight.tzoffsetto = period.offset.ical_offset
+                  daylight.tzname = period.abbreviation
+                  daylight.dtstart = period.start_transition.at.utc.to_datetime
+                end
+              end
+            end
+          end
+        end
       end
     end
   end

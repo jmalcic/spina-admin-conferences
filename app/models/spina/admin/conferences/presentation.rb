@@ -105,6 +105,13 @@ module Spina
           start_datetime + presentation_type.duration
         end
 
+        # @return [TZInfo::TimezonePeriod, nil] the time zone period for the presentation
+        def time_zone_period
+          return if start_datetime.blank?
+
+          start_datetime.period
+        end
+
         # @return [Icalendar::Event] the presentation as an iCal event
         def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new

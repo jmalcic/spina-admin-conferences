@@ -175,6 +175,11 @@ module Spina
           assert_nil @new_presentation.finish_datetime
         end
 
+        test 'returns a time zone period' do
+          assert_kind_of TZInfo::TimezonePeriod, @presentation.time_zone_period
+          assert_nil @new_presentation.time_zone_period
+        end
+
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @presentation.to_event
           assert_instance_of Icalendar::Event, @new_presentation.to_event
