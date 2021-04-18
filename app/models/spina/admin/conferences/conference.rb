@@ -147,10 +147,8 @@ module Spina
           event = Icalendar::Event.new
           return event if invalid?
 
-          event.dtstart = start_date
-          event.dtstart.ical_param(:value, 'DATE')
-          event.dtend = finish_date
-          event.dtend.ical_param(:value, 'DATE')
+          event.dtstart = Icalendar::Values::Date.new(dates.begin)
+          event.dtend = Icalendar::Values::Date.new(dates.exclude_end? ? dates.end : dates.end + 1.day)
           event.location = location
           event.contact = Spina::Account.first.email
           event.categories = Conference.model_name.human(count: 0)
