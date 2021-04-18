@@ -98,13 +98,20 @@ module Spina
           start_datetime.to_date
         end
 
+        # @return [ActiveSupport::TimeWithZone, nil] the presentation end time. Nil if the presentation has no start date and time
+        def finish_datetime
+          return if start_datetime.blank?
+
+          start_datetime + presentation_type.duration
+        end
+
         # @return [Icalendar::Event] the presentation as an iCal event
         def to_event # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           event = Icalendar::Event.new
           return event if invalid?
 
           event.dtstart = start_datetime
-          event.dtend = start_datetime + presentation_type.duration
+          event.dtend = finish_datetime
           event.location = session.room_name
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)

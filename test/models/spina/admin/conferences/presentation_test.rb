@@ -170,6 +170,11 @@ module Spina
           assert_nil @new_presentation.start_time
         end
 
+        test 'returns finish datetime' do
+          assert_equal @presentation.start_datetime + @presentation.presentation_type.duration, @presentation.finish_datetime
+          assert_nil @new_presentation.finish_datetime
+        end
+
         test 'returns an iCal event' do
           assert_instance_of Icalendar::Event, @presentation.to_event
           assert_instance_of Icalendar::Event, @new_presentation.to_event
