@@ -117,8 +117,8 @@ module Spina
           event = Icalendar::Event.new
           return event if invalid?
 
-          event.dtstart = start_datetime
-          event.dtend = finish_datetime
+          event.dtstart = Icalendar::Values::DateTime.new(start_datetime, tzid: start_datetime.time_zone.tzinfo.name)
+          event.dtend = Icalendar::Values::DateTime.new(finish_datetime, tzid: finish_datetime.time_zone.tzinfo.name)
           event.location = session.room_name
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)

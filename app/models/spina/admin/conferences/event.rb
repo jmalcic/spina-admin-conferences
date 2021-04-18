@@ -68,8 +68,8 @@ module Spina
           event = Icalendar::Event.new
           return event if invalid?
 
-          event.dtstart = start_datetime
-          event.dtend = finish_datetime
+          event.dtstart = Icalendar::Values::DateTime.new(start_datetime, tzid: start_datetime.time_zone.tzinfo.name)
+          event.dtend = Icalendar::Values::DateTime.new(finish_datetime, tzid: start_datetime.time_zone.tzinfo.name)
           event.location = location
           event.contact = Spina::Account.first.email
           event.categories = Event.model_name.human(count: 0)
