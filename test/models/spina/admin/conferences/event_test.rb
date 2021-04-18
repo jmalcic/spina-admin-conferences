@@ -34,11 +34,11 @@ module Spina
         test 'translates description' do
           @event.description = 'foo'
           I18n.locale = :ja
-          assert_equal 'foo', @event.description
+          assert_equal 'foo', @event.description.to_plain_text
           @event.description = 'bar'
-          assert_equal 'bar', @event.description
+          assert_equal 'bar', @event.description.to_plain_text
           I18n.locale = I18n.default_locale
-          assert_equal 'foo', @event.description
+          assert_equal 'foo', @event.description.to_plain_text
         end
 
         test 'events have sorted scope' do

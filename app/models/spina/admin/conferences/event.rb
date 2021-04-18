@@ -20,14 +20,15 @@ module Spina
         # @!attribute [rw] name
         #   @return [String, nil] the translated name of the event
         # @!attribute [rw] description
-        #   @return [String, nil] the translated description of the event
+        #   @return [ActionText::RichText, nil] the translated description of the event
         # @!attribute [rw] start_datetime
         #   @return [ActiveSupport::TimeWithZone, nil] the start time of the event
         # @!attribute [rw] finish_datetime
         #   @return [ActiveSupport::TimeWithZone, nil] the finish time of the event
         # @!attribute [rw] location
         #   @return [String, nil] the translated location of the event
-        translates :name, :description, :location, fallbacks: true
+        translates :name, :location, fallbacks: true
+        translates :description, backend: :action_text, fallbacks: true
 
         # @return [ActiveRecord::Relation] all events, ordered by name
         scope :sorted, -> { i18n.order :name }
@@ -74,8 +75,8 @@ module Spina
           event.contact = Spina::Account.first.email
           event.categories = Event.model_name.human(count: 0)
           event.summary = name
-          event.append_custom_property('alt_description', description.try(:html_safe))
-          event.description = description.try(:gsub, %r{</?[^>]*>}, '')
+          event.append_custom_property('alt_description', description.to_s)
+          event.description = description.try(:to_plain_text)
           event
         end
       end

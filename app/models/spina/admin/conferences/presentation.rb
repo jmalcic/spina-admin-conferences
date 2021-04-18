@@ -28,8 +28,9 @@ module Spina
         # @!attribute [rw] title
         #   @return [String, nil] the presentation title
         # @!attribute [rw] abstract
-        #   @return [String, nil] the presentation abstract
-        translates :title, :abstract, fallbacks: true
+        #   @return [ActionText::RichText, nil] the presentation abstract
+        translates :title, fallbacks: true
+        translates :abstract, backend: :action_text, fallbacks: true
 
         # @return [ActiveRecord::Relation] all conferences, ordered by date
         scope :sorted, -> { order start_datetime: :desc }
@@ -123,8 +124,8 @@ module Spina
           presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)
           event.summary = title
-          event.append_custom_property('alt_description', abstract.try(:html_safe))
-          event.description = abstract.try(:gsub, %r{</?[^>]*>}, '')
+          event.append_custom_property('alt_description', abstract.to_s)
+          event.description = abstract.try(:to_plain_text)
           event
         end
       end

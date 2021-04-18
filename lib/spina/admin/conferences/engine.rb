@@ -20,7 +20,10 @@ module Spina
           Spina::Part.register(Spina::Parts::Admin::Conferences::EmailAddress)
           Spina::Part.register(Spina::Parts::Admin::Conferences::Time)
           Spina::Part.register(Spina::Parts::Admin::Conferences::Url)
+        end
 
+        config.to_prepare do
+          require 'mobility/action_text'
         end
       end
     end

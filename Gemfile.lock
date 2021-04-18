@@ -3,6 +3,7 @@ PATH
   specs:
     spina-admin-conferences (2.0.1)
       icalendar (~> 2.5)
+      mobility-actiontext (= 0.2.0)
       rails (~> 6.0)
       rails-i18n (~> 6.0)
       redis (~> 4.2)
@@ -180,6 +181,9 @@ GEM
     mobility (1.1.1)
       i18n (>= 0.6.10, < 2)
       request_store (~> 1.0)
+    mobility-actiontext (0.2.0)
+      mobility (~> 1.1)
+      rails (~> 6.0)
     nio4r (2.5.7)
     nokogiri (1.11.2)
       mini_portile2 (~> 2.5.0)

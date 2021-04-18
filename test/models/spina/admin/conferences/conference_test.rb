@@ -199,6 +199,16 @@ module Spina
           assert_instance_of Icalendar::Event, @new_conference.to_event
         end
 
+        test 'returns a time zone period' do
+          assert_kind_of TZInfo::TimezonePeriod, @conference.time_zone_period
+          assert_nil @new_conference.time_zone_period
+        end
+
+        test 'returns an iCal calendar' do
+          assert_kind_of String, @conference.to_ics
+          assert_nil @new_conference.to_ics
+        end
+
         test 'finish date saved correctly' do
           assert_changes '@conference.finish_date', to: @conference.finish_date + 1.day do
             @conference.finish_date = (@conference.finish_date + 1.day).iso8601
