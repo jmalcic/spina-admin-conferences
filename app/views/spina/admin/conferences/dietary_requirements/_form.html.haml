@@ -21,5 +21,6 @@
 
   = hidden_field_tag :locale, @locale
 
-  #dietary_requirement_details.tab-content.active= render 'form_dietary_requirement_details', f: f
-  #delegates.tab-content= render partial: 'delegates', object: @dietary_requirement.delegates
+  - Mobility.with_locale(@locale) do
+    #dietary_requirement_details.tab-content.active= render 'form_dietary_requirement_details', f: f
+    #delegates.tab-content= render partial: 'delegates', object: @dietary_requirement.delegates

@@ -15,11 +15,12 @@
 
   = hidden_field_tag :locale, @locale
 
-  %div{ style: 'margin-top: 40px' }
-    .horizontal-form
-      .horizontal-form-group
-        .horizontal-form-label= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
-        .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::DietaryRequirement.human_attribute_name(:name), required: true
+  - Mobility.with_locale(@locale) do
+    %div{ style: 'margin-top: 40px' }
+      .horizontal-form
+        .horizontal-form-group
+          .horizontal-form-label= Spina::Admin::Conferences::DietaryRequirement.human_attribute_name :name
+          .horizontal-form-content= f.text_field :name, placeholder: Spina::Admin::Conferences::DietaryRequirement.human_attribute_name(:name), required: true
 
   - unless @presentation_attachment_type.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_conferences_presentation_attachment_type_path(@presentation_attachment_type), method: :delete, data: { confirm: t('.delete_confirmation', presentation_attachment_type: @presentation_attachment_type.name) }, class: %w[button button-link button-danger]

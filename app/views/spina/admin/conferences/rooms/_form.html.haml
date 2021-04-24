@@ -21,5 +21,6 @@
 
   = hidden_field_tag :locale, @locale
 
-  #room_details.tab-content.active= render 'form_room_details', f: f
-  #presentations.tab-content= render partial: 'presentations', object: @room.presentations
+  - Mobility.with_locale(@locale) do
+    #room_details.tab-content.active= render 'form_room_details', f: f
+    #presentations.tab-content= render partial: 'presentations', object: @room.presentations
