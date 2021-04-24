@@ -37,6 +37,14 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_dietary_requirement_url(@dietary_requirement, locale: :en)
+          assert_response :success
+          assert_select('#delegates tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create dietary requirement' do
           attributes = @dietary_requirement.attributes
           attributes[:name] = @dietary_requirement.name
@@ -111,6 +119,15 @@ module Spina
                 params: { dietary_requirement: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
+        end
+
+        test 'should update dietary requirement in locale' do
+          attributes = @dietary_requirement.attributes
+          attributes[:name] = @dietary_requirement.name
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
+                params: { dietary_requirement: attributes, locale: :en }
+          assert_redirected_to admin_conferences_dietary_requirements_url
+          assert_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should destroy dietary requirement' do

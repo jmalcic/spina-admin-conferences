@@ -44,6 +44,17 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_presentation_type_url(@presentation_type, locale: :en)
+          assert_response :success
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select('#sessions tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create presentation type' do
           attributes = @presentation_type.attributes
           attributes[:minutes] = @presentation_type.minutes
@@ -124,6 +135,15 @@ module Spina
                 params: { presentation_type: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
+        end
+
+        test 'should update presentation type in locale' do
+          attributes = @presentation_type.attributes
+          attributes[:minutes] = @presentation_type.minutes
+          attributes[:name] = @presentation_type.name
+          patch admin_conferences_presentation_type_url(@presentation_type), params: { presentation_type: attributes, locale: :en }
+          assert_redirected_to admin_conferences_presentation_types_url
+          assert_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should destroy presentation type' do

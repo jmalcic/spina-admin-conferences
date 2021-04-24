@@ -64,6 +64,28 @@ module Spina
           Percy.snapshot page, name: 'Sessions index on update'
         end
 
+        test 'updating a session in a locale' do
+          visit admin_conferences_sessions_path
+          within "tr[data-session-id=\"#{@session.id}\"]" do
+            click_on 'Edit'
+          end
+          assert_selector '.breadcrumbs' do
+            assert_text @session.name
+          end
+          click_link 'British English'
+          click_link 'English'
+          Percy.snapshot page, name: 'Sessions form on update in locale'
+          fill_in 'session_name', with: @session.name
+          select @session.conference.name, from: 'conference_id'
+          select @session.presentation_type.name, from: 'session_presentation_type_id'
+          select @session.institution.name, from: 'institution_id'
+          select @session.room.name, from: 'session_room_id'
+          click_on 'Save session'
+          assert_current_path admin_conferences_sessions_path
+          assert_text 'Session saved'
+          Percy.snapshot page, name: 'Sessions index on update in locale'
+        end
+
         test 'destroying a session' do
           visit admin_conferences_sessions_path
           within "tr[data-session-id=\"#{@empty_session.id}\"]" do

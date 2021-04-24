@@ -36,6 +36,14 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_presentation_url(@presentation, locale: :en)
+          assert_response :success
+          assert_select('#presenters tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create presentation' do
           attributes = @presentation.attributes
           attributes[:session_id] = @presentation.session_id
@@ -139,6 +147,18 @@ module Spina
           patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
+        end
+
+        test 'should update presentation in locale' do
+          attributes = @presentation.attributes
+          attributes[:presenter_ids] = @presentation.presenter_ids
+          attributes[:start_time] = @presentation.start_time
+          attributes[:date] = @presentation.date
+          attributes[:title] = @presentation.title
+          attributes[:abstract] = @presentation.abstract
+          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes, locale: :en }
+          assert_redirected_to admin_conferences_presentations_url
+          assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should destroy presentation' do

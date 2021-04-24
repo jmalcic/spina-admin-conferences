@@ -65,6 +65,29 @@ module Spina
           Percy.snapshot page, name: 'Delegates index on update'
         end
 
+        test 'updating a delegate in a locale' do
+          visit admin_conferences_delegates_path
+          within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
+            click_on 'Edit'
+          end
+          assert_selector '.breadcrumbs' do
+            assert_text @delegate.full_name
+          end
+          click_link 'British English'
+          click_link 'English'
+          Percy.snapshot page, name: 'Delegates form on update in locale'
+          fill_in 'delegate_first_name', with: @delegate.first_name
+          fill_in 'delegate_last_name', with: @delegate.last_name
+          select @delegate.institution.name, from: 'delegate_institution_id'
+          fill_in 'delegate_email_address', with: @delegate.email_address
+          fill_in 'delegate_url', with: @delegate.url
+          @delegate.conferences.each { |conference| check conference.name, allow_label_click: true }
+          click_on 'Save delegate'
+          assert_current_path admin_conferences_delegates_path
+          assert_text 'Delegate saved'
+          Percy.snapshot page, name: 'Delegates index on update in locale'
+        end
+
         test 'destroying a delegate' do
           visit admin_conferences_delegates_path
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do

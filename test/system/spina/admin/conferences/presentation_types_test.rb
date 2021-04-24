@@ -60,6 +60,26 @@ module Spina
           Percy.snapshot page, name: 'Presentation types index on update'
         end
 
+        test 'updating a presentation type in a locale' do
+          visit admin_conferences_presentation_types_path
+          within "tr[data-presentation-type-id=\"#{@presentation_type.id}\"]" do
+            click_on 'Edit'
+          end
+          assert_selector '.breadcrumbs' do
+            assert_text @presentation_type.name
+          end
+          click_link 'British English'
+          click_link 'English'
+          Percy.snapshot page, name: 'Presentation types form on update in locale'
+          select @presentation_type.conference.name, from: 'presentation_type_conference_id'
+          fill_in 'presentation_type_name', with: @presentation_type.name
+          fill_in 'presentation_type_minutes', with: @presentation_type.minutes
+          click_on 'Save presentation type'
+          assert_current_path admin_conferences_presentation_types_path
+          assert_text 'Presentation type saved'
+          Percy.snapshot page, name: 'Presentation types index on update in locale'
+        end
+
         test 'destroying a presentation type' do
           visit admin_conferences_presentation_types_path
           within "tr[data-presentation-type-id=\"#{@empty_presentation_type.id}\"]" do

@@ -37,6 +37,14 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_session_url(@session, locale: :en)
+          assert_response :success
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create session' do
           attributes = @session.attributes
           attributes[:name] = @session.name
@@ -107,6 +115,14 @@ module Spina
           patch admin_conferences_session_url(@session), params: { session: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
+        end
+
+        test 'should update session in locale' do
+          attributes = @session.attributes
+          attributes[:name] = @session.name
+          patch admin_conferences_session_url(@session), params: { session: attributes, locale: :en }
+          assert_redirected_to admin_conferences_sessions_url
+          assert_equal 'Session saved', flash[:success]
         end
 
         test 'should destroy session' do

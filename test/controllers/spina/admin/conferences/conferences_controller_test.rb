@@ -57,6 +57,23 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_conference_url(@conference, locale: :en)
+          assert_response :success
+          assert_select('#delegates tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select '#presentation_types tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select('#rooms tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create conference' do
           attributes = @conference.attributes
           attributes[:start_date] = @conference.start_date
@@ -143,6 +160,16 @@ module Spina
           patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
+        end
+
+        test 'should update conference in locale' do
+          attributes = @conference.attributes
+          attributes[:start_date] = @conference.start_date
+          attributes[:finish_date] = @conference.finish_date
+          attributes[:name] = @conference.name
+          patch admin_conferences_conference_url(@conference), params: { conference: attributes, locale: :en }
+          assert_redirected_to admin_conferences_conferences_url
+          assert_equal 'Conference saved', flash[:success]
         end
 
         test 'should destroy conference' do

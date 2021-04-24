@@ -31,6 +31,11 @@ module Spina
           assert_response :success
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_presentation_attachment_type_url(@presentation_attachment_type, locale: :en)
+          assert_response :success
+        end
+
         test 'should create presentation attachment type' do
           attributes = @presentation_attachment_type.attributes
           attributes[:name] = @presentation_attachment_type.name
@@ -107,6 +112,15 @@ module Spina
                 params: { presentation_attachment_type: attributes }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
+        end
+
+        test 'should update presentation attachment type in locale' do
+          attributes = @presentation_attachment_type.attributes
+          attributes[:name] = @presentation_attachment_type.name
+          patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
+                params: { presentation_attachment_type: attributes, locale: :en }
+          assert_redirected_to admin_conferences_presentation_attachment_types_url
+          assert_equal 'Presentation attachment type saved', flash[:success]
         end
 
         test 'should destroy presentation attachment type' do

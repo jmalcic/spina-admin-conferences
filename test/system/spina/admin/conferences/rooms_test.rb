@@ -60,6 +60,26 @@ module Spina
           Percy.snapshot page, name: 'Rooms index on update'
         end
 
+        test 'updating a room in a locale' do
+          visit admin_conferences_rooms_path
+          within "tr[data-room-id=\"#{@room.id}\"]" do
+            click_on 'Edit'
+          end
+          assert_selector '.breadcrumbs' do
+            assert_text @room.name
+          end
+          click_link 'British English'
+          click_link 'English'
+          Percy.snapshot page, name: 'Rooms form on update in locale'
+          select @room.institution.name, from: 'room_institution_id'
+          fill_in 'room_building', with: @room.building
+          fill_in 'room_number', with: @room.number
+          click_on 'Save room'
+          assert_current_path admin_conferences_rooms_path
+          assert_text 'Room saved'
+          Percy.snapshot page, name: 'Rooms index on update in locale'
+        end
+
         test 'destroying a room' do
           visit admin_conferences_rooms_path
           within "tr[data-room-id=\"#{@empty_room.id}\"]" do

@@ -55,6 +55,24 @@ module Spina
           Percy.snapshot page, name: 'Presentation attachment types index on update'
         end
 
+        test 'updating a presentation attachment type in a locale' do
+          visit admin_conferences_presentation_attachment_types_path
+          within "tr[data-presentation-attachment-type-id=\"#{@presentation_attachment_type.id}\"]" do
+            click_on 'Edit'
+          end
+          assert_selector '.breadcrumbs' do
+            assert_text @presentation_attachment_type.name
+          end
+          click_link 'British English'
+          click_link 'English'
+          Percy.snapshot page, name: 'Presentation attachment types form on update in locale'
+          fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
+          click_on 'Save presentation attachment type'
+          assert_current_path admin_conferences_presentation_attachment_types_path
+          assert_text 'Presentation attachment type saved'
+          Percy.snapshot page, name: 'Presentation attachment types index on update in locale'
+        end
+
         test 'destroying a presentation attachment type' do
           visit admin_conferences_presentation_attachment_types_path
           within "tr[data-presentation-attachment-type-id=\"#{@presentation_attachment_type.id}\"]" do

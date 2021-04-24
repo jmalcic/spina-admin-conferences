@@ -55,6 +55,24 @@ module Spina
           Percy.snapshot page, name: 'Dietary requirements index on update'
         end
 
+        test 'updating a dietary requirement in a locale' do
+          visit admin_conferences_dietary_requirements_path
+          within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
+            click_on 'Edit'
+          end
+          assert_selector '.breadcrumbs' do
+            assert_text @dietary_requirement.name
+          end
+          click_link 'British English'
+          click_link 'English'
+          Percy.snapshot page, name: 'Dietary requirements form on update in locale'
+          fill_in 'dietary_requirement_name', with: @dietary_requirement.name
+          click_on 'Save dietary requirement'
+          assert_current_path admin_conferences_dietary_requirements_path
+          assert_text 'Dietary requirement saved'
+          Percy.snapshot page, name: 'Dietary requirements index on update in locale'
+        end
+
         test 'destroying a dietary requirement' do
           visit admin_conferences_dietary_requirements_path
           within "tr[data-dietary-requirement-id=\"#{@dietary_requirement.id}\"]" do
