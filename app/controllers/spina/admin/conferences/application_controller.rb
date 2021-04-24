@@ -16,6 +16,7 @@ module Spina
 
         def set_locale
           @locale = params[:locale] || I18n.default_locale
+          Mobility.locale = @locale
         end
       end
     end
