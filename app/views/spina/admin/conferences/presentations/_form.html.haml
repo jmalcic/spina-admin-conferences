@@ -19,5 +19,7 @@
           %li{ class: ('active' if i == 0) }
             = link_to t(".#{tab}"), "##{tab}"
 
+  = hidden_field_tag :locale, @locale
+
   #presentation_details.tab-content.active= render 'form_presentation_details', f: f
   #presenters.tab-content= render partial: 'delegates', object: @presentation.presenters

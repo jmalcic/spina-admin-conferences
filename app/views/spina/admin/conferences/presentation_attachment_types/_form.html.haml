@@ -13,6 +13,8 @@
 
       = link_to t('spina.cancel'), admin_conferences_presentation_attachment_types_path, class: 'button', style: 'margin-right: 0'
 
+  = hidden_field_tag :locale, @locale
+
   %div{ style: 'margin-top: 40px' }
     .horizontal-form
       .horizontal-form-group
