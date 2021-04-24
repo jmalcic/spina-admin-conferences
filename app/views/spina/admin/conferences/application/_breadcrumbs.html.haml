@@ -1,2 +1,16 @@
 .breadcrumbs
   = render_breadcrumbs separator: tag.div(class: 'divider')
+  %span{ style: 'margin-left: 10px' }
+    - if Spina.config.locales.many?
+      %div{ style: 'display: inline-block', data: { dropdown: true } }
+        = link_to '#', class: %w[button button-default button-small], style: 'margin-left: 0; margin-right: 0',
+          data: { trigger: 'dropdown', target: '#locales' } do
+          .button-content
+            = icon('comment')
+            = t "spina.languages.#{@locale}"
+            %i.icon.icon-chevron-down{ style: 'font-size: 9px; margin-right: 0; margin-left: 5px' }
+        %ul#locales
+          - Spina.config.locales.each do |locale|
+            %li
+              = link_to_if @locale.to_s == locale.to_s, t("spina.languages.#{locale}"), "?locale=#{locale}", style: 'font-weight: 600' do
+                = link_to t("spina.languages.#{locale}"), "?locale=#{locale}"
