@@ -4,7 +4,7 @@
 
 = form_for [:admin_conferences, @presentation_attachment_type], html: { autocomplete: 'off' } do |f|
   %header#header
-    = render partial: 'spina/admin/shared/breadcrumbs'
+    = render partial: 'breadcrumbs'
 
     #header_actions
       %button.button.button-primary{ type: 'submit' }
