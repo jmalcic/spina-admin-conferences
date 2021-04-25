@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
-          @invalid_conference = Conference.new
           @empty_conference = spina_admin_conferences_conferences :empty_conference
           @user = spina_users :joe
           @rovinj_image = spina_images(:rovinj)
@@ -77,9 +76,9 @@ module Spina
         test 'should create conference' do
           assert_difference 'Conference.count' do
             post admin_conferences_conferences_url,
-                 params: { conference: @conference.attributes.merge(start_date: @conference.start_date,
-                                                                    finish_date: @conference.finish_date,
-                                                                    name: @conference.name) }
+                 params: { conference: { start_date: Date.parse('2017-04-07'),
+                                         finish_date: Date.parse('2017-04-09'),
+                                         name: 'University of Atlantis 2017' } }
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
@@ -88,9 +87,9 @@ module Spina
         test 'should create conference with remote form' do
           assert_difference 'Conference.count' do
             post admin_conferences_conferences_url,
-                 params: { conference: @conference.attributes.merge(start_date: @conference.start_date,
-                                                                    finish_date: @conference.finish_date,
-                                                                    name: @conference.name) },
+                 params: { conference: { start_date: Date.parse('2017-04-07'),
+                                         finish_date: Date.parse('2017-04-09'),
+                                         name: 'University of Atlantis 2017' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_conferences_url
@@ -99,10 +98,7 @@ module Spina
 
         test 'should fail to create invalid conference' do
           assert_no_difference 'Conference.count' do
-            post admin_conferences_conferences_url,
-                 params: { conference: @invalid_conference.attributes.merge(start_date: @invalid_conference.start_date,
-                                                                            finish_date: @invalid_conference.finish_date,
-                                                                            name: @invalid_conference.name) }
+            post admin_conferences_conferences_url, params: { conference: { start_date: nil, finish_date: nil, name: nil } }
           end
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
@@ -111,9 +107,7 @@ module Spina
         test 'should fail to create invalid conference with remote form' do
           assert_no_difference 'Conference.count' do
             post admin_conferences_conferences_url,
-                 params: { conference: @invalid_conference.attributes.merge(start_date: @invalid_conference.start_date,
-                                                                            finish_date: @invalid_conference.finish_date,
-                                                                            name: @invalid_conference.name) },
+                 params: { conference: { start_date: nil, finish_date: nil, name: nil } },
                  as: :turbo_stream
           end
           assert_response :success
@@ -122,37 +116,32 @@ module Spina
 
         test 'should update conference' do
           patch admin_conferences_conference_url(@conference),
-                params: { conference: @conference.attributes.merge(start_date: @conference.start_date,
-                                                                   finish_date: @conference.finish_date,
-                                                                   name: @conference.name) }
+                params: { conference: { start_date: Date.parse('2017-04-07'),
+                                        finish_date: Date.parse('2017-04-09'),
+                                        name: 'University of Atlantis 2017' } }
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
         end
 
         test 'should update conference with remote form' do
           patch admin_conferences_conference_url(@conference),
-                params: { conference: @conference.attributes.merge(start_date: @conference.start_date,
-                                                                   finish_date: @conference.finish_date,
-                                                                   name: @conference.name) },
+                params: { conference: { start_date: Date.parse('2017-04-07'),
+                                        finish_date: Date.parse('2017-04-09'),
+                                        name: 'University of Atlantis 2017' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
         end
 
         test 'should fail to update invalid conference' do
-          patch admin_conferences_conference_url(@conference),
-                params: { conference: @invalid_conference.attributes.merge(start_date: @invalid_conference.start_date,
-                                                                           finish_date: @invalid_conference.finish_date,
-                                                                           name: @invalid_conference.name) }
+          patch admin_conferences_conference_url(@conference), params: { conference: { start_date: nil, finish_date: nil, name: nil } }
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]
         end
 
         test 'should fail to update invalid conference with remote form' do
           patch admin_conferences_conference_url(@conference),
-                params: { conference: @invalid_conference.attributes.merge(start_date: @invalid_conference.start_date,
-                                                                           finish_date: @invalid_conference.finish_date,
-                                                                           name: @invalid_conference.name) },
+                params: { conference: { start_date: nil, finish_date: nil, name: nil } },
                 as: :turbo_stream
           assert_response :success
           assert_not_equal 'Conference saved', flash[:success]

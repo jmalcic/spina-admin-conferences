@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @session = spina_admin_conferences_sessions :oral_1_lecture_block_2_uoa_2017
-          @invalid_session = Session.new
           @empty_session = spina_admin_conferences_sessions :empty_session
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -47,7 +46,9 @@ module Spina
 
         test 'should create session' do
           assert_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: @session.attributes.merge(name: @session.name) }
+            post admin_conferences_sessions_url, params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
+                                                                      room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
+                                                                      name: 'Orals in Lecture Block 2' } }
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
@@ -55,7 +56,11 @@ module Spina
 
         test 'should create session with remote form' do
           assert_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: @session.attributes.merge(name: @session.name) }, as: :turbo_stream
+            post admin_conferences_sessions_url,
+                 params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
+                                      room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
+                                      name: 'Orals in Lecture Block 2' } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
@@ -63,7 +68,7 @@ module Spina
 
         test 'should fail to create invalid session' do
           assert_no_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }
+            post admin_conferences_sessions_url, params: { session: { presentation_type_id: nil, room_id: nil, name: nil } }
           end
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
@@ -72,34 +77,40 @@ module Spina
         test 'should fail to create invalid session with remote form' do
           assert_no_difference 'Session.count' do
             post admin_conferences_sessions_url,
-                 params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }, as: :turbo_stream
+                 params: { session: { presentation_type_id: nil, room_id: nil, name: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
 
         test 'should update session' do
-          patch admin_conferences_session_url(@session), params: { session: @session.attributes.merge(name: @session.name) }
+          patch admin_conferences_session_url(@session),
+                params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
+                                     room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
+                                     name: 'Orals in Lecture Block 2' } }
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
 
         test 'should update session with remote form' do
           patch admin_conferences_session_url(@session),
-                params: { session: @session.attributes.merge(name: @session.name) }, as: :turbo_stream
+                params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
+                                     room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
+                                     name: 'Orals in Lecture Block 2' } },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
 
         test 'should fail to update invalid session' do
-          patch admin_conferences_session_url(@session), params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }
+          patch admin_conferences_session_url(@session), params: { session: { presentation_type_id: nil, room_id: nil, name: nil } }
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
 
         test 'should fail to update invalid session with remote form' do
           patch admin_conferences_session_url(@session),
-                params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }, as: :turbo_stream
+                params: { session: { presentation_type_id: nil, room_id: nil, name: nil } }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end

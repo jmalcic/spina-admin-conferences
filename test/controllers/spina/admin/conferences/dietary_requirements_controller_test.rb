@@ -11,7 +11,6 @@ module Spina
 
         setup do
           @dietary_requirement = spina_admin_conferences_dietary_requirements :pescetarian
-          @invalid_dietary_requirement = DietaryRequirement.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -47,8 +46,7 @@ module Spina
 
         test 'should create dietary requirement' do
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url,
-                 params: { dietary_requirement: @dietary_requirement.attributes.merge(name: @dietary_requirement.name) }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Pescetarian' } }
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
@@ -56,9 +54,7 @@ module Spina
 
         test 'should create dietary requirement with remote form' do
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url,
-                 params: { dietary_requirement: @dietary_requirement.attributes.merge(name: @dietary_requirement.name) },
-                 as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Pescetarian' } }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
@@ -66,8 +62,7 @@ module Spina
 
         test 'should fail to create invalid dietary requirement' do
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url,
-                 params: { dietary_requirement: @invalid_dietary_requirement.attributes.merge(name: @invalid_dietary_requirement.name) }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: nil } }
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
@@ -75,39 +70,34 @@ module Spina
 
         test 'should fail to create invalid dietary requirement with remote form' do
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url,
-                 params: { dietary_requirement: @invalid_dietary_requirement.attributes.merge(name: @invalid_dietary_requirement.name) },
-                 as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should update dietary requirement' do
-          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: @dietary_requirement.attributes.merge(name: @dietary_requirement.name) }
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: { dietary_requirement: { name: 'Pescetarian' } }
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should update dietary requirement with remote form' do
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: @dietary_requirement.attributes.merge(name: @dietary_requirement.name) }, as: :turbo_stream
+                params: { dietary_requirement: { name: 'Pescetarian' } }, as: :turbo_stream
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to update invalid dietary requirement' do
-          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: @invalid_dietary_requirement.attributes.merge(name: @invalid_dietary_requirement.name) }
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: { dietary_requirement: { name: nil } }
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to update invalid dietary requirement with remote form' do
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: @invalid_dietary_requirement.attributes.merge(name: @invalid_dietary_requirement.name) },
-                as: :turbo_stream
+                params: { dietary_requirement: { name: nil } }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end

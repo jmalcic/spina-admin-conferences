@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
-          @invalid_presentation = Presentation.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -47,11 +46,11 @@ module Spina
         test 'should create presentation' do
           assert_difference 'Presentation.count' do
             post admin_conferences_presentations_url,
-                 params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
-                                                                        start_time: @presentation.start_time,
-                                                                        date: @presentation.date,
-                                                                        title: @presentation.title,
-                                                                        abstract: @presentation.abstract) }
+                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
+                                           start_datetime: DateTime.parse('2017-04-07 10:00'),
+                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
+                                           title: 'The Asymmetry and Antisymmetry of Syntax',
+                                           abstract: 'Lorem ipsum' } }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
@@ -60,11 +59,11 @@ module Spina
         test 'should create presentation with remote form' do
           assert_difference 'Presentation.count' do
             post admin_conferences_presentations_url,
-                 params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
-                                                                        start_time: @presentation.start_time,
-                                                                        date: @presentation.date,
-                                                                        title: @presentation.title,
-                                                                        abstract: @presentation.abstract) },
+                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
+                                           start_datetime: DateTime.parse('2017-04-07 10:00'),
+                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
+                                           title: 'The Asymmetry and Antisymmetry of Syntax',
+                                           abstract: 'Lorem ipsum' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
@@ -74,11 +73,7 @@ module Spina
         test 'should fail to create invalid presentation' do
           assert_no_difference 'Presentation.count' do
             post admin_conferences_presentations_url,
-                 params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
-                                                                                start_time: @invalid_presentation.start_time,
-                                                                                date: @invalid_presentation.date,
-                                                                                title: @invalid_presentation.title,
-                                                                                abstract: @invalid_presentation.abstract) }
+                 params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } }
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
@@ -87,11 +82,7 @@ module Spina
         test 'should fail to create invalid presentation with remote form' do
           assert_no_difference 'Presentation.count' do
             post admin_conferences_presentations_url,
-                 params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
-                                                                                start_time: @invalid_presentation.start_time,
-                                                                                date: @invalid_presentation.date,
-                                                                                title: @invalid_presentation.title,
-                                                                                abstract: @invalid_presentation.abstract) },
+                 params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } },
                  as: :turbo_stream
           end
           assert_response :success
@@ -100,22 +91,22 @@ module Spina
 
         test 'should update presentation' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
-                                                                       start_time: @presentation.start_time,
-                                                                       date: @presentation.date,
-                                                                       title: @presentation.title,
-                                                                       abstract: @presentation.abstract) }
+                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
+                                          start_datetime: DateTime.parse('2017-04-07 10:00'),
+                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
+                                          title: 'The Asymmetry and Antisymmetry of Syntax',
+                                          abstract: 'Lorem ipsum' } }
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should update presentation with remote form' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
-                                                                       start_time: @presentation.start_time,
-                                                                       date: @presentation.date,
-                                                                       title: @presentation.title,
-                                                                       abstract: @presentation.abstract) },
+                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
+                                          start_datetime: DateTime.parse('2017-04-07 10:00'),
+                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
+                                          title: 'The Asymmetry and Antisymmetry of Syntax',
+                                          abstract: 'Lorem ipsum' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
@@ -123,22 +114,14 @@ module Spina
 
         test 'should fail to update invalid presentation' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
-                                                                               start_time: @invalid_presentation.start_time,
-                                                                               date: @invalid_presentation.date,
-                                                                               title: @invalid_presentation.title,
-                                                                               abstract: @invalid_presentation.abstract) }
+                params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } }
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation with remote form' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
-                                                                               start_time: @invalid_presentation.start_time,
-                                                                               date: @invalid_presentation.date,
-                                                                               title: @invalid_presentation.title,
-                                                                               abstract: @invalid_presentation.abstract) },
+                params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } },
                 as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]

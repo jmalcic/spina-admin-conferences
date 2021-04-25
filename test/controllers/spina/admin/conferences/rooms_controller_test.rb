@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @room = spina_admin_conferences_rooms :lecture_block_2
-          @invalid_room = Room.new
           @empty_room = spina_admin_conferences_rooms :empty_room
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -50,7 +49,10 @@ module Spina
           attributes[:building] = @room.building
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }
+            post admin_conferences_rooms_url,
+                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                   building: 'Lecture block',
+                                   number: '2' } }
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
@@ -59,7 +61,10 @@ module Spina
         test 'should create room with remote form' do
           assert_difference 'Room.count' do
             post admin_conferences_rooms_url,
-                 params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }, as: :turbo_stream
+                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                   building: 'Lecture block',
+                                   number: '2' } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
@@ -67,8 +72,7 @@ module Spina
 
         test 'should fail to create invalid room' do
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url,
-                 params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) }
+            post admin_conferences_rooms_url, params: { room: { institution_id: nil, building: nil, number: nil } }
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
@@ -76,38 +80,39 @@ module Spina
 
         test 'should fail to create invalid room with remote form' do
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url,
-                 params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) },
-                 as: :turbo_stream
+            post admin_conferences_rooms_url, params: { room: { institution_id: nil, building: nil, number: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should update room' do
-          patch admin_conferences_room_url(@room), params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }
+          patch admin_conferences_room_url(@room),
+                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                  building: 'Lecture block',
+                                  number: '2' } }
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should update room with remote form' do
           patch admin_conferences_room_url(@room),
-                params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }, as: :turbo_stream
+                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                  building: 'Lecture block',
+                                  number: '2' } },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room' do
-          patch admin_conferences_room_url(@room),
-                params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) }
+          patch admin_conferences_room_url(@room), params: { room: { institution_id: nil, building: nil, number: nil } }
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room with remote form' do
-          patch admin_conferences_room_url(@room),
-                params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) },
-                as: :turbo_stream
+          patch admin_conferences_room_url(@room), params: { room: { institution_id: nil, building: nil, number: nil } }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end

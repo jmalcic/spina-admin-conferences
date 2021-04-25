@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @delegate = spina_admin_conferences_delegates :joe_bloggs
-          @invalid_delegate = Delegate.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -55,7 +54,15 @@ module Spina
 
         test 'should create delegate' do
           assert_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }
+            post admin_conferences_delegates_url,
+                 params: { delegate: { first_name: 'Joe',
+                                       last_name: 'Bloggs',
+                                       institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                       email_address: 'someone@someaddress.com',
+                                       url: 'https://www.bloggs.com',
+                                       conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                                        ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                                       dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } }
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
@@ -64,7 +71,15 @@ module Spina
         test 'should create delegate with remote form' do
           assert_difference 'Delegate.count' do
             post admin_conferences_delegates_url,
-                 params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }, as: :turbo_stream
+                 params: { delegate: { first_name: 'Joe',
+                                       last_name: 'Bloggs',
+                                       institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                       email_address: 'someone@someaddress.com',
+                                       url: 'https://www.bloggs.com',
+                                       conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                                        ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                                       dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
@@ -73,7 +88,13 @@ module Spina
         test 'should fail to create invalid delegate' do
           assert_no_difference 'Delegate.count' do
             post admin_conferences_delegates_url,
-                 params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) }
+                 params: { delegate: { first_name: nil,
+                                       last_name: nil,
+                                       institution_id: nil,
+                                       email_address: nil,
+                                       url: nil,
+                                       conference_ids: [],
+                                       dietary_requirement_ids: [] } }
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
@@ -82,7 +103,13 @@ module Spina
         test 'should fail to create invalid delegate with remote form' do
           assert_no_difference 'Delegate.count' do
             post admin_conferences_delegates_url,
-                 params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) },
+                 params: { delegate: { first_name: nil,
+                                       last_name: nil,
+                                       institution_id: nil,
+                                       email_address: nil,
+                                       url: nil,
+                                       conference_ids: [],
+                                       dietary_requirement_ids: [] } },
                  as: :turbo_stream
           end
           assert_response :success
@@ -91,28 +118,55 @@ module Spina
 
         test 'should update delegate' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }
+                params: { delegate: { first_name: 'Joe',
+                                      last_name: 'Bloggs',
+                                      institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                      email_address: 'someone@someaddress.com',
+                                      url: 'https://www.bloggs.com',
+                                      conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                                       ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                                      dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } }
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should update delegate with remote form' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }, as: :turbo_stream
+                params: { delegate: { first_name: 'Joe',
+                                      last_name: 'Bloggs',
+                                      institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
+                                      email_address: 'someone@someaddress.com',
+                                      url: 'https://www.bloggs.com',
+                                      conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                                       ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                                      dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) }
+                params: { delegate: { first_name: nil,
+                                      last_name: nil,
+                                      institution_id: nil,
+                                      email_address: nil,
+                                      url: nil,
+                                      conference_ids: [],
+                                      dietary_requirement_ids: [] } }
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate with remote form' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) },
+                params: { delegate: { first_name: nil,
+                                      last_name: nil,
+                                      institution_id: nil,
+                                      email_address: nil,
+                                      url: nil,
+                                      conference_ids: [],
+                                      dietary_requirement_ids: [] } },
                 as: :turbo_stream
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]

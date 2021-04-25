@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @institution = spina_admin_conferences_institutions :university_of_atlantis
-          @invalid_institution = Institution.new
           @empty_institution = spina_admin_conferences_institutions :empty_institution
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -57,7 +56,9 @@ module Spina
         test 'should create institution' do
           assert_difference 'Institution.count' do
             post admin_conferences_institutions_url,
-                 params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) }
+                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
+                                          name: 'University of Atlantis',
+                                          city: 'Atlantis' } }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
@@ -66,7 +67,10 @@ module Spina
         test 'should create institution with remote form' do
           assert_difference 'Institution.count' do
             post admin_conferences_institutions_url,
-                 params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) }, as: :turbo_stream
+                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
+                                          name: 'University of Atlantis',
+                                          city: 'Atlantis' } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
@@ -74,9 +78,7 @@ module Spina
 
         test 'should fail to create invalid institution' do
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url,
-                 params: { institution:
-                             @invalid_institution.attributes.merge(name: @invalid_institution.name, city: @invalid_institution.city) }
+            post admin_conferences_institutions_url, params: { institution: { logo_id: nil, name: nil, city: nil } }
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -84,10 +86,7 @@ module Spina
 
         test 'should fail to create invalid institution with remote form' do
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url,
-                 params: { institution:
-                             @invalid_institution.attributes.merge(name: @invalid_institution.name, city: @invalid_institution.city) },
-                 as: :turbo_stream
+            post admin_conferences_institutions_url, params: { institution: { logo_id: nil, name: nil, city: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
@@ -95,31 +94,32 @@ module Spina
 
         test 'should update institution' do
           patch admin_conferences_institution_url(@institution),
-                params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) }
+                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
+                                         name: 'University of Atlantis',
+                                         city: 'Atlantis' } }
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should update institution with remote form' do
           patch admin_conferences_institution_url(@institution),
-                params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) },
+                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
+                                         name: 'University of Atlantis',
+                                         city: 'Atlantis' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution' do
-          patch admin_conferences_institution_url(@institution),
-                params: { institution: @invalid_institution.attributes.merge(name: @invalid_institution.name,
-                                                                             city: @invalid_institution.city) }
+          patch admin_conferences_institution_url(@institution), params: { institution: { logo_id: nil, name: nil, city: nil } }
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution with remote form' do
           patch admin_conferences_institution_url(@institution),
-                params: { institution: @invalid_institution.attributes.merge(name: @invalid_institution.name,
-                                                                             city: @invalid_institution.city) },
+                params: { institution: { logo_id: nil, name: nil, city: nil } },
                 as: :turbo_stream
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]

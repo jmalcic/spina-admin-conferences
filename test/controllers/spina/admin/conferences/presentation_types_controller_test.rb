@@ -11,7 +11,6 @@ module Spina
 
         setup do
           @presentation_type = spina_admin_conferences_presentation_types :oral_1
-          @invalid_presentation_type = PresentationType.new
           @empty_presentation_type = spina_admin_conferences_presentation_types :empty_presentation_type
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -61,8 +60,9 @@ module Spina
           attributes[:name] = @presentation_type.name
           assert_difference 'PresentationType.count' do
             post admin_conferences_presentation_types_url,
-                 params: { presentation_type: @presentation_type.attributes.merge(minutes: @presentation_type.minutes,
-                                                                                  name: @presentation_type.name) }
+                 params: { presentation_type: { minutes: 20,
+                                                conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                                name: 'Oral' } }
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
@@ -74,8 +74,9 @@ module Spina
           attributes[:name] = @presentation_type.name
           assert_difference 'PresentationType.count' do
             post admin_conferences_presentation_types_url,
-                 params: { presentation_type: @presentation_type.attributes.merge(minutes: @presentation_type.minutes,
-                                                                                  name: @presentation_type.name) },
+                 params: { presentation_type: { minutes: 20,
+                                                conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                                name: 'Oral' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_types_url
@@ -84,9 +85,7 @@ module Spina
 
         test 'should fail to create invalid presentation type' do
           assert_no_difference 'PresentationType.count' do
-            post admin_conferences_presentation_types_url,
-                 params: { presentation_type: @invalid_presentation_type.attributes.merge(minutes: @invalid_presentation_type.minutes,
-                                                                                          name: @invalid_presentation_type.name) }
+            post admin_conferences_presentation_types_url, params: { presentation_type: { minutes: nil, conference_id: nil, name: nil } }
           end
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
@@ -95,8 +94,7 @@ module Spina
         test 'should fail to create invalid presentation type with remote form' do
           assert_no_difference 'PresentationType.count' do
             post admin_conferences_presentation_types_url,
-                 params: { presentation_type: @invalid_presentation_type.attributes.merge(minutes: @invalid_presentation_type.minutes,
-                                                                                          name: @invalid_presentation_type.name) },
+                 params: { presentation_type: { minutes: nil, conference_id: nil, name: nil } },
                  as: :turbo_stream
           end
           assert_response :success
@@ -105,16 +103,18 @@ module Spina
 
         test 'should update presentation type' do
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { presentation_type: @presentation_type.attributes.merge(minutes: @presentation_type.minutes,
-                                                                                 name: @presentation_type.name) }
+                params: { presentation_type: { minutes: 20,
+                                               conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                               name: 'Oral' } }
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should update presentation type with remote form' do
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { presentation_type: @presentation_type.attributes.merge(minutes: @presentation_type.minutes,
-                                                                                 name: @presentation_type.name) },
+                params: { presentation_type: { minutes: 20,
+                                               conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
+                                               name: 'Oral' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
@@ -122,16 +122,14 @@ module Spina
 
         test 'should fail to update invalid presentation type' do
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { presentation_type: @invalid_presentation_type.attributes.merge(minutes: @invalid_presentation_type.minutes,
-                                                                                         name: @invalid_presentation_type.name) }
+                params: { presentation_type: { minutes: nil, conference_id: nil, name: nil } }
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation type with remote form' do
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { presentation_type: @invalid_presentation_type.attributes.merge(minutes: @invalid_presentation_type.minutes,
-                                                                                         name: @invalid_presentation_type.name) },
+                params: { presentation_type: { minutes: nil, conference_id: nil, name: nil } },
                 as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation type saved', flash[:success]
