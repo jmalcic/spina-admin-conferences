@@ -205,51 +205,89 @@ module Spina
         end
 
         test 'should save generic part' do
-          attributes = @conference.attributes
-          attributes[:start_date] = @conference.start_date
-          attributes[:finish_date] = @conference.finish_date
-          attributes[:name] = @conference.name
-          attributes[:'en-GB_content_attributes'] = [
-            { title: 'Submission text', name: 'submission_text', content: 'Dolor sit amen', type: 'Spina::Parts::Line' }
-          ]
-          assert_changes -> { @conference.reload.content(:submission_text) }, from: 'Lorem ipsum', to: 'Dolor sit amen' do
-            patch admin_conferences_conference_url(@conference), params: { conference: attributes }
+          assert_changes -> { @conference.reload.content(:submission_text) }, to: 'Dolor sit amen' do
+            patch admin_conferences_conference_url(@conference),
+                  params: { conference: {
+                    'en-GB_content_attributes': [
+                      { title: 'Submission text', name: 'submission_text', content: 'Dolor sit amen', type: 'Spina::Parts::Line' }
+                    ]
+                  } }
+          end
+        end
+
+        test 'should save generic part with remote form' do
+          assert_changes -> { @conference.reload.content(:submission_text) }, to: 'Dolor sit amen' do
+            patch admin_conferences_conference_url(@conference),
+                  as: :turbo_stream,
+                  params: { conference: {
+                    'en-GB_content_attributes': [
+                      { title: 'Submission text', name: 'submission_text', content: 'Dolor sit amen', type: 'Spina::Parts::Line' }
+                    ]
+                  } }
           end
         end
 
         test 'should save generic structure part' do
-          attributes = @conference.attributes
-          attributes[:start_date] = @conference.start_date
-          attributes[:finish_date] = @conference.finish_date
-          attributes[:name] = @conference.name
-          attributes[:'en-GB_content_attributes'] = [
-            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
-              { title: 'Sponsors', name: 'sponsors', parts_attributes: [
-                { title: 'Name', name: 'name', content: 'Another sponsor', type: 'Spina::Parts::Line' }
-              ] }
-            ] }
-          ]
-          assert_changes -> { @conference.reload.content(:sponsors).first.content('name') }, from: 'Some sponsor', to: 'Another sponsor' do
-            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
+          assert_changes -> { @conference.reload.content(:sponsors).first.content('name') }, to: 'Another sponsor' do
+            patch admin_conferences_conference_url(@conference),
+                  params: { conference: {
+                    'en-GB_content_attributes': [
+                      { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+                        { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                          { title: 'Name', name: 'name', content: 'Another sponsor', type: 'Spina::Parts::Line' }
+                        ] }
+                      ] }
+                    ]
+                  } }
+          end
+        end
+
+        test 'should save generic structure part with remote form' do
+          assert_changes -> { @conference.reload.content(:sponsors).first.content('name') }, to: 'Another sponsor' do
+            patch admin_conferences_conference_url(@conference),
+                  as: :turbo_stream,
+                  params: { conference: {
+                    'en-GB_content_attributes': [
+                      { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+                        { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                          { title: 'Name', name: 'name', content: 'Another sponsor', type: 'Spina::Parts::Line' }
+                        ] }
+                      ] }
+                    ]
+                  } }
           end
         end
 
         test 'should save structure part image' do
-          attributes = @conference.attributes
-          attributes[:start_date] = @conference.start_date
-          attributes[:finish_date] = @conference.finish_date
-          attributes[:name] = @conference.name
-          attributes[:'en-GB_content_attributes'] = [
-            { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
-              { title: 'Sponsors', name: 'sponsors', parts_attributes: [
-                { title: 'Logo', name: 'logo', type: 'Spina::Parts::Image', image_id: @rovinj_image.id, filename: 'logo.jpeg',
-                  signed_blob_id: '', alt: 'Logo' }
-              ] }
-            ] }
-          ]
-          assert_changes -> { @conference.reload.content(:sponsors).first.content(:logo).spina_image },
-                         from: @logo, to: @rovinj_image do
-            patch admin_conferences_conference_url(@conference), params: { conference: attributes }, as: :turbo_stream
+          assert_changes -> { @conference.reload.content(:sponsors).first.content(:logo).spina_image }, to: @rovinj_image do
+            patch admin_conferences_conference_url(@conference),
+                  params: { conference: {
+                    'en-GB_content_attributes': [
+                      { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+                        { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                          { title: 'Logo', name: 'logo', type: 'Spina::Parts::Image', image_id: @rovinj_image.id, filename: 'logo.jpeg',
+                            signed_blob_id: '', alt: 'Logo' }
+                        ] }
+                      ] }
+                    ]
+                  } }
+          end
+        end
+
+        test 'should save structure part image with remote form' do
+          assert_changes -> { @conference.reload.content(:sponsors).first.content(:logo).spina_image }, to: @rovinj_image do
+            patch admin_conferences_conference_url(@conference),
+                  as: :turbo_stream,
+                  params: { conference: {
+                    'en-GB_content_attributes': [
+                      { title: 'Sponsors', name: 'sponsors', type: 'Spina::Parts::Repeater', content_attributes: [
+                        { title: 'Sponsors', name: 'sponsors', parts_attributes: [
+                          { title: 'Logo', name: 'logo', type: 'Spina::Parts::Image', image_id: @rovinj_image.id, filename: 'logo.jpeg',
+                            signed_blob_id: '', alt: 'Logo' }
+                        ] }
+                      ] }
+                    ]
+                  } }
           end
         end
 
