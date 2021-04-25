@@ -138,12 +138,23 @@ module Spina
         end
 
         test 'should update presentation type in locale' do
-          attributes = @presentation_type.attributes
-          attributes[:minutes] = @presentation_type.minutes
-          attributes[:name] = @presentation_type.name
-          patch admin_conferences_presentation_type_url(@presentation_type), params: { presentation_type: attributes, locale: :en }
-          assert_redirected_to admin_conferences_presentation_types_url
-          assert_equal 'Presentation type saved', flash[:success]
+          assert_changes -> { @presentation_type.reload.name(locale: :en) }, to: 'Talk' do
+            patch admin_conferences_presentation_type_url(@presentation_type),
+                  params: { presentation_type: { name: 'Talk' }, locale: :en }
+            assert_redirected_to admin_conferences_presentation_types_url
+            assert_equal 'Presentation type saved', flash[:success]
+          end
+          assert_not_equal 'Talk', @presentation_type.reload.name
+        end
+
+        test 'should update presentation type in locale with remote form' do
+          assert_changes -> { @presentation_type.reload.name(locale: :en) }, to: 'Talk' do
+            patch admin_conferences_presentation_type_url(@presentation_type),
+                  params: { presentation_type: { name: 'Talk' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentation_types_url
+            assert_equal 'Presentation type saved', flash[:success]
+          end
+          assert_not_equal 'Talk', @presentation_type.reload.name
         end
 
         test 'should destroy presentation type' do

@@ -163,13 +163,21 @@ module Spina
         end
 
         test 'should update conference in locale' do
-          attributes = @conference.attributes
-          attributes[:start_date] = @conference.start_date
-          attributes[:finish_date] = @conference.finish_date
-          attributes[:name] = @conference.name
-          patch admin_conferences_conference_url(@conference), params: { conference: attributes, locale: :en }
-          assert_redirected_to admin_conferences_conferences_url
-          assert_equal 'Conference saved', flash[:success]
+          assert_changes -> { @conference.reload.name(locale: :en) }, to: 'MALT' do
+            patch admin_conferences_conference_url(@conference), params: { conference: { name: 'MALT' }, locale: :en }
+            assert_redirected_to admin_conferences_conferences_url
+            assert_equal 'Conference saved', flash[:success]
+          end
+          assert_not_equal 'MALT', @conference.reload.name
+        end
+
+        test 'should update conference in locale with remote form' do
+          assert_changes -> { @conference.reload.name(locale: :en) }, to: 'MALT' do
+            patch admin_conferences_conference_url(@conference), params: { conference: { name: 'MALT' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_conferences_url
+            assert_equal 'Conference saved', flash[:success]
+          end
+          assert_not_equal 'MALT', @conference.reload.name
         end
 
         test 'should destroy conference' do

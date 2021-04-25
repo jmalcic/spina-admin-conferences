@@ -118,11 +118,23 @@ module Spina
         end
 
         test 'should update session in locale' do
-          attributes = @session.attributes
-          attributes[:name] = @session.name
-          patch admin_conferences_session_url(@session), params: { session: attributes, locale: :en }
-          assert_redirected_to admin_conferences_sessions_url
-          assert_equal 'Session saved', flash[:success]
+          assert_changes -> { @session.reload.name(locale: :en) }, to: 'Talks in Lecture Block Two' do
+            patch admin_conferences_session_url(@session),
+                  params: { session: { name: 'Talks in Lecture Block Two' }, locale: :en }
+            assert_redirected_to admin_conferences_sessions_url
+            assert_equal 'Session saved', flash[:success]
+          end
+          assert_not_equal 'Talks in Lecture Block Two', @session.reload.name
+        end
+
+        test 'should update session in locale with remote form' do
+          assert_changes -> { @session.reload.name(locale: :en) }, to: 'Talks in Lecture Block Two' do
+            patch admin_conferences_session_url(@session),
+                  params: { session: { name: 'Talks in Lecture Block Two' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_sessions_url
+            assert_equal 'Session saved', flash[:success]
+          end
+          assert_not_equal 'Talks in Lecture Block Two', @session.reload.name
         end
 
         test 'should destroy session' do

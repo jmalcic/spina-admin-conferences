@@ -150,15 +150,37 @@ module Spina
         end
 
         test 'should update presentation in locale' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes, locale: :en }
-          assert_redirected_to admin_conferences_presentations_url
-          assert_equal 'Presentation saved', flash[:success]
+          assert_changes -> { @presentation.reload.title(locale: :en) }, to: 'Antisymmetry and asymmetry' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { title: 'Antisymmetry and asymmetry' }, locale: :en }
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_changes -> { @presentation.reload.abstract(locale: :en).try(:to_plain_text) }, to: 'Dolor sit amen.' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { abstract: 'Dolor sit amen.' }, locale: :en }
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_not_equal 'Antisymmetry and asymmetry', @presentation.reload.title
+          assert_not_equal 'Dolor sit amen.', @presentation.reload.abstract.to_plain_text
+        end
+
+        test 'should update presentation in locale with remote form' do
+          assert_changes -> { @presentation.reload.title(locale: :en) }, to: 'Antisymmetry and asymmetry' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { title: 'Antisymmetry and asymmetry' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_changes -> { @presentation.reload.abstract(locale: :en).try(:to_plain_text) }, to: 'Dolor sit amen.' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { abstract: 'Dolor sit amen.' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_not_equal 'Antisymmetry and asymmetry', @presentation.reload.title
+          assert_not_equal 'Dolor sit amen.', @presentation.reload.abstract.to_plain_text
         end
 
         test 'should destroy presentation' do

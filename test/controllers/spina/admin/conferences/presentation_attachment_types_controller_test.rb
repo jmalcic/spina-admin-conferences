@@ -115,12 +115,23 @@ module Spina
         end
 
         test 'should update presentation attachment type in locale' do
-          attributes = @presentation_attachment_type.attributes
-          attributes[:name] = @presentation_attachment_type.name
-          patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: attributes, locale: :en }
-          assert_redirected_to admin_conferences_presentation_attachment_types_url
-          assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_changes -> { @presentation_attachment_type.reload.name(locale: :en) }, to: 'Overhead slides' do
+            patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
+                  params: { presentation_attachment_type: { name: 'Overhead slides' }, locale: :en }
+            assert_redirected_to admin_conferences_presentation_attachment_types_url
+            assert_equal 'Presentation attachment type saved', flash[:success]
+          end
+          assert_not_equal 'overhead slides', @presentation_attachment_type.reload.name
+        end
+
+        test 'should update presentation attachment type in locale with remote form' do
+          assert_changes -> { @presentation_attachment_type.reload.name(locale: :en) }, to: 'Overhead slides' do
+            patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
+                  params: { presentation_attachment_type: { name: 'Overhead slides' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentation_attachment_types_url
+            assert_equal 'Presentation attachment type saved', flash[:success]
+          end
+          assert_not_equal 'overhead slides', @presentation_attachment_type.reload.name
         end
 
         test 'should destroy presentation attachment type' do

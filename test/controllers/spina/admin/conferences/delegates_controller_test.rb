@@ -127,9 +127,15 @@ module Spina
         end
 
         test 'should update delegate in locale' do
-          attributes = @delegate.attributes
-          attributes[:conference_ids] = @delegate.conference_ids
-          patch admin_conferences_delegate_url(@delegate), params: { delegate: attributes, locale: :en }
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids), locale: :en }
+          assert_redirected_to admin_conferences_delegates_url
+          assert_equal 'Delegate saved', flash[:success]
+        end
+
+        test 'should update delegate in locale with remote form' do
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids), locale: :en }, as: :turbo_stream
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end

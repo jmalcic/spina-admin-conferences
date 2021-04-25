@@ -126,12 +126,33 @@ module Spina
         end
 
         test 'should update room in locale' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes, locale: :en }
-          assert_redirected_to admin_conferences_rooms_url
-          assert_equal 'Room saved', flash[:success]
+          assert_changes -> { @room.reload.building(locale: :en) }, to: 'LB' do
+            patch admin_conferences_room_url(@room), params: { room: { building: 'LB' }, locale: :en }
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_changes -> { @room.reload.number(locale: :en) }, to: 'Two' do
+            patch admin_conferences_room_url(@room), params: { room: { number: 'Two' }, locale: :en }
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_not_equal 'LB', @room.reload.building
+          assert_not_equal 'Two', @room.reload.number
+        end
+
+        test 'should update room in locale with remote form' do
+          assert_changes -> { @room.reload.building(locale: :en) }, to: 'LB' do
+            patch admin_conferences_room_url(@room), params: { room: { building: 'LB' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_changes -> { @room.reload.number(locale: :en) }, to: 'Two' do
+            patch admin_conferences_room_url(@room), params: { room: { number: 'Two' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_not_equal 'LB', @room.reload.building
+          assert_not_equal 'Two', @room.reload.number
         end
 
         test 'should destroy room' do

@@ -122,12 +122,23 @@ module Spina
         end
 
         test 'should update dietary requirement in locale' do
-          attributes = @dietary_requirement.attributes
-          attributes[:name] = @dietary_requirement.name
-          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: attributes, locale: :en }
-          assert_redirected_to admin_conferences_dietary_requirements_url
-          assert_equal 'Dietary requirement saved', flash[:success]
+          assert_changes -> { @dietary_requirement.reload.name(locale: :en) }, to: 'Pescatarian' do
+            patch admin_conferences_dietary_requirement_url(@dietary_requirement),
+                  params: { dietary_requirement: { name: 'Pescatarian' }, locale: :en }
+            assert_redirected_to admin_conferences_dietary_requirements_url
+            assert_equal 'Dietary requirement saved', flash[:success]
+          end
+          assert_not_equal 'Pescatarian', @dietary_requirement.reload.name
+        end
+
+        test 'should update dietary requirement in locale with remote form' do
+          assert_changes -> { @dietary_requirement.reload.name(locale: :en) }, to: 'Pescatarian' do
+            patch admin_conferences_dietary_requirement_url(@dietary_requirement),
+                  params: { dietary_requirement: { name: 'Pescatarian' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_dietary_requirements_url
+            assert_equal 'Dietary requirement saved', flash[:success]
+          end
+          assert_not_equal 'Pescatarian', @dietary_requirement.reload.name
         end
 
         test 'should destroy dietary requirement' do

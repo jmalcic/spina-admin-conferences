@@ -135,12 +135,22 @@ module Spina
         end
 
         test 'should update institution in locale' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes, locale: :en }
-          assert_redirected_to admin_conferences_institutions_url
-          assert_equal 'Institution saved', flash[:success]
+          assert_changes -> { @institution.reload.name(locale: :en) }, to: 'Atlantis University' do
+            patch admin_conferences_institution_url(@institution), params: { institution: { name: 'Atlantis University' }, locale: :en }
+            assert_redirected_to admin_conferences_institutions_url
+            assert_equal 'Institution saved', flash[:success]
+          end
+          assert_not_equal 'Atlantis University', @institution.reload.name
+        end
+
+        test 'should update institution in locale with remote form' do
+          assert_changes -> { @institution.reload.name(locale: :en) }, to: 'Atlantis University' do
+            patch admin_conferences_institution_url(@institution),
+                  params: { institution: { name: 'Atlantis University' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_institutions_url
+            assert_equal 'Institution saved', flash[:success]
+          end
+          assert_not_equal 'Atlantis University', @institution.reload.name
         end
 
         test 'should destroy institution' do
