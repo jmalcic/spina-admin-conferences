@@ -19,18 +19,13 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_presentation_attachment_types_path
-          assert_selector '.breadcrumbs' do
-            assert_text 'Presentation attachment types'
-          end
           Percy.snapshot page, name: 'Presentation attachment types index'
         end
 
         test 'creating a presentation attachment type' do
           visit admin_conferences_presentation_attachment_types_path
           click_on 'New presentation attachment type'
-          assert_selector '.breadcrumbs' do
-            assert_text 'New presentation attachment type'
-          end
+          assert_current_path new_admin_conferences_presentation_attachment_type_path
           fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           Percy.snapshot page, name: 'Presentation attachment types form on create'
           click_on 'Save presentation attachment type'
@@ -44,9 +39,7 @@ module Spina
           within "tr[data-presentation-attachment-type-id=\"#{@presentation_attachment_type.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @presentation_attachment_type.name
-          end
+          assert_current_path edit_admin_conferences_presentation_attachment_type_path(@presentation_attachment_type)
           Percy.snapshot page, name: 'Presentation attachment types form on update'
           fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           click_on 'Save presentation attachment type'
@@ -63,8 +56,10 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @presentation_attachment_type.name
           end
+          assert_current_path edit_admin_conferences_presentation_attachment_type_path(@presentation_attachment_type)
           click_link 'British English'
           click_link 'English'
+          assert_current_path edit_admin_conferences_presentation_attachment_type_path(@presentation_attachment_type, locale: :en)
           Percy.snapshot page, name: 'Presentation attachment types form on update in locale'
           fill_in 'presentation_attachment_type_name', with: @presentation_attachment_type.name
           click_on 'Save presentation attachment type'
@@ -78,9 +73,7 @@ module Spina
           within "tr[data-presentation-attachment-type-id=\"#{@presentation_attachment_type.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @presentation_attachment_type.name
-          end
+          assert_current_path edit_admin_conferences_presentation_attachment_type_path(@presentation_attachment_type)
           accept_confirm "Are you sure you want to delete the presentation attachment type <strong>#{@presentation_attachment_type.name}" \
                          '</strong>?' do
             click_on 'Permanently delete'

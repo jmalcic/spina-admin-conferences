@@ -20,18 +20,13 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_conferences_path
-          assert_selector '.breadcrumbs' do
-            assert_text 'Conferences'
-          end
           Percy.snapshot page, name: 'Conferences index'
         end
 
         test 'creating a conference' do # rubocop:disable Metrics/BlockLength
           visit admin_conferences_conferences_path
           click_on 'New conference'
-          assert_selector '.breadcrumbs' do
-            assert_text 'New conference'
-          end
+          assert_current_path new_admin_conferences_conference_path
           fill_in 'conference_name', with: @conference.name
           fill_in 'conference_start_date', with: @conference.start_date
           fill_in 'conference_finish_date', with: @conference.finish_date
@@ -96,9 +91,7 @@ module Spina
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @conference.name
-          end
+          assert_current_path edit_admin_conferences_conference_path(@conference)
           Percy.snapshot page, name: 'Conferences form on update'
           fill_in 'conference_name', with: @conference.name
           fill_in 'conference_start_date', with: @conference.start_date
@@ -165,11 +158,10 @@ module Spina
           within "tr[data-conference-id=\"#{@conference.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @conference.name
-          end
+          assert_current_path edit_admin_conferences_conference_path(@conference)
           click_link 'British English'
           click_link 'English'
+          assert_current_path edit_admin_conferences_conference_path(@conference, locale: :en)
           Percy.snapshot page, name: 'Conferences form on update in locale'
           fill_in 'conference_name', with: @conference.name
           fill_in 'conference_start_date', with: @conference.start_date
@@ -236,9 +228,7 @@ module Spina
           within "tr[data-conference-id=\"#{@empty_conference.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @empty_conference.name
-          end
+          assert_current_path edit_admin_conferences_conference_path(@empty_conference)
           accept_confirm "Are you sure you want to delete the conference <strong>#{@empty_conference.name}</strong>?" do
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Conferences delete dialog'

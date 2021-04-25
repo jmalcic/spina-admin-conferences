@@ -19,18 +19,13 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_delegates_path
-          assert_selector '.breadcrumbs' do
-            assert_text 'Delegates'
-          end
           Percy.snapshot page, name: 'Delegates index'
         end
 
         test 'creating a delegate' do
           visit admin_conferences_delegates_path
           click_on 'New delegate'
-          assert_selector '.breadcrumbs' do
-            assert_text 'New delegate'
-          end
+          assert_current_path new_admin_conferences_delegate_path
           fill_in 'delegate_first_name', with: @delegate.first_name
           fill_in 'delegate_last_name', with: @delegate.last_name
           select @delegate.institution.name, from: 'delegate_institution_id'
@@ -49,9 +44,7 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @delegate.full_name
-          end
+          assert_current_path edit_admin_conferences_delegate_path(@delegate)
           Percy.snapshot page, name: 'Delegates form on update'
           fill_in 'delegate_first_name', with: @delegate.first_name
           fill_in 'delegate_last_name', with: @delegate.last_name
@@ -70,11 +63,10 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @delegate.full_name
-          end
+          assert_current_path edit_admin_conferences_delegate_path(@delegate)
           click_link 'British English'
           click_link 'English'
+          assert_current_path edit_admin_conferences_delegate_path(@delegate, locale: :en)
           Percy.snapshot page, name: 'Delegates form on update in locale'
           fill_in 'delegate_first_name', with: @delegate.first_name
           fill_in 'delegate_last_name', with: @delegate.last_name
@@ -93,9 +85,7 @@ module Spina
           within "tr[data-delegate-id=\"#{@delegate.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @delegate.full_name
-          end
+          assert_current_path edit_admin_conferences_delegate_path(@delegate)
           accept_confirm "Are you sure you want to delete the delegate <strong>#{@delegate.full_name}</strong>?" do
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Delegates delete dialog'

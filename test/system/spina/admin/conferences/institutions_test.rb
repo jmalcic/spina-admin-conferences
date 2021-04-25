@@ -20,18 +20,13 @@ module Spina
 
         test 'visiting the index' do
           visit admin_conferences_institutions_path
-          assert_selector '.breadcrumbs' do
-            assert_text 'Institutions'
-          end
           Percy.snapshot page, name: 'Institutions index'
         end
 
         test 'creating an institution' do
           visit admin_conferences_institutions_path
           click_on 'New institution'
-          assert_selector '.breadcrumbs' do
-            assert_text 'New institution'
-          end
+          assert_current_path new_admin_conferences_institution_path
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
           click_on 'Choose image'
@@ -50,9 +45,7 @@ module Spina
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @institution.name
-          end
+          assert_current_path edit_admin_conferences_institution_path(@institution)
           Percy.snapshot page, name: 'Institutions form on update'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
@@ -71,11 +64,10 @@ module Spina
           within "tr[data-institution-id=\"#{@institution.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @institution.name
-          end
+          assert_current_path edit_admin_conferences_institution_path(@institution)
           click_link 'British English'
           click_link 'English'
+          assert_current_path edit_admin_conferences_institution_path(@institution, locale: :en)
           Percy.snapshot page, name: 'Institutions form on update in locale'
           fill_in 'institution_name', with: @institution.name
           fill_in 'institution_city', with: @institution.city
@@ -94,9 +86,7 @@ module Spina
           within "tr[data-institution-id=\"#{@empty_institution.id}\"]" do
             click_on 'Edit'
           end
-          assert_selector '.breadcrumbs' do
-            assert_text @empty_institution.name
-          end
+          assert_current_path edit_admin_conferences_institution_path(@empty_institution)
           accept_confirm "Are you sure you want to delete the institution <strong>#{@empty_institution.name}</strong>?" do
             click_on 'Permanently delete'
             Percy.snapshot page, name: 'Institutions delete dialog'
