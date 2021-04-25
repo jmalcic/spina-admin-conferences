@@ -45,106 +45,101 @@ module Spina
         end
 
         test 'should create presentation' do
-          attributes = @presentation.attributes
-          attributes[:session_id] = @presentation.session_id
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }
+            post admin_conferences_presentations_url,
+                 params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
+                                                                        start_time: @presentation.start_time,
+                                                                        date: @presentation.date,
+                                                                        title: @presentation.title,
+                                                                        abstract: @presentation.abstract) }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should create presentation with remote form' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }, as: :turbo_stream
+            post admin_conferences_presentations_url,
+                 params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
+                                                                        start_time: @presentation.start_time,
+                                                                        date: @presentation.date,
+                                                                        title: @presentation.title,
+                                                                        abstract: @presentation.abstract) },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to create invalid presentation' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }
+            post admin_conferences_presentations_url,
+                 params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
+                                                                                start_time: @invalid_presentation.start_time,
+                                                                                date: @invalid_presentation.date,
+                                                                                title: @invalid_presentation.title,
+                                                                                abstract: @invalid_presentation.abstract) }
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to create invalid presentation with remote form' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }, as: :turbo_stream
+            post admin_conferences_presentations_url,
+                 params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
+                                                                                start_time: @invalid_presentation.start_time,
+                                                                                date: @invalid_presentation.date,
+                                                                                title: @invalid_presentation.title,
+                                                                                abstract: @invalid_presentation.abstract) },
+                 as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should update presentation' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
+                                                                       start_time: @presentation.start_time,
+                                                                       date: @presentation.date,
+                                                                       title: @presentation.title,
+                                                                       abstract: @presentation.abstract) }
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should update presentation with remote form' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: @presentation.attributes.merge(presenter_ids: @presentation.presenter_ids,
+                                                                       start_time: @presentation.start_time,
+                                                                       date: @presentation.date,
+                                                                       title: @presentation.title,
+                                                                       abstract: @presentation.abstract) },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
+                                                                               start_time: @invalid_presentation.start_time,
+                                                                               date: @invalid_presentation.date,
+                                                                               title: @invalid_presentation.title,
+                                                                               abstract: @invalid_presentation.abstract) }
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation with remote form' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: @invalid_presentation.attributes.merge(presenter_ids: @invalid_presentation.presenter_ids,
+                                                                               start_time: @invalid_presentation.start_time,
+                                                                               date: @invalid_presentation.date,
+                                                                               title: @invalid_presentation.title,
+                                                                               abstract: @invalid_presentation.abstract) },
+                as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end

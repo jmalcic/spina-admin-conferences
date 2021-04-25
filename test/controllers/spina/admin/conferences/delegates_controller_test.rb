@@ -54,74 +54,66 @@ module Spina
         end
 
         test 'should create delegate' do
-          attributes = @delegate.attributes
-          attributes[:conference_ids] = @delegate.conference_ids
           assert_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { delegate: attributes }
+            post admin_conferences_delegates_url, params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should create delegate with remote form' do
-          attributes = @delegate.attributes
-          attributes[:conference_ids] = @delegate.conference_ids
           assert_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { delegate: attributes }, as: :turbo_stream
+            post admin_conferences_delegates_url,
+                 params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to create invalid delegate' do
-          attributes = @invalid_delegate.attributes
-          attributes[:conference_ids] = @invalid_delegate.conference_ids
           assert_no_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { delegate: attributes }
+            post admin_conferences_delegates_url,
+                 params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) }
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to create invalid delegate with remote form' do
-          attributes = @invalid_delegate.attributes
-          attributes[:conference_ids] = @invalid_delegate.conference_ids
           assert_no_difference 'Delegate.count' do
-            post admin_conferences_delegates_url, params: { delegate: attributes }, as: :turbo_stream
+            post admin_conferences_delegates_url,
+                 params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) },
+                 as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
 
         test 'should update delegate' do
-          attributes = @delegate.attributes
-          attributes[:conference_ids] = @delegate.conference_ids
-          patch admin_conferences_delegate_url(@delegate), params: { delegate: attributes }
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should update delegate with remote form' do
-          attributes = @delegate.attributes
-          attributes[:conference_ids] = @delegate.conference_ids
-          patch admin_conferences_delegate_url(@delegate), params: { delegate: attributes },
-                                                           as: :turbo_stream
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @delegate.attributes.merge(conference_ids: @delegate.conference_ids) }, as: :turbo_stream
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate' do
-          attributes = @invalid_delegate.attributes
-          attributes[:conference_ids] = @invalid_delegate.conference_ids
-          patch admin_conferences_delegate_url(@delegate), params: { delegate: attributes }
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) }
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end
 
         test 'should fail to update invalid delegate with remote form' do
-          attributes = @invalid_delegate.attributes
-          attributes[:conference_ids] = @invalid_delegate.conference_ids
-          patch admin_conferences_delegate_url(@delegate), params: { delegate: attributes }, as: :turbo_stream
+          patch admin_conferences_delegate_url(@delegate),
+                params: { delegate: @invalid_delegate.attributes.merge(conference_ids: @invalid_delegate.conference_ids) },
+                as: :turbo_stream
           assert_response :success
           assert_not_equal 'Delegate saved', flash[:success]
         end

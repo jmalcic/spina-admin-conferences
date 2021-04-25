@@ -50,77 +50,64 @@ module Spina
           attributes[:building] = @room.building
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }
+            post admin_conferences_rooms_url, params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should create room with remote form' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }, as: :turbo_stream
+            post admin_conferences_rooms_url,
+                 params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to create invalid room' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }
+            post admin_conferences_rooms_url,
+                 params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) }
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to create invalid room with remote form' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }, as: :turbo_stream
+            post admin_conferences_rooms_url,
+                 params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) },
+                 as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should update room' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }
+          patch admin_conferences_room_url(@room), params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should update room with remote form' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }, as: :turbo_stream
+          patch admin_conferences_room_url(@room),
+                params: { room: @room.attributes.merge(building: @room.building, number: @room.number) }, as: :turbo_stream
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }
+          patch admin_conferences_room_url(@room),
+                params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) }
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room with remote form' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }, as: :turbo_stream
+          patch admin_conferences_room_url(@room),
+                params: { room: @invalid_room.attributes.merge(building: @invalid_room.building, number: @invalid_room.number) },
+                as: :turbo_stream
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end

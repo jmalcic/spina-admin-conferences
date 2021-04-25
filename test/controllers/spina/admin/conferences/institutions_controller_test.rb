@@ -55,81 +55,72 @@ module Spina
         end
 
         test 'should create institution' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }
+            post admin_conferences_institutions_url,
+                 params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should create institution with remote form' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }, as: :turbo_stream
+            post admin_conferences_institutions_url,
+                 params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to create invalid institution' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }
+            post admin_conferences_institutions_url,
+                 params: { institution:
+                             @invalid_institution.attributes.merge(name: @invalid_institution.name, city: @invalid_institution.city) }
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to create invalid institution with remote form' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }, as: :turbo_stream
+            post admin_conferences_institutions_url,
+                 params: { institution:
+                             @invalid_institution.attributes.merge(name: @invalid_institution.name, city: @invalid_institution.city) },
+                 as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should update institution' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) }
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should update institution with remote form' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }, as: :turbo_stream
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: @institution.attributes.merge(name: @institution.name, city: @institution.city) },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: @invalid_institution.attributes.merge(name: @invalid_institution.name,
+                                                                             city: @invalid_institution.city) }
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution with remote form' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }, as: :turbo_stream
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: @invalid_institution.attributes.merge(name: @invalid_institution.name,
+                                                                             city: @invalid_institution.city) },
+                as: :turbo_stream
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end

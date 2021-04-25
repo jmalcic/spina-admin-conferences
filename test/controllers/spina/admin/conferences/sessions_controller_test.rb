@@ -46,73 +46,60 @@ module Spina
         end
 
         test 'should create session' do
-          attributes = @session.attributes
-          attributes[:name] = @session.name
           assert_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: attributes }
+            post admin_conferences_sessions_url, params: { session: @session.attributes.merge(name: @session.name) }
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
 
         test 'should create session with remote form' do
-          attributes = @session.attributes
-          attributes[:name] = @session.name
           assert_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: attributes }, as: :turbo_stream
+            post admin_conferences_sessions_url, params: { session: @session.attributes.merge(name: @session.name) }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
 
         test 'should fail to create invalid session' do
-          attributes = @invalid_session.attributes
-          attributes[:name] = @invalid_session.name
           assert_no_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: attributes }
+            post admin_conferences_sessions_url, params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }
           end
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
 
         test 'should fail to create invalid session with remote form' do
-          attributes = @invalid_session.attributes
-          attributes[:name] = @invalid_session.name
           assert_no_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: attributes }, as: :turbo_stream
+            post admin_conferences_sessions_url,
+                 params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
 
         test 'should update session' do
-          attributes = @session.attributes
-          attributes[:name] = @session.name
-          patch admin_conferences_session_url(@session), params: { session: attributes }
+          patch admin_conferences_session_url(@session), params: { session: @session.attributes.merge(name: @session.name) }
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
 
         test 'should update session with remote form' do
-          attributes = @session.attributes
-          attributes[:name] = @session.name
-          patch admin_conferences_session_url(@session), params: { session: attributes }, as: :turbo_stream
+          patch admin_conferences_session_url(@session),
+                params: { session: @session.attributes.merge(name: @session.name) }, as: :turbo_stream
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
         end
 
         test 'should fail to update invalid session' do
-          attributes = @invalid_session.attributes
-          attributes[:name] = @invalid_session.name
-          patch admin_conferences_session_url(@session), params: { session: attributes }
+          patch admin_conferences_session_url(@session), params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
 
         test 'should fail to update invalid session with remote form' do
-          attributes = @invalid_session.attributes
-          attributes[:name] = @invalid_session.name
-          patch admin_conferences_session_url(@session), params: { session: attributes }, as: :turbo_stream
+          patch admin_conferences_session_url(@session),
+                params: { session: @invalid_session.attributes.merge(name: @invalid_session.name) }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Session saved', flash[:success]
         end
