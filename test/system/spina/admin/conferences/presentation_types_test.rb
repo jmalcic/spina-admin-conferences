@@ -9,13 +9,6 @@ module Spina
         setup do
           @presentation_type = spina_admin_conferences_presentation_types :plenary_1
           @empty_presentation_type = spina_admin_conferences_presentation_types :empty_presentation_type
-          @user = spina_users :joe
-          visit admin_login_path
-          within '.login-fields' do
-            fill_in 'email', with: @user.email
-            fill_in 'password', with: 'password'
-          end
-          click_on 'Login'
         end
 
         test 'visiting the index' do

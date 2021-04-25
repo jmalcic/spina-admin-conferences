@@ -9,13 +9,6 @@ module Spina
         setup do
           @conference = spina_admin_conferences_conferences :university_of_atlantis_2017
           @empty_conference = spina_admin_conferences_conferences :empty_conference
-          @user = spina_users :joe
-          visit admin_login_path
-          within '.login-fields' do
-            fill_in 'email', with: @user.email
-            fill_in 'password', with: 'password'
-          end
-          click_on 'Login'
         end
 
         test 'visiting the index' do

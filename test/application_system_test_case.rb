@@ -13,6 +13,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ::Spina::Engine.routes.url_helpers
 
   driven_by :selenium, using: :headless_chrome, screen_size: [1400, 800]
+
+  setup do
+    @user = spina_users :joe
+    visit admin_login_path
+    within '.login-fields' do
+      fill_in 'email', with: @user.email
+      fill_in 'password', with: 'password'
+    end
+    click_on 'Login'
+  end
 end
 
 Capybara.default_max_wait_time = 5

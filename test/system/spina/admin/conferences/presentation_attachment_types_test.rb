@@ -8,13 +8,6 @@ module Spina
       class PresentationAttachmentTypesTest < ApplicationSystemTestCase
         setup do
           @presentation_attachment_type = spina_admin_conferences_presentation_attachment_types :handout
-          @user = spina_users :joe
-          visit admin_login_path
-          within '.login-fields' do
-            fill_in 'email', with: @user.email
-            fill_in 'password', with: 'password'
-          end
-          click_on 'Login'
         end
 
         test 'visiting the index' do

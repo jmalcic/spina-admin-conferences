@@ -9,13 +9,6 @@ module Spina
         setup do
           @session = spina_admin_conferences_sessions :oral_1_lecture_block_2_uoa_2017
           @empty_session = spina_admin_conferences_sessions :empty_session
-          @user = spina_users :joe
-          visit admin_login_path
-          within '.login-fields' do
-            fill_in 'email', with: @user.email
-            fill_in 'password', with: 'password'
-          end
-          click_on 'Login'
         end
 
         test 'visiting the index' do

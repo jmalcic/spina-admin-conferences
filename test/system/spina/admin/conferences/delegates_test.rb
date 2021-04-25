@@ -8,13 +8,6 @@ module Spina
       class DelegatesTest < ApplicationSystemTestCase
         setup do
           @delegate = spina_admin_conferences_delegates :joe_bloggs
-          @user = spina_users :joe
-          visit admin_login_path
-          within '.login-fields' do
-            fill_in 'email', with: @user.email
-            fill_in 'password', with: 'password'
-          end
-          click_on 'Login'
         end
 
         test 'visiting the index' do
