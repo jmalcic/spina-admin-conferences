@@ -4,7 +4,7 @@
 
 = form_for [:admin_conferences, @delegate], html: { autocomplete: 'off' } do |f|
   %header#header
-    = render partial: 'breadcrumbs'
+    = render partial: @delegate.new_record? ? 'spina/admin/shared/breadcrumbs' : 'breadcrumbs'
 
     #header_actions
       %button.button.button-primary{ type: 'submit' }
