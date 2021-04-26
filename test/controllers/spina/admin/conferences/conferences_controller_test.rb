@@ -13,7 +13,6 @@ module Spina
           @empty_conference = spina_admin_conferences_conferences :empty_conference
           @user = spina_users :joe
           @rovinj_image = spina_images(:rovinj)
-          @logo = spina_images(:logo)
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
