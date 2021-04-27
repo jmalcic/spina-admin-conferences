@@ -37,19 +37,21 @@ module Spina
 
         test 'should create presentation attachment type' do
           assert_difference 'PresentationAttachmentType.count' do
-            post admin_conferences_presentation_attachment_types_url, params: { presentation_attachment_type: { name: 'Slides' } }
+            post admin_conferences_presentation_attachment_types_url, params: { presentation_attachment_type: { name: 'Appendices' } }
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(name: 'Appendices')
         end
 
         test 'should create presentation attachment type with remote form' do
           assert_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url,
-                 params: { presentation_attachment_type: { name: 'Slides' } }, as: :turbo_stream
+                 params: { presentation_attachment_type: { name: 'Appendices' } }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(name: 'Appendices')
         end
 
         test 'should fail to create invalid presentation attachment type' do
@@ -71,16 +73,18 @@ module Spina
 
         test 'should update presentation attachment type' do
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: { name: 'Slides' } }
+                params: { presentation_attachment_type: { name: 'Appendices' } }
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(id: @presentation_attachment_type.id, name: 'Appendices')
         end
 
         test 'should update presentation attachment type with remote form' do
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: { name: 'Slides' } }, as: :turbo_stream
+                params: { presentation_attachment_type: { name: 'Appendices' } }, as: :turbo_stream
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(id: @presentation_attachment_type.id, name: 'Appendices')
         end
 
         test 'should fail to update invalid presentation attachment type' do

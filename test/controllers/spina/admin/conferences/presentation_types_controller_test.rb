@@ -60,12 +60,15 @@ module Spina
           attributes[:name] = @presentation_type.name
           assert_difference 'PresentationType.count' do
             post admin_conferences_presentation_types_url,
-                 params: { presentation_type: { minutes: 20,
-                                                conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                                name: 'Oral' } }
+                 params: { presentation_type: { minutes: 40,
+                                                conference_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                                name: 'Snail talk' } }
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
+          assert_not_nil PresentationType.i18n.find_by(duration: 40.minutes,
+                                                       conference: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                                       name: 'Snail talk')
         end
 
         test 'should create presentation type with remote form' do
@@ -74,13 +77,16 @@ module Spina
           attributes[:name] = @presentation_type.name
           assert_difference 'PresentationType.count' do
             post admin_conferences_presentation_types_url,
-                 params: { presentation_type: { minutes: 20,
-                                                conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                                name: 'Oral' } },
+                 params: { presentation_type: { minutes: 40,
+                                                conference_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                                name: 'Snail talk' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
+          assert_not_nil PresentationType.i18n.find_by(duration: 40.minutes,
+                                                       conference: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                                       name: 'Snail talk')
         end
 
         test 'should fail to create invalid presentation type' do
@@ -103,21 +109,29 @@ module Spina
 
         test 'should update presentation type' do
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { presentation_type: { minutes: 20,
-                                               conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                               name: 'Oral' } }
+                params: { presentation_type: { minutes: 40,
+                                               conference_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                               name: 'Snail talk' } }
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
+          assert_not_nil PresentationType.i18n.find_by(id: @presentation_type.id,
+                                                       duration: 40.minutes,
+                                                       conference: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                                       name: 'Snail talk')
         end
 
         test 'should update presentation type with remote form' do
           patch admin_conferences_presentation_type_url(@presentation_type),
-                params: { presentation_type: { minutes: 20,
-                                               conference_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                               name: 'Oral' } },
+                params: { presentation_type: { minutes: 40,
+                                               conference_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                               name: 'Snail talk' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_presentation_types_url
           assert_equal 'Presentation type saved', flash[:success]
+          assert_not_nil PresentationType.i18n.find_by(id: @presentation_type.id,
+                                                       duration: 40.minutes,
+                                                       conference: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018),
+                                                       name: 'Snail talk')
         end
 
         test 'should fail to update invalid presentation type' do

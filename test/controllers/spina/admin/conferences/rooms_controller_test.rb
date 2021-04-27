@@ -50,24 +50,30 @@ module Spina
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
             post admin_conferences_rooms_url,
-                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                   building: 'Lecture block',
-                                   number: '2' } }
+                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                   building: 'Bosch building',
+                                   number: '666' } }
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should create room with remote form' do
           assert_difference 'Room.count' do
             post admin_conferences_rooms_url,
-                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                   building: 'Lecture block',
-                                   number: '2' } },
+                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                   building: 'Bosch building',
+                                   number: '666' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should fail to create invalid room' do
@@ -88,21 +94,29 @@ module Spina
 
         test 'should update room' do
           patch admin_conferences_room_url(@room),
-                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                  building: 'Lecture block',
-                                  number: '2' } }
+                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                  building: 'Bosch building',
+                                  number: '666' } }
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(id: @room.id,
+                                           institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should update room with remote form' do
           patch admin_conferences_room_url(@room),
-                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                  building: 'Lecture block',
-                                  number: '2' } },
+                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                  building: 'Bosch building',
+                                  number: '666' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(id: @room.id,
+                                           institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should fail to update invalid room' do

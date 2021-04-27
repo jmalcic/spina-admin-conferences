@@ -46,18 +46,20 @@ module Spina
 
         test 'should create dietary requirement' do
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Pescetarian' } }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Carnivore' } }
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(name: 'Carnivore')
         end
 
         test 'should create dietary requirement with remote form' do
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Pescetarian' } }, as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Carnivore' } }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(name: 'Carnivore')
         end
 
         test 'should fail to create invalid dietary requirement' do
@@ -77,16 +79,18 @@ module Spina
         end
 
         test 'should update dietary requirement' do
-          patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: { dietary_requirement: { name: 'Pescetarian' } }
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: { dietary_requirement: { name: 'Carnivore' } }
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(id: @dietary_requirement.id, name: 'Carnivore')
         end
 
         test 'should update dietary requirement with remote form' do
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: { name: 'Pescetarian' } }, as: :turbo_stream
+                params: { dietary_requirement: { name: 'Carnivore' } }, as: :turbo_stream
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(id: @dietary_requirement.id, name: 'Carnivore')
         end
 
         test 'should fail to update invalid dietary requirement' do

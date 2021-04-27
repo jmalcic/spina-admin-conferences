@@ -55,34 +55,48 @@ module Spina
         test 'should create delegate' do
           assert_difference 'Delegate.count' do
             post admin_conferences_delegates_url,
-                 params: { delegate: { first_name: 'Joe',
-                                       last_name: 'Bloggs',
-                                       institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                       email_address: 'someone@someaddress.com',
-                                       url: 'https://www.bloggs.com',
-                                       conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                                        ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                 params: { delegate: { first_name: 'Mo',
+                                       last_name: 'Boggs',
+                                       institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                       email_address: 'noone@noaddress.com',
+                                       url: 'https://www.boggs.com',
+                                       conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
                                        dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } }
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
+          assert_not_nil Delegate.joins(:conferences, :dietary_requirements)
+                                 .find_by(first_name: 'Mo',
+                                          last_name: 'Boggs',
+                                          institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                          email_address: 'noone@noaddress.com',
+                                          url: 'https://www.boggs.com',
+                                          conferences: { id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018) },
+                                          dietary_requirements: { id: ActiveRecord::FixtureSet.identify(:pescetarian) })
         end
 
         test 'should create delegate with remote form' do
           assert_difference 'Delegate.count' do
             post admin_conferences_delegates_url,
-                 params: { delegate: { first_name: 'Joe',
-                                       last_name: 'Bloggs',
-                                       institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                       email_address: 'someone@someaddress.com',
-                                       url: 'https://www.bloggs.com',
-                                       conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                                        ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                 params: { delegate: { first_name: 'Mo',
+                                       last_name: 'Boggs',
+                                       institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                       email_address: 'noone@noaddress.com',
+                                       url: 'https://www.boggs.com',
+                                       conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
                                        dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
+          assert_not_nil Delegate.joins(:conferences, :dietary_requirements)
+                                 .find_by(first_name: 'Mo',
+                                          last_name: 'Boggs',
+                                          institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                          email_address: 'noone@noaddress.com',
+                                          url: 'https://www.boggs.com',
+                                          conferences: { id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018) },
+                                          dietary_requirements: { id: ActiveRecord::FixtureSet.identify(:pescetarian) })
         end
 
         test 'should fail to create invalid delegate' do
@@ -118,31 +132,47 @@ module Spina
 
         test 'should update delegate' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: { first_name: 'Joe',
-                                      last_name: 'Bloggs',
-                                      institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                      email_address: 'someone@someaddress.com',
-                                      url: 'https://www.bloggs.com',
-                                      conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                                       ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                params: { delegate: { first_name: 'Mo',
+                                      last_name: 'Boggs',
+                                      institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                      email_address: 'noone@noaddress.com',
+                                      url: 'https://www.boggs.com',
+                                      conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
                                       dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } }
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
+          assert_not_nil Delegate.joins(:conferences, :dietary_requirements)
+                                 .find_by(id: @delegate.id,
+                                          first_name: 'Mo',
+                                          last_name: 'Boggs',
+                                          institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                          email_address: 'noone@noaddress.com',
+                                          url: 'https://www.boggs.com',
+                                          conferences: { id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018) },
+                                          dietary_requirements: { id: ActiveRecord::FixtureSet.identify(:pescetarian) })
         end
 
         test 'should update delegate with remote form' do
           patch admin_conferences_delegate_url(@delegate),
-                params: { delegate: { first_name: 'Joe',
-                                      last_name: 'Bloggs',
-                                      institution_id: ActiveRecord::FixtureSet.identify(:university_of_atlantis),
-                                      email_address: 'someone@someaddress.com',
-                                      url: 'https://www.bloggs.com',
-                                      conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_atlantis_2017),
-                                                       ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
+                params: { delegate: { first_name: 'Mo',
+                                      last_name: 'Boggs',
+                                      institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                      email_address: 'noone@noaddress.com',
+                                      url: 'https://www.boggs.com',
+                                      conference_ids: [ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018)],
                                       dietary_requirement_ids: [ActiveRecord::FixtureSet.identify(:pescetarian)] } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_delegates_url
           assert_equal 'Delegate saved', flash[:success]
+          assert_not_nil Delegate.joins(:conferences, :dietary_requirements)
+                                 .find_by(id: @delegate.id,
+                                          first_name: 'Mo',
+                                          last_name: 'Boggs',
+                                          institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                          email_address: 'noone@noaddress.com',
+                                          url: 'https://www.boggs.com',
+                                          conferences: { id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la_2018) },
+                                          dietary_requirements: { id: ActiveRecord::FixtureSet.identify(:pescetarian) })
         end
 
         test 'should fail to update invalid delegate' do

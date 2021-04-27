@@ -46,24 +46,30 @@ module Spina
 
         test 'should create session' do
           assert_difference 'Session.count' do
-            post admin_conferences_sessions_url, params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
-                                                                      room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
-                                                                      name: 'Orals in Lecture Block 2' } }
+            post admin_conferences_sessions_url, params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                                                      room_id: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                                                      name: 'Orals in Lecture Block 3' } }
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
+          assert_not_nil Session.i18n.find_by(presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                              room: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                              name: 'Orals in Lecture Block 3')
         end
 
         test 'should create session with remote form' do
           assert_difference 'Session.count' do
             post admin_conferences_sessions_url,
-                 params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
-                                      room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
-                                      name: 'Orals in Lecture Block 2' } },
+                 params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                      room_id: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                      name: 'Orals in Lecture Block 3' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
+          assert_not_nil Session.i18n.find_by(presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                              room: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                              name: 'Orals in Lecture Block 3')
         end
 
         test 'should fail to create invalid session' do
@@ -85,21 +91,29 @@ module Spina
 
         test 'should update session' do
           patch admin_conferences_session_url(@session),
-                params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
-                                     room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
-                                     name: 'Orals in Lecture Block 2' } }
+                params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                     room_id: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                     name: 'Orals in Lecture Block 3' } }
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
+          assert_not_nil Session.i18n.find_by(id: @session.id,
+                                              presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                              room: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                              name: 'Orals in Lecture Block 3')
         end
 
         test 'should update session with remote form' do
           patch admin_conferences_session_url(@session),
-                params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_1),
-                                     room_id: ActiveRecord::FixtureSet.identify(:lecture_block_2),
-                                     name: 'Orals in Lecture Block 2' } },
+                params: { session: { presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                     room_id: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                     name: 'Orals in Lecture Block 3' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_sessions_url
           assert_equal 'Session saved', flash[:success]
+          assert_not_nil Session.i18n.find_by(id: @session.id,
+                                              presentation_type_id: ActiveRecord::FixtureSet.identify(:oral_2),
+                                              room: ActiveRecord::FixtureSet.identify(:lecture_block_3),
+                                              name: 'Orals in Lecture Block 3')
         end
 
         test 'should fail to update invalid session' do

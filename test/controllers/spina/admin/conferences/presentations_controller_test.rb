@@ -46,28 +46,46 @@ module Spina
         test 'should create presentation' do
           assert_difference 'Presentation.count' do
             post admin_conferences_presentations_url,
-                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
-                                           start_datetime: DateTime.parse('2017-04-07 10:00'),
-                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
-                                           title: 'The Asymmetry and Antisymmetry of Syntax',
-                                           abstract: 'Lorem ipsum' } }
+                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                           start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                           title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                  'theoretical inadequacy',
+                                           abstract: 'Dolor sit amen' } }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should create presentation with remote form' do
           assert_difference 'Presentation.count' do
             post admin_conferences_presentations_url,
-                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
-                                           start_datetime: DateTime.parse('2017-04-07 10:00'),
-                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
-                                           title: 'The Asymmetry and Antisymmetry of Syntax',
-                                           abstract: 'Lorem ipsum' } },
+                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                           start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                           title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                  'theoretical inadequacy',
+                                           abstract: 'Dolor sit amen' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should fail to create invalid presentation' do
@@ -91,25 +109,45 @@ module Spina
 
         test 'should update presentation' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
-                                          start_datetime: DateTime.parse('2017-04-07 10:00'),
-                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
-                                          title: 'The Asymmetry and Antisymmetry of Syntax',
-                                          abstract: 'Lorem ipsum' } }
+                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                          start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                          title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                 'theoretical inadequacy',
+                                          abstract: 'Dolor sit amen' } }
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(id: @presentation.id,
+                                              presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should update presentation with remote form' do
           patch admin_conferences_presentation_url(@presentation),
-                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:joe_bloggs)],
-                                          start_datetime: DateTime.parse('2017-04-07 10:00'),
-                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_2_uoa_2017),
-                                          title: 'The Asymmetry and Antisymmetry of Syntax',
-                                          abstract: 'Lorem ipsum' } },
+                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                          start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                          title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                 'theoretical inadequacy',
+                                          abstract: 'Dolor sit amen' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(id: @presentation.id,
+                                              presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should fail to update invalid presentation' do

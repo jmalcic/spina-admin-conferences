@@ -56,24 +56,30 @@ module Spina
         test 'should create institution' do
           assert_difference 'Institution.count' do
             post admin_conferences_institutions_url,
-                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
-                                          name: 'University of Atlantis',
-                                          city: 'Atlantis' } }
+                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                          name: 'University of Dubrovnik',
+                                          city: 'Dubrovnik' } }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should create institution with remote form' do
           assert_difference 'Institution.count' do
             post admin_conferences_institutions_url,
-                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
-                                          name: 'University of Atlantis',
-                                          city: 'Atlantis' } },
+                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                          name: 'University of Dubrovnik',
+                                          city: 'Dubrovnik' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should fail to create invalid institution' do
@@ -94,21 +100,29 @@ module Spina
 
         test 'should update institution' do
           patch admin_conferences_institution_url(@institution),
-                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
-                                         name: 'University of Atlantis',
-                                         city: 'Atlantis' } }
+                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                         name: 'University of Dubrovnik',
+                                         city: 'Dubrovnik' } }
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(id: @institution.id,
+                                                  logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should update institution with remote form' do
           patch admin_conferences_institution_url(@institution),
-                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:logo),
-                                         name: 'University of Atlantis',
-                                         city: 'Atlantis' } },
+                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                         name: 'University of Dubrovnik',
+                                         city: 'Dubrovnik' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(id: @institution.id,
+                                                  logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should fail to update invalid institution' do

@@ -75,24 +75,22 @@ module Spina
         test 'should create conference' do
           assert_difference 'Conference.count' do
             post admin_conferences_conferences_url,
-                 params: { conference: { start_date: Date.parse('2017-04-07'),
-                                         finish_date: Date.parse('2017-04-09'),
-                                         name: 'University of Atlantis 2017' } }
+                 params: { conference: { start_date: Date.parse('2022-04-09'), finish_date: Date.parse('2022-04-11'), name: 'NSA 2022' } }
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
+          assert_not_nil Conference.i18n.find_by(dates: Date.parse('2022-04-09')..Date.parse('2022-04-11'), name: 'NSA 2022')
         end
 
         test 'should create conference with remote form' do
           assert_difference 'Conference.count' do
             post admin_conferences_conferences_url,
-                 params: { conference: { start_date: Date.parse('2017-04-07'),
-                                         finish_date: Date.parse('2017-04-09'),
-                                         name: 'University of Atlantis 2017' } },
+                 params: { conference: { start_date: Date.parse('2022-04-09'), finish_date: Date.parse('2022-04-11'), name: 'NSA 2022' } },
                  as: :turbo_stream
           end
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
+          assert_not_nil Conference.i18n.find_by(dates: Date.parse('2022-04-09')..Date.parse('2022-04-11'), name: 'NSA 2022')
         end
 
         test 'should fail to create invalid conference' do
@@ -115,21 +113,23 @@ module Spina
 
         test 'should update conference' do
           patch admin_conferences_conference_url(@conference),
-                params: { conference: { start_date: Date.parse('2017-04-07'),
-                                        finish_date: Date.parse('2017-04-09'),
-                                        name: 'University of Atlantis 2017' } }
+                params: { conference: { start_date: Date.parse('2022-04-09'), finish_date: Date.parse('2022-04-11'), name: 'NSA 2022' } }
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
+          assert_not_nil Conference.i18n.find_by(id: @conference.id,
+                                                 dates: Date.parse('2022-04-09')..Date.parse('2022-04-11'),
+                                                 name: 'NSA 2022')
         end
 
         test 'should update conference with remote form' do
           patch admin_conferences_conference_url(@conference),
-                params: { conference: { start_date: Date.parse('2017-04-07'),
-                                        finish_date: Date.parse('2017-04-09'),
-                                        name: 'University of Atlantis 2017' } },
+                params: { conference: { start_date: Date.parse('2022-04-09'), finish_date: Date.parse('2022-04-11'), name: 'NSA 2022' } },
                 as: :turbo_stream
           assert_redirected_to admin_conferences_conferences_url
           assert_equal 'Conference saved', flash[:success]
+          assert_not_nil Conference.i18n.find_by(id: @conference.id,
+                                                 dates: Date.parse('2022-04-09')..Date.parse('2022-04-11'),
+                                                 name: 'NSA 2022')
         end
 
         test 'should fail to update invalid conference' do
