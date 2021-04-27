@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @institution = spina_admin_conferences_institutions :university_of_atlantis
-          @invalid_institution = Institution.new
           @empty_institution = spina_admin_conferences_institutions :empty_institution
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -43,84 +42,120 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_institution_url(@institution, locale: :en)
+          assert_response :success
+          assert_select('#delegates tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+          assert_select('#rooms tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create institution' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }
+            post admin_conferences_institutions_url,
+                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                          name: 'University of Dubrovnik',
+                                          city: 'Dubrovnik' } }
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should create institution with remote form' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
           assert_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }, as: :turbo_stream
+            post admin_conferences_institutions_url,
+                 params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                          name: 'University of Dubrovnik',
+                                          city: 'Dubrovnik' } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should fail to create invalid institution' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }
+            post admin_conferences_institutions_url, params: { institution: { logo_id: nil, name: nil, city: nil } }
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to create invalid institution with remote form' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
           assert_no_difference 'Institution.count' do
-            post admin_conferences_institutions_url, params: { institution: attributes }, as: :turbo_stream
+            post admin_conferences_institutions_url, params: { institution: { logo_id: nil, name: nil, city: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should update institution' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                         name: 'University of Dubrovnik',
+                                         city: 'Dubrovnik' } }
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(id: @institution.id,
+                                                  logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should update institution with remote form' do
-          attributes = @institution.attributes
-          attributes[:name] = @institution.name
-          attributes[:city] = @institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }, as: :turbo_stream
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: { logo_id: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                         name: 'University of Dubrovnik',
+                                         city: 'Dubrovnik' } },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_institutions_url
           assert_equal 'Institution saved', flash[:success]
+          assert_not_nil Institution.i18n.find_by(id: @institution.id,
+                                                  logo: ActiveRecord::FixtureSet.identify(:dubrovnik),
+                                                  name: 'University of Dubrovnik',
+                                                  city: 'Dubrovnik')
         end
 
         test 'should fail to update invalid institution' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }
+          patch admin_conferences_institution_url(@institution), params: { institution: { logo_id: nil, name: nil, city: nil } }
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
         end
 
         test 'should fail to update invalid institution with remote form' do
-          attributes = @invalid_institution.attributes
-          attributes[:name] = @invalid_institution.name
-          attributes[:city] = @invalid_institution.city
-          patch admin_conferences_institution_url(@institution), params: { institution: attributes }, as: :turbo_stream
+          patch admin_conferences_institution_url(@institution),
+                params: { institution: { logo_id: nil, name: nil, city: nil } },
+                as: :turbo_stream
           assert_response :success
           assert_not_equal 'Institution saved', flash[:success]
+        end
+
+        test 'should update institution in locale' do
+          assert_changes -> { @institution.reload.name(locale: :en) }, to: 'Atlantis University' do
+            patch admin_conferences_institution_url(@institution), params: { institution: { name: 'Atlantis University' }, locale: :en }
+            assert_redirected_to admin_conferences_institutions_url
+            assert_equal 'Institution saved', flash[:success]
+          end
+          assert_not_equal 'Atlantis University', @institution.reload.name
+        end
+
+        test 'should update institution in locale with remote form' do
+          assert_changes -> { @institution.reload.name(locale: :en) }, to: 'Atlantis University' do
+            patch admin_conferences_institution_url(@institution),
+                  params: { institution: { name: 'Atlantis University' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_institutions_url
+            assert_equal 'Institution saved', flash[:success]
+          end
+          assert_not_equal 'Atlantis University', @institution.reload.name
         end
 
         test 'should destroy institution' do

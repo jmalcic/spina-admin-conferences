@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @room = spina_admin_conferences_rooms :lecture_block_2
-          @invalid_room = Room.new
           @empty_room = spina_admin_conferences_rooms :empty_room
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -37,84 +36,129 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_room_url(@room, locale: :en)
+          assert_response :success
+          assert_select '#presentations tbody > tr' do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create room' do
           attributes = @room.attributes
           attributes[:building] = @room.building
           attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }
+            post admin_conferences_rooms_url,
+                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                   building: 'Bosch building',
+                                   number: '666' } }
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should create room with remote form' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
           assert_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }, as: :turbo_stream
+            post admin_conferences_rooms_url,
+                 params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                   building: 'Bosch building',
+                                   number: '666' } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should fail to create invalid room' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }
+            post admin_conferences_rooms_url, params: { room: { institution_id: nil, building: nil, number: nil } }
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to create invalid room with remote form' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
           assert_no_difference 'Room.count' do
-            post admin_conferences_rooms_url, params: { room: attributes }, as: :turbo_stream
+            post admin_conferences_rooms_url, params: { room: { institution_id: nil, building: nil, number: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should update room' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }
+          patch admin_conferences_room_url(@room),
+                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                  building: 'Bosch building',
+                                  number: '666' } }
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(id: @room.id,
+                                           institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should update room with remote form' do
-          attributes = @room.attributes
-          attributes[:building] = @room.building
-          attributes[:number] = @room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }, as: :turbo_stream
+          patch admin_conferences_room_url(@room),
+                params: { room: { institution_id: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                  building: 'Bosch building',
+                                  number: '666' } },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_rooms_url
           assert_equal 'Room saved', flash[:success]
+          assert_not_nil Room.i18n.find_by(id: @room.id,
+                                           institution: ActiveRecord::FixtureSet.identify(:university_of_shangri_la),
+                                           building: 'Bosch building',
+                                           number: '666')
         end
 
         test 'should fail to update invalid room' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }
+          patch admin_conferences_room_url(@room), params: { room: { institution_id: nil, building: nil, number: nil } }
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
         end
 
         test 'should fail to update invalid room with remote form' do
-          attributes = @invalid_room.attributes
-          attributes[:building] = @invalid_room.building
-          attributes[:number] = @invalid_room.number
-          patch admin_conferences_room_url(@room), params: { room: attributes }, as: :turbo_stream
+          patch admin_conferences_room_url(@room), params: { room: { institution_id: nil, building: nil, number: nil } }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Room saved', flash[:success]
+        end
+
+        test 'should update room in locale' do
+          assert_changes -> { @room.reload.building(locale: :en) }, to: 'LB' do
+            patch admin_conferences_room_url(@room), params: { room: { building: 'LB' }, locale: :en }
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_changes -> { @room.reload.number(locale: :en) }, to: 'Two' do
+            patch admin_conferences_room_url(@room), params: { room: { number: 'Two' }, locale: :en }
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_not_equal 'LB', @room.reload.building
+          assert_not_equal 'Two', @room.reload.number
+        end
+
+        test 'should update room in locale with remote form' do
+          assert_changes -> { @room.reload.building(locale: :en) }, to: 'LB' do
+            patch admin_conferences_room_url(@room), params: { room: { building: 'LB' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_changes -> { @room.reload.number(locale: :en) }, to: 'Two' do
+            patch admin_conferences_room_url(@room), params: { room: { number: 'Two' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_rooms_url
+            assert_equal 'Room saved', flash[:success]
+          end
+          assert_not_equal 'LB', @room.reload.building
+          assert_not_equal 'Two', @room.reload.number
         end
 
         test 'should destroy room' do

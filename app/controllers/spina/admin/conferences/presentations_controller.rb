@@ -29,7 +29,7 @@ module Spina
         # Renders a form for an existing presentation.
         # @return [void]
         def edit
-          add_breadcrumb @presentation.title
+          add_breadcrumb @presentation.title.truncate(33, separator: /\s/, omission: '…')
         end
 
         # Creates a presentation.
@@ -58,7 +58,7 @@ module Spina
           else
             respond_to do |format|
               format.html do
-                add_breadcrumb @presentation.title
+                add_breadcrumb @presentation.title.try(:truncate, 33, separator: /\s/, omission: '…')
                 render :edit
               end
               format.turbo_stream { render partial: 'errors', locals: { errors: @presentation.errors } }
@@ -74,7 +74,7 @@ module Spina
           else
             respond_to do |format|
               format.html do
-                add_breadcrumb @presentation.title
+                add_breadcrumb @presentation.title.try(:truncate, 33, separator: /\s/, omission: '…')
                 render :edit
               end
               format.turbo_stream { render partial: 'errors', locals: { errors: @presentation.errors } }

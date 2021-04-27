@@ -10,7 +10,6 @@ module Spina
 
         setup do
           @presentation = spina_admin_conferences_presentations :asymmetry_and_antisymmetry
-          @invalid_presentation = Presentation.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -36,109 +35,168 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_presentation_url(@presentation, locale: :en)
+          assert_response :success
+          assert_select('#presenters tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create presentation' do
-          attributes = @presentation.attributes
-          attributes[:session_id] = @presentation.session_id
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }
+            post admin_conferences_presentations_url,
+                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                           start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                           title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                  'theoretical inadequacy',
+                                           abstract: 'Dolor sit amen' } }
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should create presentation with remote form' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
           assert_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }, as: :turbo_stream
+            post admin_conferences_presentations_url,
+                 params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                           start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                           session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                           title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                  'theoretical inadequacy',
+                                           abstract: 'Dolor sit amen' } },
+                 as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should fail to create invalid presentation' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }
+            post admin_conferences_presentations_url,
+                 params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } }
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to create invalid presentation with remote form' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
           assert_no_difference 'Presentation.count' do
-            post admin_conferences_presentations_url, params: { presentation: attributes }, as: :turbo_stream
+            post admin_conferences_presentations_url,
+                 params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } },
+                 as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should update presentation' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                          start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                          title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                 'theoretical inadequacy',
+                                          abstract: 'Dolor sit amen' } }
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(id: @presentation.id,
+                                              presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should update presentation with remote form' do
-          attributes = @presentation.attributes
-          attributes[:presenter_ids] = @presentation.presenter_ids
-          attributes[:start_time] = @presentation.start_time
-          attributes[:date] = @presentation.date
-          attributes[:title] = @presentation.title
-          attributes[:abstract] = @presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: { presenter_ids: [ActiveRecord::FixtureSet.identify(:brandon_krapp)],
+                                          start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                          session_id: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                          title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                 'theoretical inadequacy',
+                                          abstract: 'Dolor sit amen' } },
+                as: :turbo_stream
           assert_redirected_to admin_conferences_presentations_url
           assert_equal 'Presentation saved', flash[:success]
+          assert_not_nil Presentation.i18n
+                                     .joins(:presenters)
+                                     .find_by(id: @presentation.id,
+                                              presenters: { id: ActiveRecord::FixtureSet.identify(:brandon_krapp) },
+                                              start_datetime: DateTime.parse('2017-04-08 10:00'),
+                                              session: ActiveRecord::FixtureSet.identify(:oral_1_lecture_block_3_uoa_2017),
+                                              title: 'The entire discussion of phonology in this book suffers from a fundamental ' \
+                                                     'theoretical inadequacy',
+                                              abstract: 'Dolor sit amen')
         end
 
         test 'should fail to update invalid presentation' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } }
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation with remote form' do
-          attributes = @invalid_presentation.attributes
-          attributes[:presenter_ids] = @invalid_presentation.presenter_ids
-          attributes[:start_time] = @invalid_presentation.start_time
-          attributes[:date] = @invalid_presentation.date
-          attributes[:title] = @invalid_presentation.title
-          attributes[:abstract] = @invalid_presentation.abstract
-          patch admin_conferences_presentation_url(@presentation), params: { presentation: attributes }, as: :turbo_stream
+          patch admin_conferences_presentation_url(@presentation),
+                params: { presentation: { presenter_ids: [], start_datetime: nil, session_id: nil, title: nil, abstract: nil } },
+                as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation saved', flash[:success]
+        end
+
+        test 'should update presentation in locale' do
+          assert_changes -> { @presentation.reload.title(locale: :en) }, to: 'Antisymmetry and asymmetry' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { title: 'Antisymmetry and asymmetry' }, locale: :en }
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_changes -> { @presentation.reload.abstract(locale: :en).try(:to_plain_text) }, to: 'Dolor sit amen.' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { abstract: 'Dolor sit amen.' }, locale: :en }
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_not_equal 'Antisymmetry and asymmetry', @presentation.reload.title
+          assert_not_equal 'Dolor sit amen.', @presentation.reload.abstract.to_plain_text
+        end
+
+        test 'should update presentation in locale with remote form' do
+          assert_changes -> { @presentation.reload.title(locale: :en) }, to: 'Antisymmetry and asymmetry' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { title: 'Antisymmetry and asymmetry' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_changes -> { @presentation.reload.abstract(locale: :en).try(:to_plain_text) }, to: 'Dolor sit amen.' do
+            patch admin_conferences_presentation_url(@presentation),
+                  params: { presentation: { abstract: 'Dolor sit amen.' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentations_url
+            assert_equal 'Presentation saved', flash[:success]
+          end
+          assert_not_equal 'Antisymmetry and asymmetry', @presentation.reload.title
+          assert_not_equal 'Dolor sit amen.', @presentation.reload.abstract.to_plain_text
         end
 
         test 'should destroy presentation' do

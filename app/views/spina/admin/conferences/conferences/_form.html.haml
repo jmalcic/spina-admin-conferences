@@ -4,7 +4,7 @@
 
 = form_for [:admin_conferences, @conference], html: { autocomplete: 'off' } do |f|
   %header#header
-    = render partial: 'spina/admin/shared/breadcrumbs'
+    = render partial: @conference.new_record? ? 'spina/admin/shared/breadcrumbs' : 'breadcrumbs'
 
     #header_actions
       %button.button.button-primary{ type: 'submit' }
@@ -19,9 +19,12 @@
           %li{ class: ('active' if i == 0) }
             = link_to t(".#{tab}"), "##{tab}"
 
-  #conference_details.tab-content.active= render 'form_conference_details', f: f
-  #parts.tab-content= render 'form_parts', f: f
-  #rooms.tab-content= render partial: 'rooms', object: @conference.rooms
-  #presentation_types.tab-content= render partial: 'presentation_types', object: @conference.presentation_types
-  #delegates.tab-content= render partial: 'delegates', object: @conference.delegates
-  #presentations.tab-content= render partial: 'presentations', object: @conference.presentations
+  = hidden_field_tag :locale, @locale
+
+  - Mobility.with_locale(@locale) do
+    #conference_details.tab-content.active= render 'form_conference_details', f: f
+    #parts.tab-content= render 'form_parts', f: f
+    #rooms.tab-content= render partial: 'rooms', object: @conference.rooms
+    #presentation_types.tab-content= render partial: 'presentation_types', object: @conference.presentation_types
+    #delegates.tab-content= render partial: 'delegates', object: @conference.delegates
+    #presentations.tab-content= render partial: 'presentations', object: @conference.presentations
