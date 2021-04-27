@@ -11,7 +11,6 @@ module Spina
 
         setup do
           @presentation_attachment_type = spina_admin_conferences_presentation_attachment_types :slides
-          @invalid_presentation_attachment_type = PresentationAttachmentType.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -31,82 +30,95 @@ module Spina
           assert_response :success
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_presentation_attachment_type_url(@presentation_attachment_type, locale: :en)
+          assert_response :success
+        end
+
         test 'should create presentation attachment type' do
-          attributes = @presentation_attachment_type.attributes
-          attributes[:name] = @presentation_attachment_type.name
           assert_difference 'PresentationAttachmentType.count' do
-            post admin_conferences_presentation_attachment_types_url, params: { presentation_attachment_type: attributes }
+            post admin_conferences_presentation_attachment_types_url, params: { presentation_attachment_type: { name: 'Appendices' } }
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(name: 'Appendices')
         end
 
         test 'should create presentation attachment type with remote form' do
-          attributes = @presentation_attachment_type.attributes
-          attributes[:name] = @presentation_attachment_type.name
           assert_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url,
-                 params: { presentation_attachment_type: attributes }, as: :turbo_stream
+                 params: { presentation_attachment_type: { name: 'Appendices' } }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(name: 'Appendices')
         end
 
         test 'should fail to create invalid presentation attachment type' do
-          attributes = @invalid_presentation_attachment_type.attributes
-          attributes[:name] = @invalid_presentation_attachment_type.name
           assert_no_difference 'PresentationAttachmentType.count' do
-            post admin_conferences_presentation_attachment_types_url, params: { presentation_attachment_type: attributes }
+            post admin_conferences_presentation_attachment_types_url, params: { presentation_attachment_type: { name: nil } }
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
         end
 
         test 'should fail to create invalid presentation attachment type with remote form' do
-          attributes = @invalid_presentation_attachment_type.attributes
-          attributes[:name] = @invalid_presentation_attachment_type.name
           assert_no_difference 'PresentationAttachmentType.count' do
             post admin_conferences_presentation_attachment_types_url,
-                 params: { presentation_attachment_type: attributes }, as: :turbo_stream
+                 params: { presentation_attachment_type: { name: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
         end
 
         test 'should update presentation attachment type' do
-          attributes = @presentation_attachment_type.attributes
-          attributes[:name] = @presentation_attachment_type.name
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: attributes }
+                params: { presentation_attachment_type: { name: 'Appendices' } }
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(id: @presentation_attachment_type.id, name: 'Appendices')
         end
 
         test 'should update presentation attachment type with remote form' do
-          attributes = @presentation_attachment_type.attributes
-          attributes[:name] = @presentation_attachment_type.name
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: attributes }, as: :turbo_stream
+                params: { presentation_attachment_type: { name: 'Appendices' } }, as: :turbo_stream
           assert_redirected_to admin_conferences_presentation_attachment_types_url
           assert_equal 'Presentation attachment type saved', flash[:success]
+          assert_not_nil PresentationAttachmentType.i18n.find_by(id: @presentation_attachment_type.id, name: 'Appendices')
         end
 
         test 'should fail to update invalid presentation attachment type' do
-          attributes = @invalid_presentation_attachment_type.attributes
-          attributes[:name] = @invalid_presentation_attachment_type.name
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: attributes }
+                params: { presentation_attachment_type: { name: nil } }
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
         end
 
         test 'should fail to update invalid presentation attachment type with remote form' do
-          attributes = @invalid_presentation_attachment_type.attributes
-          attributes[:name] = @invalid_presentation_attachment_type.name
           patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
-                params: { presentation_attachment_type: attributes }, as: :turbo_stream
+                params: { presentation_attachment_type: { name: nil } }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Presentation attachment type saved', flash[:success]
+        end
+
+        test 'should update presentation attachment type in locale' do
+          assert_changes -> { @presentation_attachment_type.reload.name(locale: :en) }, to: 'Overhead slides' do
+            patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
+                  params: { presentation_attachment_type: { name: 'Overhead slides' }, locale: :en }
+            assert_redirected_to admin_conferences_presentation_attachment_types_url
+            assert_equal 'Presentation attachment type saved', flash[:success]
+          end
+          assert_not_equal 'overhead slides', @presentation_attachment_type.reload.name
+        end
+
+        test 'should update presentation attachment type in locale with remote form' do
+          assert_changes -> { @presentation_attachment_type.reload.name(locale: :en) }, to: 'Overhead slides' do
+            patch admin_conferences_presentation_attachment_type_url(@presentation_attachment_type),
+                  params: { presentation_attachment_type: { name: 'Overhead slides' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_presentation_attachment_types_url
+            assert_equal 'Presentation attachment type saved', flash[:success]
+          end
+          assert_not_equal 'overhead slides', @presentation_attachment_type.reload.name
         end
 
         test 'should destroy presentation attachment type' do

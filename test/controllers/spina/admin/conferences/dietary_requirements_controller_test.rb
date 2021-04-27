@@ -11,7 +11,6 @@ module Spina
 
         setup do
           @dietary_requirement = spina_admin_conferences_dietary_requirements :pescetarian
-          @invalid_dietary_requirement = DietaryRequirement.new
           @user = spina_users :joe
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -37,80 +36,94 @@ module Spina
           end
         end
 
+        test 'should get edit in locale' do
+          get edit_admin_conferences_dietary_requirement_url(@dietary_requirement, locale: :en)
+          assert_response :success
+          assert_select('#delegates tbody > tr') do |table_rows|
+            table_rows.each { |row| assert_select row, 'td', 4 }
+          end
+        end
+
         test 'should create dietary requirement' do
-          attributes = @dietary_requirement.attributes
-          attributes[:name] = @dietary_requirement.name
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Carnivore' } }
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(name: 'Carnivore')
         end
 
         test 'should create dietary requirement with remote form' do
-          attributes = @dietary_requirement.attributes
-          attributes[:name] = @dietary_requirement.name
           assert_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }, as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: 'Carnivore' } }, as: :turbo_stream
           end
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(name: 'Carnivore')
         end
 
         test 'should fail to create invalid dietary requirement' do
-          attributes = @invalid_dietary_requirement.attributes
-          attributes[:name] = @invalid_dietary_requirement.name
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: nil } }
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to create invalid dietary requirement with remote form' do
-          attributes = @invalid_dietary_requirement.attributes
-          attributes[:name] = @invalid_dietary_requirement.name
           assert_no_difference 'DietaryRequirement.count' do
-            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: attributes }, as: :turbo_stream
+            post admin_conferences_dietary_requirements_url, params: { dietary_requirement: { name: nil } }, as: :turbo_stream
           end
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should update dietary requirement' do
-          attributes = @dietary_requirement.attributes
-          attributes[:name] = @dietary_requirement.name
-          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: attributes }
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: { dietary_requirement: { name: 'Carnivore' } }
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(id: @dietary_requirement.id, name: 'Carnivore')
         end
 
         test 'should update dietary requirement with remote form' do
-          attributes = @dietary_requirement.attributes
-          attributes[:name] = @dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: attributes }, as: :turbo_stream
+                params: { dietary_requirement: { name: 'Carnivore' } }, as: :turbo_stream
           assert_redirected_to admin_conferences_dietary_requirements_url
           assert_equal 'Dietary requirement saved', flash[:success]
+          assert_not_nil DietaryRequirement.i18n.find_by(id: @dietary_requirement.id, name: 'Carnivore')
         end
 
         test 'should fail to update invalid dietary requirement' do
-          attributes = @invalid_dietary_requirement.attributes
-          attributes[:name] = @invalid_dietary_requirement.name
-          patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: attributes }
+          patch admin_conferences_dietary_requirement_url(@dietary_requirement), params: { dietary_requirement: { name: nil } }
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
         end
 
         test 'should fail to update invalid dietary requirement with remote form' do
-          attributes = @invalid_dietary_requirement.attributes
-          attributes[:name] = @invalid_dietary_requirement.name
           patch admin_conferences_dietary_requirement_url(@dietary_requirement),
-                params: { dietary_requirement: attributes }, as: :turbo_stream
+                params: { dietary_requirement: { name: nil } }, as: :turbo_stream
           assert_response :success
           assert_not_equal 'Dietary requirement saved', flash[:success]
+        end
+
+        test 'should update dietary requirement in locale' do
+          assert_changes -> { @dietary_requirement.reload.name(locale: :en) }, to: 'Pescatarian' do
+            patch admin_conferences_dietary_requirement_url(@dietary_requirement),
+                  params: { dietary_requirement: { name: 'Pescatarian' }, locale: :en }
+            assert_redirected_to admin_conferences_dietary_requirements_url
+            assert_equal 'Dietary requirement saved', flash[:success]
+          end
+          assert_not_equal 'Pescatarian', @dietary_requirement.reload.name
+        end
+
+        test 'should update dietary requirement in locale with remote form' do
+          assert_changes -> { @dietary_requirement.reload.name(locale: :en) }, to: 'Pescatarian' do
+            patch admin_conferences_dietary_requirement_url(@dietary_requirement),
+                  params: { dietary_requirement: { name: 'Pescatarian' }, locale: :en }, as: :turbo_stream
+            assert_redirected_to admin_conferences_dietary_requirements_url
+            assert_equal 'Dietary requirement saved', flash[:success]
+          end
+          assert_not_equal 'Pescatarian', @dietary_requirement.reload.name
         end
 
         test 'should destroy dietary requirement' do

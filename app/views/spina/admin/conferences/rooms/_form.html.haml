@@ -4,7 +4,7 @@
 
 = form_for [:admin_conferences, @room], html: { autocomplete: 'off' } do |f|
   %header#header
-    = render partial: 'spina/admin/shared/breadcrumbs'
+    = render partial: @room.new_record? ? 'spina/admin/shared/breadcrumbs' : 'breadcrumbs'
 
     #header_actions
       %button.button.button-primary{ type: 'submit' }
@@ -19,5 +19,8 @@
           %li{ class: ('active'if i == 0)}
             = link_to t(".#{tab}"), "##{tab}"
 
-  #room_details.tab-content.active= render 'form_room_details', f: f
-  #presentations.tab-content= render partial: 'presentations', object: @room.presentations
+  = hidden_field_tag :locale, @locale
+
+  - Mobility.with_locale(@locale) do
+    #room_details.tab-content.active= render 'form_room_details', f: f
+    #presentations.tab-content= render partial: 'presentations', object: @room.presentations
