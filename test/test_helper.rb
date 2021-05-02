@@ -48,10 +48,12 @@ ActiveRecord::FixtureSet.context_class.file_fixture_path = ActiveSupport::TestCa
 
 module ActiveSupport
   class TestCase
-    parallelize workers: :number_of_processors
+    parallelize
+
     parallelize_setup do |worker|
       SimpleCov.command_name "#{SimpleCov.command_name} worker #{worker}"
     end
+
     parallelize_teardown do
       SimpleCov.result
     end
