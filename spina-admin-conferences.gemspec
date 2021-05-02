@@ -32,6 +32,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_dependency 'stimulus-rails', '~> 0.2.2'
   spec.add_dependency 'turbo-rails', '~> 0.5.9'
 
+  spec.add_development_dependency 'browserstack-local', '~> 1.3'
   spec.add_development_dependency 'capybara', '~> 3.33'
   spec.add_development_dependency 'dotenv-rails', '~> 2.7'
   spec.add_development_dependency 'image_processing', '~> 1.12'
@@ -48,5 +49,4 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'simplecov', '~> 0.19'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8'
   spec.add_development_dependency 'web-console', '~> 4.0'
-  spec.add_development_dependency 'webdrivers', '~> 4.4'
 end
