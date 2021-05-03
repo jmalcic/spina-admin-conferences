@@ -65,7 +65,6 @@ module Spina
           end
           accept_confirm "Are you sure you want to delete the dietary requirement <strong>#{@dietary_requirement.name}</strong>?" do
             click_on 'Permanently delete'
-            Percy.snapshot page, name: 'Dietary requirements delete dialog'
           end
           assert_current_path admin_conferences_dietary_requirements_path
           assert_text 'Dietary requirement deleted'

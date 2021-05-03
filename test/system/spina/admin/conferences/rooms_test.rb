@@ -70,7 +70,6 @@ module Spina
           end
           accept_confirm "Are you sure you want to delete the room <strong>#{@empty_room.name}</strong>?" do
             click_on 'Permanently delete'
-            Percy.snapshot page, name: 'Rooms delete dialog'
           end
           assert_current_path admin_conferences_rooms_path
           assert_text 'Room deleted'

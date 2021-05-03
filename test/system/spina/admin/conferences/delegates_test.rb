@@ -75,7 +75,6 @@ module Spina
           end
           accept_confirm "Are you sure you want to delete the delegate <strong>#{@delegate.full_name}</strong>?" do
             click_on 'Permanently delete'
-            Percy.snapshot page, name: 'Delegates delete dialog'
           end
           assert_current_path admin_conferences_delegates_path
           assert_text 'Delegate deleted'

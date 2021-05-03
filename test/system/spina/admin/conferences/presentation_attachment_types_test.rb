@@ -66,7 +66,6 @@ module Spina
           accept_confirm "Are you sure you want to delete the presentation attachment type <strong>#{@presentation_attachment_type.name}" \
                          '</strong>?' do
             click_on 'Permanently delete'
-            Percy.snapshot page, name: 'Presentation attachment types delete dialog'
           end
           assert_current_path admin_conferences_presentation_attachment_types_path
           assert_text 'Presentation attachment type deleted'

@@ -76,7 +76,6 @@ module Spina
           end
           accept_confirm "Are you sure you want to delete the institution <strong>#{@empty_institution.name}</strong>?" do
             click_on 'Permanently delete'
-            Percy.snapshot page, name: 'Institutions delete dialog'
           end
           assert_current_path admin_conferences_institutions_path
           assert_text 'Institution deleted'

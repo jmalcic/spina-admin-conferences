@@ -74,7 +74,6 @@ module Spina
           end
           accept_confirm "Are you sure you want to delete the session <strong>#{@empty_session.name}</strong>?" do
             click_on 'Permanently delete'
-            Percy.snapshot page, name: 'Sessions delete dialog'
           end
           assert_current_path admin_conferences_sessions_path
           assert_text 'Session deleted'
