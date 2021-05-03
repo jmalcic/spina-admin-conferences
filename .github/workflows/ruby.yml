@@ -16,6 +16,7 @@ jobs:
       PGHOST: 127.0.0.1
       PGUSER: postgres
       PGPASSWORD: postgres
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -52,7 +53,12 @@ jobs:
     - name: Precompile assets
       run: bundle exec rails app:assets:precompile
     - name: Test with Rake
-      run: bundle exec rake
+      uses: percy/exec-action@v0.3.1
+      with:
+        command: bundle exec rake
+        silence: true
+      env:
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     - name: Upload coverage to Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
