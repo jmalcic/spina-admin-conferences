@@ -93,6 +93,33 @@ ActiveRecord::Schema.define(version: 20_210_417_102_514) do
     t.datetime 'updated_at', null: false
   end
 
+  create_table 'spina_conferences_accounts', force: :cascade do |t|
+    t.string 'first_name', null: false
+    t.string 'last_name', null: false
+    t.string 'email_address', null: false
+    t.boolean 'unconfirmed', default: true, null: false
+    t.string 'password_digest', null: false
+    t.string 'password_reset_token', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['email_address'], name: 'index_spina_conferences_accounts_on_email_address', unique: true
+    t.index ['password_reset_token'], name: 'index_spina_conferences_accounts_on_password_reset_token', unique: true
+  end
+
+  create_table 'spina_conferences_affiliations', force: :cascade do |t|
+    t.bigint 'account_id', null: false
+    t.bigint 'institution_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['account_id'], name: 'index_spina_conferences_affiliations_on_account_id'
+    t.index ['institution_id'], name: 'index_spina_conferences_affiliations_on_institution_id'
+  end
+
+  create_table 'spina_conferences_authorships', force: :cascade do |t|
+    t.bigint 'delegation_id', null: false
+    t.bigint 'presentation_id', null: false
+  end
+
   create_table 'spina_conferences_conference_translations', force: :cascade do |t|
     t.string 'name'
     t.string 'locale', null: false
@@ -110,11 +137,6 @@ ActiveRecord::Schema.define(version: 20_210_417_102_514) do
     t.jsonb 'json_attributes'
   end
 
-  create_table 'spina_conferences_conferences_delegates', id: false, force: :cascade do |t|
-    t.bigint 'spina_conferences_conference_id', null: false
-    t.bigint 'spina_conferences_delegate_id', null: false
-  end
-
   create_table 'spina_conferences_date_parts', force: :cascade do |t|
     t.date 'content'
     t.datetime 'created_at', null: false
@@ -122,14 +144,12 @@ ActiveRecord::Schema.define(version: 20_210_417_102_514) do
   end
 
   create_table 'spina_conferences_delegates', force: :cascade do |t|
-    t.string 'first_name', null: false
-    t.string 'last_name', null: false
     t.string 'email_address'
     t.string 'url'
-    t.bigint 'institution_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.index ['institution_id'], name: 'index_spina_conferences_delegates_on_institution_id'
+    t.bigint 'account_id'
+    t.index ['account_id'], name: 'index_spina_conferences_delegates_on_account_id'
   end
 
   create_table 'spina_conferences_delegates_dietary_requirements', id: false, force: :cascade do |t|
@@ -137,9 +157,20 @@ ActiveRecord::Schema.define(version: 20_210_417_102_514) do
     t.bigint 'spina_conferences_dietary_requirement_id', null: false
   end
 
-  create_table 'spina_conferences_delegates_presentations', id: false, force: :cascade do |t|
-    t.bigint 'spina_conferences_delegate_id', null: false
-    t.bigint 'spina_conferences_presentation_id', null: false
+  create_table 'spina_conferences_delegation_affiliations', force: :cascade do |t|
+    t.bigint 'delegation_id', null: false
+    t.bigint 'institution_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['delegation_id'], name: 'index_spina_conferences_delegation_affiliations_on_delegation'
+    t.index ['institution_id'], name: 'index_spina_conferences_delegation_affiliations_on_institution'
+  end
+
+  create_table 'spina_conferences_delegations', force: :cascade do |t|
+    t.bigint 'conference_id', null: false
+    t.bigint 'delegate_id', null: false
+    t.string 'first_name', null: false
+    t.string 'last_name', null: false
   end
 
   create_table 'spina_conferences_dietary_requirement_translations', force: :cascade do |t|
@@ -528,8 +559,12 @@ ActiveRecord::Schema.define(version: 20_210_417_102_514) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'spina_conferences_affiliations', 'spina_conferences_accounts', column: 'account_id'
+  add_foreign_key 'spina_conferences_affiliations', 'spina_conferences_institutions', column: 'institution_id'
   add_foreign_key 'spina_conferences_conference_translations', 'spina_conferences_conferences'
-  add_foreign_key 'spina_conferences_delegates', 'spina_conferences_institutions', column: 'institution_id', on_delete: :cascade
+  add_foreign_key 'spina_conferences_delegates', 'spina_conferences_accounts', column: 'account_id'
+  add_foreign_key 'spina_conferences_delegation_affiliations', 'spina_conferences_delegations', column: 'delegation_id'
+  add_foreign_key 'spina_conferences_delegation_affiliations', 'spina_conferences_institutions', column: 'institution_id'
   add_foreign_key 'spina_conferences_dietary_requirement_translations', 'spina_conferences_dietary_requirements', on_delete: :cascade
   add_foreign_key 'spina_conferences_event_translations', 'spina_conferences_events'
   add_foreign_key 'spina_conferences_events', 'spina_conferences_conferences', column: 'conference_id', on_delete: :cascade

@@ -27,12 +27,15 @@ module Spina
                                   { name: 'Poster', minutes: 30, conference: uos_conference },
                                   { name: 'Talk', minutes: 20, conference: uos_conference }]
       session = Session.create! presentation_type: talk1, room: lecture_block2, name: 'Session'
-      joe_bloggs = Delegate.create! first_name: 'Joe', last_name: 'Bloggs', email_address: 'someone@someaddress.com',
-                                    institution: university_of_atlantis,
+      joe_bloggs = Delegate.create! email_address: 'someone@someaddress.com',
                                     dietary_requirements: [DietaryRequirement.new(name: 'Pescetarian')],
-                                    conferences: [uoa_conference, uos_conference]
+                                    delegations_attributes: [{ first_name: 'Joe', last_name: 'Bloggs', institution: university_of_atlantis,
+                                                               conference: uoa_conference },
+                                                             { first_name: 'Joe', last_name: 'Bloggs', institution: university_of_atlantis,
+                                                               conference: uos_conference }]
       Presentation.create! title: 'The Asymmetry and Antisymmetry of Syntax', start_datetime: '2017-04-07T10:00',
-                           abstract: 'Lorem ipsum', presenters: [joe_bloggs],
+                           abstract: 'Lorem ipsum', authorships_attributes:
+                             [{ delegation_id: Delegation.find_by(delegate: joe_bloggs, conference: session.conference).id }],
                            session: session
     end
   end
