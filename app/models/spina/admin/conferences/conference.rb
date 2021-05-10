@@ -40,6 +40,16 @@ module Spina
         #   @note Destroying a conference destroys dependent events.
         #   @see Event
         has_many :events, -> { includes(:translations) }, inverse_of: :conference, dependent: :destroy
+        # @!attribute [rw] delegations
+        #   @return [ActiveRecord::Relation] directly associated delegations
+        #   @note Destroying a conference destroys dependent delegations.
+        #   @see Delegation
+        has_many :delegations, inverse_of: :conference, dependent: :destroy
+        # @!attribute [rw] events
+        #   @return [ActiveRecord::Relation] directly associated events
+        #   @note Destroying a conference destroys dependent events.
+        #   @see Event
+        has_many :parts, as: :pageable, dependent: :destroy
         # @!attribute [rw] sessions
         #   @return [ActiveRecord::Relation] Sessions associated with {#presentation_types}
         #   @see Session
@@ -61,10 +71,10 @@ module Spina
         #   @see Room#institutions
         has_many :institutions, -> { distinct.includes(:translations) }, through: :rooms
         # @!attribute [rw] delegates
-        #   @return [ActiveRecord::Relation] directly associated delegates
+        #   @return [ActiveRecord::Relation] Delegates associated with #{delegations}
         #   @see Delegate
-        has_and_belongs_to_many :delegates, foreign_key: :spina_conferences_conference_id, # rubocop:disable Rails/HasAndBelongsToMany
-                                            association_foreign_key: :spina_conferences_delegate_id
+        #   @see Delegation#delegate
+        has_many :delegates, through: :delegations
         accepts_nested_attributes_for :events, allow_destroy: true
 
         validates :name, :start_date, :finish_date, :year, presence: true

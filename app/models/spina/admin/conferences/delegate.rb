@@ -12,37 +12,41 @@ module Spina
       # @see EmailAddressValidator
       # @see HttpUrlValidator
       class Delegate < ApplicationRecord
-        # @!attribute [rw] first_name
-        #   @return [String, nil] the first name of the delegate
-        # @!attribute [rw] last_name
-        #   @return [String, nil] the last name of the delegate
         # @!attribute [rw] email_address
         #   @return [String, nil] the email address of the delegate
         # @!attribute [rw] url
         #   @return [String, nil] the website belonging to the delegate
 
-        # @return [ActiveRecord::Relation] all delegates, ordered by last name and first name
-        scope :sorted, -> { order :last_name, :first_name }
-
-        # @!attribute [rw] institution
-        #   @return [Institution, nil] directly associated institution
-        #   @see Institution
-        belongs_to :institution, inverse_of: :delegates, touch: true
+        # @!attribute [rw] account
+        #   @return [Account, nil] directly associated delegate
+        #   @see Account
+        belongs_to :account, inverse_of: :delegate, optional: true
+        # @!attribute [rw] delegations
+        #   @return [ActiveRecord::Relation] directly associated delegations
+        #   @note Destroying a delegate destroys dependent delegations.
+        #   @see Delegation
+        has_many :delegations, inverse_of: :delegate, dependent: :destroy
+        # @!attribute [rw] authorships
+        #   @return [ActiveRecord::Relation] Authorships associated with #{delegations}
+        #   @see Authorship
+        #   @see Delegation#authorship
+        has_many :authorships, through: :delegations
         # @!attribute [rw] conferences
-        #   @return [ActiveRecord::Relation] directly associated conferences
+        #   @return [ActiveRecord::Relation] Conferences associated with #{delegations}
         #   @see Conference
-        has_and_belongs_to_many :conferences, -> { includes(:translations) }, foreign_key: :spina_conferences_delegate_id, # rubocop:disable Rails/HasAndBelongsToMany
-                                              association_foreign_key: :spina_conferences_conference_id
-        # @!attribute [rw] presentations
-        #   @return [ActiveRecord::Relation] directly associated presentations
+        #   @see Delegation#conference
+        has_many :conferences, through: :delegations
+        # @!attribute [rw] authorships
+        #   @return [ActiveRecord::Relation] Presentations associated with #{authorships}
         #   @see Presentation
-        has_and_belongs_to_many :presentations, -> { includes(:translations) }, foreign_key: :spina_conferences_delegate_id, # rubocop:disable Rails/HasAndBelongsToMany
-                                                association_foreign_key: :spina_conferences_presentation_id
+        #   @see Authorship#presentation
+        has_many :presentations, through: :authorships
         # @!attribute [rw] dietary_requirements
         #   @return [ActiveRecord::Relation] directly associated dietary requirements
         #   @see DietaryRequirement
         has_and_belongs_to_many :dietary_requirements, -> { includes(:translations) }, foreign_key: :spina_conferences_delegate_id, # rubocop:disable Rails/HasAndBelongsToMany
                                                        association_foreign_key: :spina_conferences_dietary_requirement_id
+        accepts_nested_attributes_for :delegations
 
         validates :first_name, :last_name, presence: true
         validates :email_address, 'spina/admin/conferences/email_address': true

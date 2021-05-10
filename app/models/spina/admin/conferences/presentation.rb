@@ -66,13 +66,19 @@ module Spina
         #   @see Attachment
         has_many :attachments, class_name: 'Spina::Admin::Conferences::PresentationAttachment', dependent: :destroy,
                                inverse_of: :presentation
+        # @!attribute [rw] authorships
+        #   @return [ActiveRecord::Relation] directly associated authorships
+        #   @note Destroying a presentation destroys associated authorships.
+        #   @see Authorship
+        has_many :authorships, class_name: 'Spina::Admin::Conferences::Authorship', dependent: :destroy,
+                               inverse_of: :presentation
         # @!attribute [rw] presenters
-        #   @return [ActiveRecord::Relation] directly associated delegates
-        #   @see Delegate
-        has_and_belongs_to_many :presenters, class_name: 'Spina::Admin::Conferences::Delegate', # rubocop:disable Rails/HasAndBelongsToMany
-                                             foreign_key: :spina_conferences_presentation_id,
-                                             association_foreign_key: :spina_conferences_delegate_id
+        #   @return [ActiveRecord::Relation] Delegations associated with #authorships
+        #   @see Authorship
+        #   @see Authorship#delegation
+        has_many :presenters, through: :authorships, source: :delegation
         accepts_nested_attributes_for :attachments, allow_destroy: true
+        accepts_nested_attributes_for :authorships
 
         validates :title, :start_datetime, :abstract, :presenters, presence: true
         validates :start_datetime, 'spina/admin/conferences/conference_date': true

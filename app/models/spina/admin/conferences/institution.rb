@@ -31,12 +31,16 @@ module Spina
         #   @note An institution cannot be destroyed if it has dependent rooms.
         #   @see Room
         has_many :rooms, -> { includes(:translations) }, inverse_of: :institution, dependent: :restrict_with_error
-        # @!attribute [rw] delegates
-        #   @return [ActiveRecord::Relation] directly associated delegates
-        #   @note This relation accepts nested attributes.
-        #   @note An institution cannot be destroyed if it has dependent delegates.
-        #   @see Delegate
-        has_many :delegates, inverse_of: :institution, dependent: :restrict_with_error
+        # @!attribute [rw] delegation_affiliations
+        #   @return [ActiveRecord::Relation] directly associated delegation affiliations
+        #   @note Destroying an institution destroys dependent delegation affiliations.
+        #   @see DelegationAffiliation
+        has_many :delegation_affiliations, inverse_of: :institution, dependent: :destroy
+        # @!attribute [rw] affiliations
+        #   @return [ActiveRecord::Relation] directly associated affiliations
+        #   @note Destroying an institution destroys dependent affiliations.
+        #   @see Affiliation
+        has_many :affiliations, inverse_of: :institution, dependent: :destroy
         accepts_nested_attributes_for :rooms
 
         validates :name, :city, presence: true
