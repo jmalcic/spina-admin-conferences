@@ -80,9 +80,9 @@ module Spina
         accepts_nested_attributes_for :attachments, allow_destroy: true
         accepts_nested_attributes_for :authorships
 
-        validates :title, :start_datetime, :abstract, :presenters, presence: true
+        validates :title, :start_datetime, :abstract, :authorships, presence: true
         validates :start_datetime, 'spina/admin/conferences/conference_date': true
-        validates_associated :presenters
+        validates_associated :authorships
         validates_associated :attachments
 
         # @!attribute [rw] start_time
@@ -127,7 +127,7 @@ module Spina
           event.dtstart = Icalendar::Values::DateTime.new(start_datetime, tzid: start_datetime.time_zone.tzinfo.name)
           event.dtend = Icalendar::Values::DateTime.new(finish_datetime, tzid: finish_datetime.time_zone.tzinfo.name)
           event.location = session.room_name
-          presenters.each { |presenter| event.contact = presenter.full_name_and_institution }
+          authorships.each { |authorship| event.contact = authorship.delegation.full_name_and_institution }
           event.categories = Presentation.model_name.human(count: 0)
           event.summary = title
           event.append_custom_property('alt_description', abstract.to_s)
