@@ -4,7 +4,7 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-university_of_atlantis_2017:
+conference_with_parts:
   dates: !ruby/range 2017-04-07...2017-04-10
   json_attributes:
     en-GB_content:
@@ -69,7 +69,7 @@ university_of_atlantis_2017:
                 type: Spina::Parts::Admin::Conferences::Url
                 content: https://www.ruby-lang.org
 
-university_of_shangri_la_2018:
+conference_with_empty_parts:
   dates: !ruby/range 2018-04-09...2018-04-12
   json_attributes:
     en-GB_content:
@@ -95,10 +95,28 @@ university_of_shangri_la_2018:
         title: Sponsors
         type: Spina::Parts::Repeater
 
-empty_conference:
+conference_without_parts:
   dates: !ruby/range 2018-04-09...2018-04-12
   json_attributes:
     en-GB_content:
       - name: sponsors
         title: Sponsors
         type: Spina::Parts::Repeater
+
+conference_without_dependents:
+  dates: !ruby/range 2017-04-07...2017-04-10
+
+conference_with_presentation_types:
+  dates: !ruby/range 2018-04-07...2018-04-10
+
+conference_with_sessions:
+  dates: !ruby/range 2019-04-07...2019-04-10
+
+conference_with_presentations:
+  dates: !ruby/range 2020-04-07...2020-04-10
+
+conference_with_events:
+  dates: !ruby/range 2023-04-07...2023-04-10
+
+conference_with_delegations:
+  dates: !ruby/range 2024-04-07...2024-04-10

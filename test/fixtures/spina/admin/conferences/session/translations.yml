@@ -4,47 +4,12 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-plenary_1_lecture_block_3_uoa_2017:
-  name: Plenaries in Lecture Block 3
+session_without_dependencies:
+  name: Session without dependencies
   locale: en-GB
-  translated_model: plenary_1_lecture_block_3_uoa_2017
+  translated_model: session_without_dependencies
 
-poster_1_lecture_block_entrance_uoa_2017:
-  name: Posters in Lecture Block entrance
+session_with_presentations:
+  name: Session with presentations
   locale: en-GB
-  translated_model: poster_1_lecture_block_entrance_uoa_2017
-
-oral_1_lecture_block_2_uoa_2017:
-  name: Orals in Lecture Block 2
-  locale: en-GB
-  translated_model: oral_1_lecture_block_2_uoa_2017
-
-oral_1_lecture_block_3_uoa_2017:
-  name: Orals in Lecture Block 3
-  locale: en-GB
-  translated_model: oral_1_lecture_block_3_uoa_2017
-
-plenary_2_medical_school_g_152_usl_2018:
-  name: Plenaries in Medical School G.152
-  locale: en-GB
-  translated_model: plenary_2_medical_school_g_152_usl_2018
-
-poster_2_medical_school_g_14_usl_2018:
-  name: Posters in Medical School G.14
-  locale: en-GB
-  translated_model: poster_2_medical_school_g_14_usl_2018
-
-oral_2_medical_school_g_152_usl_2018:
-  name: Orals in Medical School G.152
-  locale: en-GB
-  translated_model: oral_2_medical_school_g_152_usl_2018
-
-oral_2_medical_school_g_16_usl_2018:
-  name: Orals in Medical School G.16
-  locale: en-GB
-  translated_model: oral_2_medical_school_g_16_usl_2018
-
-empty_session:
-  name: Empty session
-  locale: en-GB
-  translated_model: empty_session
+  translated_model: session_with_presentations

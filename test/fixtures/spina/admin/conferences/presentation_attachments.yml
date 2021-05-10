@@ -4,12 +4,7 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-handout:
-  presentation: asymmetry_and_antisymmetry
-  attachment_type: handout
+valid_attachment:
+  presentation: presentation_with_attachments
+  attachment_type: attachment_type_with_attachments
   attachment: handout
-
-slides:
-  presentation: asymmetry_and_antisymmetry
-  attachment_type: slides
-  attachment: slides

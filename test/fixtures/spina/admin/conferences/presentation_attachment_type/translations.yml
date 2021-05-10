@@ -4,17 +4,12 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-handout:
-  name: Handout
+attachment_type_without_dependents:
+  name: Attachment type without dependents
   locale: en-GB
-  translated_model: handout
+  translated_model: attachment_type_without_dependents
 
-slides:
-  name: Slides
+attachment_type_with_attachments:
+  name: Attachment type with attachments
   locale: en-GB
-  translated_model: slides
-
-dissertation:
-  name: Dissertation
-  locale: en-GB
-  translated_model: dissertation
+  translated_model: attachment_type_with_attachments

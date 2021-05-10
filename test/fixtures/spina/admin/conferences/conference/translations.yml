@@ -4,17 +4,47 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-university_of_atlantis_2017:
-  name: University of Atlantis 2017
+conference_with_parts:
+  name: Conference with parts
   locale: en-GB
-  translated_model: university_of_atlantis_2017
+  translated_model: conference_with_parts
 
-university_of_shangri_la_2018:
-  name: University of Shangri-La 2018
+conference_with_empty_parts:
+  name: Conference with empty parts
   locale: en-GB
-  translated_model: university_of_shangri_la_2018
+  translated_model: conference_with_empty_parts
 
-empty_conference:
-  name: Empty conference
+conference_without_parts:
+  name: Conference without parts
   locale: en-GB
-  translated_model: empty_conference
+  translated_model: conference_without_parts
+
+conference_without_dependents:
+  name: Conference without dependents
+  locale: en-GB
+  translated_model: conference_without_dependents
+
+conference_with_presentation_types:
+  name: Conference with presentation types
+  locale: en-GB
+  translated_model: conference_with_presentation_types
+
+conference_with_sessions:
+  name: Conference with sessions
+  locale: en-GB
+  translated_model: conference_with_sessions
+
+conference_with_presentations:
+  name: Conference with presentations
+  locale: en-GB
+  translated_model: conference_with_presentations
+
+conference_with_events:
+  name: Conference with events
+  locale: en-GB
+  translated_model: conference_with_events
+
+conference_with_delegations:
+  name: Conference with delegations
+  locale: en-GB
+  translated_model: conference_with_delegations

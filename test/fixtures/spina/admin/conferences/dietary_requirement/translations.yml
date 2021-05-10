@@ -4,17 +4,7 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-pescetarian:
-  name: Pescetarian
+valid_dietary_requirement:
+  name: Valid dietary requirement
   locale: en-GB
-  translated_model: pescetarian
-
-vegan:
-  name: Vegan
-  locale: en-GB
-  translated_model: vegan
-
-vegetarian:
-  name: Vegetarian
-  locale: en-GB
-  translated_model: vegetarian
+  translated_model: valid_dietary_requirement

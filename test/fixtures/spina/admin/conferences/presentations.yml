@@ -4,20 +4,14 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-asymmetry_and_antisymmetry:
-  start_datetime: 2017-04-07 10:00
-  presenters:
-    - joe_bloggs
-  session: oral_1_lecture_block_2_uoa_2017
+presentation_without_dependents:
+  start_datetime: 2020-04-09 10:00
+  session: session_with_presentations
 
-no_island:
-  start_datetime: 2017-04-07 10:20
-  presenters:
-    - brandon_krapp
-  session: oral_1_lecture_block_2_uoa_2017
+presentation_with_attachments:
+  start_datetime: 2020-04-08 10:00
+  session: session_with_presentations
 
-invalid_presentation:
-  start_datetime: 2000-04-07 10:00
-  presenters:
-    - joe_bloggs
-  session: oral_1_lecture_block_2_uoa_2017
+presentation_with_delegations:
+  start_datetime: 2020-04-07 10:00
+  session: session_with_presentations

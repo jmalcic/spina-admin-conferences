@@ -4,23 +4,19 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-joe_bloggs:
-  institution: university_of_atlantis
+delegate_without_dependents: {}
+
+delegate_with_account:
+  account: account_with_delegate
+
+delegate_with_attributes:
   email_address: someone@someaddress.com
   url: https://www.bloggs.com
-  conferences:
-    - university_of_atlantis_2017
-    - university_of_shangri_la_2018
-  dietary_requirements: pescetarian
 
-brandon_krapp:
-  institution: university_of_shangri_la
-  email_address: someoneelse@someotheraddress.com
-  conferences:
-    - university_of_shangri_la_2018
-  dietary_requirements: vegan
+delegate_with_dietary_requirements:
+  dietary_requirements:
+    - valid_dietary_requirement
 
-mr_nobody:
-  institution: university_of_shangri_la
-  conferences:
-    - university_of_shangri_la_2018
+delegate_with_delegations: {}
+
+delegate_with_authorships: {}

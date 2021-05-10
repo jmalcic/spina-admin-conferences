@@ -4,39 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+session_without_dependencies:
+  presentation_type: presentation_type_with_sessions
+  room: room_with_sessions
 
-plenary_1_lecture_block_3_uoa_2017:
-  presentation_type: plenary_1
-  room: lecture_block_3
-
-poster_1_lecture_block_entrance_uoa_2017:
-  presentation_type: poster_1
-  room: lecture_block_entrance
-
-oral_1_lecture_block_2_uoa_2017:
-  presentation_type: oral_1
-  room: lecture_block_2
-
-oral_1_lecture_block_3_uoa_2017:
-  presentation_type: oral_1
-  room: lecture_block_3
-
-plenary_2_medical_school_g_152_usl_2018:
-  presentation_type: plenary_2
-  room: medical_school_g_152
-
-poster_2_medical_school_g_14_usl_2018:
-  presentation_type: poster_2
-  room: medical_school_g_14
-
-oral_2_medical_school_g_152_usl_2018:
-  presentation_type: oral_2
-  room: medical_school_g_152
-
-oral_2_medical_school_g_16_usl_2018:
-  presentation_type: oral_2
-  room: medical_school_g_16
-
-empty_session:
-  presentation_type: oral_2
-  room: medical_school_g_16
+session_with_presentations:
+  presentation_type: presentation_type_with_presentations
+  room: room_with_presentations

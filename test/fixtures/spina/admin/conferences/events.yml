@@ -1,16 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-agm:
-  start_datetime: 2018-04-10 17:52:42
-  finish_datetime: 2018-04-10 19:52:42
-  conference: empty_conference
-
-drinks:
-  start_datetime: 2018-04-09 17:52:42
-  finish_datetime: 2018-04-09 19:52:42
-  conference: empty_conference
-
-pub_crawl:
-  start_datetime: 2017-04-08 17:52:42
-  finish_datetime: 2017-04-08 19:52:42
-  conference: university_of_atlantis_2017
+valid_event:
+  start_datetime: 2023-04-07 17:52:42
+  finish_datetime: 2023-04-07 19:52:42
+  conference: conference_with_events

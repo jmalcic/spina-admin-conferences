@@ -4,37 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-plenary_1:
-  name: Plenary
+presentation_type_without_dependents:
+  name: Presentation type without dependents
   locale: en-GB
-  translated_model: plenary_1
+  translated_model: presentation_type_without_dependents
 
-poster_1:
-  name: Poster
+presentation_type_with_sessions:
+  name: Presentation type with sessions
   locale: en-GB
-  translated_model: poster_1
+  translated_model: presentation_type_with_sessions
 
-oral_1:
-  name: Oral
+presentation_type_with_presentations:
+  name: Presentation type with presentations
   locale: en-GB
-  translated_model: oral_1
-
-plenary_2:
-  name: Plenary
-  locale: en-GB
-  translated_model: plenary_2
-
-poster_2:
-  name: Poster
-  locale: en-GB
-  translated_model: poster_2
-
-oral_2:
-  name: Oral
-  locale: en-GB
-  translated_model: oral_2
-
-empty_presentation_type:
-  name: Empty presentation type
-  locale: en-GB
-  translated_model: empty_presentation_type
+  translated_model: presentation_type_with_presentations

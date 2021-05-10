@@ -4,51 +4,23 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-plenary_1:
-  conference: university_of_atlantis_2017
+presentation_type_without_dependents:
+  conference: conference_with_presentation_types
   duration: !ruby/object:ActiveSupport::Duration
     value: 4800
     parts:
       :minutes: 80
 
-poster_1:
-  conference: university_of_atlantis_2017
+presentation_type_with_sessions:
+  conference: conference_with_sessions
   duration: !ruby/object:ActiveSupport::Duration
     value: 1800
     parts:
       :minutes: 30
 
-oral_1:
-  conference: university_of_atlantis_2017
+presentation_type_with_presentations:
+  conference: conference_with_presentations
   duration:  !ruby/object:ActiveSupport::Duration
-    value: 1200
-    parts:
-      :minutes: 20
-
-plenary_2:
-  conference: university_of_shangri_la_2018
-  duration:  !ruby/object:ActiveSupport::Duration
-    value: 4800
-    parts:
-      :minutes: 80
-
-poster_2:
-  conference: university_of_shangri_la_2018
-  duration: !ruby/object:ActiveSupport::Duration
-    value: 1800
-    parts:
-      :minutes: 30
-
-oral_2:
-  conference: university_of_shangri_la_2018
-  duration: !ruby/object:ActiveSupport::Duration
-    value: 1200
-    parts:
-      :minutes: 20
-
-empty_presentation_type:
-  conference: university_of_shangri_la_2018
-  duration: !ruby/object:ActiveSupport::Duration
     value: 1200
     parts:
       :minutes: 20

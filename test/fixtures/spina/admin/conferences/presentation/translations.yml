@@ -4,12 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-asymmetry_and_antisymmetry:
-  title: The Asymmetry and Antisymmetry of Syntax
+presentation_without_dependents:
+  title: Presentation without dependents
   locale: en-GB
-  translated_model: asymmetry_and_antisymmetry
+  translated_model: presentation_without_dependents
 
-no_island:
-  title: No Island is an Island
+presentation_with_attachments:
+  title: Presentation with attachments
   locale: en-GB
-  translated_model: no_island
+  translated_model: presentation_with_attachments
+
+presentation_with_delegations:
+  title: Presentation with delegations
+  locale: en-GB
+  translated_model: presentation_with_delegations

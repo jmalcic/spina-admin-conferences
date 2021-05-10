@@ -4,20 +4,32 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-university_of_atlantis:
-  name: University of Atlantis
+institution_without_dependents:
+  name: Institution without dependents
   city: Atlantis
   locale: en-GB
-  translated_model: university_of_atlantis
+  translated_model: institution_without_dependents
 
-university_of_shangri_la:
-  name: University of Shangri-La
+institution_with_rooms:
+  name: Institution with rooms
   city: Shangri-La
   locale: en-GB
-  translated_model: university_of_shangri_la
+  translated_model: institution_with_rooms
 
-empty_institution:
-  name: Institution
-  city: City
+institution_with_sessions:
+  name: Institution with sessions
+  city: Illyria
   locale: en-GB
-  translated_model: empty_institution
+  translated_model: institution_with_sessions
+
+institution_with_presentations:
+  name: Institution with presentations
+  city: Borchester
+  locale: en-GB
+  translated_model: institution_with_presentations
+
+institution_with_logo:
+  name: Institution with logo
+  city: Star's Hollow
+  locale: en-GB
+  translated_model: institution_with_logo

@@ -4,23 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-lecture_block_2:
-  institution: university_of_atlantis
+room_without_dependencies:
+  institution: institution_with_rooms
 
-lecture_block_3:
-  institution: university_of_atlantis
+room_with_sessions:
+  institution: institution_with_sessions
 
-lecture_block_entrance:
-  institution: university_of_atlantis
-
-medical_school_g_14:
-  institution: university_of_shangri_la
-
-medical_school_g_152:
-  institution: university_of_shangri_la
-
-medical_school_g_16:
-  institution: university_of_shangri_la
-
-empty_room:
-  institution: university_of_shangri_la
+room_with_presentations:
+  institution: institution_with_presentations

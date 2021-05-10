@@ -2,32 +2,26 @@
 #   record: name_of_fixture (ClassOfFixture)
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
-agm_description:
-  record: agm (Spina::Admin::Conferences::Event)
+valid_event_description:
+  record: valid_event (Spina::Admin::Conferences::Event)
   name: description
   body: Annual general meeting.
   locale: en-GB
 
-drinks_description:
-  record: drinks (Spina::Admin::Conferences::Event)
-  name: description
-  body: Pub trip.
-  locale: en-GB
-
-pub_crawl_description:
-  record: pub_crawl (Spina::Admin::Conferences::Event)
-  name: description
-  body: Pub trip 2.
-  locale: en-GB
-
-asymmetry_and_antisymmetry_abstract:
-  record: asymmetry_and_antisymmetry (Spina::Admin::Conferences::Presentation)
+presentation_without_dependents_abstract:
+  record: presentation_without_dependents (Spina::Admin::Conferences::Presentation)
   name: abstract
-  body: Lorem ipsum
+  body: It is difficult to attain a restrictive theory of syntax.
   locale: en-GB
 
-no_island_description:
-  record: no_island (Spina::Admin::Conferences::Presentation)
+presentation_with_attachments_abstract:
+  record: presentation_with_attachments (Spina::Admin::Conferences::Presentation)
   name: abstract
-  body: Dolor sit amen
+  body: The entire discussion of phonology in this book suffers from a fundamental theoretical inadequacy.
+  locale: en-GB
+
+presentation_with_delegations_description:
+  record: presentation_with_delegations (Spina::Admin::Conferences::Presentation)
+  name: abstract
+  body: More people have been to New York than I have.
   locale: en-GB
