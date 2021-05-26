@@ -19,21 +19,23 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def self.driver_capabilities
-    Selenium::WebDriver::Remote::Capabilities.firefox(version: 'latest',
-                                                      os: 'OS X',
-                                                      os_version: 'Big Sur',
-                                                      resolution: '1920x1080',
-                                                      project: Spina::Admin::Conferences.name,
-                                                      build: Spina::Admin::Conferences::VERSION,
-                                                      'browserstack.user': ENV['BROWSERSTACK_USER'],
-                                                      'browserstack.key': ENV['BROWSERSTACK_ACCESS_KEY'],
-                                                      'browserstack.local': true)
+    Selenium::WebDriver::Remote::Capabilities.firefox(browser_version: 'latest',
+                                                      'bstack:options': {
+                                                        os: 'OS X',
+                                                        os_version: 'Big Sur',
+                                                        resolution: '1920x1080',
+                                                        local: true,
+                                                        project_name: Spina::Admin::Conferences.name,
+                                                        build_name: Spina::Admin::Conferences::VERSION,
+                                                        user_name: ENV['BROWSERSTACK_USER'],
+                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY'],
+                                                      })
   end
 
   start_local_instance
 
   driven_by :selenium, using: :remote,
-                       options: { url: 'https://hub-cloud.browserstack.com/wd/hub', desired_capabilities: driver_capabilities }
+                       options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
 
   setup do
     execute_script <<~JS
