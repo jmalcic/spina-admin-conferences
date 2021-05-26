@@ -13,7 +13,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ::Spina::Engine.routes.url_helpers
 
   def self.start_local_instance
-    @browserstack_local = BrowserStack::Local.new(Rails.application.credentials.dig(:browserstack, :key))
+    @browserstack_local = BrowserStack::Local.new(ENV['BROWSERSTACK_ACCESS_KEY'])
     @browserstack_local.start('forcelocal' => 'true')
     Minitest.after_run { @browserstack_local.stop if @browserstack_local.isRunning }
   end
@@ -25,8 +25,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                                       resolution: '1920x1080',
                                                       project: Spina::Admin::Conferences.name,
                                                       build: Spina::Admin::Conferences::VERSION,
-                                                      'browserstack.user': Rails.application.credentials.dig(:browserstack, :user),
-                                                      'browserstack.key': Rails.application.credentials.dig(:browserstack, :key),
+                                                      'browserstack.user': ENV['BROWSERSTACK_USER'],
+                                                      'browserstack.key': ENV['BROWSERSTACK_ACCESS_KEY'],
                                                       'browserstack.local': true)
   end
 

@@ -57,6 +57,9 @@ jobs:
       run: bundle exec rails app:assets:precompile
     - name: Test with Rake
       run: bundle exec rake
+      env:
+        BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
+        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
     - name: Upload coverage to Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
@@ -107,3 +110,5 @@ jobs:
         silence: true
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
+        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
