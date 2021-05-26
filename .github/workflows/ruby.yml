@@ -18,7 +18,7 @@ jobs:
     name: All tests
     strategy:
       matrix:
-        ruby-version: [3.0.x, 2.7.x]
+        ruby-version: ['3.0', 2.7]
     runs-on: ubuntu-latest
     services:
       postgres:
