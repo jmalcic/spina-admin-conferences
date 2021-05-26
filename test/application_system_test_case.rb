@@ -26,8 +26,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                                         access_key: ENV['BROWSERSTACK_ACCESS_KEY'],
                                                       })
   end
-  driven_by :selenium, using: :remote, options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
 
+  driven_by :selenium, using: :remote, options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
 
   setup do
     execute_script <<~JS
