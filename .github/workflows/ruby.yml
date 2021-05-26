@@ -1,44 +1,48 @@
 name: Rails tests
 
-on: [push, pull_request]
+on: [push]
 
 env:
   LANG: en_GB.UTF-8
   TZ: Europe/London
+  RACK_ENV: test
+  RAILS_ENV: test
+  RAILS_SERVE_STATIC_FILES: enabled
+  PGHOST: 127.0.0.1
+  PGUSER: postgres
+  PGPASSWORD: postgres
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
+defaults:
+  runs-on: ubuntu-latest
+  services:
+    postgres:
+      image: postgres
+      env:
+        POSTGRES_PASSWORD: postgres
+      options: >-
+        --health-cmd pg_isready
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5
+      ports:
+        - 5432:5432
+    redis:
+      image: redis
+      options: >-
+        --health-cmd "redis-cli ping"
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5
+      ports:
+        - 6379:6379
 
 jobs:
-  test:
+  tests:
     name: All tests
-    env:
-      RACK_ENV: test
-      RAILS_ENV: test
-      RAILS_SERVE_STATIC_FILES: enabled
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
-      PGPASSWORD: postgres
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-      redis:
-        image: redis
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 6379:6379
+    strategy:
+      matrix:
+        ruby-version: [3.0.x, 2.7.x]
     steps:
     - name: Check out repo
       uses: actions/checkout@v2
@@ -47,6 +51,30 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    - name: Prepare database
+      run: bundle exec rails db:setup
+    - name: Precompile assets
+      run: bundle exec rails app:assets:precompile
+    - name: Test with Rake
+      run: bundle exec rake
+    - name: Upload coverage to Coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: "./coverage/lcov/spina-admin-conferences.lcov"
+  visual_tests:
+    name: Visual tests
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v2
+    - name: Install Postgres library
+      run: sudo apt-get -yqq install libpq-dev
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
         bundler-cache: true
     - name: Prepare database
       run: bundle exec rails db:setup
@@ -55,12 +83,7 @@ jobs:
     - name: Test with Rake
       uses: percy/exec-action@v0.3.1
       with:
-        command: bundle exec rake
+        command: bundle exec rails app:test:system
         silence: true
       env:
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-    - name: Upload coverage to Coveralls
-      uses: coverallsapp/github-action@v1.1.2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: "./coverage/lcov/spina-admin-conferences.lcov"
