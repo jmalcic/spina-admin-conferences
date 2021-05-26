@@ -28,7 +28,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                                         project_name: Spina::Admin::Conferences.name,
                                                         build_name: Spina::Admin::Conferences::VERSION,
                                                         user_name: ENV['BROWSERSTACK_USER'],
-                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY'],
+                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY']
                                                       })
   end
 
