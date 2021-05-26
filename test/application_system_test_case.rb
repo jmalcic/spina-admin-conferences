@@ -12,12 +12,6 @@ end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ::Spina::Engine.routes.url_helpers
 
-  def self.start_local_instance
-    @browserstack_local = BrowserStack::Local.new(ENV['BROWSERSTACK_ACCESS_KEY'])
-    @browserstack_local.start('forcelocal' => 'true')
-    Minitest.after_run { @browserstack_local.stop if @browserstack_local.isRunning }
-  end
-
   def self.driver_capabilities
     Selenium::WebDriver::Remote::Capabilities.firefox(browser_version: 'latest',
                                                       'bstack:options': {
@@ -25,17 +19,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                                         os_version: 'Big Sur',
                                                         resolution: '1920x1080',
                                                         local: true,
-                                                        project_name: Spina::Admin::Conferences.name,
-                                                        build_name: Spina::Admin::Conferences::VERSION,
-                                                        user_name: ENV['BROWSERSTACK_USER'],
-                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY']
+                                                        local_identifier: ENV['BROWSERSTACK_LOCAL_IDENTIFIER'],
+                                                        project_name: ENV['BROWSERSTACK_PROJECT_NAME'],
+                                                        build_name: ENV['BROWSERSTACK_BUILD_NAME'],
+                                                        user_name: ENV['BROWSERSTACK_USERNAME'],
+                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY'],
                                                       })
   end
+  driven_by :selenium, using: :remote, options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
 
-  start_local_instance
-
-  driven_by :selenium, using: :remote,
-                       options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
 
   setup do
     execute_script <<~JS

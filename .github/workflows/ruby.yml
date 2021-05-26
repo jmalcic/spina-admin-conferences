@@ -18,7 +18,7 @@ jobs:
     name: All tests
     strategy:
       matrix:
-        ruby-version: ['3.0.1', 2.7]
+        ruby-version: ['3.0', 2.7]
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -55,16 +55,27 @@ jobs:
       run: bundle exec rails db:setup
     - name: Precompile assets
       run: bundle exec rails app:assets:precompile
+    - name: Set up BrowserStack environment
+      uses: browserstack/github-actions/setup-env@1.0.1
+      with:
+        username: ${{ secrets.BROWSERSTACK_USER }}
+        access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+    - name: Start BrowserStack local
+      uses: browserstack/github-actions/setup-local@1.0.1
+      with:
+        local-testing: start
+        local-identifier: random
     - name: Test with Rake
       run: bundle exec rake
-      env:
-        BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
-        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
     - name: Upload coverage to Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: "./coverage/lcov/spina-admin-conferences.lcov"
+    - name: Stop BrowserStack local
+      uses: browserstack/github-actions/setup-local@1.0.1
+      with:
+        local-testing: stop
   visual_tests:
     name: Visual tests
     runs-on: ubuntu-latest
@@ -97,7 +108,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0.1
+        ruby-version: 3.0
         bundler-cache: true
     - name: Prepare database
       run: bundle exec rails db:setup
