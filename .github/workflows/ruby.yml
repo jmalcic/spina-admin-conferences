@@ -18,7 +18,7 @@ jobs:
     name: All tests
     strategy:
       matrix:
-        ruby-version: ['3.0', 2.7]
+        ruby-version: ['3.0.1', 2.7]
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -97,7 +97,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: 3.0.1
         bundler-cache: true
     - name: Prepare database
       run: bundle exec rails db:setup
@@ -108,7 +108,7 @@ jobs:
       with:
         command: bundle exec rails app:test:system
         silence: true
-      env:
+      env:s
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
         BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
         BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
