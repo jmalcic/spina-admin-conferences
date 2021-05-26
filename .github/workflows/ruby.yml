@@ -53,6 +53,8 @@ jobs:
         bundler-cache: true
     - name: Prepare database
       run: bundle exec rails db:setup
+    - name: Precompile assets
+      run: bundle exec rails app:assets:precompile
     - name: Test with Rake
       run: bundle exec rails t
     - name: Upload coverage to Coveralls
