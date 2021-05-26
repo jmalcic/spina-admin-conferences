@@ -15,7 +15,7 @@ env:
 
 jobs:
   tests:
-    name: All tests
+    name: Tests
     strategy:
       matrix:
         ruby-version: ['3.0', 2.7]
@@ -53,6 +53,49 @@ jobs:
         bundler-cache: true
     - name: Prepare database
       run: bundle exec rails db:setup
+    - name: Test with Rake
+      run: bundle exec rails t
+    - name: Upload coverage to Coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: "./coverage/lcov/spina-admin-conferences.lcov"
+  system_tests:
+    name: System tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v2
+    - name: Install Postgres library
+      run: sudo apt-get -yqq install libpq-dev
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+        bundler-cache: true
+    - name: Prepare database
+      run: bundle exec rails db:setup
     - name: Precompile assets
       run: bundle exec rails app:assets:precompile
     - name: Set up BrowserStack environment
@@ -66,12 +109,7 @@ jobs:
         local-testing: start
         local-identifier: random
     - name: Test with Rake
-      run: bundle exec rake
-    - name: Upload coverage to Coveralls
-      uses: coverallsapp/github-action@v1.1.2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: "./coverage/lcov/spina-admin-conferences.lcov"
+      run: bundle exec rails app:test:system
     - name: Stop BrowserStack local
       uses: browserstack/github-actions/setup-local@v1.0.1
       with:
