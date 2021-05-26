@@ -23,7 +23,6 @@ require 'minitest/reporters'
 Minitest::Reporters.use!
 
 require 'percy'
-require 'browserstack/local'
 
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
