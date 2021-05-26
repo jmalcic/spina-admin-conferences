@@ -27,7 +27,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                                       })
   end
 
-  driven_by :selenium, using: :remote, options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
+  if ENV['BROWSERSTACK_USERNAME']
+    driven_by :selenium, using: :remote, options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
+  else
+    driven_by :selenium, using: :headless_chrome
+  end
 
   setup do
     execute_script <<~JS
