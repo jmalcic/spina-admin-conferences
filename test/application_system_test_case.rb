@@ -34,10 +34,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   setup do
-    execute_script <<~JS
-      browserstack_executor: {"action": "setSessionName", "arguments": {"name": "#{name}"}}
-    JS
-    page.current_window.maximize
+    if ENV['BROWSERSTACK_USERNAME']
+      execute_script <<~JS
+        browserstack_executor: {"action": "setSessionName", "arguments": {"name": "#{name}"}}
+      JS
+      page.current_window.maximize
+    end
     @user = spina_users :joe
     visit admin_login_path
     within '.login-fields' do
@@ -48,17 +50,19 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   teardown do
-    if passed?
-      execute_script <<~JS
-        browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "passed"}}
-      JS
-    else
-      message = ActiveSupport::JSON.encode(failures.first.message)
-      execute_script <<~JS
-        browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "failed", "reason": #{message}}}
-      JS
+    if ENV['BROWSERSTACK_USERNAME']
+      if passed?
+        execute_script <<~JS
+          browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "passed"}}
+        JS
+      else
+        message = ActiveSupport::JSON.encode(failures.first.message)
+        execute_script <<~JS
+          browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "failed", "reason": #{message}}}
+        JS
+      end
+      page.driver.quit
     end
-    page.driver.quit
   end
 end
 
