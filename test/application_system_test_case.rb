@@ -23,7 +23,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                                                         project_name: ENV['BROWSERSTACK_PROJECT_NAME'],
                                                         build_name: ENV['BROWSERSTACK_BUILD_NAME'],
                                                         user_name: ENV['BROWSERSTACK_USERNAME'],
-                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY'],
+                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY']
                                                       })
   end
 
