@@ -15,7 +15,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.summary = 'Conference management plugin for Spina.'
   spec.description = 'Keep track of conference attendees and presentations with this plugin.'
   spec.license = 'MIT'
-  spec.required_ruby_version = '~> 2.7'
+  spec.required_ruby_version = '>= 2.7', '< 4.0'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -32,7 +32,6 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_dependency 'stimulus-rails', '~> 0.2.2'
   spec.add_dependency 'turbo-rails', '~> 0.5.9'
 
-  spec.add_development_dependency 'browserstack-local', '~> 1.3'
   spec.add_development_dependency 'capybara', '~> 3.33'
   spec.add_development_dependency 'dotenv-rails', '~> 2.7'
   spec.add_development_dependency 'image_processing', '~> 1.12'
@@ -44,7 +43,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'rubocop', '~> 1.8'
   spec.add_development_dependency 'rubocop-performance', '~> 1.8'
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
-  spec.add_development_dependency 'selenium-webdriver', '~> 3.142'
+  spec.add_development_dependency 'selenium-webdriver', '~> 4.0.0.beta3'
   spec.add_development_dependency 'sidekiq', '~> 6.1'
   spec.add_development_dependency 'simplecov', '~> 0.19'
   spec.add_development_dependency 'simplecov-lcov', '~> 0.8'

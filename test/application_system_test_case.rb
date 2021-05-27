@@ -12,34 +12,34 @@ end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ::Spina::Engine.routes.url_helpers
 
-  def self.start_local_instance
-    @browserstack_local = BrowserStack::Local.new(Rails.application.credentials.dig(:browserstack, :key))
-    @browserstack_local.start('forcelocal' => 'true')
-    Minitest.after_run { @browserstack_local.stop if @browserstack_local.isRunning }
-  end
-
   def self.driver_capabilities
-    Selenium::WebDriver::Remote::Capabilities.firefox(version: 'latest',
-                                                      os: 'OS X',
-                                                      os_version: 'Big Sur',
-                                                      resolution: '1920x1080',
-                                                      project: Spina::Admin::Conferences.name,
-                                                      build: Spina::Admin::Conferences::VERSION,
-                                                      'browserstack.user': Rails.application.credentials.dig(:browserstack, :user),
-                                                      'browserstack.key': Rails.application.credentials.dig(:browserstack, :key),
-                                                      'browserstack.local': true)
+    Selenium::WebDriver::Remote::Capabilities.firefox(browser_version: 'latest',
+                                                      'bstack:options': {
+                                                        os: 'OS X',
+                                                        os_version: 'Big Sur',
+                                                        resolution: '1920x1080',
+                                                        local: true,
+                                                        local_identifier: ENV['BROWSERSTACK_LOCAL_IDENTIFIER'],
+                                                        project_name: ENV['BROWSERSTACK_PROJECT_NAME'],
+                                                        build_name: ENV['BROWSERSTACK_BUILD_NAME'],
+                                                        user_name: ENV['BROWSERSTACK_USERNAME'],
+                                                        access_key: ENV['BROWSERSTACK_ACCESS_KEY'],
+                                                      })
   end
 
-  start_local_instance
-
-  driven_by :selenium, using: :remote,
-                       options: { url: 'https://hub-cloud.browserstack.com/wd/hub', desired_capabilities: driver_capabilities }
+  if ENV['BROWSERSTACK_USERNAME']
+    driven_by :selenium, using: :remote, options: { url: 'https://hub-cloud.browserstack.com/wd/hub', capabilities: driver_capabilities }
+  else
+    driven_by :selenium, using: :headless_chrome
+  end
 
   setup do
-    execute_script <<~JS
-      browserstack_executor: {"action": "setSessionName", "arguments": {"name": "#{name}"}}
-    JS
-    page.current_window.maximize
+    if ENV['BROWSERSTACK_USERNAME']
+      execute_script <<~JS
+        browserstack_executor: {"action": "setSessionName", "arguments": {"name": "#{name}"}}
+      JS
+      page.current_window.maximize
+    end
     @user = spina_users :joe
     visit admin_login_path
     within '.login-fields' do
@@ -50,17 +50,19 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   teardown do
-    if passed?
-      execute_script <<~JS
-        browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "passed"}}
-      JS
-    else
-      message = ActiveSupport::JSON.encode(failures.first.message)
-      execute_script <<~JS
-        browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "failed", "reason": #{message}}}
-      JS
+    if ENV['BROWSERSTACK_USERNAME']
+      if passed?
+        execute_script <<~JS
+          browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "passed"}}
+        JS
+      else
+        message = ActiveSupport::JSON.encode(failures.first.message)
+        execute_script <<~JS
+          browserstack_executor: {"action": "setSessionStatus", "arguments": {"status": "failed", "reason": #{message}}}
+        JS
+      end
+      page.driver.quit
     end
-    page.driver.quit
   end
 end
 
