@@ -75,7 +75,7 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
           RETURNING id
       ), event_translations AS (
         INSERT INTO spina_conferences_event_translations
-          (name, description, location, locale, spina_conferences_event_id, created_at, updated_at) 
+          (name, description, location, locale, spina_conferences_event_id, created_at, updated_at)#{' '}
           SELECT DISTINCT ON (event_structure_items_with_parts_and_indices.structure_item_id, locale)
             title, description, location, locale, structure_item_events.id, current_timestamp, current_timestamp
             FROM (
@@ -203,7 +203,7 @@ class MoveConferenceParts < ActiveRecord::Migration[6.0] # rubocop:disable Metri
               ) AS time_parts_with_indices USING (index)
       ), structure_parts AS (
         INSERT INTO spina_structure_parts
-          (structure_item_id, structure_partable_id, structure_partable_type, name, title, created_at, updated_at) 
+          (structure_item_id, structure_partable_id, structure_partable_type, name, title, created_at, updated_at)#{' '}
           SELECT
             structure_items_with_indices.id, partable_id, type, replace(lower(title), '\W', '_'), title, current_timestamp,
             current_timestamp

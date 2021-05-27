@@ -124,7 +124,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
                 ) AS pages_with_indices USING (index)
         )
       INSERT INTO spina_conferences_conference_page_parts
-        (conference_page_id, conference_page_partable_id, conference_page_partable_type, created_at, updated_at) 
+        (conference_page_id, conference_page_partable_id, conference_page_partable_type, created_at, updated_at)#{' '}
         SELECT page_id, conference_id, type, current_timestamp, current_timestamp
           FROM (
             SELECT conference_id, type, row_number() OVER (ORDER BY type, conference_id) AS index FROM conference_pages_to_insert
@@ -169,7 +169,7 @@ class RemoveSpinaConferencePages < ActiveRecord::Migration[6.0] #:nodoc:
                 ) AS pages_with_indices USING (index)
         )
       INSERT INTO spina_conferences_conference_page_parts
-        (conference_page_id, conference_page_partable_id, conference_page_partable_type, created_at, updated_at) 
+        (conference_page_id, conference_page_partable_id, conference_page_partable_type, created_at, updated_at)#{' '}
         SELECT page_id, presentation_id, type, current_timestamp, current_timestamp
           FROM (
             SELECT presentation_id, type, row_number() OVER (ORDER BY type, presentation_id) AS index FROM conference_pages_to_insert
